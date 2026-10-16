@@ -16,6 +16,15 @@ they were written.
 
 ## [Unreleased]
 
+### Changed
+- **The installer page says where to start and where to go**: a "Before you
+  start" box (printers are added in Tiger Studio Manager, opened in the browser
+  or downloaded), links to the source on GitHub, the TigerSystem wiki, the
+  release notes and tigersystem.io, a comparison with the Panda Touch's and the
+  K-Touch's own firmwares, the donation links, and a light or dark theme to
+  choose (following the system until one is picked). The picture of the screen
+  turns from the start-up screen to the printers when the pointer is on it.
+
 ## [2.0.0] - 2026-10-16
 
 
