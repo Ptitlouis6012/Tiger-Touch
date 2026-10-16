@@ -117,6 +117,15 @@ they were written.
   wrong.
 
 ### Changed
+- **Every LAN printer takes an address with a port** (`host:port` in the
+  account's `ip`), as Klipper and OctoPrint already did: Bambu Lab, Creality,
+  Elegoo, FlashForge, Snapmaker, Anycubic and Prusa used to add their own port
+  to it and build an address that could not work. A bare address keeps the
+  brand's port. One helper, `net/addr.h`, does the split for all of them.
+- **The README shows the printers and compares the firmwares**: a line-up of
+  popular printers, the brands' marks in one SVG, a table of Tiger Touch against
+  the Panda Touch's and the K-Touch's own firmwares (brands, protocols, how many
+  printers, what is sent), and the TigerSystem products with their pictures.
 - **The README is rewritten** for people who own the screen: the Panda Touch and
   the K-Touch, the brands, the clouds, screenshots of the cards, the list and the
   full views, a picture of the screen running Tiger Touch, and the questions

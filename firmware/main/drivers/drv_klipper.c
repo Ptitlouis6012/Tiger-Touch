@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "addr.h"
 #include "cJSON.h"
 #include "driver_util.h"
 #include "esp_heap_caps.h"
@@ -487,7 +488,9 @@ static void *klip_start(const account_printer_t *p)
     c->query = query;
     c->lock = xSemaphoreCreateMutex();
     /* "host" or "host:port"; Moonraker's port when none is written. */
-    snprintf(c->base, sizeof c->base, strchr(p->ip, ':') ? "http://%s" : "http://%s:7125", p->ip);
+    char hp[ADDR_HOSTPORT_MAX];
+    addr_with_port(hp, sizeof hp, p->ip, 7125);
+    snprintf(c->base, sizeof c->base, "http://%s", hp);
     strlcpy(c->key, p->key, sizeof c->key);
     strlcpy(c->pstate, "standby", sizeof c->pstate);
     c->run = true;

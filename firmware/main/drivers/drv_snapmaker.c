@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "addr.h"
 #include "cJSON.h"
 #include "driver_util.h"
 #include "esp_heap_caps.h"
@@ -301,8 +302,9 @@ static void *snap_start(const account_printer_t *p)
     c->tool = -1;
     strlcpy(c->ip, p->ip, sizeof c->ip);
 
-    char uri[80];
-    snprintf(uri, sizeof uri, "ws://%s:7125/websocket", p->ip);
+    char uri[80], hp[ADDR_HOSTPORT_MAX];
+    addr_with_port(hp, sizeof hp, p->ip, 7125);
+    snprintf(uri, sizeof uri, "ws://%s/websocket", hp);
     esp_websocket_client_config_t cfg = {
         .uri = uri,
         .buffer_size = 2048,

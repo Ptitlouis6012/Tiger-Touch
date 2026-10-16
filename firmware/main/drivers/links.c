@@ -169,12 +169,6 @@ static int on_count_if(int flip)
     return n;
 }
 
-/* What switching this printer on costs now, given what is already on. */
-static int cost_of(int idx)
-{
-    return used_slots_if(s_on[idx] ? -1 : idx) - used_slots_if(s_on[idx] ? idx : -1);
-}
-
 static bool csv_has(const char *csv, const char *id)
 {
     char needle[48];

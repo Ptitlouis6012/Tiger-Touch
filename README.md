@@ -29,6 +29,10 @@
 </p>
 
 <p align="center">
+  <img src="assets/brands/brands.svg" alt="Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, Klipper and OctoPrint" width="760">
+</p>
+
+<p align="center">
   <a href="https://tigertag-project.github.io/Tiger-Touch/">
     <img src="assets/install-button.svg" alt="Install Tiger Touch from your browser" width="420">
   </a>
@@ -40,6 +44,8 @@
   <a href="#screens">Screens</a>
   &nbsp;&middot;&nbsp;
   <a href="#printers">Printers</a>
+  &nbsp;&middot;&nbsp;
+  <a href="#tiger-touch-vs-the-stock-firmwares">Compare</a>
   &nbsp;&middot;&nbsp;
   <a href="#install-in-two-minutes">Install</a>
   &nbsp;&middot;&nbsp;
@@ -107,8 +113,13 @@ browser, and two minutes later it shows your printers.
 
 ## Printers
 
+<p align="center">
+  <img src="assets/printers/lineup.png" alt="Popular printers Tiger Touch follows: Bambu Lab X1C, Creality K2 Plus, Elegoo Centauri Carbon, Anycubic Kobra S1, Snapmaker U1, FlashForge AD5X, Prusa Core One and a Klipper Qidi X-Plus 4">
+</p>
+
 Tiger Touch picks the connection from the brand, not the model: any printer of
-these families that Tiger Studio can add, Tiger Touch can show.
+these families that Tiger Studio can add, Tiger Touch can show. Tiger Studio's
+catalogue counts about 380 models from about 60 makers.
 
 | Brand | Connection | Seen on a real machine |
 |---|---|---|
@@ -131,6 +142,60 @@ and the Centauri Carbon 1. Every field and every test:
 
 **A printer shows "offline"?** Check its LAN mode first: it is off by default on
 Creality, FlashForge and Bambu Lab.
+
+## Tiger Touch vs. the stock firmwares
+
+Same screen, three firmwares. BIGTREETECH's are each tied to **one** family of
+printers; Tiger Touch turns the very same hardware into a screen for **all** of
+them, live, at the same time.
+
+| | **Tiger Touch** | Panda Touch firmware | K-Touch firmware |
+|---|:---:|:---:|:---:|
+| **Printer families on one screen** | **9** | 1 (Bambu Lab) | 1 (Klipper) |
+| **Printers live at once** | **up to 10**, all updating together | several Bambu Lab, slows down from about 3 in our use | **1** at a time (50 saved, switch between them) |
+| **Bambu Lab**: LAN and Bambu cloud | ✅ | ✅ | ❌ |
+| **Anycubic**: Anycubic cloud and LAN | ✅ | ❌ | ❌ |
+| **Creality** K1 / K2 / Hi / Ender-3 V4 | ✅ | ❌ | ❌ |
+| **Elegoo** Centauri Carbon 1 and 2 | ✅ | ❌ | ❌ |
+| **Snapmaker** U1 | ✅ | ❌ | ❌ |
+| **FlashForge** AD5X / Adventurer 5M / Creator 5 | ✅ | ❌ | ❌ |
+| **Prusa** (PrusaLink) | ✅ | ❌ | ❌ |
+| **Klipper** (Moonraker) | ✅ | ❌ | ✅ |
+| **OctoPrint** | ✅ | ❌ | ❌ |
+| **Printers set up without typing on the screen** | ✅ from your TigerTag account | ❌ IP, serial, access code | ❌ IP and port, or a scan |
+| **Filament units shown** (AMS, CFS, Station, ACE, MMU / AFC) | ✅ every brand | ✅ AMS | - |
+| **Over-the-air updates, verified, automatic roll-back** | ✅ | network update | - |
+| **Eleven languages, time zone from your country** | ✅ | - | - |
+| **Free and open source (MIT)** | ✅ | - | - |
+
+What each one sends to a printer: Tiger Touch pauses, resumes, stops (with a
+1.5 s hold) and switches the light, **and nothing else, on purpose**: a stray
+touch on a shared screen never heats, moves or starts anything. BIGTREETECH's
+firmwares give full control of their one family (starting prints, temperatures,
+moves), and you can go back to them at any time ([docs/INSTALL.md](docs/INSTALL.md)).
+
+| Protocols | Tiger Touch | Panda Touch firmware | K-Touch firmware |
+|---|---|---|---|
+| Bambu Lab | MQTT over TLS on the LAN (access code), or the Bambu cloud broker | LAN (access code), or Bambu cloud with two-factor sign-in off | - |
+| Anycubic | Anycubic cloud (MQTT, mutual TLS), or MQTT over TLS on the LAN | - | - |
+| Creality | WebSocket | - | - |
+| Elegoo | MQTT (CC2), SDCP (CC1) | - | - |
+| Snapmaker | Moonraker WebSocket | - | - |
+| FlashForge | HTTP | - | - |
+| Prusa | PrusaLink HTTP | - | - |
+| Klipper | Moonraker HTTP | - | Klipper over Wi-Fi (port 7125) |
+| OctoPrint | OctoPrint REST API | - | - |
+
+<sub>Panda Touch and K-Touch: features from BIGTREETECH's wiki
+([Panda Touch](https://global.bttwiki.com/PandaTouch.html),
+[K-Touch](https://global.bttwiki.com/Klipper%20Touch.html), read 2026-10-16),
+which publishes no limit on how many Bambu Lab printers the Panda Touch follows;
+"slows down from about 3" is the TigerTag team's own experience with it, not a
+BIGTREETECH figure. A dash means the wiki does not say. A ✅ for Tiger Touch
+means supported; which brands have already run on a real machine is in
+[Printers](#printers). Tiger Touch's figures
+are measured on the board: [docs/CONNECTION-BUDGET.md](docs/CONNECTION-BUDGET.md),
+[docs/HARDWARE.md](docs/HARDWARE.md#drawing-speed).</sub>
 
 ## Install in two minutes
 
@@ -209,21 +274,38 @@ stops (with a hold) and switches the light, nothing else.
 ## Powered by TigerSystem
 
 Tiger Touch is part of **TigerSystem**, the open ecosystem built around
-**TigerTag**, the open-source RFID standard for 3D-printing filament: one
-account, one catalogue of printers, cross-brand and cross-platform by design.
-That is why one screen can follow a Bambu Lab, an Elegoo and a Klipper printer
-at once: the account already knows them all.
+**TigerTag**, the open-source RFID (NFC) standard for 3D-printing filament: a
+small chip on every spool, one free account, and tools that all read the same
+inventory and the same printers, whatever their brand. That is why one screen
+can follow a Bambu Lab, an Elegoo and a Klipper printer at once: the account
+already knows them all.
 
-<p align="center">
-  <img src="assets/Hero-TigerSystem-ecosystem.png" alt="The TigerSystem ecosystem: a TigerPOD reader, Tiger Studio Manager on a desktop, and the TigerTag app on a phone" width="640">
-</p>
+<table>
+  <tr>
+    <td width="50%" align="center"><img src="assets/ecosystem/studio-and-connect.png" alt="Tiger Studio Manager on a laptop and TigerTag RFID Connect on a phone" width="380"></td>
+    <td width="50%">
+      <b><a href="https://github.com/TigerTag-Project/TigerTag-Studio-Manager">Tiger Studio Manager</a></b> - mission control for your filament and your printers, on Windows, macOS, Linux or in the browser. <b>Start here</b>: the account and the printers Tiger Touch shows are declared there.<br><br>
+      <b>TigerTag RFID Connect</b> - the iOS and Android app: tap a spool with your phone (NFC) to read it, write a chip, carry your inventory.
+      <a href="https://apps.apple.com/app/id6745437963">App Store</a> ·
+      <a href="https://play.google.com/store/apps/details?id=com.tigertag.connect">Google Play</a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/ecosystem/tigerpod.png" alt="A row of TigerPOD spool readers in every colour" width="380"></td>
+    <td><b><a href="https://github.com/TigerTag-Project/TigerPOD">TigerPOD</a></b> - a spool scanner for your desk that you print yourself: put a spool down and it opens in Tiger Studio; put a blank chip down and it is written.</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/ecosystem/tigerscale-v3.png" alt="TigerScale V3 weighing a spool of red filament" width="220"></td>
+    <td><b><a href="https://github.com/TigerTag-Project/Tiger-Scale-V3">TigerScale V3</a></b> - how much filament is left? Put the spool on this open-source ESP32 scale: the chip says what it is, the load cell says how many grams, and your inventory knows.</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/ecosystem/tigerspool.png" alt="TigerSpool beside a spool, its screen listing a printer's slots" width="160"></td>
+    <td><b><a href="https://github.com/TigerTag-Project/TigerSpool-RFID">TigerSpool</a></b> - a small box beside the printer: pick a slot, hold a spool against it, and the filament is written into that slot, on any brand of printer.</td>
+  </tr>
+</table>
 
-- **[Tiger Studio Manager](https://github.com/TigerTag-Project/TigerTag-Studio-Manager)** - desktop printer and filament manager. **Start here**: the account and the printers are declared there.
-- **[TigerSpool RFID](https://github.com/TigerTag-Project/TigerSpool-RFID)** - tap a spool, the filament lands in the right printer slot
-- **[Tiger-Scale-V3](https://github.com/TigerTag-Project/Tiger-Scale-V3)** - the connected filament scale
-- **[TigerPOD](https://github.com/TigerTag-Project/TigerPOD)** - open desktop NFC reader/writer
-- **[TigerTag-RFID-Guide](https://github.com/TigerTag-Project/TigerTag-RFID-Guide)** - the protocol specification and public registry
-- **[TigerSystem-Docs](https://github.com/TigerTag-Project/TigerSystem-Docs)** - the ecosystem's source of truth
+- **[TigerTag-RFID-Guide](https://github.com/TigerTag-Project/TigerTag-RFID-Guide)** - the open RFID standard: the chip format and the public registry
+- **[TigerSystem-Docs](https://github.com/TigerTag-Project/TigerSystem-Docs)** - the whole ecosystem, explained
 
 ## The hardware, and thanks to BIGTREETECH
 

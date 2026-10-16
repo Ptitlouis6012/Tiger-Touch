@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "addr.h"
 #include "cJSON.h"
 #include "driver_util.h"
 #include "esp_heap_caps.h"
@@ -329,8 +330,9 @@ k2_client_t *k2_client_start(const char *ip)
     c->lock = xSemaphoreCreateMutex();
     strlcpy(c->ip, ip, sizeof c->ip);
 
-    char uri[64];
-    snprintf(uri, sizeof uri, "ws://%s:9999", ip);
+    char uri[64], hp[ADDR_HOSTPORT_MAX];
+    addr_with_port(hp, sizeof hp, ip, 9999);
+    snprintf(uri, sizeof uri, "ws://%s", hp);
     esp_websocket_client_config_t cfg = {
         .uri = uri,
         .buffer_size = 2048,

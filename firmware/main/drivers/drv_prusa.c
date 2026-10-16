@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "addr.h"
 #include "cJSON.h"
 #include "driver_util.h"
 #include "esp_log.h"
@@ -42,6 +43,7 @@ typedef struct
     volatile bool exited;
     SemaphoreHandle_t lock;
     char ip[40], user[24], pass[40], key[48];
+    char hp[ADDR_HOSTPORT_MAX]; /* host:port, 80 unless the address names one */
     char message[96]; /* status_printer.message while status_printer.ok is false */
 
     int64_t last_ok_us;
@@ -62,7 +64,7 @@ static void poll_task(void *arg)
 
     while (c->run && reply)
     {
-        snprintf(url, sizeof url, "http://%s/api/v1/status", c->ip);
+        snprintf(url, sizeof url, "http://%s/api/v1/status", c->hp);
         http_lite_req_t req = {.url = url, .method = HTTP_METHOD_GET, .user = c->key[0] ? NULL : c->user,
                                .pass = c->pass, .api_key = c->key, .timeout_ms = 4000};
         int st = http_lite(&req, reply, REPLY_MAX);
@@ -120,7 +122,7 @@ static void poll_task(void *arg)
 
         if (want_job)
         {
-            snprintf(url, sizeof url, "http://%s/api/v1/job", c->ip);
+            snprintf(url, sizeof url, "http://%s/api/v1/job", c->hp);
             req.url = url;
             if (http_lite(&req, reply, REPLY_MAX) == 200)
             {
@@ -178,6 +180,7 @@ static void *prusa_start(const account_printer_t *p)
     }
     c->lock = xSemaphoreCreateMutex();
     strlcpy(c->ip, p->ip, sizeof c->ip);
+    addr_with_port(c->hp, sizeof c->hp, c->ip, 80);
     strlcpy(c->user, p->user[0] ? p->user : "maker", sizeof c->user);
     strlcpy(c->pass, p->cc, sizeof c->pass);
     strlcpy(c->key, p->key, sizeof c->key);
@@ -231,7 +234,7 @@ static bool prusa_control(void *ctx, pv_control_t cmd)
         method = HTTP_METHOD_DELETE;
         tail = "";
     }
-    snprintf(url, sizeof url, "http://%s/api/v1/job/%d%s", c->ip, c->job_id, tail);
+    snprintf(url, sizeof url, "http://%s/api/v1/job/%d%s", c->hp, c->job_id, tail);
     const http_lite_req_t req = {.url = url, .method = method, .user = c->key[0] ? NULL : c->user, .pass = c->pass,
                                  .api_key = c->key, .timeout_ms = 5000};
     const int st = http_lite(&req, reply, sizeof reply);

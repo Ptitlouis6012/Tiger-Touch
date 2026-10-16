@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "addr.h"
 #include "cJSON.h"
 #include "i18n.h"
 #include "esp_crt_bundle.h"
@@ -1031,7 +1032,9 @@ static void *bambu_start(const account_printer_t *p)
     char uri[96], cid[40];
     if (lan)
     {
-        snprintf(uri, sizeof uri, "mqtts://%s:8883", p->ip);
+        char hp[ADDR_HOSTPORT_MAX];
+        addr_with_port(hp, sizeof hp, p->ip, 8883);
+        snprintf(uri, sizeof uri, "mqtts://%s", hp);
     }
     else
     {

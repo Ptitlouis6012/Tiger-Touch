@@ -624,7 +624,7 @@ static void view_block(lv_obj_t *parent, int x, int y, int w, int h)
     lv_obj_set_style_border_width(o, 0, 0);
     lv_obj_set_style_pad_all(o, 0, 0);
     lv_obj_set_scrollable(o, false);
-    lv_obj_remove_flag(o, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_set_clickable(o, false);
 }
 
 /* The button that changes the home's view draws the view it leads to: three
@@ -645,7 +645,7 @@ static void view_button(lv_obj_t *scr)
     lv_obj_set_style_border_width(ico, 0, 0);
     lv_obj_set_style_pad_all(ico, 0, 0);
     lv_obj_set_scrollable(ico, false);
-    lv_obj_remove_flag(ico, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_set_clickable(ico, false);
     lv_obj_center(ico);
     if (ui_cards_is_list())
     {

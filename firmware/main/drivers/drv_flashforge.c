@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "addr.h"
 #include "cJSON.h"
 #include "driver_util.h"
 #include "esp_log.h"
@@ -38,6 +39,7 @@ typedef struct
     volatile bool exited;
     SemaphoreHandle_t lock;
     char ip[40], sn[48], code[40];
+    char hp[ADDR_HOSTPORT_MAX]; /* host:port, 8898 unless the address names one */
 
     int64_t last_ok_us;
     int code_err; /* 0 ok, 1 refused (serial or code), -1 no answer */
@@ -194,7 +196,7 @@ static void poll_task(void *arg)
 {
     ff_t *c = (ff_t *)arg;
     char url[64], body[160];
-    snprintf(url, sizeof url, "http://%s:8898/detail", c->ip);
+    snprintf(url, sizeof url, "http://%s/detail", c->hp);
     snprintf(body, sizeof body, "{\"serialNumber\":\"%s\",\"checkCode\":\"%s\"}", c->sn, c->code);
     char *reply = malloc(REPLY_MAX);
 
@@ -255,6 +257,7 @@ static void *ff_start(const account_printer_t *p)
     }
     c->lock = xSemaphoreCreateMutex();
     strlcpy(c->ip, p->ip, sizeof c->ip);
+    addr_with_port(c->hp, sizeof c->hp, c->ip, 8898);
     /* The serial travels with its "SN" prefix, whatever the account stores. */
     snprintf(c->sn, sizeof c->sn, "%s%s", strncmp(p->sn, "SN", 2) == 0 ? "" : "SN", p->sn);
     strlcpy(c->code, p->cc, sizeof c->code);
@@ -302,7 +305,7 @@ static bool ff_control(void *ctx, pv_control_t cmd)
         /* lightControl_cmd, "open" / "close": checked against a slicer capture in
          * Tiger Studio's notes (section 13.6). */
         char lurl[64], lbody[200], lreply[96];
-        snprintf(lurl, sizeof lurl, "http://%s:8898/control", c->ip);
+        snprintf(lurl, sizeof lurl, "http://%s/control", c->hp);
         snprintf(lbody, sizeof lbody,
                  "{\"serialNumber\":\"%s\",\"checkCode\":\"%s\",\"payload\":{\"cmd\":\"lightControl_cmd\","
                  "\"args\":{\"status\":\"%s\"}}}",
@@ -315,7 +318,7 @@ static bool ff_control(void *ctx, pv_control_t cmd)
         return false;
     }
     char url[64], body[256], reply[96];
-    snprintf(url, sizeof url, "http://%s:8898/control", c->ip);
+    snprintf(url, sizeof url, "http://%s/control", c->hp);
     snprintf(body, sizeof body,
              "{\"serialNumber\":\"%s\",\"checkCode\":\"%s\",\"payload\":{\"cmd\":\"jobCtl_cmd\","
              "\"args\":{\"jobID\":\"\",\"action\":\"%s\"}}}",

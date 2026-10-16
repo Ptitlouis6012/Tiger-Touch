@@ -31,6 +31,7 @@
 #include <string.h>
 #include <time.h>
 
+#include "addr.h"
 #include "cJSON.h"
 #include "driver_util.h"
 #include "esp_heap_caps.h"
@@ -259,8 +260,9 @@ static void on_ws(void *arg, esp_event_base_t base, int32_t id, void *event_data
 
 static bool open_ws(sdcp_t *c)
 {
-    char uri[80];
-    snprintf(uri, sizeof uri, "ws://%s:%d/websocket", c->ip, WS_PORT);
+    char uri[80], hp[ADDR_HOSTPORT_MAX];
+    addr_with_port(hp, sizeof hp, c->ip, WS_PORT);
+    snprintf(uri, sizeof uri, "ws://%s/websocket", hp);
     esp_websocket_client_config_t cfg = {
         .uri = uri,
         .buffer_size = 2048,
@@ -312,7 +314,9 @@ static void discover_step(sdcp_t *c, int64_t now)
     struct sockaddr_in to = {0};
     to.sin_family = AF_INET;
     to.sin_port = htons(DISCOVERY_PORT);
-    if (inet_pton(AF_INET, c->ip, &to.sin_addr) != 1)
+    char host[ADDR_HOSTPORT_MAX];
+    addr_host_only(host, sizeof host, c->ip); /* a port in the address is the WebSocket's; discovery stays on its own */
+    if (inet_pton(AF_INET, host, &to.sin_addr) != 1)
     {
         return; /* not an address: nothing to ask */
     }

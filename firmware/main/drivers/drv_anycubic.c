@@ -28,6 +28,7 @@
 #include <string.h>
 #include <time.h>
 
+#include "addr.h"
 #include "cJSON.h"
 #include "esp_heap_caps.h"
 #include "esp_log.h"
@@ -955,8 +956,9 @@ static void *acu_start(const account_printer_t *p)
     snprintf(c->t_cmd_prefix, sizeof c->t_cmd_prefix, "anycubic/anycubicCloud/v1/web/printer/%s/%s", c->model,
              c->devid);
 
-    char uri[64], cid[48];
-    snprintf(uri, sizeof uri, "mqtts://%s:9883", p->ip);
+    char uri[64], cid[48], hp[ADDR_HOSTPORT_MAX];
+    addr_with_port(hp, sizeof hp, p->ip, 9883);
+    snprintf(uri, sizeof uri, "mqtts://%s", hp);
     uint8_t mac[6];
     esp_read_mac(mac, ESP_MAC_WIFI_STA);
     /* One id per printer: two on one account would otherwise kick each other

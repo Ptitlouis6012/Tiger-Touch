@@ -24,6 +24,18 @@ means written from the maker's protocol and built, never exercised.
 A printer whose driver is not "seen" works as far as its maker's documentation says;
 a field it does not report is shown as `--`, never as zero.
 
+**Every LAN driver takes `host` or `host:port`.** The account's address (`ip`,
+or `broker` for a LAN Bambu) may carry a port: then it is used as it is, and
+without one the brand's own port applies - 8883 (Bambu), 9999 (Creality), 1883
+(Elegoo CC2), 3030 (Elegoo CC1's WebSocket; its UDP discovery stays on 3000 and
+uses the host alone), 8898 (FlashForge), 7125 (Snapmaker, Klipper), 9883
+(Anycubic), 80 (Prusa, OctoPrint). A real printer needs no port written; one is
+for several printers behind one computer, each on a port of its own, as Tiger
+Studio's test printers are. The split is `firmware/main/net/addr.h`; the
+account's record has no separate port field. Only Klipper and OctoPrint have
+been run on an address with a port (Tiger Studio's mocks); the other brands
+have no test printer yet and were checked on their bare address only.
+
 ## Several nozzles
 
 The dashboard adapts to the number the printer reports: one, two (left and right)

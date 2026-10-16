@@ -66,3 +66,15 @@ BigTreeTech's line drawing of the Panda Touch from its board component's
 documentation (`docs/images/pandatouch.png`, MIT as stated by that component, see
 above), its lines turned grey and a Tiger Touch screenshot set into its screen.
 The `BIGTREETECH` mark on it is theirs.
+
+The README's other pictures come from the TigerTag project's own Tiger Studio
+Manager:
+
+- `assets/printers/lineup.png` puts together the printer pictures Tiger Studio
+  shows for each model; the printers and their pictures belong to their makers
+  and are shown only to say which printers Tiger Touch works with.
+- `assets/brands/brands.svg` gathers Tiger Studio's brand marks, greyed. The
+  marks belong to their owners ([TRADEMARK.md](TRADEMARK.md)); the Prusa,
+  Klipper and OctoPrint ones are plain letter or outline marks, not those
+  projects' official logos.
+- `assets/ecosystem/` holds the TigerSystem products' own pictures.

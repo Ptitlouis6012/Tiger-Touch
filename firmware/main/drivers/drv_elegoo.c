@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "addr.h"
 #include "cJSON.h"
 #include "driver_util.h"
 #include "esp_heap_caps.h"
@@ -303,8 +304,9 @@ static void *elg_start(const account_printer_t *p)
     snprintf(c->t_response, sizeof c->t_response, "elegoo/%s/%s/api_response", c->sn, c->cid);
     snprintf(c->t_regresp, sizeof c->t_regresp, "elegoo/%s/%s_req/register_response", c->sn, c->cid);
 
-    char uri[64];
-    snprintf(uri, sizeof uri, "mqtt://%s:1883", p->ip);
+    char uri[64], hp[ADDR_HOSTPORT_MAX];
+    addr_with_port(hp, sizeof hp, p->ip, 1883);
+    snprintf(uri, sizeof uri, "mqtt://%s", hp);
     esp_mqtt_client_config_t cfg = {
         .broker.address.uri = uri,
         .credentials.username = "elegoo",
