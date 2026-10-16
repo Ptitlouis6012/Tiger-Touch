@@ -16,6 +16,9 @@ they were written.
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-10-16
+
+
 ### Added
 - **The device says it is there, in the account**, as TigerScale and TigerSpool
   do: `users/{uid}/tigertouches/{mac}` with its version, its name, its Wi-Fi,
