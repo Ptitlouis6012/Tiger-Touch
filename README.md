@@ -45,7 +45,7 @@
   &nbsp;&middot;&nbsp;
   <a href="#printers">Printers</a>
   &nbsp;&middot;&nbsp;
-  <a href="#tiger-touch-vs-the-stock-firmwares">Compare</a>
+  <a href="#one-screen-every-brand-tiger-touch-vs-the-stock-firmwares">Compare</a>
   &nbsp;&middot;&nbsp;
   <a href="#install-in-two-minutes">Install</a>
   &nbsp;&middot;&nbsp;
@@ -143,11 +143,12 @@ and the Centauri Carbon 1. Every field and every test:
 **A printer shows "offline"?** Check its LAN mode first: it is off by default on
 Creality, FlashForge and Bambu Lab.
 
-## Tiger Touch vs. the stock firmwares
+## One screen, every brand: Tiger Touch vs. the stock firmwares
 
-Same screen, three firmwares. BIGTREETECH's are each tied to **one** family of
-printers; Tiger Touch turns the very same hardware into a screen for **all** of
-them, live, at the same time.
+Tiger Touch speaks **each maker's own protocol** - Bambu Lab, Creality, Elegoo,
+Anycubic, Snapmaker, FlashForge, Prusa - **plus Klipper and OctoPrint**, all on
+the same screen, live, at the same time. The firmwares the screen ships with
+each know **one** family of printers.
 
 | | **Tiger Touch** | Panda Touch firmware | K-Touch firmware |
 |---|:---:|:---:|:---:|
@@ -280,11 +281,15 @@ inventory and the same printers, whatever their brand. That is why one screen
 can follow a Bambu Lab, an Elegoo and a Klipper printer at once: the account
 already knows them all.
 
+<p align="center">
+  <img src="assets/Hero-TigerSystem-ecosystem.png" alt="The TigerSystem ecosystem: a TigerPOD reader holding a spool, Tiger Studio Manager on a computer, and the TigerTag app on a phone" width="680">
+</p>
+
 <table>
   <tr>
     <td width="50%" align="center"><img src="assets/ecosystem/studio-and-connect.png" alt="Tiger Studio Manager on a laptop and TigerTag RFID Connect on a phone" width="380"></td>
     <td width="50%">
-      <b><a href="https://github.com/TigerTag-Project/TigerTag-Studio-Manager">Tiger Studio Manager</a></b> - mission control for your filament and your printers, on Windows, macOS, Linux or in the browser. <b>Start here</b>: the account and the printers Tiger Touch shows are declared there.<br><br>
+      <b><a href="https://github.com/TigerTag-Project/TigerTag-Studio-Manager">Tiger Studio Manager</a></b> - mission control for your filament and your printers. <b>Start here</b>: the account is created there, and the printers Tiger Touch shows are added with the <b>desktop app</b> (Windows, macOS, Linux), which finds them on your network; the web version cannot add printers.<br><br>
       <b>TigerTag RFID Connect</b> - the iOS and Android app: tap a spool with your phone (NFC) to read it, write a chip, carry your inventory.
       <a href="https://apps.apple.com/app/id6745437963">App Store</a> ·
       <a href="https://play.google.com/store/apps/details?id=com.tigertag.connect">Google Play</a>

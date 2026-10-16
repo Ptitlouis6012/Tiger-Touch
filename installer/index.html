@@ -63,7 +63,7 @@
     background: var(--card); border: 1px solid var(--line);
     border-radius: 16px; padding: 28px;
   }
-  .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 12px; }
   h1 { margin: 0 0 4px; font-size: 1.6rem; }
   h1 span { color: var(--accent); }
   p { margin: 0 0 14px; color: var(--muted); }
@@ -83,6 +83,7 @@
     background: var(--bg); border: 1px solid var(--line);
   }
   .pre p { margin: 6px 0 12px; }
+  .pre .hero { display: block; width: 100%; height: auto; border-radius: 8px; margin: 0 0 12px; }
   .links, .foot { display: flex; flex-wrap: wrap; gap: 8px; }
   .foot { justify-content: center; margin-top: 16px; }
   .pill {
@@ -187,11 +188,11 @@
     </div>
 
     <div class="pre">
+      <img class="hero" src="ecosystem.png" alt="A TigerPOD reader holding a spool, Tiger Studio Manager on a computer, and the TigerTag app on a phone">
       <b data-i18n="pre_title">Before you start: your printers</b>
-      <p data-i18n-html="pre_html">Tiger Touch shows the printers of your <b>TigerTag account</b>. Create the free account and add your printers in <b>Tiger Studio Manager</b> first: the screen reads them from there, with nothing to type.</p>
+      <p data-i18n-html="pre_html">Tiger Touch shows the printers of your <b>TigerTag account</b>. Create the free account and add your printers with the <b>desktop app Tiger Studio Manager</b> (Windows, macOS, Linux) first: it finds them on your network, and the screen then reads them from your account, with nothing to type. The web version cannot add printers.</p>
       <div class="links">
-        <a class="pill solid" href="https://studio.tigersystem.io" target="_blank" rel="noopener" data-i18n="pre_open">Open Tiger Studio in the browser</a>
-        <a class="pill" href="https://github.com/TigerTag-Project/TigerTag-Studio-Manager/releases/latest" target="_blank" rel="noopener" data-i18n="pre_dl">Download Tiger Studio Manager</a>
+        <a class="pill solid" href="https://github.com/TigerTag-Project/TigerTag-Studio-Manager/releases/latest" target="_blank" rel="noopener" data-i18n="pre_dl">Download Tiger Studio Manager (desktop)</a>
       </div>
     </div>
     <p class="ver" id="verline" hidden><span data-i18n="fw">Firmware</span> <b id="ver"></b></p>
@@ -228,7 +229,8 @@
 
   <!-- Same screen, three firmwares: the README's comparison, short. -->
   <div class="card cmp">
-    <h2 data-i18n="cmp_title">Same screen, three firmwares</h2>
+    <h2 data-i18n="cmp_title">One screen, every brand</h2>
+    <p data-i18n="cmp_sub">Tiger Touch speaks each maker's own protocol - Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa - plus Klipper and OctoPrint. The stock firmwares each know one family.</p>
     <div class="tablewrap">
     <table>
       <thead><tr><th></th><th class="tt">Tiger Touch</th><th data-i18n="cmp_panda">Panda Touch firmware</th><th data-i18n="cmp_k">K-Touch firmware</th></tr></thead>
