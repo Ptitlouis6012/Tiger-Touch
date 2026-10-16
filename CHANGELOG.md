@@ -17,6 +17,11 @@ they were written.
 ## [Unreleased]
 
 ### Changed
+- **The printer brands are shown above the screen**, in the README and on the
+  installer page: one strip with Bambu Lab, Creality, Elegoo, Anycubic,
+  Snapmaker, FlashForge, Prusa, Klipper and OctoPrint.
+- **The README presents the TigerPOD Mini**, the recommended desk reader, with
+  its picture and its free MakerWorld file, in place of the original TigerPOD.
 - **The installer page says where to start and where to go**: a "Before you
   start" box with the TigerSystem picture (printers are added with Tiger Studio
   Manager's desktop app; its web version cannot add them), links to the source on GitHub, the TigerSystem wiki, the

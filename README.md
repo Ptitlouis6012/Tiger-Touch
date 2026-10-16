@@ -25,11 +25,11 @@
 </p>
 
 <p align="center">
-  <img src="assets/tiger-touch-device.png" alt="A BIGTREETECH Panda Touch running Tiger Touch: two live printer cards, a FlashForge AD5X and a Bambu Lab X1C, with progress ring, light, pause and stop buttons, and the nozzle, bed and chamber temperatures" width="440">
+  <img src="assets/brands/brands.svg" alt="Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, Klipper and OctoPrint" width="760">
 </p>
 
 <p align="center">
-  <img src="assets/brands/brands.svg" alt="Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, Klipper and OctoPrint" width="760">
+  <img src="assets/tiger-touch-device.png" alt="A BIGTREETECH Panda Touch running Tiger Touch: two live printer cards, a FlashForge AD5X and a Bambu Lab X1C, with progress ring, light, pause and stop buttons, and the nozzle, bed and chamber temperatures" width="440">
 </p>
 
 <p align="center">
@@ -296,8 +296,8 @@ already knows them all.
     </td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/ecosystem/tigerpod.png" alt="A row of TigerPOD spool readers in every colour" width="380"></td>
-    <td><b><a href="https://github.com/TigerTag-Project/TigerPOD">TigerPOD</a></b> - a spool scanner for your desk that you print yourself: put a spool down and it opens in Tiger Studio; put a blank chip down and it is written.</td>
+    <td align="center"><img src="assets/ecosystem/tigerpod-mini.png" alt="The TigerPOD Mini, a compact printed stand with one upright NFC reader on each side" width="220"></td>
+    <td><b><a href="https://github.com/TigerTag-Project/TigerPOD">TigerPOD Mini</a></b> - a spool scanner for your desk that you print yourself: put a spool down and it opens in Tiger Studio; put a blank chip down and it is written. Compact, quick to print, cables routed inside, and it reads and writes TigerTag and OpenSpool chips. <a href="https://makerworld.com/fr/models/3190348-tigerpod-mini-for-openspool-tigertag-rfid-filament">Free on MakerWorld</a>.</td>
   </tr>
   <tr>
     <td align="center"><img src="assets/ecosystem/tigerscale-v3.png" alt="TigerScale V3 weighing a spool of red filament" width="220"></td>

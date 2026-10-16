@@ -72,6 +72,7 @@
   b { color: var(--text); }
   .go { text-align: center; margin: 22px 0 6px; }
   /* The device, turning over from the start-up screen to the printers. */
+  .brands { display: block; width: 100%; max-width: 620px; height: auto; margin: 6px auto 4px; }
   .flip { width: min(240px, 50%); margin: 4px auto 18px; perspective: 900px; cursor: pointer; outline: none; }
   .flip-in { position: relative; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.3,.7,.3,1); }
   .flip:hover .flip-in, .flip:focus .flip-in { transform: rotateY(180deg); }
@@ -99,7 +100,6 @@
   .support .links { justify-content: center; }
   .cmp { margin-top: 16px; }
   .cmp h2 { margin: 0 0 12px; font-size: 1.15rem; }
-  .cmp .brands { display: block; width: 100%; height: auto; margin: 4px 0 16px; }
   .tablewrap { overflow-x: auto; }
   .cmp table { width: 100%; border-collapse: collapse; font-size: .88rem; }
   .cmp th, .cmp td { padding: 8px 6px; border-bottom: 1px solid var(--line); text-align: center; color: var(--muted); }
@@ -180,6 +180,8 @@
     </div>
 
     <p data-i18n="tagline">Install Tiger Touch on a BIGTREETECH Panda Touch or K-Touch, from this page.</p>
+    <!-- The printer brands it connects to, above the screen (same picture as the README). -->
+    <img class="brands" src="brands.svg" alt="Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, Klipper and OctoPrint">
     <!-- The start-up screen, turning over to the printers on hover (or a tap). -->
     <div class="flip" tabindex="0" aria-label="Tiger Touch on a Panda Touch: the start-up screen, then the printers">
       <div class="flip-in">
@@ -232,7 +234,6 @@
   <div class="card cmp">
     <h2 data-i18n="cmp_title">One screen, every brand</h2>
     <p data-i18n="cmp_sub">Tiger Touch speaks each maker's own protocol - Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa - plus Klipper and OctoPrint. The stock firmwares each know one family.</p>
-    <img class="brands" src="brands.svg" alt="Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, Klipper and OctoPrint">
     <div class="tablewrap">
     <table>
       <thead><tr><th></th><th class="tt">Tiger Touch</th><th data-i18n="cmp_panda">Panda Touch firmware</th><th data-i18n="cmp_k">K-Touch firmware</th></tr></thead>

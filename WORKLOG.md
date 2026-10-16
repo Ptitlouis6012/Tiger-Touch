@@ -8,6 +8,8 @@ reset to this header at each release.
 ## Added
 
 ## Changed
+- The printer-brands strip sits above the picture of the screen, in the README and on the installer page.
+- The README presents the TigerPOD Mini (picture, what it does, its free MakerWorld file) in place of the original TigerPOD.
 
 ## Fixed
 
