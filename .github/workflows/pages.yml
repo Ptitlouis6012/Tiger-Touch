@@ -1,0 +1,67 @@
+name: pages
+
+# Publish the site: the web installer and the OTA manifest (version.json).
+#
+# EXACTLY ONE WORKFLOW MAY DEPLOY THIS SITE, and this is it. In a sibling
+# project two workflows deployed for the same commit; GitHub reported both
+# successful and went on serving the older one, whose manifest advertised the
+# previous version, so every device in the field said "up to date" against a
+# release that had already shipped. One workflow, one concurrency group.
+#
+# It is built from the latest RELEASE's assets, never from a rebuild: the hash
+# in the manifest must be of the exact bytes a device downloads.
+#
+# Prerequisite, once: Settings > Pages > Source = "GitHub Actions".
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: The latest release's assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG=$(gh release view --repo "${{ github.repository }}" --json tagName -q .tagName)
+          echo "latest release: $TAG"
+          mkdir -p dist
+          gh release download "$TAG" --repo "${{ github.repository }}" --dir dist
+          echo "VERSION=${TAG#v}" >> "$GITHUB_ENV"
+
+      - name: Build the site
+        run: |
+          python3 scripts/make-manifest.py --version "$VERSION" \
+            --repo "${{ github.repository }}" --dist dist --out site
+          ls -l site
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v4
+
+      # The published result, not this workflow's green tick.
+      - name: The published site serves this release
+        run: python3 scripts/verify-published-site.py --url "${{ steps.deploy.outputs.page_url }}" --version "$VERSION" --dist dist

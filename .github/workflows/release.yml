@@ -1,0 +1,109 @@
+name: release
+
+# Publish a release, from a tag.
+#
+#     bash scripts/bump-version.sh 2.1.0      # moves [Unreleased] into [2.1.0]
+#     git commit -am "Release 2.1.0: <what it holds>"
+#     git tag v2.1.0 && git push origin main v2.1.0
+#
+# What this enforces:
+#   1. ONE source of truth for the version, PROJECT_VER. A tag that disagrees
+#      with it fails before anything is published.
+#   2. Notes written when the work was done: no [X.Y.Z] notes, no release.
+#   3. Binaries are BUILT here from the tagged source, never committed.
+# Then the site (installer + OTA manifest) is deployed by pages.yml, and only
+# after the release exists: a manifest naming assets not yet published would
+# send every device to a 404.
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    container:
+      image: espressif/idf:release-v5.5
+    outputs:
+      version: ${{ steps.stage.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: The tag agrees with PROJECT_VER
+        run: python3 scripts/check-version.py
+
+      - name: The release has notes
+        run: python3 scripts/check-release-notes.py --released
+
+      - name: No AI attribution anywhere in the history
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          bash scripts/check-attribution.sh --commits ""
+          bash scripts/check-attribution.sh --tree
+
+      - name: Build
+        run: |
+          . $IDF_PATH/export.sh
+          cd firmware
+          idf.py set-target esp32s3
+          idf.py build
+
+      - name: What the images say about the machine that built them
+        run: python3 scripts/check-build-privacy.py
+
+      - name: Stage the assets
+        id: stage
+        run: |
+          set -eu
+          V="${GITHUB_REF_NAME#v}"
+          B=firmware/build
+          mkdir -p dist
+          cp "$B/tiger_touch.bin"                      "dist/tiger-touch-v$V.bin"
+          cp "$B/bootloader/bootloader.bin"            dist/bootloader.bin
+          cp "$B/partition_table/partition-table.bin"  dist/partition-table.bin
+          cp "$B/ota_data_initial.bin"                 dist/ota_data_initial.bin
+          # A checksum proves the download is whole. It says nothing about who
+          # produced it: signing is open, see docs/OTA.md.
+          ( cd dist && sha256sum ./* > SHA256SUMS.txt )
+          cat dist/SHA256SUMS.txt
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+
+      - name: This version's changelog section
+        run: |
+          python3 - "${{ steps.stage.outputs.version }}" > release-notes.md <<'PY'
+          import re, sys
+          v = sys.argv[1]
+          text = open("CHANGELOG.md", encoding="utf-8").read()
+          m = re.search(r"^## \[%s\][^\n]*$(.*?)(?=^## \[|\Z)" % re.escape(v), text, re.S | re.M)
+          if not m:
+              raise SystemExit("no CHANGELOG section for %s" % v)
+          print(m.group(1).strip())
+          print()
+          print("**Update:** a Tiger Touch on Wi-Fi offers it in Settings > Firmware update.")
+          print("**Install from scratch:** https://tigertag-project.github.io/Tiger-Touch/ (Chrome or Edge).")
+          PY
+          cat release-notes.md
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          body_path: release-notes.md
+          draft: false
+          prerelease: ${{ startsWith(steps.stage.outputs.version, '0.') }}
+
+  site:
+    needs: release
+    uses: ./.github/workflows/pages.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write

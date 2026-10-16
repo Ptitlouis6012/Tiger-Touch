@@ -1,0 +1,50 @@
+name: Bug report
+description: Something does not work
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **A printer shows "offline"?** Check its LAN mode first: it is off by
+        default on Creality, FlashForge and Bambu Lab, and it is the most common
+        cause. The honest state of every driver is in
+        [docs/PRINTER-COMPATIBILITY.md](../blob/main/docs/PRINTER-COMPATIBILITY.md).
+
+        **Redact before you paste.** No e-mail address, password, access code,
+        serial number, Wi-Fi name or IP address in an issue, logs included.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: And what you expected instead.
+    validations: { required: true }
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to reproduce
+      placeholder: |
+        1. …
+        2. …
+    validations: { required: true }
+
+  - type: input
+    id: fw
+    attributes:
+      label: Tiger Touch firmware version
+      description: At the top right of Settings.
+    validations: { required: true }
+
+  - type: input
+    id: printer
+    attributes:
+      label: Printer model, its firmware, and how it is reached
+      description: e.g. "Bambu Lab P2S, 01.02.00.00, cloud". Blank if not printer-related.
+
+  - type: textarea
+    id: log
+    attributes:
+      label: Serial log
+      description: 115200 baud on the USB-C port. Redacted.
+      render: text

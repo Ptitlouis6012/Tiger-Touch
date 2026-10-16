@@ -1,0 +1,110 @@
+# Minimal configuration of the Tiger Touch firmware. It began as the output of
+# `idf.py save-defconfig` on BigTreeTech's example project and is edited by hand.
+# sdkconfig itself is generated and ignored: this file is what the project sets.
+#
+CONFIG_BOOTLOADER_FLASH_DC_AWARE=y
+CONFIG_ESPTOOLPY_FLASHMODE_QIO=y
+CONFIG_ESPTOOLPY_FLASHFREQ_120M=y
+CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+CONFIG_COMPILER_OPTIMIZATION_PERF=y
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_MODE_OCT=y
+CONFIG_SPIRAM_FETCH_INSTRUCTIONS=y
+CONFIG_SPIRAM_RODATA=y
+CONFIG_SPIRAM_SPEED_120M=y
+CONFIG_SPIRAM_TRY_ALLOCATE_WIFI_LWIP=y
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+CONFIG_ESP32S3_DATA_CACHE_LINE_64B=y
+CONFIG_ESP_TASK_WDT_TIMEOUT_S=10
+CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM=10
+CONFIG_ESP_WIFI_RX_BA_WIN=6
+CONFIG_FATFS_LFN_HEAP=y
+CONFIG_FREERTOS_HZ=1000
+CONFIG_LV_USE_CUSTOM_MALLOC=y
+CONFIG_LV_COLOR_MIX_ROUND_OFS=0
+CONFIG_LV_USE_LODEPNG=y
+CONFIG_LV_USE_SYSMON=y
+CONFIG_LV_USE_PERF_MONITOR=n
+CONFIG_LV_BUILD_EXAMPLES=n
+CONFIG_LV_BUILD_DEMOS=n
+CONFIG_IDF_EXPERIMENTAL_FEATURES=y
+
+# --- app additions ---
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+CONFIG_LV_FONT_MONTSERRAT_14=y
+CONFIG_LV_FONT_MONTSERRAT_18=y
+CONFIG_LV_FONT_MONTSERRAT_24=y
+CONFIG_LV_FONT_MONTSERRAT_32=y
+CONFIG_LV_FONT_MONTSERRAT_48=y
+CONFIG_MBEDTLS_EXTERNAL_MEM_ALLOC=y
+# LVGL renders into two partial buffers in PSRAM, not internal RAM: 2 x 37 KB
+# of internal RAM is what three printer connections cost
+# (docs/CONNECTION-BUDGET.md). The panel's own frame buffer is in PSRAM anyway.
+CONFIG_PT_LVGL_RENDER_PARTIAL_2_PSRAM=y
+# 120 lines a strip, not 16: a screen that scrolls is redrawn whole, and LVGL
+# walks every object once per strip. Four strips a frame instead of thirty took
+# a frame of the home screen's scroll from 155 ms to 100 ms (2026-10-16). The
+# two strips are 2 x 188 KB of PSRAM, no internal RAM.
+CONFIG_PT_LVGL_RENDER_PARTIAL_BUFFER_LINES=120
+CONFIG_LV_USE_SNAPSHOT=y
+# The QR of the Google-account pairing page (ui_onboard.c).
+CONFIG_LV_USE_QRCODE=y
+
+# --- what the images may carry about the machine that built them ---
+# Without this, the debug info and the assert messages carry the absolute path of
+# every source file, and with it the name of whoever built them. Reproducible
+# build maps those paths to fixed ones and drops the build date and time.
+CONFIG_APP_REPRODUCIBLE_BUILD=y
+
+# --- other brands' drivers ---
+# PrusaLink answers an HTTP Digest challenge.
+CONFIG_ESP_HTTP_CLIENT_ENABLE_DIGEST_AUTH=y
+# A Bambu printer in LAN mode presents its own self-signed certificate: the
+# connection is made to a private address with the printer's access code, and
+# esp-tls may then be told not to verify the chain (only that client asks it to).
+CONFIG_ESP_TLS_INSECURE=y
+CONFIG_ESP_TLS_SKIP_SERVER_CERT_VERIFY=y
+
+# --- over-the-air update (docs/OTA.md) ---
+# A new image boots on probation; the bootloader returns to the previous one
+# when the new one restarts before calling ota_mark_healthy(). The bootloader
+# is not updated over the air, so this has to be in the one flashed over USB.
+CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE=y
+
+# --- internal RAM: what printer connections live on (docs/CONNECTION-BUDGET.md) ---
+# The ESP32-S3 has a few hundred KB of internal RAM and 8 MB of PSRAM. Everything
+# that does not need internal RAM is sent to PSRAM, so printers have room.
+#
+# Any allocation from 4 KB up goes to PSRAM first (the default sends everything
+# under 16 KB to internal RAM: the MQTT and WebSocket buffers, parsed JSON).
+CONFIG_SPIRAM_MALLOC_ALWAYSINTERNAL=4096
+# Static data marked EXT_RAM_BSS_ATTR (the account's printer list) lives in PSRAM.
+CONFIG_SPIRAM_ALLOW_BSS_SEG_EXTERNAL_MEMORY=y
+# (The Wi-Fi buffers already go to PSRAM: CONFIG_SPIRAM_TRY_ALLOCATE_WIFI_LWIP above.)
+# Wi-Fi and lwIP code is left in flash rather than copied to IRAM: on the S3,
+# IRAM and internal data RAM are one pool, so every function in IRAM is RAM a
+# printer cannot have. A monitor polls a few kilobytes a second; it does not
+# need the throughput.
+CONFIG_ESP_WIFI_IRAM_OPT=n
+CONFIG_ESP_WIFI_RX_IRAM_OPT=n
+CONFIG_ESP_WIFI_EXTRA_IRAM_OPT=n
+CONFIG_LWIP_IRAM_OPTIMIZATION=n
+CONFIG_LWIP_EXTRA_IRAM_OPTIMIZATION=n
+# MQTT messages waiting to be sent are kept in PSRAM.
+CONFIG_MQTT_OUTBOX_DATA_ON_EXTERNAL_MEMORY=y
+
+# --- the two cores ---
+# Core 1 draws (the LVGL task); core 0 talks to the network (Wi-Fi, the
+# application task, the drivers' clients). The TCP/IP task is pinned to core 0
+# too, so a burst of network traffic never takes the core the screen runs on.
+CONFIG_LWIP_TCPIP_TASK_AFFINITY_CPU0=y
+
+# Sockets: ten printer links (MAX_LINKS in links.c), plus the account and update
+# requests, DNS, SNTP and the Elegoo discovery, with room for a link that is
+# reconnecting while its old socket closes. The default of 10 ran out with nine
+# printers on the bench ("Failed to create socket", errno 23).
+CONFIG_LWIP_MAX_SOCKETS=20
+CONFIG_LWIP_MAX_ACTIVE_TCP=24
+CONFIG_MQTT_TASK_CORE_SELECTION_ENABLED=y
+CONFIG_MQTT_USE_CORE_0=y

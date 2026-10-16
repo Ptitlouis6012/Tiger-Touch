@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Discord
+    url: https://discord.gg/3Qv5TSqnJH
+    about: Questions, help and community builds - faster than an issue.
+  - name: Security vulnerability
+    url: https://github.com/TigerTag-Project/Tiger-Touch/security/advisories/new
+    about: Report privately. Do not open a public issue.
+  - name: The TigerTag ecosystem
+    url: https://github.com/TigerTag-Project/TigerSystem-Docs
+    about: Questions about TigerTag, Tiger Studio or the account belong there.

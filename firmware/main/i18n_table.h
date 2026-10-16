@@ -1,0 +1,506 @@
+/* Every sentence the screens draw, in the 11 languages of Tiger Studio Manager.
+ *
+ * Columns, in Studio's own order:
+ *   en, fr, de, es, it, zh, pt (BR), pt-pt, pl, ru, nl
+ *
+ * Rules (they are Studio's, see its CLAUDE.md):
+ *  - all 11 columns are written in the same edit; none is left empty, and an
+ *    empty one falls back to English at run time;
+ *  - the translations start from the English column, with the vocabulary of
+ *    Studio's own locale files, never from the French;
+ *  - one format per row: the same %d / %s in the same order in every column,
+ *    and no sentence that needs a plural.
+ *
+ * Widths matter: the panel is 800 px and a few of these sit in a tile or a
+ * chip. The ones that do are kept short on purpose.
+ *
+ * Adding a row: add it here, then `python tools/make_fonts.py` if it brings a
+ * character the faces do not hold (Chinese or a new symbol). */
+
+/* ---- Start-up and loading --------------------------------------------- */
+X(S_BUSY_WIFI, "Connecting to Wi-Fi", "Connexion au Wi-Fi", "Verbinde mit WLAN", "Conectando al Wi-Fi",
+  "Connessione al Wi-Fi", "正在连接 Wi-Fi", "Conectando ao Wi-Fi", "A ligar ao Wi-Fi", "Łączenie z Wi-Fi",
+  "Подключение к Wi-Fi", "Verbinden met wifi")
+X(S_BUSY_SCAN, "Searching for networks", "Recherche des réseaux", "Suche nach Netzwerken", "Buscando redes",
+  "Ricerca delle reti", "正在搜索网络", "Procurando redes", "A procurar redes", "Wyszukiwanie sieci",
+  "Поиск сетей", "Netwerken zoeken")
+X(S_BUSY_CONNECT_TO, "Connecting to", "Connexion à", "Verbinde mit", "Conectando a", "Connessione a",
+  "正在连接", "Conectando a", "A ligar a", "Łączenie z", "Подключение к", "Verbinden met")
+X(S_BUSY_TIME, "Setting the clock", "Mise à l'heure", "Uhrzeit wird gestellt", "Ajustando la hora",
+  "Impostazione dell'ora", "正在校准时间", "Ajustando a hora", "A acertar a hora", "Ustawianie zegara",
+  "Установка времени", "Klok instellen")
+X(S_BUSY_TIME_WHY, "Needed for secure connections", "Nécessaire pour les connexions sécurisées",
+  "Für sichere Verbindungen nötig", "Necesario para las conexiones seguras",
+  "Necessario per le connessioni sicure", "安全连接需要此步骤", "Necessário para conexões seguras",
+  "Necessário para ligações seguras", "Wymagane dla bezpiecznych połączeń",
+  "Нужно для безопасных соединений", "Nodig voor beveiligde verbindingen")
+X(S_BUSY_ACCOUNT, "Signing in", "Connexion au compte", "Anmeldung läuft", "Iniciando sesión",
+  "Accesso in corso", "正在登录", "Entrando", "A iniciar sessão", "Logowanie", "Вход в аккаунт", "Inloggen")
+X(S_BUSY_PRINTERS, "Reading your printers", "Lecture des imprimantes", "Drucker werden gelesen",
+  "Leyendo las impresoras", "Lettura delle stampanti", "正在读取打印机", "Lendo as impressoras",
+  "A ler as impressoras", "Odczyt drukarek", "Чтение принтеров", "Printers ophalen")
+X(S_BUSY_LOADING, "Loading", "Chargement", "Wird geladen", "Cargando", "Caricamento", "加载中",
+  "Carregando", "A carregar", "Ładowanie", "Загрузка", "Laden")
+X(S_BUSY_CONNECT_PRINTER, "Connecting to %s", "Connexion à %s", "Verbinde mit %s", "Conectando a %s",
+  "Connessione a %s", "正在连接 %s", "Conectando a %s", "A ligar a %s", "Łączenie z %s",
+  "Подключение к %s", "Verbinden met %s")
+
+/* ---- Wi-Fi and account forms ------------------------------------------ */
+X(S_WIFI_PASSWORD, "Wi-Fi password", "Mot de passe Wi-Fi", "WLAN-Passwort", "Contraseña del Wi-Fi",
+  "Password Wi-Fi", "Wi-Fi 密码", "Senha do Wi-Fi", "Palavra-passe do Wi-Fi", "Hasło Wi-Fi",
+  "Пароль Wi-Fi", "Wifi-wachtwoord")
+X(S_PASSWORD, "Password", "Mot de passe", "Passwort", "Contraseña", "Password", "密码", "Senha",
+  "Palavra-passe", "Hasło", "Пароль", "Wachtwoord")
+X(S_EMAIL_ADDRESS, "Email address", "Adresse e-mail", "E-Mail-Adresse", "Correo electrónico",
+  "Indirizzo email", "邮箱地址", "Endereço de e-mail", "Endereço de e-mail", "Adres e-mail", "Email",
+  "E-mailadres")
+X(S_EMAIL, "Email", "E-mail", "E-Mail", "Correo electrónico", "Email", "邮箱", "E-mail", "E-mail",
+  "Email", "Email", "E-mail")
+X(S_SAME_ACCOUNT, "The same account as in Tiger Studio", "Le même compte que dans Tiger Studio",
+  "Dasselbe Konto wie in Tiger Studio", "La misma cuenta que en Tiger Studio",
+  "Lo stesso account di Tiger Studio", "与 Tiger Studio 相同的账号", "A mesma conta do Tiger Studio",
+  "A mesma conta do Tiger Studio", "To samo konto co w Tiger Studio",
+  "Тот же аккаунт, что и в Tiger Studio", "Hetzelfde account als in Tiger Studio")
+X(S_ERR_NET_MISSING, "The saved network can't be found.", "Le réseau enregistré est introuvable.",
+  "Das gespeicherte Netzwerk wurde nicht gefunden.", "No se encuentra la red guardada.",
+  "La rete salvata non è stata trovata.", "找不到已保存的网络。", "A rede salva não foi encontrada.",
+  "A rede guardada não foi encontrada.", "Nie znaleziono zapisanej sieci.", "Сохранённая сеть не найдена.",
+  "Het opgeslagen netwerk is niet gevonden.")
+X(S_ERR_WIFI_PASSWORD, "Can't connect. Check the password.", "Connexion impossible : vérifie le mot de passe.",
+  "Verbindung nicht möglich. Prüfe das Passwort.", "No se pudo conectar. Revisa la contraseña.",
+  "Connessione non riuscita. Controlla la password.", "无法连接，请检查密码。",
+  "Não foi possível conectar. Confira a senha.", "Não foi possível ligar. Verifique a palavra-passe.",
+  "Nie można się połączyć. Sprawdź hasło.", "Не удалось подключиться. Проверьте пароль.",
+  "Verbinden lukt niet. Controleer het wachtwoord.")
+X(S_ERR_WIFI_FAIL, "Can't connect to this network.", "Connexion impossible à ce réseau.",
+  "Verbindung mit diesem Netzwerk nicht möglich.", "No se pudo conectar a esta red.",
+  "Impossibile connettersi a questa rete.", "无法连接到此网络。",
+  "Não foi possível conectar a esta rede.", "Não foi possível ligar a esta rede.",
+  "Nie można połączyć się z tą siecią.", "Не удалось подключиться к этой сети.",
+  "Verbinden met dit netwerk lukt niet.")
+X(S_ERR_NEED_EMAIL, "Enter your email address.", "Renseigne l'adresse e-mail.",
+  "Gib deine E-Mail-Adresse ein.", "Introduce tu correo electrónico.", "Inserisci il tuo indirizzo email.",
+  "请输入邮箱地址。", "Digite seu e-mail.", "Introduza o seu e-mail.", "Wpisz adres e-mail.",
+  "Введите адрес email.", "Vul je e-mailadres in.")
+X(S_ERR_NEED_PASSWORD, "Enter your password.", "Renseigne le mot de passe.", "Gib dein Passwort ein.",
+  "Introduce tu contraseña.", "Inserisci la tua password.", "请输入密码。", "Digite sua senha.",
+  "Introduza a sua palavra-passe.", "Wpisz hasło.", "Введите пароль.", "Vul je wachtwoord in.")
+X(S_ERR_ACCOUNT_SILENT, "The account isn't answering. Check your Wi-Fi.",
+  "Le compte ne répond pas. Vérifie la connexion Wi-Fi.", "Das Konto antwortet nicht. Prüfe dein WLAN.",
+  "La cuenta no responde. Revisa tu Wi-Fi.", "L'account non risponde. Controlla il Wi-Fi.",
+  "账号无响应，请检查 Wi-Fi。", "A conta não responde. Confira o Wi-Fi.",
+  "A conta não responde. Verifique o Wi-Fi.", "Konto nie odpowiada. Sprawdź Wi-Fi.",
+  "Аккаунт не отвечает. Проверьте Wi-Fi.", "Het account antwoordt niet. Controleer je wifi.")
+X(S_ERR_CREDENTIALS, "Wrong email or password.", "E-mail ou mot de passe incorrect.",
+  "E-Mail oder Passwort falsch.", "Correo o contraseña incorrectos.", "Email o password errati.",
+  "邮箱或密码错误。", "E-mail ou senha incorretos.", "E-mail ou palavra-passe incorretos.",
+  "Nieprawidłowy e-mail lub hasło.", "Неверный email или пароль.",
+  "E-mailadres of wachtwoord onjuist.")
+X(S_ERR_GOOGLE, "Google account: use Continue with Google.",
+  "Compte Google : utilisez Continuer avec Google.", "Google-Konto: Weiter mit Google verwenden.",
+  "Cuenta de Google: use Continuar con Google.", "Account Google: usa Continua con Google.",
+  "Google 账号：请使用 Google 继续。", "Conta Google: use Continuar com o Google.",
+  "Conta Google: use Continuar com o Google.", "Konto Google: użyj Kontynuuj z Google.",
+  "Аккаунт Google: нажмите «Продолжить с Google».", "Google-account: gebruik Doorgaan met Google.")
+X(S_ERR_RATE, "Too many attempts. Try again in a few minutes.", "Trop d'essais. Réessaie dans quelques minutes.",
+  "Zu viele Versuche. Versuche es in ein paar Minuten erneut.",
+  "Demasiados intentos. Inténtalo de nuevo en unos minutos.",
+  "Troppi tentativi. Riprova tra qualche minuto.", "尝试次数过多，请几分钟后再试。",
+  "Muitas tentativas. Tente novamente em alguns minutos.",
+  "Demasiadas tentativas. Tente novamente dentro de alguns minutos.",
+  "Zbyt wiele prób. Spróbuj ponownie za kilka minut.", "Слишком много попыток. Повторите через несколько минут.",
+  "Te veel pogingen. Probeer het over een paar minuten opnieuw.")
+X(S_ERR_DISABLED, "This account is disabled.", "Ce compte est désactivé.", "Dieses Konto ist deaktiviert.",
+  "Esta cuenta está desactivada.", "Questo account è disattivato.", "此账号已被停用。",
+  "Esta conta está desativada.", "Esta conta está desativada.", "To konto jest wyłączone.",
+  "Этот аккаунт отключён.", "Dit account is uitgeschakeld.")
+X(S_ERR_OTHER, "Can't sign in.", "Connexion impossible.", "Anmeldung nicht möglich.",
+  "No se pudo iniciar sesión.", "Accesso non riuscito.", "无法登录。", "Não foi possível entrar.",
+  "Não foi possível iniciar sessão.", "Nie można się zalogować.", "Не удалось войти.", "Inloggen lukt niet.")
+
+/* ---- Networks and generic buttons ------------------------------------- */
+X(S_NO_NETWORKS, "No network found.", "Aucun réseau trouvé.", "Kein Netzwerk gefunden.",
+  "No se encontró ninguna red.", "Nessuna rete trovata.", "未找到网络。", "Nenhuma rede encontrada.",
+  "Nenhuma rede encontrada.", "Nie znaleziono sieci.", "Сети не найдены.", "Geen netwerk gevonden.")
+X(S_NET_SECURED, "Secured", "Protégé", "Geschützt", "Protegida", "Protetta", "加密", "Protegida",
+  "Protegida", "Zabezpieczona", "Защищена", "Beveiligd")
+X(S_NET_OPEN, "Open", "Ouvert", "Offen", "Abierta", "Aperta", "开放", "Aberta", "Aberta", "Otwarta",
+  "Открытая", "Open")
+X(S_SEARCH_AGAIN, "Search again", "Rechercher à nouveau", "Erneut suchen", "Buscar de nuevo",
+  "Cerca di nuovo", "重新搜索", "Procurar novamente", "Procurar novamente", "Szukaj ponownie",
+  "Искать снова", "Opnieuw zoeken")
+X(S_BACK, "Back", "Retour", "Zurück", "Volver", "Indietro", "返回", "Voltar", "Voltar", "Wstecz", "Назад",
+  "Terug")
+X(S_CANCEL, "Cancel", "Annuler", "Abbrechen", "Cancelar", "Annulla", "取消", "Cancelar", "Cancelar",
+  "Anuluj", "Отмена", "Annuleren")
+X(S_CONFIRM, "Confirm", "Valider", "Bestätigen", "Confirmar", "Conferma", "确认", "Confirmar", "Confirmar",
+  "Potwierdź", "Подтвердить", "Bevestigen")
+X(S_ACCOUNT_LINKED, "Account linked", "Compte lié", "Konto verknüpft", "Cuenta vinculada",
+  "Account collegato", "账号已关联", "Conta vinculada", "Conta associada", "Konto połączone",
+  "Аккаунт привязан", "Account gekoppeld")
+X(S_NO_PRINTERS_ACCOUNT, "No printers in this account", "Aucune imprimante dans ce compte",
+  "Keine Drucker in diesem Konto", "No hay impresoras en esta cuenta",
+  "Nessuna stampante in questo account", "此账号中没有打印机", "Nenhuma impressora nesta conta",
+  "Nenhuma impressora nesta conta", "Brak drukarek na tym koncie", "В этом аккаунте нет принтеров",
+  "Geen printers in dit account")
+X(S_PRINTERS_FOUND, "Printers found: %d", "Imprimantes trouvées : %d", "Gefundene Drucker: %d",
+  "Impresoras encontradas: %d", "Stampanti trovate: %d", "找到的打印机：%d", "Impressoras encontradas: %d",
+  "Impressoras encontradas: %d", "Znalezione drukarki: %d", "Найдено принтеров: %d", "Gevonden printers: %d")
+X(S_BRANDS_SILENT, "Brands that didn't answer: %d", "Marques sans réponse : %d", "Marken ohne Antwort: %d",
+  "Marcas sin respuesta: %d", "Marchi senza risposta: %d", "无响应的品牌：%d", "Marcas sem resposta: %d",
+  "Marcas sem resposta: %d", "Marki bez odpowiedzi: %d", "Бренды без ответа: %d",
+  "Merken zonder antwoord: %d")
+X(S_OPEN_MONITOR, "Open the monitor", "Ouvrir le moniteur", "Monitor öffnen", "Abrir el monitor",
+  "Apri il monitor", "打开监控", "Abrir o monitor", "Abrir o monitor", "Otwórz monitor",
+  "Открыть монитор", "Monitor openen")
+X(S_NO_IP, "no IP", "sans IP", "keine IP", "sin IP", "senza IP", "无 IP", "sem IP", "sem IP", "brak IP",
+  "нет IP", "geen IP")
+
+/* ---- Settings --------------------------------------------------------- */
+X(S_SETTINGS, "Settings", "Paramètres", "Einstellungen", "Ajustes", "Impostazioni", "设置",
+  "Configurações", "Definições", "Ustawienia", "Настройки", "Instellingen")
+X(S_PRINTERS, "Printers", "Imprimantes", "Drucker", "Impresoras", "Stampanti", "打印机", "Impressoras",
+  "Impressoras", "Drukarki", "Принтеры", "Printers")
+X(S_WIFI, "Wi-Fi", "Wi-Fi", "WLAN", "Wi-Fi", "Wi-Fi", "Wi-Fi", "Wi-Fi", "Wi-Fi", "Wi-Fi", "Wi-Fi", "Wifi")
+X(S_SCREEN, "Screen", "Écran", "Bildschirm", "Pantalla", "Schermo", "屏幕", "Tela", "Ecrã", "Ekran",
+  "Экран", "Scherm")
+X(S_LANGUAGE, "Language", "Langue", "Sprache", "Idioma", "Lingua", "语言", "Idioma", "Idioma", "Język",
+  "Язык", "Taal")
+X(S_CHANGE_ACCOUNT, "Change account", "Changer de compte", "Konto wechseln", "Cambiar de cuenta",
+  "Cambia account", "切换账号", "Trocar de conta", "Mudar de conta", "Zmień konto", "Сменить аккаунт",
+  "Van account wisselen")
+X(S_RESTART, "Restart", "Redémarrer", "Neu starten", "Reiniciar", "Riavvia", "重启", "Reiniciar",
+  "Reiniciar", "Uruchom ponownie", "Перезапустить", "Herstarten")
+X(S_RESTART_ASK, "Restart the Tiger Touch?", "Redémarrer le Tiger Touch ?", "Tiger Touch neu starten?",
+  "¿Reiniciar el Tiger Touch?", "Riavviare il Tiger Touch?", "要重启 Tiger Touch 吗？",
+  "Reiniciar o Tiger Touch?", "Reiniciar o Tiger Touch?", "Uruchomić ponownie Tiger Touch?",
+  "Перезапустить Tiger Touch?", "Tiger Touch herstarten?")
+X(S_RESTART_WHY, "Printers will reconnect on their own.", "Les imprimantes se reconnecteront d'elles-mêmes.",
+  "Die Drucker verbinden sich von selbst wieder.", "Las impresoras se reconectarán solas.",
+  "Le stampanti si ricollegheranno da sole.", "打印机会自动重新连接。",
+  "As impressoras vão se reconectar sozinhas.", "As impressoras voltam a ligar-se sozinhas.",
+  "Drukarki połączą się ponownie same.", "Принтеры подключатся снова сами.",
+  "De printers verbinden zich vanzelf opnieuw.")
+X(S_FACTORY, "Factory reset", "Réinitialisation usine", "Werksreset", "Restablecer de fábrica",
+  "Ripristino di fabbrica", "恢复出厂设置", "Restaurar de fábrica", "Repor de fábrica", "Reset fabryczny",
+  "Сброс к заводским настройкам", "Fabrieksreset")
+X(S_FACTORY_ASK, "Erase everything?", "Tout effacer ?", "Alles löschen?", "¿Borrar todo?",
+  "Cancellare tutto?", "要清除所有数据吗？", "Apagar tudo?", "Apagar tudo?", "Usunąć wszystko?",
+  "Стереть всё?", "Alles wissen?")
+X(S_FACTORY_WHY, "Wi-Fi, account, language and settings will be lost. The Tiger Touch restarts as new.",
+  "Le Wi-Fi, le compte, la langue et les réglages seront perdus. Le Tiger Touch redémarre comme neuf.",
+  "WLAN, Konto, Sprache und Einstellungen gehen verloren. Tiger Touch startet wie neu.",
+  "Se perderán el Wi-Fi, la cuenta, el idioma y los ajustes. El Tiger Touch se reinicia como nuevo.",
+  "Wi-Fi, account, lingua e impostazioni andranno persi. Il Tiger Touch si riavvia come nuovo.",
+  "Wi-Fi、账号、语言和设置将丢失。Tiger Touch 将重启并恢复为全新状态。",
+  "Wi-Fi, conta, idioma e configurações serão perdidos. O Tiger Touch reinicia como novo.",
+  "Wi-Fi, conta, idioma e definições serão perdidos. O Tiger Touch reinicia como novo.",
+  "Wi-Fi, konto, język i ustawienia zostaną utracone. Tiger Touch uruchomi się jak nowy.",
+  "Wi-Fi, аккаунт, язык и настройки будут удалены. Tiger Touch перезапустится как новый.",
+  "Wifi, account, taal en instellingen gaan verloren. Tiger Touch start opnieuw op als nieuw.")
+X(S_FACTORY_DO, "Erase", "Effacer", "Löschen", "Borrar", "Cancella", "清除", "Apagar", "Apagar", "Usuń",
+  "Стереть", "Wissen")
+
+/* ---- First-boot setup (as on TigerScale V3) --------------------------- */
+X(S_OB_WIFI_Q, "Connect to Wi-Fi?", "Connecter au Wi-Fi ?", "Mit WLAN verbinden?", "¿Conectar al Wi-Fi?",
+  "Connettere al Wi-Fi?", "连接 Wi-Fi？", "Conectar ao Wi-Fi?", "Ligar ao Wi-Fi?", "Połączyć z Wi-Fi?",
+  "Подключиться к Wi-Fi?", "Verbinden met wifi?")
+X(S_OB_WIFI_SUB, "Needed to link an account and see your printers",
+  "Nécessaire pour lier un compte et voir vos imprimantes", "Nötig für das Konto und Ihre Drucker",
+  "Necesario para vincular una cuenta y ver sus impresoras",
+  "Necessario per collegare un account e vedere le stampanti", "绑定账户和查看打印机需要网络",
+  "Necessário para vincular uma conta e ver suas impressoras",
+  "Necessário para ligar uma conta e ver as suas impressoras",
+  "Wymagane do połączenia konta i podglądu drukarek", "Нужно для привязки аккаунта и просмотра принтеров",
+  "Nodig om een account te koppelen en je printers te zien")
+X(S_OB_ACCOUNT_Q, "Link a TigerTag account?", "Lier un compte TigerTag ?", "TigerTag-Konto verknüpfen?",
+  "¿Vincular una cuenta TigerTag?", "Collegare un account TigerTag?", "绑定 TigerTag 账户？",
+  "Vincular uma conta TigerTag?", "Ligar uma conta TigerTag?", "Połączyć konto TigerTag?",
+  "Привязать аккаунт TigerTag?", "Een TigerTag-account koppelen?")
+X(S_OB_ACCOUNT_SUB, "Your printers come from your account", "Vos imprimantes viennent de votre compte",
+  "Ihre Drucker kommen aus Ihrem Konto", "Sus impresoras vienen de su cuenta",
+  "Le stampanti arrivano dal tuo account", "打印机来自您的账户", "Suas impressoras vêm da sua conta",
+  "As suas impressoras vêm da sua conta", "Drukarki pochodzą z Twojego konta",
+  "Принтеры берутся из вашего аккаунта", "Je printers komen uit je account")
+X(S_SETUP, "Set up", "Configurer", "Einrichten", "Configurar", "Configura", "设置", "Configurar", "Configurar",
+  "Skonfiguruj", "Настроить", "Instellen")
+X(S_LATER, "Later", "Plus tard", "Später", "Más tarde", "Più tardi", "稍后", "Mais tarde", "Mais tarde",
+  "Później", "Позже", "Later")
+X(S_LINK_NOW, "Link now", "Lier maintenant", "Jetzt verknüpfen", "Vincular ahora", "Collega ora", "立即绑定",
+  "Vincular agora", "Ligar agora", "Połącz teraz", "Привязать сейчас", "Nu koppelen")
+X(S_LINK_ACCOUNT, "Link an account", "Lier un compte", "Konto verbinden", "Vincular cuenta", "Collega account",
+  "绑定账户", "Vincular conta", "Ligar conta", "Połącz konto", "Привязка аккаунта", "Account koppelen")
+X(S_SIGN_IN, "Sign in", "Se connecter", "Anmelden", "Entrar", "Accedi", "登录", "Entrar", "Entrar", "Zaloguj",
+  "Войти", "Inloggen")
+X(S_CONTINUE_GOOGLE, "Continue with Google", "Continuer avec Google", "Weiter mit Google",
+  "Continuar con Google", "Continua con Google", "使用 Google 继续", "Continuar com o Google",
+  "Continuar com o Google", "Kontynuuj z Google", "Продолжить с Google", "Doorgaan met Google")
+X(S_PAIR_SCAN, "Scan with your phone", "Scannez avec le téléphone", "Mit dem Handy scannen",
+  "Escanee con el teléfono", "Scansiona col telefono", "用手机扫码", "Escaneie com o telefone",
+  "Digitalize com o telemóvel", "Zeskanuj telefonem", "Сканируйте телефоном", "Scan met je telefoon")
+X(S_PAIR_WAITING, "Waiting", "En attente", "Wartet", "Esperando", "In attesa", "等待中", "Aguardando",
+  "A aguardar", "Oczekiwanie", "Ожидание", "Wachten")
+X(S_PAIR_DONE, "Account linked", "Compte lié", "Konto verbunden", "Cuenta vinculada", "Account collegato",
+  "账户已绑定", "Conta vinculada", "Conta ligada", "Konto połączone", "Аккаунт привязан", "Account gekoppeld")
+X(S_PAIR_EXPIRED, "Code expired", "Code expiré", "Code abgelaufen", "Código expirado", "Codice scaduto",
+  "二维码已过期", "Código expirado", "Código expirado", "Kod wygasł", "Код истёк", "Code verlopen")
+X(S_PAIR_DENIED, "Refused", "Refusé", "Abgelehnt", "Rechazado", "Rifiutato", "已拒绝", "Recusado", "Recusado",
+  "Odrzucono", "Отклонено", "Geweigerd")
+X(S_PAIR_FAILED, "Failed", "Échec", "Fehlgeschlagen", "Fallo", "Fallito", "绑定失败", "Falhou", "Falhou",
+  "Niepowodzenie", "Сбой", "Mislukt")
+X(S_ACC_PROMPT_Q, "Connect your account", "Connectez votre compte", "Konto verbinden", "Conecte su cuenta",
+  "Collega il tuo account", "连接您的账户", "Conecte sua conta", "Ligue a sua conta", "Połącz swoje konto",
+  "Подключите аккаунт", "Verbind je account")
+
+/* ---- Firmware update (net/ota.c), worded as on TigerScale V3 ---------- */
+X(S_UPDATE, "Update", "Mise à jour", "Aktualisierung", "Actualización", "Aggiornamento", "更新", "Atualização",
+  "Atualização", "Aktualizacja", "Обновление", "Update")
+X(S_UPD_CURRENT, "Installed version", "Version installée", "Installierte Version", "Versión instalada",
+  "Versione installata", "已安装版本", "Versão instalada", "Versão instalada", "Zainstalowana wersja",
+  "Установленная версия", "Geïnstalleerde versie")
+X(S_UPD_NEW, "New version", "Nouvelle version", "Neue Version", "Nueva versión", "Nuova versione", "新版本",
+  "Nova versão", "Nova versão", "Nowa wersja", "Новая версия", "Nieuwe versie")
+X(S_UPD_INSTALL, "Install", "Installer", "Installieren", "Instalar", "Installa", "安装", "Instalar", "Instalar",
+  "Zainstaluj", "Установить", "Installeren")
+X(S_UPD_KEEPS, "Wi-Fi, account and settings are kept", "Wi-Fi, compte et réglages sont conservés",
+  "WLAN, Konto und Einstellungen bleiben erhalten", "Wi-Fi, cuenta y ajustes se conservan",
+  "Wi-Fi, account e impostazioni sono conservati", "Wi-Fi、账户和设置将保留",
+  "Wi-Fi, conta e configurações são mantidos", "Wi-Fi, conta e definições são mantidos",
+  "Wi-Fi, konto i ustawienia zostaną zachowane", "Wi-Fi, аккаунт и настройки сохраняются",
+  "Wifi, account en instellingen blijven behouden")
+X(S_UPD_LATEST, "Your Tiger Touch is up to date", "Votre Tiger Touch est à jour", "Ihr Tiger Touch ist aktuell",
+  "Su Tiger Touch está actualizado", "Il tuo Tiger Touch è aggiornato", "您的 Tiger Touch 已是最新",
+  "Seu Tiger Touch está atualizado", "O seu Tiger Touch está atualizado", "Twój Tiger Touch jest aktualny",
+  "Ваш Tiger Touch обновлён", "Je Tiger Touch is up-to-date")
+X(S_UPD_CHECK_FAILED, "Could not check for updates", "Vérification impossible", "Prüfung nicht möglich",
+  "No se pudo comprobar", "Verifica non riuscita", "无法检查更新", "Não foi possível verificar",
+  "Não foi possível verificar", "Nie można sprawdzić", "Не удалось проверить обновления",
+  "Kon niet op updates controleren")
+X(S_UPD_NO_WIFI, "Wi-Fi required", "Wi-Fi requis", "WLAN erforderlich", "Wi-Fi requerido", "Wi-Fi richiesto",
+  "需要 Wi-Fi", "Wi-Fi necessário", "Wi-Fi necessário", "Wymagane Wi-Fi", "Нужен Wi-Fi", "Wifi vereist")
+X(S_UPD_CONFIRM, "Confirm update?", "Confirmer la mise à jour ?", "Update bestätigen?", "¿Confirmar actualización?",
+  "Confermare aggiornamento?", "确认更新？", "Confirmar atualização?", "Confirmar atualização?",
+  "Potwierdzić aktualizację?", "Подтвердить обновление?", "Update bevestigen?")
+X(S_UPD_CONFIRM_WARN, "About 2 minutes. Do not power off the Tiger Touch.",
+  "Environ 2 minutes. Ne pas éteindre le Tiger Touch.", "Etwa 2 Minuten. Tiger Touch nicht ausschalten.",
+  "Unos 2 minutos. No apague el Tiger Touch.", "Circa 2 minuti. Non spegnere il Tiger Touch.",
+  "约需 2 分钟，请勿断电。", "Cerca de 2 minutos. Não desligue o Tiger Touch.",
+  "Cerca de 2 minutos. Não desligue o Tiger Touch.", "Około 2 minut. Nie wyłączaj Tiger Touch.",
+  "Около 2 минут. Не выключайте Tiger Touch.", "Ongeveer 2 minuten. Zet de Tiger Touch niet uit.")
+X(S_UPD_INSTALLING, "Installing", "Installation", "Installation", "Instalando", "Installazione", "安装中",
+  "Instalando", "A instalar", "Instalowanie", "Установка", "Installeren")
+X(S_UPD_DO_NOT_POWER_OFF, "Do not power off", "Ne pas éteindre", "Nicht ausschalten", "No apagar", "Non spegnere",
+  "请勿断电", "Não desligar", "Não desligar", "Nie wyłączaj", "Не выключайте", "Niet uitschakelen")
+X(S_UPD_REBOOTING, "Rebooting", "Redémarrage", "Neustart", "Reiniciando", "Riavvio", "重启中", "Reiniciando",
+  "A reiniciar", "Ponowne uruchamianie", "Перезапуск", "Opnieuw opstarten")
+X(S_UPD_FAILED, "Update failed", "Mise à jour échouée", "Update fehlgeschlagen", "Error en la actualización",
+  "Aggiornamento fallito", "更新失败", "Falha na atualização", "Falha na atualização", "Aktualizacja nieudana",
+  "Сбой обновления", "Update mislukt")
+X(S_RETRY, "Try again", "Réessayer", "Erneut versuchen", "Intentar de nuevo", "Riprova", "重试",
+  "Tentar novamente", "Tentar novamente", "Spróbuj ponownie", "Повторить", "Opnieuw proberen")
+X(S_YES, "Yes", "Oui", "Ja", "Sí", "Sì", "是", "Sim", "Sim", "Tak", "Да", "Ja")
+X(S_NO, "No", "Non", "Nein", "No", "No", "否", "Não", "Não", "Nie", "Нет", "Nee")
+
+/* ---- Printers page ---------------------------------------------------- */
+X(S_LOAD, "Load", "Charge", "Auslastung", "Carga", "Carico", "负载", "Carga", "Carga", "Obciążenie",
+  "Нагрузка", "Belasting")
+X(S_NOT_ENOUGH_ROOM, "Not enough room", "Pas assez de place", "Nicht genug Platz",
+  "No hay espacio suficiente", "Spazio insufficiente", "空间不足", "Espaço insuficiente",
+  "Espaço insuficiente", "Za mało miejsca", "Недостаточно места", "Niet genoeg ruimte")
+X(S_LOAD_HINT, "Switched-on printers stay connected and show up instantly.",
+  "Les imprimantes activées restent connectées : leurs données s'affichent aussitôt.",
+  "Aktivierte Drucker bleiben verbunden und erscheinen sofort.",
+  "Las impresoras activadas siguen conectadas y aparecen al instante.",
+  "Le stampanti attivate restano connesse e compaiono subito.", "已开启的打印机保持连接，可即时显示。",
+  "As impressoras ativadas continuam conectadas e aparecem na hora.",
+  "As impressoras ativadas continuam ligadas e aparecem logo.",
+  "Włączone drukarki pozostają połączone, więc pojawiają się od razu.",
+  "Включённые принтеры остаются на связи и отображаются мгновенно.",
+  "Ingeschakelde printers blijven verbonden en verschijnen meteen.")
+X(S_SOON, "Soon", "Bientôt", "Bald", "Pronto", "Presto", "即将支持", "Em breve", "Em breve", "Wkrótce",
+  "Скоро", "Binnenkort")
+X(S_ONLINE, "Online", "En ligne", "Online", "En línea", "Online", "在线", "Online", "Online", "Online",
+  "Онлайн", "Online")
+X(S_OFFLINE, "Offline", "Hors ligne", "Offline", "Desconectado", "Offline", "离线", "Offline", "Offline",
+  "Offline", "Офлайн", "Offline")
+X(S_CLOUD, "Cloud", "Cloud", "Cloud", "Cloud", "Cloud", "云", "Cloud", "Cloud", "Cloud", "Облако", "Cloud")
+X(S_LOCAL_NETWORK, "Local network", "Réseau local", "Lokales Netzwerk", "Red local", "Rete locale",
+  "本地网络", "Rede local", "Rede local", "Sieć lokalna", "Локальная сеть", "Lokaal netwerk")
+X(S_VIA_CLOUD, "via the cloud", "via le cloud", "über die Cloud", "a través de la nube", "tramite cloud",
+  "通过云端", "pela nuvem", "através da cloud", "przez chmurę", "через облако", "via de cloud")
+X(S_ADDRESS_UNKNOWN, "unknown address", "adresse inconnue", "Adresse unbekannt", "dirección desconocida",
+  "indirizzo sconosciuto", "地址未知", "endereço desconhecido", "endereço desconhecido", "nieznany adres",
+  "адрес неизвестен", "adres onbekend")
+X(S_NO_PRINTER_ON, "No printer switched on", "Aucune imprimante activée", "Kein Drucker aktiviert",
+  "Ninguna impresora activada", "Nessuna stampante attivata", "没有已开启的打印机",
+  "Nenhuma impressora ativada", "Nenhuma impressora ativada", "Brak włączonych drukarek",
+  "Нет включённых принтеров", "Geen printer ingeschakeld")
+X(S_NO_PRINTER_ON_HINT, "Switch one on in Settings > Printers.", "Active-en une dans Paramètres > Imprimantes.",
+  "Aktiviere einen unter Einstellungen > Drucker.", "Activa una en Ajustes > Impresoras.",
+  "Attivane una in Impostazioni > Stampanti.", "请在 设置 > 打印机 中开启。",
+  "Ative uma em Configurações > Impressoras.", "Ative uma em Definições > Impressoras.",
+  "Włącz drukarkę w Ustawienia > Drukarki.", "Включите принтер в Настройки > Принтеры.",
+  "Schakel er een in via Instellingen > Printers.")
+X(S_PRINTERS_UNREAD_HINT, "Printers not read yet. Retrying.", "Imprimantes non lues. Nouvel essai.",
+  "Drucker nicht gelesen. Neuer Versuch.", "Impresoras no leídas. Reintentando.",
+  "Stampanti non lette. Nuovo tentativo.", "尚未读取打印机，正在重试。", "Impressoras não lidas. Tentando de novo.",
+  "Impressoras não lidas. A tentar de novo.", "Drukarki nieodczytane. Ponawianie.",
+  "Принтеры не прочитаны. Повтор.", "Printers niet gelezen. Opnieuw.")
+X(S_ADD_PRINTER_HINT, "Add a printer in Tiger Studio.", "Ajoute une imprimante dans Tiger Studio.",
+  "Füge in Tiger Studio einen Drucker hinzu.", "Añade una impresora en Tiger Studio.",
+  "Aggiungi una stampante in Tiger Studio.", "请在 Tiger Studio 中添加打印机。",
+  "Adicione uma impressora no Tiger Studio.", "Adicione uma impressora no Tiger Studio.",
+  "Dodaj drukarkę w Tiger Studio.", "Добавьте принтер в Tiger Studio.",
+  "Voeg een printer toe in Tiger Studio.")
+X(S_NO_PRINTER, "No printer", "Aucune imprimante", "Kein Drucker", "Ninguna impresora",
+  "Nessuna stampante", "无打印机", "Nenhuma impressora", "Nenhuma impressora", "Brak drukarki",
+  "Нет принтера", "Geen printer")
+X(S_BRAND_SOON, "This brand isn't supported yet.", "Cette marque n'est pas encore prise en charge.",
+  "Diese Marke wird noch nicht unterstützt.", "Esta marca aún no es compatible.",
+  "Questo marchio non è ancora supportato.", "暂不支持该品牌。", "Esta marca ainda não é compatível.",
+  "Esta marca ainda não é suportada.", "Ta marka nie jest jeszcze obsługiwana.",
+  "Этот бренд пока не поддерживается.", "Dit merk wordt nog niet ondersteund.")
+X(S_CONNECTING, "Connecting…", "Connexion…", "Verbinden…", "Conectando…",
+  "Connessione…", "正在连接…", "Conectando…", "A ligar…", "Łączenie…", "Подключение…",
+  "Verbinden…")
+X(S_EXT, "Ext.", "Ext.", "Ext.", "Ext.", "Est.", "外置", "Ext.", "Ext.", "Zewn.", "Внеш.", "Ext.")
+X(S_BAMBU_REFUSED, "Bambu session refused: renew it in Tiger Studio.",
+  "Session Bambu refusée : renouvelle-la dans Tiger Studio.",
+  "Bambu-Sitzung abgelehnt: Erneuere sie in Tiger Studio.",
+  "Sesión de Bambu rechazada: renuévala en Tiger Studio.",
+  "Sessione Bambu rifiutata: rinnovala in Tiger Studio.", "Bambu 会话被拒绝：请在 Tiger Studio 中重新登录。",
+  "Sessão da Bambu recusada: renove-a no Tiger Studio.", "Sessão da Bambu recusada: renove-a no Tiger Studio.",
+  "Sesja Bambu odrzucona: odnów ją w Tiger Studio.", "Сессия Bambu отклонена: обновите её в Tiger Studio.",
+  "Bambu-sessie geweigerd: vernieuw die in Tiger Studio.")
+X(S_BAMBU_MISSING, "No Bambu session: sign in to Bambu in Tiger Studio.",
+  "Session Bambu absente : connecte-toi à Bambu dans Tiger Studio.",
+  "Keine Bambu-Sitzung: Melde dich in Tiger Studio bei Bambu an.",
+  "Sin sesión de Bambu: inicia sesión en Bambu desde Tiger Studio.",
+  "Nessuna sessione Bambu: accedi a Bambu da Tiger Studio.", "没有 Bambu 会话：请在 Tiger Studio 中登录 Bambu。",
+  "Sem sessão da Bambu: entre na Bambu pelo Tiger Studio.",
+  "Sem sessão da Bambu: inicie sessão na Bambu no Tiger Studio.",
+  "Brak sesji Bambu: zaloguj się do Bambu w Tiger Studio.",
+  "Нет сессии Bambu: войдите в Bambu через Tiger Studio.",
+  "Geen Bambu-sessie: log in bij Bambu via Tiger Studio.")
+X(S_CLOUD_FAIL, "Can't reach the cloud.", "Connexion cloud impossible.", "Cloud nicht erreichbar.",
+  "No se puede conectar a la nube.", "Impossibile raggiungere il cloud.", "无法连接云端。",
+  "Não foi possível acessar a nuvem.", "Não foi possível aceder à cloud.", "Brak połączenia z chmurą.",
+  "Нет связи с облаком.", "Cloud niet bereikbaar.")
+
+X(S_ACU_NOT_PAIRED, "Pair it once in AnycubicSlicerNext, then sync in Tiger Studio.",
+  "Appaire-la une fois dans AnycubicSlicerNext, puis synchronise dans Tiger Studio.",
+  "Einmal in AnycubicSlicerNext koppeln, dann in Tiger Studio synchronisieren.",
+  "Víncula la una vez en AnycubicSlicerNext y sincroniza en Tiger Studio.",
+  "Associala una volta in AnycubicSlicerNext, poi sincronizza in Tiger Studio.",
+  "请先在 AnycubicSlicerNext 中配对，再在 Tiger Studio 中同步。",
+  "Pareie uma vez no AnycubicSlicerNext e sincronize no Tiger Studio.",
+  "Emparelhe uma vez no AnycubicSlicerNext e sincronize no Tiger Studio.",
+  "Sparuj ją raz w AnycubicSlicerNext i zsynchronizuj w Tiger Studio.",
+  "Подключите её в AnycubicSlicerNext и синхронизируйте в Tiger Studio.",
+  "Koppel hem één keer in AnycubicSlicerNext en synchroniseer in Tiger Studio.")
+X(S_ERR_API_KEY, "The printer refused its API key: check it in Tiger Studio.",
+  "L'imprimante refuse sa clé API : vérifie-la dans Tiger Studio.",
+  "Der Drucker lehnt seinen API-Schlüssel ab: in Tiger Studio prüfen.",
+  "La impresora rechaza su clave API: revísala en Tiger Studio.",
+  "La stampante rifiuta la sua chiave API: controllala in Tiger Studio.",
+  "打印机拒绝了其 API 密钥：请在 Tiger Studio 中检查。",
+  "A impressora recusou a chave de API: verifique-a no Tiger Studio.",
+  "A impressora recusou a chave de API: verifique-a no Tiger Studio.",
+  "Drukarka odrzuca swój klucz API: sprawdź go w Tiger Studio.",
+  "Принтер отклонил ключ API: проверьте его в Tiger Studio.",
+  "De printer weigert zijn API-sleutel: controleer hem in Tiger Studio.")
+X(S_KLIPPY_NOT_READY, "Klipper is not ready:", "Klipper n'est pas prêt :", "Klipper ist nicht bereit:",
+  "Klipper no está listo:", "Klipper non è pronto:", "Klipper 未就绪：", "O Klipper não está pronto:",
+  "O Klipper não está pronto:", "Klipper nie jest gotowy:", "Klipper не готов:", "Klipper is niet klaar:")
+X(S_OCTO_NO_PRINTER, "OctoPrint answers, but no printer is connected to it.",
+  "OctoPrint répond, mais aucune imprimante n'y est connectée.",
+  "OctoPrint antwortet, aber kein Drucker ist verbunden.",
+  "OctoPrint responde, pero no hay ninguna impresora conectada.",
+  "OctoPrint risponde, ma nessuna stampante è collegata.",
+  "OctoPrint 有响应，但没有连接打印机。",
+  "O OctoPrint responde, mas nenhuma impressora está conectada.",
+  "O OctoPrint responde, mas nenhuma impressora está ligada.",
+  "OctoPrint odpowiada, ale nie ma podłączonej drukarki.",
+  "OctoPrint отвечает, но принтер к нему не подключён.",
+  "OctoPrint antwoordt, maar er is geen printer verbonden.")
+X(S_ACU_CLOUD_NO_ID, "Its cloud sign-in is missing: refresh this printer in Tiger Studio.",
+  "Ses identifiants cloud manquent : actualise cette imprimante dans Tiger Studio.",
+  "Die Cloud-Anmeldung fehlt: Drucker in Tiger Studio aktualisieren.",
+  "Falta su inicio de sesión en la nube: actualiza esta impresora en Tiger Studio.",
+  "Manca l'accesso cloud: aggiorna questa stampante in Tiger Studio.",
+  "缺少云端登录信息：请在 Tiger Studio 中刷新此打印机。",
+  "Falta o login na nuvem: atualize esta impressora no Tiger Studio.",
+  "Falta o início de sessão na cloud: atualize esta impressora no Tiger Studio.",
+  "Brak logowania do chmury: odśwież tę drukarkę w Tiger Studio.",
+  "Нет данных входа в облако: обновите этот принтер в Tiger Studio.",
+  "Cloudaanmelding ontbreekt: vernieuw deze printer in Tiger Studio.")
+X(S_ACU_CLOUD_REFUSED, "Anycubic refused the sign-in: refresh this printer in Tiger Studio.",
+  "Anycubic a refusé la connexion : actualise cette imprimante dans Tiger Studio.",
+  "Anycubic hat die Anmeldung abgelehnt: Drucker in Tiger Studio aktualisieren.",
+  "Anycubic rechazó el inicio de sesión: actualiza esta impresora en Tiger Studio.",
+  "Anycubic ha rifiutato l'accesso: aggiorna questa stampante in Tiger Studio.",
+  "Anycubic 拒绝了登录：请在 Tiger Studio 中刷新此打印机。",
+  "A Anycubic recusou o login: atualize esta impressora no Tiger Studio.",
+  "A Anycubic recusou o início de sessão: atualize esta impressora no Tiger Studio.",
+  "Anycubic odrzucił logowanie: odśwież tę drukarkę w Tiger Studio.",
+  "Anycubic отклонил вход: обновите этот принтер в Tiger Studio.",
+  "Anycubic weigerde de aanmelding: vernieuw deze printer in Tiger Studio.")
+
+/* ---- Wi-Fi page ------------------------------------------------------- */
+X(S_IP, "IP", "IP", "IP", "IP", "IP", "IP", "IP", "IP", "IP", "IP", "IP")
+X(S_MAC, "MAC", "MAC", "MAC", "MAC", "MAC", "MAC", "MAC", "MAC", "MAC", "MAC", "MAC")
+X(S_CHANNEL, "Channel", "Canal", "Kanal", "Canal", "Canale", "信道", "Canal", "Canal", "Kanał", "Канал",
+  "Kanaal")
+X(S_CHANGE_NETWORK, "Change network", "Changer de réseau", "Netzwerk wechseln", "Cambiar de red",
+  "Cambia rete", "切换网络", "Trocar de rede", "Mudar de rede", "Zmień sieć", "Сменить сеть",
+  "Ander netwerk kiezen")
+X(S_Q_EXCELLENT, "Excellent", "Excellent", "Ausgezeichnet", "Excelente", "Eccellente", "极佳", "Excelente",
+  "Excelente", "Doskonały", "Отличный", "Uitstekend")
+X(S_Q_GOOD, "Good", "Bon", "Gut", "Bueno", "Buono", "良好", "Bom", "Bom", "Dobry", "Хороший", "Goed")
+X(S_Q_FAIR, "Fair", "Correct", "Mittel", "Aceptable", "Discreto", "一般", "Razoável", "Razoável", "Średni",
+  "Средний", "Redelijk")
+X(S_Q_WEAK, "Weak", "Faible", "Schwach", "Débil", "Debole", "弱", "Fraco", "Fraco", "Słaby", "Слабый",
+  "Zwak")
+X(S_NO_ACCOUNT, "No account", "Aucun compte", "Kein Konto", "Sin cuenta", "Nessun account", "无账户", "Sem conta",
+  "Sem conta", "Brak konta", "Нет аккаунта", "Geen account")
+X(S_NOT_CONNECTED, "Not connected", "Non connecté", "Nicht verbunden", "Sin conexión", "Non connesso",
+  "未连接", "Sem conexão", "Sem ligação", "Brak połączenia", "Нет подключения", "Niet verbonden")
+
+/* ---- Screen page ------------------------------------------------------ */
+X(S_BRIGHTNESS, "Brightness", "Luminosité", "Helligkeit", "Brillo", "Luminosità", "亮度", "Brilho",
+  "Brilho", "Jasność", "Яркость", "Helderheid")
+X(S_SLEEP_AFTER, "Sleep after", "Veille après", "Ruhezustand nach", "Suspender tras", "Standby dopo",
+  "休眠时间", "Repouso após", "Suspensão após", "Uśpienie po", "Спящий режим через", "Slaapstand na")
+X(S_NEVER, "Never", "Jamais", "Nie", "Nunca", "Mai", "从不", "Nunca", "Nunca", "Nigdy", "Никогда", "Nooit")
+X(S_ORIENTATION, "Orientation", "Orientation", "Ausrichtung", "Orientación", "Orientamento", "方向",
+  "Orientação", "Orientação", "Orientacja", "Ориентация", "Oriëntatie")
+X(S_SLEEP_30S, "30 s", "30 s", "30 s", "30 s", "30 s", "30 秒", "30 s", "30 s", "30 s", "30 с", "30 s")
+X(S_SLEEP_1M, "1 min", "1 min", "1 Min.", "1 min", "1 min", "1 分钟", "1 min", "1 min", "1 min", "1 мин",
+  "1 min")
+X(S_SLEEP_5M, "5 min", "5 min", "5 Min.", "5 min", "5 min", "5 分钟", "5 min", "5 min", "5 min", "5 мин",
+  "5 min")
+
+/* ---- Dashboard -------------------------------------------------------- */
+X(S_LAYER, "Layer %d / %d", "Couche %d / %d", "Schicht %d / %d", "Capa %d / %d", "Strato %d / %d",
+  "层 %d / %d", "Camada %d / %d", "Camada %d / %d", "Warstwa %d / %d", "Слой %d / %d", "Laag %d / %d")
+X(S_FILE, "File", "Fichier", "Datei", "Archivo", "File", "文件", "Arquivo", "Ficheiro", "Plik", "Файл",
+  "Bestand")
+X(S_TIME_LEFT, "Time left", "Temps restant", "Restzeit", "Tiempo restante", "Tempo rimanente", "剩余时间",
+  "Tempo restante", "Tempo restante", "Pozostały czas", "Осталось", "Resterende tijd")
+X(S_END_ESTIMATED, "Estimated end", "Fin estimée", "Geschätztes Ende", "Fin estimado", "Fine stimata",
+  "预计完成", "Término estimado", "Fim estimado", "Szacowany koniec", "Окончание", "Verwacht einde")
+/* Agrees with the word for "nozzle" of each column: buse (f), ugello (m), bico (m), bocal (m), dysza (f), сопло (n). */
+X(S_NOZZLE_LEFT, "Left", "Gauche", "Links", "Izquierda", "Sinistro", "左", "Esquerdo", "Esquerdo", "Lewa", "Левое", "Links")
+X(S_NOZZLE_RIGHT, "Right", "Droite", "Rechts", "Derecha", "Destro", "右", "Direito", "Direito", "Prawa", "Правое", "Rechts")
+/* One format, %d: the nozzle's number, for a printer with several. */
+X(S_NOZZLE_N, "Nozzle %d", "Buse %d", "Düse %d", "Boquilla %d", "Ugello %d", "喷嘴 %d", "Bico %d", "Bocal %d", "Dysza %d", "Сопло %d", "Nozzle %d")
+X(S_ST_PRINTING, "Printing", "Impression", "Druckt", "Imprimiendo", "In stampa", "打印中", "Imprimindo",
+  "A imprimir", "Drukuje", "Печать", "Printen")
+X(S_ST_PAUSED, "Paused", "Pause", "Pausiert", "En pausa", "In pausa", "已暂停", "Pausado", "Em pausa",
+  "Wstrzymano", "На паузе", "Gepauzeerd")
+X(S_ST_DONE, "Done", "Terminé", "Fertig", "Hecho", "Fatto", "完成", "Concluído", "Concluído", "Gotowe",
+  "Готово", "Klaar")
+X(S_ST_ERROR, "Error", "Erreur", "Fehler", "Error", "Errore", "错误", "Erro", "Erro", "Błąd", "Ошибка",
+  "Fout")
+X(S_ST_IDLE, "Idle", "Repos", "Bereit", "En reposo", "A riposo", "空闲", "Em repouso", "Em repouso",
+  "Bezczynna", "Простой", "Inactief")

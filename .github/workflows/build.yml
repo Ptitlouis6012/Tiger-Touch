@@ -1,0 +1,85 @@
+name: build
+
+# Every push, every branch: the guards and the firmware build. There is no path
+# filtering on purpose - a list of paths that decides whether the build runs is a
+# second source of truth about what a change affects, and it fails quietly in the
+# direction of not building something that needed building.
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  guards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The whole history: the attribution check reads commit messages, and
+          # a shallow clone has none to read.
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # The commit-msg hook catches this when the message is written. This
+      # catches what reaches the remote from a clone that never installed the
+      # hooks, or from a tool told to override the rule.
+      - name: No AI attribution in the new commits
+        env:
+          BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: bash scripts/check-attribution.sh --commits "$BASE"
+
+      - name: No AI attribution in the pull request
+        if: github.event_name == 'pull_request'
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+          BODY: ${{ github.event.pull_request.body }}
+        run: |
+          printf '%s\n\n%s\n' "$TITLE" "$BODY" > "$RUNNER_TEMP/pr.txt"
+          bash scripts/check-attribution.sh --text "$RUNNER_TEMP/pr.txt"
+
+      # The same entry point the bench uses, so CI and a laptop cannot disagree
+      # about what "passing" means.
+      - name: Guards
+        run: bash scripts/verify.sh --quick
+
+  firmware:
+    runs-on: ubuntu-latest
+    container:
+      # ESP-IDF 5.5 line; the release branch image follows its point releases.
+      image: espressif/idf:release-v5.5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: |
+          . $IDF_PATH/export.sh
+          cd firmware
+          idf.py set-target esp32s3
+          idf.py build
+      - name: Size
+        # The application slot is 6 MB (partitions.csv). Printed on every build
+        # so a slow creep towards the ceiling is seen long before it bites.
+        run: |
+          . $IDF_PATH/export.sh
+          cd firmware
+          idf.py size | tail -n 20
+      - name: What the images say about the machine that built them
+        run: python3 scripts/check-build-privacy.py
+      - name: Keep the images
+        uses: actions/upload-artifact@v4
+        with:
+          name: tiger-touch-${{ github.sha }}
+          path: |
+            firmware/build/bootloader/bootloader.bin
+            firmware/build/partition_table/partition-table.bin
+            firmware/build/ota_data_initial.bin
+            firmware/build/tiger_touch.bin
+          if-no-files-found: error
+          retention-days: 30

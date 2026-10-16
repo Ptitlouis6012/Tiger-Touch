@@ -1,0 +1,12 @@
+# Text is LF in the repository, whatever the machine that committed it.
+* text=auto eol=lf
+
+# The vendored BigTreeTech board component keeps the line endings it was
+# received with: its files are CRLF and are patched in place.
+firmware/components/PandaTouch_IDF/** -text
+
+*.png binary
+*.jpg binary
+*.woff binary
+*.otf binary
+*.ttf binary

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Refuse a commit message that credits an AI tool, in any form.
+#
+# CLAUDE.md and AGENTS.md forbid it, and a sibling repository still ended up
+# with 43 commits carrying "Co-Authored-By: Claude": the rule lived in a
+# document a tool could be told to override mid-session, and nothing checked.
+# This runs on the message, at the moment it is written, which is the only
+# point where the fix is free.
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+bash scripts/check-attribution.sh --message "$1"

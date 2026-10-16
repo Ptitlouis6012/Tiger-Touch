@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Runs the guards before every commit (scripts/verify.sh --quick).
+#
+# It does not compile: a build on every commit is how people learn to reach for
+# --no-verify, and a hook that is routinely bypassed gates nothing. The full
+# build belongs in `verify.sh` before work is reported done, and in CI.
+cd "$(git rev-parse --show-toplevel)" || exit 1
+if ! bash scripts/verify.sh --quick; then
+  echo
+  echo "pre-commit: guards failed. Fix them; --no-verify is for a branch nobody pulls."
+  exit 1
+fi

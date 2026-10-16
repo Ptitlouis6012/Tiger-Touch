@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tiger Touch - install on a Panda Touch or K-Touch from your browser</title>
+<meta name="description" content="Flash Tiger Touch, the free open-source firmware that turns a BIGTREETECH Panda Touch or K-Touch into one touchscreen for Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, Klipper and OctoPrint printers. From Chrome or Edge, in two minutes, no soldering.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tiger Touch - every 3D printer on your Panda Touch">
+<meta property="og:description" content="Free firmware for the BIGTREETECH Panda Touch and K-Touch: Bambu Lab (cloud or LAN), Anycubic (cloud), Creality, Elegoo, Snapmaker, FlashForge, Prusa, Klipper and OctoPrint on one screen. Install it from your browser.">
+<meta property="og:image" content="https://tigertag-project.github.io/Tiger-Touch/device.png">
+<meta name="twitter:card" content="summary_large_image">
+<!-- ESP Web Tools writes the firmware over WebSerial. It is loaded from a CDN, as
+     the sibling installers do, at an exact version: a new release of the library
+     is read (its flashing speed above all, see README.md) before it is taken. -->
+<script type="module" src="https://unpkg.com/esp-web-tools@10.4.0/dist/web/install-button.js?module"></script>
+<script src="i18n.js"></script>
+<style>
+  :root {
+    --bg: #14161a; --card: #1e2128; --line: #2b2f38; --text: #f2f2f2;
+    --muted: #8b909a; --accent: #f58220; --danger: #f06a6a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center;
+    background: var(--bg); color: var(--text);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { width: min(560px, 92vw); padding: 24px 0; }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 16px; padding: 28px;
+  }
+  .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  h1 { margin: 0 0 4px; font-size: 1.6rem; }
+  h1 span { color: var(--accent); }
+  p { margin: 0 0 14px; color: var(--muted); }
+  ol { margin: 0 0 20px; padding-left: 20px; color: var(--muted); }
+  li { margin-bottom: 6px; }
+  b { color: var(--text); }
+  .go { text-align: center; margin: 22px 0 6px; }
+  .device { display: block; margin: 4px auto 16px; max-width: 45%; height: auto; }
+  esp-web-install-button button[slot="activate"] {
+    background: var(--accent); color: #14161a; border: 0; border-radius: 12px;
+    padding: 14px 28px; font: inherit; font-weight: 600; cursor: pointer;
+  }
+  esp-web-install-button button[slot="activate"]:hover { filter: brightness(1.08); }
+  .warn {
+    display: none; margin-top: 16px; padding: 12px 14px; border-radius: 10px;
+    background: #3a1f1f; color: var(--danger); border: 1px solid #5a2f2f;
+  }
+  .warn b { color: inherit; }
+  small { color: var(--muted); display: block; margin-top: 18px; }
+  small + small { margin-top: 8px; }
+  .ver { font-size: .9rem; color: var(--muted); margin: 0 0 18px; }
+  a { color: var(--accent); }
+
+  /* Language menu. A native <select> cannot be styled below its border. */
+  .langbox { position: relative; flex: 0 0 auto; }
+  .langbtn {
+    display: flex; align-items: center; gap: 8px; cursor: pointer;
+    background: var(--bg); color: var(--text); font: inherit; font-size: .9rem;
+    border: 1px solid var(--line); border-radius: 10px; padding: 7px 10px;
+  }
+  .langbtn:hover, .langbox[data-open="1"] .langbtn { border-color: var(--accent); }
+  .langbtn svg { width: 15px; height: 15px; color: var(--muted); flex: 0 0 auto; }
+  .langbox[data-open="1"] .caret { transform: rotate(180deg); }
+  .langmenu {
+    position: absolute; right: 0; top: calc(100% + 6px); z-index: 5; margin: 0; padding: 6px;
+    list-style: none; min-width: 190px; max-height: 60vh; overflow-y: auto;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .45);
+    opacity: 0; transform: translateY(-4px); pointer-events: none;
+    transition: opacity .12s, transform .12s;
+  }
+  .langbox[data-open="1"] .langmenu { opacity: 1; transform: none; pointer-events: auto; }
+  .langmenu li {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 0; padding: 8px 10px; border-radius: 8px; cursor: pointer; color: var(--text);
+  }
+  .langmenu li:hover, .langmenu li:focus-visible { background: var(--bg); outline: none; }
+  .langmenu li[aria-selected="true"] { color: var(--accent); font-weight: 600; }
+  .langmenu li svg { width: 14px; height: 14px; opacity: 0; color: var(--accent); }
+  .langmenu li[aria-selected="true"] svg { opacity: 1; }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <div class="top">
+      <h1>Tiger <span>Touch</span></h1>
+      <div class="langbox" id="langbox" data-open="0">
+        <button class="langbtn" id="langbtn" type="button" aria-haspopup="listbox"
+                aria-expanded="false" data-i18n-aria="lang_label" aria-label="Choose a language">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/>
+          </svg>
+          <span id="langnow">English</span>
+          <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <ul class="langmenu" id="langmenu" role="listbox"></ul>
+      </div>
+    </div>
+
+    <p data-i18n="tagline">Install Tiger Touch on a BIGTREETECH Panda Touch or K-Touch, from this page.</p>
+    <img class="device" src="device.png" alt="A Panda Touch running Tiger Touch" width="220">
+    <p class="ver" id="verline" hidden><span data-i18n="fw">Firmware</span> <b id="ver"></b></p>
+
+    <ol>
+      <li data-i18n="n1">Plug the screen into this computer with its USB-C cable.</li>
+      <li data-i18n-html="n2_html">Press <b>Install</b> and pick the serial port (a "USB-SERIAL CH340" entry).</li>
+      <li data-i18n-html="n3_html">In the window that opens, which is in English, choose <b>Install Tiger Touch</b>. Leave <b>Erase device</b> unticked, then press <b>Next</b>.</li>
+      <li data-i18n="n4">Wait for it to finish. The board restarts by itself.</li>
+    </ol>
+
+    <div class="go">
+      <esp-web-install-button manifest="manifest.json">
+        <button slot="activate" data-i18n="cta_btn">Install</button>
+        <span slot="unsupported"></span>
+        <span slot="not-allowed"></span>
+      </esp-web-install-button>
+    </div>
+
+    <div class="warn" id="unsupported" data-i18n-html="unsup_html">
+      This browser cannot talk to a serial port. Use <b>Chrome</b> or <b>Edge</b> on a
+      computer; Safari, Firefox and phones do not support WebSerial.
+    </div>
+
+    <small data-i18n-html="keep_html">
+      Your saved Wi-Fi and account are kept. Ticking <b>Erase device</b> wipes them and
+      gives a first start, in English.
+    </small>
+    <small data-i18n="driver">
+      No driver to hunt for on a recent Windows; on an older one or a Mac, install
+      the CH340 driver if no port appears.
+    </small>
+  </div>
+</main>
+<script>
+  /* ---------- language ----------------------------------------------------- */
+  const LANGS = Object.keys(window.I18N);
+
+  /* Map what the browser reports onto what is shipped. European and Brazilian
+     Portuguese are separate dictionaries, so `pt-PT` must not fall onto `pt`. */
+  function pickLang() {
+    try {
+      const saved = localStorage.getItem("tigertouch-lang");
+      if (saved && LANGS.includes(saved)) return saved;
+    } catch (e) {}
+    for (const raw of (navigator.languages || [navigator.language || "en"])) {
+      const tag = raw.toLowerCase();
+      if (LANGS.includes(tag)) return tag;
+      const base = tag.split("-")[0];
+      if (base === "pt") return tag.startsWith("pt-pt") ? "pt-pt" : "pt";
+      if (LANGS.includes(base)) return base;
+    }
+    return "en";
+  }
+
+  function applyLang(code) {
+    const t = window.I18N[code] || window.I18N.en;
+    document.documentElement.lang = code;
+    document.title = t.title;
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      if (t[el.dataset.i18n] != null) el.textContent = t[el.dataset.i18n];
+    });
+    /* Only keys the dictionary marks as markup are inserted as HTML. */
+    document.querySelectorAll("[data-i18n-html]").forEach(el => {
+      if (t[el.dataset.i18nHtml] != null) el.innerHTML = t[el.dataset.i18nHtml];
+    });
+    document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+      if (t[el.dataset.i18nAria] != null) el.setAttribute("aria-label", t[el.dataset.i18nAria]);
+    });
+  }
+
+  const box = document.getElementById("langbox");
+  const lbtn = document.getElementById("langbtn");
+  const menu = document.getElementById("langmenu");
+  const now = document.getElementById("langnow");
+  const TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" '
+             + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+             + '<path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>';
+  menu.innerHTML = LANGS.map(c =>
+    '<li role="option" tabindex="0" data-code="' + c + '" aria-selected="false">'
+    + "<span>" + window.I18N[c].lang_name + "</span>" + TICK + "</li>").join("");
+
+  function setOpen(open) {
+    box.dataset.open = open ? "1" : "0";
+    lbtn.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  function choose(code, remember) {
+    applyLang(code);
+    now.textContent = window.I18N[code].lang_name;
+    menu.querySelectorAll("li").forEach(li =>
+      li.setAttribute("aria-selected", li.dataset.code === code ? "true" : "false"));
+    if (remember) { try { localStorage.setItem("tigertouch-lang", code); } catch (e) {} }
+    setOpen(false);
+  }
+  lbtn.addEventListener("click", () => setOpen(box.dataset.open !== "1"));
+  menu.addEventListener("click", e => {
+    const li = e.target.closest("li");
+    if (li) choose(li.dataset.code, true);
+  });
+  menu.addEventListener("keydown", e => {
+    const li = e.target.closest("li");
+    if (li && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); choose(li.dataset.code, true); }
+  });
+  document.addEventListener("click", e => { if (!box.contains(e.target)) setOpen(false); });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") { setOpen(false); lbtn.focus(); }
+  });
+  /* A choice made on the page is remembered; the browser's own language is not
+     written down, so a later change of browser language is followed. */
+  choose(pickLang(), false);
+
+  /* ---------- WebSerial ---------------------------------------------------- */
+  if (!("serial" in navigator)) {
+    document.getElementById("unsupported").style.display = "block";
+  }
+
+  /* ---------- published version -------------------------------------------- */
+  /* Written by scripts/make-manifest.py in the same run as manifest.json, so the
+     number shown is the build that will be flashed. Absent when the page is
+     opened from the source tree: the line then stays hidden. */
+  fetch("version.json", { cache: "no-store" })
+    .then(r => r.json())
+    .then(v => {
+      document.getElementById("ver").textContent = v.version;
+      document.getElementById("verline").hidden = false;
+    })
+    .catch(() => {});
+</script>
+</body>
+</html>

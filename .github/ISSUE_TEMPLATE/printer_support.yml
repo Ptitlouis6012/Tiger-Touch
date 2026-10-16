@@ -1,0 +1,40 @@
+name: Printer support
+description: Report that a printer works, does not, or should be supported
+labels: [printer-support]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Most drivers are written from each maker's protocol and compiled, but
+        **have not run against the real machine yet**
+        ([docs/PRINTER-COMPATIBILITY.md](../blob/main/docs/PRINTER-COMPATIBILITY.md)).
+        "It works on my Elegoo Centauri Carbon 2, firmware X" is one of the most
+        useful reports you can send.
+
+  - type: input
+    id: brand
+    attributes:
+      label: Brand and model
+    validations: { required: true }
+
+  - type: input
+    id: fw
+    attributes:
+      label: Printer firmware version
+
+  - type: dropdown
+    id: result
+    attributes:
+      label: What you saw
+      options:
+        - It works (state, progress, temperatures, filament)
+        - It connects but some values are wrong or missing
+        - It never shows online
+        - It is not supported yet
+    validations: { required: true }
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Which values are wrong, which commands (pause, stop, light) work. Redact serials and access codes.

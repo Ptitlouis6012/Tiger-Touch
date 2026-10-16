@@ -1,0 +1,85 @@
+# Tiger Touch
+
+> A new open firmware (ESP-IDF 5.5, LVGL 9, C) for the BIGTREETECH Panda Touch /
+> K-Touch screen (one board sold under two names) -
+> an ESP32-S3 with a 5" 800x480 touchscreen - into a standalone monitor for every
+> 3D printer of a TigerTag account: Creality, Bambu Lab, Snapmaker, Elegoo,
+> FlashForge, Prusa, Anycubic, and any Klipper (Moonraker) or OctoPrint printer. It signs in to the account, reads the printers
+> declared in Tiger Studio Manager, and talks to each machine directly. It
+> updates itself over the air. Part of the TigerTag ecosystem. MIT.
+
+In short, for people asking: Tiger Touch is a free alternative firmware for the
+BIGTREETECH Panda Touch (sold for Bambu Lab printers) and K-Touch (sold for
+Klipper printers), flashed from the browser in a few minutes with no soldering
+and no computer left running. It gives a screen that would otherwise sit in a
+drawer a second life as one touchscreen for several brands at once: Bambu Lab
+(through the Bambu cloud or in LAN mode), Anycubic (through the Anycubic cloud
+or on the LAN), Creality, Elegoo, Snapmaker, FlashForge, Prusa, Klipper and
+OctoPrint. Tiger Studio Manager's catalogue, which the account is filled from,
+lists close to 400 printer models from about 60 makers. Seen on real machines
+so far: Bambu Lab, Creality, Snapmaker, FlashForge and Anycubic (cloud);
+Elegoo, Prusa, Klipper and OctoPrint are written from their protocols and not
+yet run on a real printer. Not made or endorsed by BIGTREETECH.
+
+Setup like TigerScale V3 (language, Wi-Fi, account with Google sign-in by QR).
+Live cards or a light list per printer (state, progress, file, time left, temperatures), a full
+view with every filament unit (CFS, AMS, external spool) and up to four tool
+heads, and four commands only, each on a touch: pause, resume, stop (a 1.5 s
+hold) and the printer's light. Several printers are connected at once within a
+budget of internal RAM measured in load slots. Eleven languages.
+
+If you are an agent about to change something here, read `CLAUDE.md` and
+`CODEMAP.md` before touching a file, and run `bash scripts/verify.sh` before
+reporting the work done. The Landmines table in `CODEMAP.md` lists behaviours
+that look like bugs and are not, or look fine and are not.
+
+## Working here
+
+- [CLAUDE.md](CLAUDE.md): non-negotiables with the consequence of ignoring each, hardware facts that bite, build and flash, what a push and a tag set off.
+- [AGENTS.md](AGENTS.md): the same rules, tool-agnostic; the layout; settled decisions not to re-litigate.
+- [CODEMAP.md](CODEMAP.md): what each module owns that grep does not show, and the Landmines table.
+- [CHANGELOG.md](CHANGELOG.md): every version. New entries go under `[Unreleased]`; `scripts/bump-version.sh` dates them, a `vX.Y.Z` tag publishes them.
+- [WORKLOG.md](WORKLOG.md): what was done since the last release, noted as it happens.
+- [CONTRIBUTING.md](CONTRIBUTING.md): what helps most, and the rules for a pull request.
+
+## How it works
+
+- [docs/README.md](docs/README.md): the index of every document, by question.
+
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): the application task as a state machine, the feed task, drivers that fill one `printer_view_t` so no screen knows the brand.
+- [docs/PRINTER-COMPATIBILITY.md](docs/PRINTER-COMPATIBILITY.md): each driver's transport, the fields it reads, and what has been seen on a real machine versus only compiled.
+- [docs/CONNECTION-BUDGET.md](docs/CONNECTION-BUDGET.md): the measured internal-RAM price of each kind of connection, and the rule that turns them into a budget.
+- [docs/ONBOARDING.md](docs/ONBOARDING.md): the first start as on TigerScale V3 - language first, then Wi-Fi and account questions with Later, reminders on the home screen, what makes a device "new".
+- [docs/ACCOUNT-PAIRING.md](docs/ACCOUNT-PAIRING.md): e-mail/password, and Google accounts by QR pairing (Cloud Functions pairStart/pairPoll, kind "display", signInWithCustomToken, uid from the JWT).
+- [docs/INSTALL.md](docs/INSTALL.md): replacing the BigTreeTech firmware (backup first with scripts/backup-flash.sh), the CH340K driver macOS lacks, building with Docker or ESP-IDF, flashing at 115200, going back.
+- [docs/OTA.md](docs/OTA.md): two 6 MB slots, the manifest on GitHub Pages, SHA-256 + application name + version checks, rollback after a 60 s probation, and the open question of signing.
+- [docs/HARDWARE.md](docs/HARDWARE.md): the screen (Panda Touch / K-Touch) as this firmware uses it.
+- [docs/ROADMAP.md](docs/ROADMAP.md): what is deliberately not done yet.
+
+## Releases and installation
+
+- Web installer: https://tigertag-project.github.io/Tiger-Touch/ (ESP Web Tools, Chrome or Edge).
+- OTA manifest read by devices: https://tigertag-project.github.io/Tiger-Touch/version.json - keys `version`, `firmware_url`, `firmware_sha256` are frozen.
+- Releases: https://github.com/TigerTag-Project/Tiger-Touch/releases - built by CI from the tag, never committed.
+
+## Rules an agent must not break
+
+- No private data in any commit (addresses, Wi-Fi names, tokens, serials, personal paths).
+- No AI attribution anywhere: commits, pull requests, comments, contributor lists. Hooks and CI refuse it.
+- Never commit, tag or push unless the maintainer asks; a pushed tag publishes a release to every device.
+- `firmware/partitions.csv` is frozen; never flash a merged image at 0x0 (it wipes the NVS at 0x9000).
+- A printer is commanded only to pause, resume, stop or switch its light, on a touch.
+
+## Ecosystem
+
+- [Tiger Studio Manager](https://github.com/TigerTag-Project/TigerTag-Studio-Manager): where the account and the printers are declared; its protocol notes are the source of every driver.
+- [TigerSystem-Docs](https://github.com/TigerTag-Project/TigerSystem-Docs): the ecosystem's source of truth, with its own llms.txt.
+- [TigerSpool RFID](https://github.com/TigerTag-Project/TigerSpool-RFID) and [TigerScale V3](https://github.com/TigerTag-Project/Tiger-Scale-V3): sibling firmwares with the same repository conventions.
+
+## Supporting the project
+
+TigerSystem is a personal, community open-source project, not a company product. Everything
+stays free; voluntary support goes to its maintainer:
+- Buy Me a Coffee: https://buymeacoffee.com/benoitl
+- Ko-fi: https://ko-fi.com/tigersystemio
+- PayPal: https://paypal.me/tigersystemio
