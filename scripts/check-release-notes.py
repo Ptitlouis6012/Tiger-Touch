@@ -14,6 +14,12 @@ where it is noted first). scripts/bump-version.sh moves them under
 
 Scaffold text counts as no notes at all. A heading with "describe this release"
 under it is worse than an empty section, because it looks finished.
+
+Two tones, as in Tiger Studio Manager. CHANGELOG.md is the technical record.
+release-notes/vX.Y.Z.md is the same release for the people who own the screen:
+short, plain words, no internal names ("Fixed an issue where ..."). The release
+page shows that note first and the changelog section folded under it, so the
+tag-time check wants both.
 """
 import os
 import re
@@ -52,6 +58,12 @@ def main():
         print("check-release-notes: CHANGELOG.md has no '## [%s]' section; run scripts/bump-version.sh %s" % (v, v))
         return 1
     if versioned is not None and substantive(versioned):
+        if released:
+            note = os.path.join(ROOT, "release-notes", "v%s.md" % v)
+            if not os.path.exists(note) or not substantive(open(note, encoding="utf-8").read()):
+                print("check-release-notes: release-notes/v%s.md is missing or unwritten: the release page" % v)
+                print("  opens with it (plain words for owners; the changelog is folded under it).")
+                return 1
         print("check-release-notes: ok (%d line(s) under [%s])" % (len(substantive(versioned)), v))
         return 0
     if not released and unreleased is not None and substantive(unreleased):

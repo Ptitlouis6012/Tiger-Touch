@@ -164,7 +164,7 @@ them, live, at the same time.
 | **OctoPrint** | ✅ | ❌ | ❌ |
 | **Printers set up without typing on the screen** | ✅ from your TigerTag account | ❌ IP, serial, access code | ❌ IP and port, or a scan |
 | **Filament units shown** (AMS, CFS, Station, ACE, MMU / AFC) | ✅ every brand | ✅ AMS | - |
-| **Over-the-air updates, verified, automatic roll-back** | ✅ | network update | - |
+| **Over-the-air updates**: the screen finds new versions and installs them itself, verified, with automatic roll-back | ✅ | ❌ | ❌ |
 | **Eleven languages, time zone from your country** | ✅ | - | - |
 | **Free and open source (MIT)** | ✅ | - | - |
 

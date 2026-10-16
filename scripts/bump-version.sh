@@ -53,6 +53,17 @@ else:
     cmake.write_text(s[:m.start(1)] + new + s[m.end(1):], encoding="utf-8", newline="")
     print(f"firmware/CMakeLists.txt: {old} -> {new}")
 
+# The owners' note, the release page's first part (the plain-words tone; the
+# changelog is the technical one). A scaffold the tag-time check refuses.
+note = pathlib.Path("release-notes") / f"v{new}.md"
+if not note.exists():
+    note.parent.mkdir(exist_ok=True)
+    note.write_text("_Describe this release for the people who own the screen: one line on what"
+                    " changes for them, then Added / Changed / Fixed in plain words"
+                    " (\"Fixed an issue where ...\"). The technical record is CHANGELOG.md._\n",
+                    encoding="utf-8", newline="")
+    print(f"{note}: scaffolded - write it before the tag")
+
 log = pathlib.Path("CHANGELOG.md")
 s = log.read_text(encoding="utf-8")
 if re.search(rf"^## \[{re.escape(new)}\]", s, re.M):
@@ -76,11 +87,12 @@ cat <<MSG
 
 Next, if that is what you want (each step is a decision of its own):
 
+  write release-notes/v$NEW.md   (plain words, for owners; the page opens with it)
   bash scripts/verify.sh
-  git commit -am "Release $NEW: <what it holds>"
+  git add -A && git commit -m "Release $NEW: <what it holds>"
   git tag v$NEW && git push origin main v$NEW
 
 The release workflow refuses to publish when the tag and PROJECT_VER disagree,
-or when [$NEW] has no notes. It builds, publishes the images and the OTA
+or when [$NEW] or release-notes/v$NEW.md has no notes. It builds, publishes the images and the OTA
 manifest; every Tiger Touch in the field then sees the update.
 MSG

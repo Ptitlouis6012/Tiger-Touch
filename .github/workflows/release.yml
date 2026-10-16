@@ -77,19 +77,32 @@ jobs:
           cat dist/SHA256SUMS.txt
           echo "version=$V" >> "$GITHUB_OUTPUT"
 
-      - name: This version's changelog section
+      # Two tones, as in Tiger Studio Manager: the owners' note first, in plain
+      # words (release-notes/vX.Y.Z.md), then this version's CHANGELOG section,
+      # the technical record, folded under it.
+      - name: The release page
         run: |
           python3 - "${{ steps.stage.outputs.version }}" > release-notes.md <<'PY'
           import re, sys
           v = sys.argv[1]
+          note = open("release-notes/v%s.md" % v, encoding="utf-8").read().strip()
           text = open("CHANGELOG.md", encoding="utf-8").read()
           m = re.search(r"^## \[%s\][^\n]*$(.*?)(?=^## \[|\Z)" % re.escape(v), text, re.S | re.M)
           if not m:
               raise SystemExit("no CHANGELOG section for %s" % v)
+          print(note)
+          print()
+          print("<details>")
+          print("<summary><b>Technical changelog</b></summary>")
+          print()
           print(m.group(1).strip())
           print()
-          print("**Update:** a Tiger Touch on Wi-Fi offers it in Settings > Firmware update.")
-          print("**Install from scratch:** https://tigertag-project.github.io/Tiger-Touch/ (Chrome or Edge).")
+          print("</details>")
+          print()
+          print("---")
+          print()
+          print("**Update:** a Tiger Touch on Wi-Fi offers it in *Settings > Update*.")
+          print("**Install from scratch:** https://tigertag-project.github.io/Tiger-Touch/ (Chrome or Edge on a computer).")
           PY
           cat release-notes.md
 

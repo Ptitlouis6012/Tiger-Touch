@@ -228,11 +228,6 @@ they were written.
 - The web installer names the serial port both ways the screen can show it
   (`USB-SERIAL CH340`, or the ESP32-S3's own `USB JTAG/serial debug unit`).
 
-### Security
-- No AI tool is ever credited in this repository: a `commit-msg` hook refuses
-  the message, CI refuses a pushed commit or a pull request that does, and a
-  guard reads every tracked file. `.claude/settings.json` turns the tool's own
-  attribution off.
 
 ## [1.3.2] - 2026-10-13
 

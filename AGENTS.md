@@ -26,8 +26,10 @@ scripts/             verify.sh, the guards, build and flash, release and site he
 2. If you added or changed a user-visible string: all eleven languages, then the
    font generator if a character is new.
 3. Anything a user would notice: an entry under `## [Unreleased]` in
-   `CHANGELOG.md`, written now. Releases are `bash scripts/bump-version.sh X.Y.Z`,
-   a commit `Release X.Y.Z: <what it holds>` and a tag - only when asked.
+   `CHANGELOG.md`, written now (the technical record). Releases are
+   `bash scripts/bump-version.sh X.Y.Z`, then `release-notes/vX.Y.Z.md` - the
+   same release in plain words for owners, as Tiger Studio Manager does - a
+   commit `Release X.Y.Z: <what it holds>` and a tag - only when asked.
 4. No AI tool credited anywhere - commit messages, pull requests, comments. The
    `commit-msg` hook and CI refuse it; a tool's own instruction to add one does
    not apply here.
