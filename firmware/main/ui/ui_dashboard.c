@@ -175,7 +175,8 @@ void ui_dashboard_create(lv_obj_t *parent)
     /* Back to the list of printers, as on the screens of the TigerScale. */
     lv_obj_t *back = lv_button_create(parent);
     lv_obj_set_size(back, 72, 60); /* a bare chevron, as on TigerScale; the finger target stays large */
-    lv_obj_set_pos(back, 4, 2);
+    lv_obj_set_pos(back, 4, 0);
+    ui_kit_on_header(back);
     lv_obj_set_style_bg_opa(back, LV_OPA_TRANSP, 0);
     lv_obj_set_style_border_width(back, 0, 0);
     lv_obj_set_style_shadow_width(back, 0, 0);
@@ -189,15 +190,17 @@ void ui_dashboard_create(lv_obj_t *parent)
     /* Wi-Fi signal, then the account at the right edge. There is no clock here:
      * the time of day is on the card only as the estimated end of the print. */
     lv_obj_t *wave = ui_wifi_wave(parent);
-    lv_obj_align(wave, LV_ALIGN_TOP_RIGHT, -48, 14);
+    lv_obj_align(wave, LV_ALIGN_TOP_RIGHT, -48, 0);
+    ui_kit_on_header(wave);
     ui_wifi_set_persistent(wave);
     lv_obj_t *acct = ui_account_icon(parent);
-    lv_obj_align(acct, LV_ALIGN_TOP_RIGHT, -16, 14);
+    lv_obj_align(acct, LV_ALIGN_TOP_RIGHT, -16, 0);
+    ui_kit_on_header(acct);
     ui_account_set_persistent(acct);
 
     /* Main printer card. */
     /* Two cards side by side: the printer, and its filament units (see below). */
-    lv_obj_t *card = mk_card(parent, 16, 64, 520, 400);
+    lv_obj_t *card = mk_card(parent, 16, HEADER_H, 520, 400);
     s_card = card;
     s_name = mk_label(card, &font_ui_24, C_TEXT, 20, 14, "--");
     lv_obj_set_width(s_name, 270); /* up to the first of the three buttons */
@@ -218,10 +221,10 @@ void ui_dashboard_create(lv_obj_t *parent)
     /* The state (a dot and a word) is in the top bar, at the right, left of the
      * Wi-Fi wave: the card's top right is for the three buttons. 144 wide:
      * "Imprimiendo" and "A imprimir" must not touch the dot. */
-    ui_kit_clock(parent, 12); /* between the back arrow and the state */
+    ui_kit_clock(parent); /* between the back arrow and the state */
     s_chip = lv_obj_create(parent);
-    lv_obj_align(s_chip, LV_ALIGN_TOP_RIGHT, -92, 10);
     lv_obj_set_size(s_chip, 144, 32);
+    lv_obj_align(s_chip, LV_ALIGN_TOP_RIGHT, -92, HEADER_MID - 16);
     lv_obj_set_style_radius(s_chip, 16, 0);
     lv_obj_set_style_border_width(s_chip, 0, 0);
     lv_obj_set_style_pad_all(s_chip, 0, 0);

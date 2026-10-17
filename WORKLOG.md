@@ -12,6 +12,7 @@ reset to this header at each release.
 - The installer page invites people not installing today to join the TigerSquad on tigersystem.io.
 
 ## Changed
+- One header on every screen: 64 px, no rule under it, everything centred on the same line.
 - Progress colours: blue printing, orange paused, green finished, red on a fault (ring, card, list bar).
 - Stop opens a confirmation (Cancel / Stop) instead of a 1.5 s hold.
 - The clock also sits in the middle of the Settings header and of a printer's full view.

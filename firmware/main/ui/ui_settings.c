@@ -30,7 +30,6 @@ static void on_back(lv_event_t *e)
  * it. PRESSED rather than CLICKED: waiting for the lift reads as the back button
  * hesitating, and LVGL drops the press when its object is deleted, so the
  * release cannot reach the header of the page underneath. */
-#define HEADER_H 72
 
 static void post_header_ev(lv_event_t *e)
 {
@@ -55,13 +54,6 @@ lv_obj_t *ui_kit_header(lv_obj_t *scr, const char *title, ev_type_t back_ev)
 
     lv_obj_t *t = ui_kit_txt(band, &font_ui_24, C_TEXT, title, 0, 0);
     lv_obj_align(t, LV_ALIGN_LEFT_MID, 80, 0);
-
-    lv_obj_t *div = lv_obj_create(band);
-    lv_obj_remove_style_all(div);
-    lv_obj_set_size(div, W, 1);
-    lv_obj_set_pos(div, 0, HEADER_H - 1);
-    lv_obj_set_style_bg_color(div, C_LINE, 0);
-    lv_obj_set_style_bg_opa(div, LV_OPA_COVER, 0);
     return band;
 }
 
@@ -73,8 +65,8 @@ static void header(lv_obj_t *scr, const char *title)
 static lv_obj_t *tile_button(lv_obj_t *scr, const char *symbol, int right_margin, lv_event_cb_t cb)
 {
     lv_obj_t *b = lv_button_create(scr);
-    lv_obj_set_size(b, 64, 52); /* on the header band, centred in its 72 px */
-    lv_obj_align(b, LV_ALIGN_TOP_RIGHT, -right_margin, 10);
+    lv_obj_set_size(b, 64, 52); /* centred on the header's line */
+    lv_obj_align(b, LV_ALIGN_TOP_RIGHT, -right_margin, HEADER_MID - 26);
     lv_obj_set_style_bg_color(b, C_TILE, 0);
     lv_obj_set_style_radius(b, 10, 0);
     lv_obj_set_style_border_width(b, 0, 0);
@@ -328,7 +320,7 @@ void ui_show_settings_menu(const settings_menu_t *m)
 {
     lv_obj_t *scr = ui_kit_page();
     header(scr, tr(S_SETTINGS));
-    ui_kit_clock(scr, 22);
+    ui_kit_clock(scr);
     lv_obj_t *list = ui_kit_scroll_list(scr, 2 * (ROW_H + ROW_GAP));
 
     char buf[48];

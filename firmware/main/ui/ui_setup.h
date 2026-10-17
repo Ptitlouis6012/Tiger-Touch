@@ -210,8 +210,11 @@ lv_obj_t *ui_kit_header(lv_obj_t *scr, const char *title, ev_type_t back_ev);
 lv_obj_t *ui_kit_scroll_list(lv_obj_t *scr, int step);
 void ui_kit_scroll_rail(lv_obj_t *scr, lv_obj_t *list);
 lv_obj_t *ui_kit_txt(lv_obj_t *parent, const lv_font_t *font, lv_color_t color, const char *s, int x, int y);
-/* The time, hours and minutes, centred at `y` in a top line, kept current
+/* The time, hours and minutes, centred on the header's line, kept current
  * (the home screen, the settings, a printer's view). Needs the LVGL lock. */
-lv_obj_t *ui_kit_clock(lv_obj_t *parent, int y);
+lv_obj_t *ui_kit_clock(lv_obj_t *parent);
+/* Puts `o` on the header's line (HEADER_MID, ui_theme.h): its centre there,
+ * whatever its height. Set its x and alignment first. */
+void ui_kit_on_header(lv_obj_t *o);
 lv_obj_t *ui_kit_button(lv_obj_t *parent, const char *text, int x, int y, int w, int h, bool primary,
                         lv_event_cb_t cb, void *user);

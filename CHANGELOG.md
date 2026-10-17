@@ -39,6 +39,11 @@ they were written.
   button to tigersystem.io, in the eleven languages.
 
 ### Changed
+- **One header on every screen**: 64 px high, no rule under it, and the back
+  arrow, the title, the clock, the Wi-Fi and account icons and the buttons all
+  centred on the same line (`HEADER_H`, `HEADER_MID`, `ui_kit_on_header()`), on
+  the home screen, the settings and their pages, the sign-in pages and a
+  printer's full view. Nothing moves from one screen to the next.
 - **A print's colour says its state**, the same on the ring, the card and the
   list bar: blue while it prints, orange paused, green finished, red on a
   fault. The dot beside the name still says the connection.
