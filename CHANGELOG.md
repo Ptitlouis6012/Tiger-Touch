@@ -23,6 +23,8 @@ they were written.
   tablet one wide column with the screen first; on a phone everything stacked.
   The printer brands are drawn in the text's colour (white on dark, dark on
   light) instead of grey, there and in the README.
+- **The installer page opens on the name**: "Tiger Touch" in large type at
+  the top, the promise under it, on a computer, a tablet or a phone.
 - **The printer brands are shown above the screen**, in the README and on the
   installer page: one strip with Bambu Lab, Creality, Elegoo, Anycubic,
   Snapmaker, FlashForge, Prusa, Klipper and OctoPrint.
