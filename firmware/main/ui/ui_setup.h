@@ -39,6 +39,7 @@ typedef enum
     EV_SET_BRIGHTNESS,   /* index = percent */
     EV_SET_SLEEP,        /* index = seconds, 0 = never */
     EV_SET_ORIENTATION,  /* index = 0 or 180 */
+    EV_SET_BATTERY,      /* index = 1 a battery is fitted, 0 none */
     EV_SET_LANGUAGE,     /* index = lang_t */
     EV_OPEN_UPDATE,      /* the firmware update page */
     /* The first-boot setup and the account pages (ui_onboard.c). */
@@ -160,7 +161,7 @@ typedef struct
 } wifi_info_t;
 void ui_show_wifi_info(const wifi_info_t *w);
 
-void ui_show_screen_page(int brightness, int sleep_s, int rotation);
+void ui_show_screen_page(int brightness, int sleep_s, int rotation, bool battery);
 /* `first_boot`: the first page of the setup - its title is "Language" in
  * English whatever is set, and there is no way back from it. */
 void ui_show_language_page(int current_lang, bool first_boot);

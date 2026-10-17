@@ -696,7 +696,7 @@ static void run_screen_page(void)
     flush_events();
     PT_LVGL_SCOPE_LOCK()
     {
-        ui_show_screen_page(screen_brightness(), screen_sleep_s(), screen_rotation());
+        ui_show_screen_page(screen_brightness(), screen_sleep_s(), screen_rotation(), screen_battery());
     }
     for (;;)
     {
@@ -708,6 +708,9 @@ static void run_screen_page(void)
             break;
         case EV_SET_SLEEP:
             screen_set_sleep(e.index);
+            break;
+        case EV_SET_BATTERY:
+            screen_set_battery(e.index != 0);
             break;
         case EV_SET_ORIENTATION:
             if (pt_display_direct() || (e.index == 180) != pt_display_rotation180())
@@ -1326,8 +1329,9 @@ static void presence_task(void *arg)
         }
         collect_presence(&p);
         p.screen_off = screen_asleep();
+        p.battery = screen_battery();
         /* What a person would see change: the printers on, which answer, the screen. */
-        uint32_t sig = (uint32_t)p.n * 2654435761u ^ (p.screen_off ? 1u : 0u);
+        uint32_t sig = (uint32_t)p.n * 2654435761u ^ (p.screen_off ? 1u : 0u) ^ (p.battery ? 2u : 0u);
         for (int k = 0; k < p.n; k++)
         {
             sig = sig * 31u + (p.online[k] ? 2u : 1u) + (uint32_t)p.ids[k][0];

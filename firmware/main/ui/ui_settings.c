@@ -629,7 +629,7 @@ typedef struct
     lv_obj_t *current;  /* the value shown at the right of the title */
 } choice_group_t;
 
-static choice_group_t s_grp[3];
+static choice_group_t s_grp[4];
 
 static void style_choice(lv_obj_t *b, bool selected)
 {
@@ -676,7 +676,7 @@ static void choice_row(lv_obj_t *scr, choice_group_t *g, int y, const char *titl
     for (int i = 0; i < n; i++)
     {
         g->value[i] = values[i];
-        lv_obj_t *b = ui_kit_button(scr, labels[i], 16 + i * (w + gap), y + 34, w, 56, false, on_choice, g);
+        lv_obj_t *b = ui_kit_button(scr, labels[i], 16 + i * (w + gap), y + 32, w, 52, false, on_choice, g);
         g->btn[i] = b;
         const bool sel = values[i] == selected_value;
         style_choice(b, sel);
@@ -687,22 +687,28 @@ static void choice_row(lv_obj_t *scr, choice_group_t *g, int y, const char *titl
     }
 }
 
-void ui_show_screen_page(int brightness, int sleep_s, int rotation)
+/* Four rows of choices under the header, 96 px apart: the last ends at 454. */
+void ui_show_screen_page(int brightness, int sleep_s, int rotation, bool battery)
 {
     lv_obj_t *scr = ui_kit_page();
     header(scr, tr(S_SCREEN));
 
     static const int BRIGHT_V[4] = {30, 60, 80, 100};
     static const char *const BRIGHT_L[4] = {"30", "60", "80", "100"};
-    choice_row(scr, &s_grp[0], 86, tr(S_BRIGHTNESS), EV_SET_BRIGHTNESS, BRIGHT_L, BRIGHT_V, 4, brightness, " %");
+    choice_row(scr, &s_grp[0], 82, tr(S_BRIGHTNESS), EV_SET_BRIGHTNESS, BRIGHT_L, BRIGHT_V, 4, brightness, " %");
 
     static const int SLEEP_V[4] = {30, 60, 300, 0};
     const char *sleep_l[4] = {tr(S_SLEEP_30S), tr(S_SLEEP_1M), tr(S_SLEEP_5M), tr(S_NEVER)};
-    choice_row(scr, &s_grp[1], 196, tr(S_SLEEP_AFTER), EV_SET_SLEEP, sleep_l, SLEEP_V, 4, sleep_s, "");
+    choice_row(scr, &s_grp[1], 178, tr(S_SLEEP_AFTER), EV_SET_SLEEP, sleep_l, SLEEP_V, 4, sleep_s, "");
 
     static const int ROT_V[2] = {0, 180};
     static const char *const ROT_L[2] = {"0°", "180°"};
-    choice_row(scr, &s_grp[2], 306, tr(S_ORIENTATION), EV_SET_ORIENTATION, ROT_L, ROT_V, 2, rotation, "");
+    choice_row(scr, &s_grp[2], 274, tr(S_ORIENTATION), EV_SET_ORIENTATION, ROT_L, ROT_V, 2, rotation, "");
+
+    /* Said by the owner, not measured: written to the account as battery_present. */
+    static const int BATT_V[2] = {1, 0};
+    const char *batt_l[2] = {tr(S_YES), tr(S_NO)};
+    choice_row(scr, &s_grp[3], 370, tr(S_BATTERY), EV_SET_BATTERY, batt_l, BATT_V, 2, battery ? 1 : 0, "");
 }
 
 /* ---- Language ------------------------------------------------------------- */

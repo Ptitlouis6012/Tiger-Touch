@@ -17,6 +17,11 @@ they were written.
 ## [Unreleased]
 
 ### Added
+- **Settings > Screen > Built-in battery**, *Yes* by default since the Panda
+  Touch and the K-Touch ship with a battery inside: the owner's declaration is
+  written to the account as `battery_present`, as TigerSpool does. The charge
+  and whether it charges stay `null`: this board gives the firmware no way to
+  read them.
 - **A call to join on the installer page**, for people who are not installing
   today: "You dreamed of it. The TigerSquad built it." and a *Join us now*
   button to tigersystem.io, in the eleven languages.

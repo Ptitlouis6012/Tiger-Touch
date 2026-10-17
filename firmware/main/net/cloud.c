@@ -1368,10 +1368,14 @@ cloud_err_t cloud_heartbeat(const cloud_presence_t *p)
     }
     fs_put_str(f, mask, "ip_address", p->ip);
     fs_put_str(f, mask, "power_state", p->screen_off ? "screen_off" : "active");
-    /* The board gives the firmware no way to read its battery or its power
-     * source (docs/HARDWARE.md): not known, so null. */
+    /* Whether a battery is fitted is what the owner declared, as on TigerSpool.
+     * Its charge, whether it charges and the power source are not known: the
+     * board gives the firmware no way to read them (docs/HARDWARE.md), so null,
+     * never a guess. */
+    cJSON *bp = cJSON_AddObjectToObject(f, "battery_present");
+    cJSON_AddBoolToObject(bp, "booleanValue", p->battery);
+    cJSON_AddItemToArray(mask, cJSON_CreateString("battery_present"));
     fs_put_null(f, mask, "power_source");
-    fs_put_null(f, mask, "battery_present");
     fs_put_null(f, mask, "battery_percent");
     fs_put_null(f, mask, "is_charging");
     fs_put_int(f, mask, "printers_active", p->n);

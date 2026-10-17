@@ -147,6 +147,7 @@ typedef struct
     int rssi;            /* 0 when not known */
     char ip[16];
     bool screen_off;     /* asleep: Studio then waits longer before calling it offline */
+    bool battery;        /* fitted, as the owner declared it (Settings > Screen) */
     int n;               /* printers switched on */
     char ids[CLOUD_PRESENCE_MAX][40];
     bool online[CLOUD_PRESENCE_MAX];

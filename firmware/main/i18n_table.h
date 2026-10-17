@@ -474,6 +474,9 @@ X(S_SLEEP_AFTER, "Sleep after", "Veille après", "Ruhezustand nach", "Suspender 
 X(S_NEVER, "Never", "Jamais", "Nie", "Nunca", "Mai", "从不", "Nunca", "Nunca", "Nigdy", "Никогда", "Nooit")
 X(S_ORIENTATION, "Orientation", "Orientation", "Ausrichtung", "Orientación", "Orientamento", "方向",
   "Orientação", "Orientação", "Orientacja", "Ориентация", "Oriëntatie")
+X(S_BATTERY, "Built-in battery", "Batterie intégrée", "Eingebauter Akku", "Batería integrada",
+  "Batteria integrata", "内置电池", "Bateria interna", "Bateria interna", "Wbudowany akumulator",
+  "Встроенный аккумулятор", "Ingebouwde accu")
 X(S_SLEEP_30S, "30 s", "30 s", "30 s", "30 s", "30 s", "30 秒", "30 s", "30 s", "30 s", "30 с", "30 s")
 X(S_SLEEP_1M, "1 min", "1 min", "1 Min.", "1 min", "1 min", "1 分钟", "1 min", "1 min", "1 min", "1 мин",
   "1 min")
