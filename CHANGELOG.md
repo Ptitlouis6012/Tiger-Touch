@@ -29,6 +29,11 @@ they were written.
   button to tigersystem.io, in the eleven languages.
 
 ### Changed
+- **The README shows the screen at work**: its top picture turns, in BIGTREETECH's
+  45-degree drawing, from the start-up screen to the cards, the list and a
+  printer's full view; the gallery shows printers printing (their progress was
+  filled in by a bench build, which the caption says). The installer's picture
+  turns to the cards printing.
 - **The settings row reads *Account*** instead of *Change account*.
 - **The installer page uses the width of the screen**: on a computer, the
   pitch and the install steps beside a large picture of the screen, then
