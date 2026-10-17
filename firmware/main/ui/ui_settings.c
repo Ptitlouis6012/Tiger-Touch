@@ -344,6 +344,8 @@ void ui_show_settings_menu(const settings_menu_t *m)
                  tr(m->battery ? S_BATT_FITTED : S_BATT_NONE), C_MUTED, EV_OPEN_BATTERY);
     settings_row(list, ICON_GLOBE, NULL, C_TEXT, tr(S_LANGUAGE), C_TEXT, i18n_native_name(i18n_lang()), C_MUTED,
                  EV_OPEN_LANGUAGE);
+    settings_row(list, ICON_GLYPH, LV_SYMBOL_PLAY, m->demo ? C_ACCENT : C_MUTED, tr(S_DEMO), C_TEXT,
+                 tr(m->demo ? S_ON : S_OFF), m->demo ? C_ACCENT : C_MUTED, EV_OPEN_DEMO);
     /* With a newer version seen, the row spells the move ("1.3.2 > 2.0.0") in orange. */
     const char *running = esp_app_get_description()->version;
     if (m->update_offered && m->update_offered[0])
@@ -789,6 +791,44 @@ void ui_show_battery_page(bool fitted)
     lv_obj_set_width(i2, W - 64);
     lv_label_set_long_mode(i2, LV_LABEL_LONG_WRAP);
     lv_obj_align_to(i2, i1, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 16);
+}
+
+/* ---- Demo mode ------------------------------------------------------------ */
+/* The same grammar as the battery page: the switch first, then what it does. */
+
+static void on_demo_switch(lv_event_t *e)
+{
+    const bool on = lv_obj_has_state(lv_event_get_target_obj(e), LV_STATE_CHECKED);
+    ui_post(EV_SET_DEMO, on ? 1 : 0, NULL, NULL);
+}
+
+void ui_show_demo_page(bool on)
+{
+    lv_obj_t *scr = ui_kit_page();
+    header(scr, tr(S_DEMO));
+
+    lv_obj_t *row = card_box(scr, 16, 88, W - 32, 76);
+    lv_obj_t *l = ui_kit_txt(row, &font_ui_24, C_TEXT, tr(S_DEMO), 0, 0);
+    lv_obj_align(l, LV_ALIGN_LEFT_MID, 22, 0);
+    lv_obj_t *sw = lv_switch_create(row);
+    lv_obj_set_size(sw, 70, 38);
+    lv_obj_align(sw, LV_ALIGN_RIGHT_MID, -18, 0);
+    lv_obj_set_style_bg_color(sw, C_LINE, LV_PART_MAIN);
+    lv_obj_set_style_bg_color(sw, C_ACCENT, LV_PART_INDICATOR | LV_STATE_CHECKED);
+    lv_obj_set_style_bg_color(sw, C_TEXT, LV_PART_KNOB);
+    if (on)
+    {
+        lv_obj_add_state(sw, LV_STATE_CHECKED);
+    }
+    lv_obj_add_event_cb(sw, on_demo_switch, LV_EVENT_VALUE_CHANGED, NULL);
+
+    lv_obj_t *i1 = ui_kit_txt(scr, &font_ui_20, C_TEXT, tr(S_DEMO_INFO1), 32, 196);
+    lv_obj_set_width(i1, W - 64);
+    lv_label_set_long_mode(i1, LV_LABEL_LONG_WRAP);
+    lv_obj_t *i2 = ui_kit_txt(scr, &font_ui_16, C_MUTED, tr(S_DEMO_INFO2), 32, 0);
+    lv_obj_set_width(i2, W - 64);
+    lv_label_set_long_mode(i2, LV_LABEL_LONG_WRAP);
+    lv_obj_align_to(i2, i1, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 18);
 }
 
 /* ---- Language ------------------------------------------------------------- */

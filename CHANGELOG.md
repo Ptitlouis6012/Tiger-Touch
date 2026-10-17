@@ -17,6 +17,14 @@ they were written.
 ## [Unreleased]
 
 ### Added
+- **Settings > Demo mode**, for a showroom, a fair or screenshots: the screen
+  shows ten made-up printers of every brand, printing - progress that moves,
+  temperatures that wobble, prints that finish and start again, filament colours
+  drawn from Tiger Studio's palette anew at each start - and looks exactly as
+  it does with real printers. Off by default, kept until switched off (the
+  switch restarts the screen). While it is on, none of the account's printers
+  is reached, nothing is sent to any machine, the owner's choices are not
+  overwritten, and the account is told `demo: true` with no printer.
 - **Settings > Battery**, a page of its own as on TigerSpool: a *Built-in
   battery* switch, on by default since the Panda Touch and the K-Touch ship with
   one inside, the battery drawn (lit when declared), and why the charge cannot be

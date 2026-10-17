@@ -30,6 +30,7 @@ typedef enum
     EV_OPEN_WIFI,
     EV_OPEN_SCREEN,
     EV_OPEN_BATTERY,
+    EV_OPEN_DEMO,
     EV_OPEN_LANGUAGE,
     EV_ASK_RESTART,      /* show the confirmation */
     EV_RESTART,          /* confirmed */
@@ -41,6 +42,7 @@ typedef enum
     EV_SET_SLEEP,        /* index = seconds, 0 = never */
     EV_SET_ORIENTATION,  /* index = 0 or 180 */
     EV_SET_BATTERY,      /* index = 1 a battery is fitted, 0 none */
+    EV_SET_DEMO,         /* index = 1 demo mode on, 0 off: saved, then a restart */
     EV_SET_LANGUAGE,     /* index = lang_t */
     EV_OPEN_UPDATE,      /* the firmware update page */
     /* The first-boot setup and the account pages (ui_onboard.c). */
@@ -132,6 +134,7 @@ typedef struct
     const char *account_email;
     const char *update_offered; /* a newer version seen, or NULL */
     bool battery;               /* declared fitted (Settings > Battery) */
+    bool demo;                  /* demo mode is on */
 } settings_menu_t;
 void ui_show_settings_menu(const settings_menu_t *m);
 void ui_settings_menu_reset_scroll(void);
@@ -166,6 +169,8 @@ void ui_show_wifi_info(const wifi_info_t *w);
 void ui_show_screen_page(int brightness, int sleep_s, int rotation);
 /* The battery page: whether one is fitted, as the owner declares it. */
 void ui_show_battery_page(bool fitted);
+/* The demo mode page (demo_mode.h). */
+void ui_show_demo_page(bool on);
 /* `first_boot`: the first page of the setup - its title is "Language" in
  * English whatever is set, and there is no way back from it. */
 void ui_show_language_page(int current_lang, bool first_boot);

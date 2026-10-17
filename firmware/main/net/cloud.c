@@ -1375,6 +1375,9 @@ cloud_err_t cloud_heartbeat(const cloud_presence_t *p)
     cJSON *bp = cJSON_AddObjectToObject(f, "battery_present");
     cJSON_AddBoolToObject(bp, "booleanValue", p->battery);
     cJSON_AddItemToArray(mask, cJSON_CreateString("battery_present"));
+    cJSON *dm = cJSON_AddObjectToObject(f, "demo");
+    cJSON_AddBoolToObject(dm, "booleanValue", p->demo);
+    cJSON_AddItemToArray(mask, cJSON_CreateString("demo"));
     fs_put_null(f, mask, "power_source");
     fs_put_null(f, mask, "battery_percent");
     fs_put_null(f, mask, "is_charging");

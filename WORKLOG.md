@@ -6,6 +6,7 @@ disappear. `CHANGELOG.md`'s `[Unreleased]` section is written from it, and it is
 reset to this header at each release.
 
 ## Added
+- Settings > Demo mode: ten made-up printers printing, for showrooms and screenshots; nothing real reached or sent.
 - Settings > Battery (yes by default), sent to the account as battery_present.
 - The installer page invites people not installing today to join the TigerSquad on tigersystem.io.
 

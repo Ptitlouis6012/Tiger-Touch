@@ -148,6 +148,7 @@ typedef struct
     char ip[16];
     bool screen_off;     /* asleep: Studio then waits longer before calling it offline */
     bool battery;        /* fitted, as the owner declared it (Settings > Battery) */
+    bool demo;           /* demo mode is on: the screen shows made-up printers */
     int n;               /* printers switched on */
     char ids[CLOUD_PRESENCE_MAX][40];
     bool online[CLOUD_PRESENCE_MAX];
