@@ -1017,8 +1017,11 @@ static void run_settings(void)
         const bool has_offer = ota_cached_offer(&offered);
         wifi_link_info_t link = {0};
         const bool online = wifi_mgr_connected() && wifi_mgr_info(&link);
+        /* The name the owner gave the account, as on TigerScale; the e-mail
+         * only when the account has none. */
         char email[96];
-        strlcpy(email, cloud_email(), sizeof email);
+        const char *dn = cloud_display_name();
+        strlcpy(email, dn[0] ? dn : cloud_email(), sizeof email);
         settings_menu_t m = {
             .printers_total = s_printer_count,
             .wifi_connected = online,

@@ -39,6 +39,10 @@ they were written.
   button to tigersystem.io, in the eleven languages.
 
 ### Changed
+- **Settings shows the account's name, not its e-mail**, as TigerScale V3 does:
+  the `displayName` of `users/{uid}`, read with the country the device already
+  reads, kept across restarts, forgotten when another account signs in. The
+  e-mail shows only when the account has no name.
 - **One header on every screen**: 64 px high, no rule under it, and the back
   arrow, the title, the clock, the Wi-Fi and account icons and the buttons all
   centred on the same line (`HEADER_H`, `HEADER_MID`, `ui_kit_on_header()`), on

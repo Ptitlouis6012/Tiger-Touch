@@ -65,6 +65,9 @@ const char *cloud_err_text(cloud_err_t e); /* French, for the screen */
 
 bool cloud_has_session(void);
 const char *cloud_email(void);
+/* The account's display name (users/{uid}.displayName), as TigerScale shows
+ * it; "" until read, or when the account has none. Kept across restarts. */
+const char *cloud_display_name(void);
 
 cloud_err_t cloud_sign_in(const char *email, const char *password);
 cloud_err_t cloud_resume(void);
