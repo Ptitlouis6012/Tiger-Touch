@@ -57,6 +57,9 @@ en: {
   cmp_free: "Free and open source",
   cmp_note: "Panda Touch and K-Touch: from BIGTREETECH's wiki. \"Slows down from about 3\" is the TigerTag team's own experience, not a BIGTREETECH figure.",
   sup_text: "Tiger Touch is free, open source and made in free time. If it brought a screen back to life, you can support free software:",
+  join_title: "You dreamed of it. The TigerSquad built it.",
+  join_text: "Tiger Touch, Tiger Studio, TigerScale, TigerSpool, TigerPOD: free tools made by a community of makers, for every brand of printer.",
+  join_btn: "Join us now",
 },
 
 fr: {
@@ -97,6 +100,9 @@ fr: {
   cmp_free: "Gratuit et open source",
   cmp_note: "Panda Touch et K-Touch : d'après le wiki de BIGTREETECH. « Ralentit dès 3 environ » est l'expérience de l'équipe TigerTag, pas un chiffre de BIGTREETECH.",
   sup_text: "Tiger Touch est gratuit, open source et fait sur du temps libre. S'il a redonné vie à un écran, vous pouvez soutenir le logiciel libre :",
+  join_title: "Vous en rêviez, la TigerSquad l'a fait.",
+  join_text: "Tiger Touch, Tiger Studio, TigerScale, TigerSpool, TigerPOD : des outils gratuits faits par une communauté de makers, pour toutes les marques d'imprimantes.",
+  join_btn: "Rejoignez-nous maintenant",
 },
 
 de: {
@@ -137,6 +143,9 @@ de: {
   cmp_free: "Kostenlos und Open Source",
   cmp_note: "Panda Touch und K-Touch: laut BIGTREETECH-Wiki. „Wird ab etwa 3 langsamer“ ist die Erfahrung des TigerTag-Teams, keine Angabe von BIGTREETECH.",
   sup_text: "Tiger Touch ist kostenlos, quelloffen und in der Freizeit entstanden. Wenn es einen Bildschirm wiederbelebt hat, können Sie freie Software unterstützen:",
+  join_title: "Sie haben davon geträumt. Die TigerSquad hat es gebaut.",
+  join_text: "Tiger Touch, Tiger Studio, TigerScale, TigerSpool, TigerPOD: kostenlose Werkzeuge einer Maker-Community, für jede Druckermarke.",
+  join_btn: "Jetzt mitmachen",
 },
 
 es: {
@@ -177,6 +186,9 @@ es: {
   cmp_free: "Gratis y de código abierto",
   cmp_note: "Panda Touch y K-Touch: según la wiki de BIGTREETECH. «Se ralentiza desde unas 3» es la experiencia del equipo TigerTag, no una cifra de BIGTREETECH.",
   sup_text: "Tiger Touch es gratuito, de código abierto y hecho en tiempo libre. Si ha devuelto la vida a una pantalla, puedes apoyar el software libre:",
+  join_title: "Lo soñabas. La TigerSquad lo ha hecho.",
+  join_text: "Tiger Touch, Tiger Studio, TigerScale, TigerSpool, TigerPOD: herramientas gratuitas hechas por una comunidad de makers, para todas las marcas de impresoras.",
+  join_btn: "Únete ahora",
 },
 
 it: {
@@ -217,6 +229,9 @@ it: {
   cmp_free: "Gratuito e open source",
   cmp_note: "Panda Touch e K-Touch: dal wiki di BIGTREETECH. «Rallenta da circa 3» è l'esperienza del team TigerTag, non un dato di BIGTREETECH.",
   sup_text: "Tiger Touch è gratuito, open source e fatto nel tempo libero. Se ha ridato vita a uno schermo, puoi sostenere il software libero:",
+  join_title: "Lo sognavi. La TigerSquad l'ha fatto.",
+  join_text: "Tiger Touch, Tiger Studio, TigerScale, TigerSpool, TigerPOD: strumenti gratuiti creati da una comunità di maker, per ogni marca di stampante.",
+  join_btn: "Unisciti a noi ora",
 },
 
 zh: {
@@ -257,6 +272,9 @@ zh: {
   cmp_free: "免费且开源",
   cmp_note: "Panda Touch 与 K-Touch：数据来自 BIGTREETECH 的 Wiki。“约 3 台起变慢”是 TigerTag 团队的使用体验，并非 BIGTREETECH 的数据。",
   sup_text: "Tiger Touch 免费、开源，由业余时间完成。如果它让一块屏幕重获新生，欢迎支持自由软件：",
+  join_title: "您梦想过的，TigerSquad 做到了。",
+  join_text: "Tiger Touch、Tiger Studio、TigerScale、TigerSpool、TigerPOD：由创客社区打造的免费工具，支持所有品牌的打印机。",
+  join_btn: "立即加入我们",
 },
 
 pt: {
@@ -297,6 +315,9 @@ pt: {
   cmp_free: "Grátis e de código aberto",
   cmp_note: "Panda Touch e K-Touch: segundo a wiki da BIGTREETECH. \"Fica lento a partir de umas 3\" é a experiência da equipe TigerTag, não um número da BIGTREETECH.",
   sup_text: "O Tiger Touch é gratuito, de código aberto e feito no tempo livre. Se ele deu vida nova a uma tela, você pode apoiar o software livre:",
+  join_title: "Você sonhou com isso. A TigerSquad fez.",
+  join_text: "Tiger Touch, Tiger Studio, TigerScale, TigerSpool, TigerPOD: ferramentas gratuitas feitas por uma comunidade de makers, para todas as marcas de impressoras.",
+  join_btn: "Junte-se a nós agora",
 },
 
 "pt-pt": {
@@ -337,6 +358,9 @@ pt: {
   cmp_free: "Gratuito e de código aberto",
   cmp_note: "Panda Touch e K-Touch: segundo a wiki da BIGTREETECH. \"Fica lento a partir de umas 3\" é a experiência da equipa TigerTag, não um número da BIGTREETECH.",
   sup_text: "O Tiger Touch é gratuito, de código aberto e feito no tempo livre. Se deu nova vida a um ecrã, pode apoiar o software livre:",
+  join_title: "Sonhou com isto. A TigerSquad fê-lo.",
+  join_text: "Tiger Touch, Tiger Studio, TigerScale, TigerSpool, TigerPOD: ferramentas gratuitas feitas por uma comunidade de makers, para todas as marcas de impressoras.",
+  join_btn: "Junte-se a nós agora",
 },
 
 pl: {
@@ -377,6 +401,9 @@ pl: {
   cmp_free: "Darmowy i open source",
   cmp_note: "Panda Touch i K-Touch: według wiki BIGTREETECH. „Zwalnia od około 3” to doświadczenie zespołu TigerTag, nie dane BIGTREETECH.",
   sup_text: "Tiger Touch jest darmowy, otwarty i tworzony w wolnym czasie. Jeśli przywrócił ekran do życia, możesz wesprzeć wolne oprogramowanie:",
+  join_title: "Marzyłeś o tym. TigerSquad to zrobił.",
+  join_text: "Tiger Touch, Tiger Studio, TigerScale, TigerSpool, TigerPOD: darmowe narzędzia tworzone przez społeczność makerów, dla każdej marki drukarek.",
+  join_btn: "Dołącz do nas teraz",
 },
 
 ru: {
@@ -417,6 +444,9 @@ ru: {
   cmp_free: "Бесплатно и с открытым кодом",
   cmp_note: "Panda Touch и K-Touch: по вики BIGTREETECH. «Замедляется примерно с 3» — опыт команды TigerTag, а не данные BIGTREETECH.",
   sup_text: "Tiger Touch бесплатный, с открытым кодом и создаётся в свободное время. Если он вернул экран к жизни, вы можете поддержать свободное ПО:",
+  join_title: "Вы об этом мечтали. TigerSquad это сделал.",
+  join_text: "Tiger Touch, Tiger Studio, TigerScale, TigerSpool, TigerPOD: бесплатные инструменты от сообщества мейкеров, для принтеров любых марок.",
+  join_btn: "Присоединяйтесь сейчас",
 },
 
 nl: {
@@ -457,6 +487,9 @@ nl: {
   cmp_free: "Gratis en open source",
   cmp_note: "Panda Touch en K-Touch: volgens de wiki van BIGTREETECH. \"Wordt trager vanaf ongeveer 3\" is de ervaring van het TigerTag-team, geen cijfer van BIGTREETECH.",
   sup_text: "Tiger Touch is gratis, open source en gemaakt in vrije tijd. Heeft het een scherm nieuw leven gegeven, dan kunt u vrije software steunen:",
+  join_title: "U droomde ervan. De TigerSquad heeft het gemaakt.",
+  join_text: "Tiger Touch, Tiger Studio, TigerScale, TigerSpool, TigerPOD: gratis tools gemaakt door een community van makers, voor elk printermerk.",
+  join_btn: "Doe nu mee",
 },
 
 };

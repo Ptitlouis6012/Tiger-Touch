@@ -16,6 +16,11 @@ they were written.
 
 ## [Unreleased]
 
+### Added
+- **A call to join on the installer page**, for people who are not installing
+  today: "You dreamed of it. The TigerSquad built it." and a *Join us now*
+  button to tigersystem.io, in the eleven languages.
+
 ### Changed
 - **The installer page uses the width of the screen**: on a computer, the
   pitch and the install steps beside a large picture of the screen, then
