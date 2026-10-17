@@ -87,6 +87,10 @@ they were written.
   turns from the start-up screen to the printers when the pointer is on it.
 
 ### Fixed
+- **The title of an AMS HT ran into the edge of its card** on a printer's full
+  view (seen on an H2C). The small cards of the external spool and of an AMS HT
+  now centre their title over the dot, in a fixed width, with dots if a word were
+  ever too long; the boxes keep their title where it was.
 - **Demo mode: the estimated end no longer moves.** The time left ran down six
   times faster than the clock, so the end jumped back every 20 s and crept
   forward in between; it now runs at the progress's pace and the end stays put.

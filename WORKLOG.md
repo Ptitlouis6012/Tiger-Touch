@@ -26,6 +26,7 @@ reset to this header at each release.
 - The TigerPOD Mini's picture is the new blue one, at the old picture's size (420 x 622).
 
 ## Fixed
+- The title of an AMS HT no longer runs into the edge of its card: the small units centre it over the dot.
 - Demo mode: the estimated end no longer moves (the time left runs at the progress's pace); the Ender-3 S1 prints too.
 
 ## Removed
