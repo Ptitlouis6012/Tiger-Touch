@@ -25,7 +25,11 @@
 </p>
 
 <p align="center">
-  <img src="assets/brands/brands.svg" alt="Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, Klipper and OctoPrint" width="760">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/brands/brands-white.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/brands/brands-dark.svg">
+    <img src="assets/brands/brands-dark.svg" alt="Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, Klipper and OctoPrint" width="760">
+  </picture>
 </p>
 
 <p align="center">

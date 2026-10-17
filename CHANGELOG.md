@@ -17,6 +17,12 @@ they were written.
 ## [Unreleased]
 
 ### Changed
+- **The installer page uses the width of the screen**: on a computer, the
+  pitch and the install steps beside a large picture of the screen, then
+  "Before you start" in two columns and the comparison across the page; on a
+  tablet one wide column with the screen first; on a phone everything stacked.
+  The printer brands are drawn in the text's colour (white on dark, dark on
+  light) instead of grey, there and in the README.
 - **The printer brands are shown above the screen**, in the README and on the
   installer page: one strip with Bambu Lab, Creality, Elegoo, Anycubic,
   Snapmaker, FlashForge, Prusa, Klipper and OctoPrint.
