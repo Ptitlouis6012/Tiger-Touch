@@ -6,7 +6,7 @@ disappear. `CHANGELOG.md`'s `[Unreleased]` section is written from it, and it is
 reset to this header at each release.
 
 ## Added
-- Settings > Screen > Built-in battery (yes by default), sent to the account as battery_present.
+- Settings > Battery (yes by default), sent to the account as battery_present.
 - The installer page invites people not installing today to join the TigerSquad on tigersystem.io.
 
 ## Changed

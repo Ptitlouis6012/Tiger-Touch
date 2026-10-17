@@ -29,6 +29,7 @@ typedef enum
     EV_OPEN_PRINTERS,    /* the printers page of the settings */
     EV_OPEN_WIFI,
     EV_OPEN_SCREEN,
+    EV_OPEN_BATTERY,
     EV_OPEN_LANGUAGE,
     EV_ASK_RESTART,      /* show the confirmation */
     EV_RESTART,          /* confirmed */
@@ -130,6 +131,7 @@ typedef struct
     int account_state;          /* 0 none, 1 connecting, 2 linked */
     const char *account_email;
     const char *update_offered; /* a newer version seen, or NULL */
+    bool battery;               /* declared fitted (Settings > Battery) */
 } settings_menu_t;
 void ui_show_settings_menu(const settings_menu_t *m);
 void ui_settings_menu_reset_scroll(void);
@@ -161,7 +163,9 @@ typedef struct
 } wifi_info_t;
 void ui_show_wifi_info(const wifi_info_t *w);
 
-void ui_show_screen_page(int brightness, int sleep_s, int rotation, bool battery);
+void ui_show_screen_page(int brightness, int sleep_s, int rotation);
+/* The battery page: whether one is fitted, as the owner declares it. */
+void ui_show_battery_page(bool fitted);
 /* `first_boot`: the first page of the setup - its title is "Language" in
  * English whatever is set, and there is no way back from it. */
 void ui_show_language_page(int current_lang, bool first_boot);

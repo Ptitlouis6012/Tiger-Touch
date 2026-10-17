@@ -17,8 +17,10 @@ they were written.
 ## [Unreleased]
 
 ### Added
-- **Settings > Screen > Built-in battery**, *Yes* by default since the Panda
-  Touch and the K-Touch ship with a battery inside: the owner's declaration is
+- **Settings > Battery**, a page of its own as on TigerSpool: a *Built-in
+  battery* switch, on by default since the Panda Touch and the K-Touch ship with
+  one inside, the battery drawn (lit when declared), and why the charge cannot be
+  read: the owner's declaration is
   written to the account as `battery_present`, as TigerSpool does. The charge
   and whether it charges stay `null`: this board gives the firmware no way to
   read them.

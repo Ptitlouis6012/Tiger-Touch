@@ -696,7 +696,7 @@ static void run_screen_page(void)
     flush_events();
     PT_LVGL_SCOPE_LOCK()
     {
-        ui_show_screen_page(screen_brightness(), screen_sleep_s(), screen_rotation(), screen_battery());
+        ui_show_screen_page(screen_brightness(), screen_sleep_s(), screen_rotation());
     }
     for (;;)
     {
@@ -708,9 +708,6 @@ static void run_screen_page(void)
             break;
         case EV_SET_SLEEP:
             screen_set_sleep(e.index);
-            break;
-        case EV_SET_BATTERY:
-            screen_set_battery(e.index != 0);
             break;
         case EV_SET_ORIENTATION:
             if (pt_display_direct() || (e.index == 180) != pt_display_rotation180())
@@ -736,6 +733,27 @@ static void run_screen_page(void)
             return;
         default:
             break;
+        }
+    }
+}
+
+static void run_battery_page(void)
+{
+    flush_events();
+    PT_LVGL_SCOPE_LOCK()
+    {
+        ui_show_battery_page(screen_battery());
+    }
+    for (;;)
+    {
+        app_event_t e = wait_event();
+        if (e.type == EV_SET_BATTERY)
+        {
+            screen_set_battery(e.index != 0); /* the next heartbeat carries it */
+        }
+        else if (e.type == EV_BACK)
+        {
+            return;
         }
     }
 }
@@ -981,6 +999,7 @@ static void run_settings(void)
             .account_state = !cloud_has_session() ? 0 : cloud_link() == CLOUD_LINK_OK ? 2 : 1,
             .account_email = email,
             .update_offered = has_offer ? offered.version : NULL,
+            .battery = screen_battery(),
         };
         for (int i = 0; i < s_printer_count; i++)
         {
@@ -1001,6 +1020,9 @@ static void run_settings(void)
             break;
         case EV_OPEN_SCREEN:
             run_screen_page();
+            break;
+        case EV_OPEN_BATTERY:
+            run_battery_page();
             break;
         case EV_OPEN_LANGUAGE:
             run_language_page();

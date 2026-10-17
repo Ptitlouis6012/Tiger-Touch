@@ -98,7 +98,7 @@ reads the other.
 | `last_heartbeat_at` | every heartbeat | the server's time |
 | `wifi_signal_dbm`, `ip_address` | every heartbeat | the link to the access point |
 | `power_state` | every heartbeat | `active`, or `screen_off` while the screen sleeps |
-| `battery_present` | every heartbeat | what the owner declared in *Settings > Screen > Built-in battery*: yes by default, since the Panda Touch and the K-Touch ship with one inside; not a measurement (as on TigerSpool) |
+| `battery_present` | every heartbeat | what the owner declared in *Settings > Battery*: yes by default, since the Panda Touch and the K-Touch ship with one inside; not a measurement (as on TigerSpool) |
 | `power_source`, `battery_percent`, `is_charging` | every heartbeat | null: the board gives the firmware no way to read them ([HARDWARE.md](HARDWARE.md#power-the-switch-the-dock-and-the-battery)); TigerSpool measures its battery on an analog input wired to it, which this board does not have |
 | `printers_active`, `printer_ids`, `printers_online` | every heartbeat | how many printers are switched on, their account ids, the ones answering |
 

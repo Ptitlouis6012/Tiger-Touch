@@ -340,6 +340,8 @@ void ui_show_settings_menu(const settings_menu_t *m)
                  tr(S_CHANGE_ACCOUNT), C_TEXT,
                  m->account_state ? m->account_email : tr(S_NO_ACCOUNT), C_MUTED, EV_CHANGE_ACCOUNT);
     settings_row(list, ICON_SUN, NULL, C_TEXT, tr(S_SCREEN), C_TEXT, NULL, C_MUTED, EV_OPEN_SCREEN);
+    settings_row(list, ICON_GLYPH, LV_SYMBOL_BATTERY_FULL, m->battery ? C_ACCENT : C_MUTED, tr(S_BATT_TITLE), C_TEXT,
+                 tr(m->battery ? S_BATT_FITTED : S_BATT_NONE), C_MUTED, EV_OPEN_BATTERY);
     settings_row(list, ICON_GLOBE, NULL, C_TEXT, tr(S_LANGUAGE), C_TEXT, i18n_native_name(i18n_lang()), C_MUTED,
                  EV_OPEN_LANGUAGE);
     /* With a newer version seen, the row spells the move ("1.3.2 > 2.0.0") in orange. */
@@ -629,7 +631,7 @@ typedef struct
     lv_obj_t *current;  /* the value shown at the right of the title */
 } choice_group_t;
 
-static choice_group_t s_grp[4];
+static choice_group_t s_grp[3];
 
 static void style_choice(lv_obj_t *b, bool selected)
 {
@@ -676,7 +678,7 @@ static void choice_row(lv_obj_t *scr, choice_group_t *g, int y, const char *titl
     for (int i = 0; i < n; i++)
     {
         g->value[i] = values[i];
-        lv_obj_t *b = ui_kit_button(scr, labels[i], 16 + i * (w + gap), y + 32, w, 52, false, on_choice, g);
+        lv_obj_t *b = ui_kit_button(scr, labels[i], 16 + i * (w + gap), y + 34, w, 56, false, on_choice, g);
         g->btn[i] = b;
         const bool sel = values[i] == selected_value;
         style_choice(b, sel);
@@ -687,28 +689,106 @@ static void choice_row(lv_obj_t *scr, choice_group_t *g, int y, const char *titl
     }
 }
 
-/* Four rows of choices under the header, 96 px apart: the last ends at 454. */
-void ui_show_screen_page(int brightness, int sleep_s, int rotation, bool battery)
+void ui_show_screen_page(int brightness, int sleep_s, int rotation)
 {
     lv_obj_t *scr = ui_kit_page();
     header(scr, tr(S_SCREEN));
 
     static const int BRIGHT_V[4] = {30, 60, 80, 100};
     static const char *const BRIGHT_L[4] = {"30", "60", "80", "100"};
-    choice_row(scr, &s_grp[0], 82, tr(S_BRIGHTNESS), EV_SET_BRIGHTNESS, BRIGHT_L, BRIGHT_V, 4, brightness, " %");
+    choice_row(scr, &s_grp[0], 86, tr(S_BRIGHTNESS), EV_SET_BRIGHTNESS, BRIGHT_L, BRIGHT_V, 4, brightness, " %");
 
     static const int SLEEP_V[4] = {30, 60, 300, 0};
     const char *sleep_l[4] = {tr(S_SLEEP_30S), tr(S_SLEEP_1M), tr(S_SLEEP_5M), tr(S_NEVER)};
-    choice_row(scr, &s_grp[1], 178, tr(S_SLEEP_AFTER), EV_SET_SLEEP, sleep_l, SLEEP_V, 4, sleep_s, "");
+    choice_row(scr, &s_grp[1], 196, tr(S_SLEEP_AFTER), EV_SET_SLEEP, sleep_l, SLEEP_V, 4, sleep_s, "");
 
     static const int ROT_V[2] = {0, 180};
     static const char *const ROT_L[2] = {"0°", "180°"};
-    choice_row(scr, &s_grp[2], 274, tr(S_ORIENTATION), EV_SET_ORIENTATION, ROT_L, ROT_V, 2, rotation, "");
+    choice_row(scr, &s_grp[2], 306, tr(S_ORIENTATION), EV_SET_ORIENTATION, ROT_L, ROT_V, 2, rotation, "");
+}
 
-    /* Said by the owner, not measured: written to the account as battery_present. */
-    static const int BATT_V[2] = {1, 0};
-    const char *batt_l[2] = {tr(S_YES), tr(S_NO)};
-    choice_row(scr, &s_grp[3], 370, tr(S_BATTERY), EV_SET_BATTERY, batt_l, BATT_V, 2, battery ? 1 : 0, "");
+/* ---- Battery -------------------------------------------------------------- */
+/* TigerSpool's page: the switch first, the same place in both states; then the
+ * battery drawn, in colour when one is declared; then why it is a declaration
+ * and not a measurement. Nothing on the board can read the cell (HARDWARE.md). */
+
+#define BATT_SEGS 4
+static lv_obj_t *s_batt_body, *s_batt_cap, *s_batt_seg[BATT_SEGS];
+
+static void paint_battery(bool fitted)
+{
+    const lv_color_t c = fitted ? C_ACCENT : C_LINE;
+    lv_obj_set_style_border_color(s_batt_body, c, 0);
+    lv_obj_set_style_bg_color(s_batt_cap, c, 0);
+    for (int i = 0; i < BATT_SEGS; i++)
+    {
+        lv_obj_set_style_bg_color(s_batt_seg[i], c, 0);
+    }
+}
+
+static void on_battery_switch(lv_event_t *e)
+{
+    const bool on = lv_obj_has_state(lv_event_get_target_obj(e), LV_STATE_CHECKED);
+    paint_battery(on);
+    ui_post(EV_SET_BATTERY, on ? 1 : 0, NULL, NULL);
+}
+
+void ui_show_battery_page(bool fitted)
+{
+    lv_obj_t *scr = ui_kit_page();
+    header(scr, tr(S_BATT_TITLE));
+
+    lv_obj_t *row = card_box(scr, 16, 88, W - 32, 76);
+    lv_obj_t *l = ui_kit_txt(row, &font_ui_24, C_TEXT, tr(S_BATTERY), 0, 0);
+    lv_obj_align(l, LV_ALIGN_LEFT_MID, 22, 0);
+    lv_obj_t *sw = lv_switch_create(row);
+    lv_obj_set_size(sw, 70, 38);
+    lv_obj_align(sw, LV_ALIGN_RIGHT_MID, -18, 0);
+    lv_obj_set_style_bg_color(sw, C_LINE, LV_PART_MAIN);
+    lv_obj_set_style_bg_color(sw, C_ACCENT, LV_PART_INDICATOR | LV_STATE_CHECKED);
+    lv_obj_set_style_bg_color(sw, C_TEXT, LV_PART_KNOB);
+    if (fitted)
+    {
+        lv_obj_add_state(sw, LV_STATE_CHECKED);
+    }
+    lv_obj_add_event_cb(sw, on_battery_switch, LV_EVENT_VALUE_CHANGED, NULL);
+
+    /* The battery, drawn: a body, its cap, four bars. Lit when one is declared. */
+    const int bw = 132, bh = 64, bx = (W - bw - 10) / 2, by = 186;
+    s_batt_body = lv_obj_create(scr);
+    lv_obj_remove_style_all(s_batt_body);
+    lv_obj_set_pos(s_batt_body, bx, by);
+    lv_obj_set_size(s_batt_body, bw, bh);
+    lv_obj_set_style_radius(s_batt_body, 10, 0);
+    lv_obj_set_style_border_width(s_batt_body, 5, 0);
+    lv_obj_set_scrollable(s_batt_body, false);
+    lv_obj_set_clickable(s_batt_body, false);
+    s_batt_cap = lv_obj_create(scr);
+    lv_obj_remove_style_all(s_batt_cap);
+    lv_obj_set_pos(s_batt_cap, bx + bw + 2, by + bh / 2 - 13);
+    lv_obj_set_size(s_batt_cap, 8, 26);
+    lv_obj_set_style_radius(s_batt_cap, 3, 0);
+    lv_obj_set_style_bg_opa(s_batt_cap, LV_OPA_COVER, 0);
+    const int seg_w = (bw - 10 - 8 - (BATT_SEGS - 1) * 6) / BATT_SEGS;
+    for (int i = 0; i < BATT_SEGS; i++)
+    {
+        lv_obj_t *s = s_batt_seg[i] = lv_obj_create(scr);
+        lv_obj_remove_style_all(s);
+        lv_obj_set_pos(s, bx + 9 + i * (seg_w + 6), by + 9);
+        lv_obj_set_size(s, seg_w, bh - 18);
+        lv_obj_set_style_radius(s, 4, 0);
+        lv_obj_set_style_bg_opa(s, LV_OPA_COVER, 0);
+    }
+    paint_battery(fitted);
+
+    /* Then the facts, and why there is no percentage. */
+    lv_obj_t *i1 = ui_kit_txt(scr, &font_ui_16, C_TEXT, tr(S_BATT_INFO1), 32, 282);
+    lv_obj_set_width(i1, W - 64);
+    lv_label_set_long_mode(i1, LV_LABEL_LONG_WRAP);
+    lv_obj_t *i2 = ui_kit_txt(scr, &font_ui_16, C_MUTED, tr(S_BATT_INFO2), 32, 0);
+    lv_obj_set_width(i2, W - 64);
+    lv_label_set_long_mode(i2, LV_LABEL_LONG_WRAP);
+    lv_obj_align_to(i2, i1, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 16);
 }
 
 /* ---- Language ------------------------------------------------------------- */
