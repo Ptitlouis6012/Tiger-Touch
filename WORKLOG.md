@@ -14,6 +14,7 @@ reset to this header at each release.
 ## Changed
 - Settings shows the account's display name, as TigerScale V3 does, instead of its e-mail.
 - One header on every screen: 64 px, no rule under it, everything centred on the same line.
+- Every picture of the screen (README, docs, installer) taken anew, in English, in Demo mode; the gallery gains the X1 Carbon and the K2 Plus.
 - Progress colours: blue printing, orange paused, green finished, red on a fault (ring, card, list bar).
 - Stop opens a confirmation (Cancel / Stop) instead of a 1.5 s hold.
 - The clock also sits in the middle of the Settings header and of a printer's full view.

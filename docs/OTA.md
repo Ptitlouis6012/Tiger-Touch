@@ -72,7 +72,7 @@ the same way:
 
 <p align="center">
   <img src="../assets/screens/update-confirm.png" alt="Confirm update? About 2 minutes. Do not power off the Tiger Touch." width="380">
-  <img src="../assets/screens/update-ring.png" alt="The update ring at 20 percent, a green arrow in the middle, Do not power off" width="380">
+  <img src="../assets/screens/update-ring.png" alt="The update ring at 34 percent, a green arrow in the middle, Installing, Do not power off" width="380">
 </p>
 
 Between checks the settings menu shows a newer version in orange on the

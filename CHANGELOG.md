@@ -39,6 +39,10 @@ they were written.
   button to tigersystem.io, in the eleven languages.
 
 ### Changed
+- **Every picture of the screen**, in the README, `docs/OTA.md`, the device
+  drawings and the installer page, taken anew in English in Demo mode, with the
+  new header, the clock and the progress colours; the README gallery gains the
+  X1 Carbon with its AMS and the K2 Plus with its CFS.
 - **Settings shows the account's name, not its e-mail**, as TigerScale V3 does:
   the `displayName` of `users/{uid}`, read with the country the device already
   reads, kept across restarts, forgotten when another account signs in. The

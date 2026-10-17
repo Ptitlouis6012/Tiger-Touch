@@ -107,16 +107,25 @@ browser, and two minutes later it shows your printers.
   </tr>
   <tr>
     <td><img src="assets/screens/printer-snapmaker-u1.png" alt="Full view of a Snapmaker U1 printing: progress, layers, four tool heads with the active one ringed, and its four filaments"></td>
-    <td><img src="assets/screens/printer-flashforge-ad5x.png" alt="Full view of a FlashForge AD5X printing: progress, layers, its external spool and its four-slot material station"></td>
+    <td><img src="assets/screens/printer-flashforge-ad5x.png" alt="Full view of a FlashForge AD5X paused: its progress ring in orange, its external spool and its four-slot material station"></td>
   </tr>
   <tr>
     <td><b>Snapmaker U1</b>: four tool heads, the active one ringed.</td>
-    <td><b>FlashForge AD5X</b>: external spool and material station.</td>
+    <td><b>FlashForge AD5X</b>: paused, in orange; external spool and station.</td>
+  </tr>
+  <tr>
+    <td><img src="assets/screens/printer-bambu-x1c.png" alt="Full view of a Bambu Lab X1 Carbon printing: progress ring in blue, layers, time left, estimated end, and its AMS"></td>
+    <td><img src="assets/screens/printer-creality-k2.png" alt="Full view of a Creality K2 Plus printing: progress ring in blue, layers, time left, estimated end, and its CFS"></td>
+  </tr>
+  <tr>
+    <td><b>Bambu Lab X1 Carbon</b>: its AMS, the slot in use ringed.</td>
+    <td><b>Creality K2 Plus</b>: its CFS, the slot in use ringed.</td>
   </tr>
 </table>
 
-<sub>Real printers, read live by Tiger Touch; for these pictures their progress,
-file names and times were filled in by a bench build, since they were idle.</sub>
+<sub>Pictures taken in the screen's <b>Demo mode</b> (<i>Settings > Demo mode</i>), which
+shows ten made-up printers of every brand printing, exactly as real ones look:
+blue while a print runs, orange when it is paused, green when it is done.</sub>
 
 ## Printers
 
