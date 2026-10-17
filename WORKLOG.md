@@ -12,6 +12,9 @@ reset to this header at each release.
 - The installer page invites people not installing today to join the TigerSquad on tigersystem.io.
 
 ## Changed
+- Progress colours: blue printing, orange paused, green finished, red on a fault (ring, card, list bar).
+- Stop opens a confirmation (Cancel / Stop) instead of a 1.5 s hold.
+- The clock also sits in the middle of the Settings header and of a printer's full view.
 - README: an animated picture of the screen (start-up, cards, list, full view) and printing screenshots; installer flip shows the cards printing.
 - The settings row 'Change account' is now just 'Account'.
 - The installer page opens on the name, Tiger Touch, in large type, on every screen size.

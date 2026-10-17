@@ -89,7 +89,7 @@ browser, and two minutes later it shows your printers.
 | ☁️ **Cloud and LAN** | Bambu Lab through the **Bambu cloud** or in LAN mode; Anycubic through the **Anycubic cloud**; the others on your local network. |
 | 🔌 **Plug and play** | Printers come from your TigerTag account, with their addresses and access codes. Nothing to type on the screen but your Wi-Fi. |
 | 📊 **Live, all of them** | State, progress, file, time left and end time, nozzles, bed, chamber, filament units (AMS, CFS, Station, ACE, MMU / AFC lanes), up to ten printers followed at once. |
-| ✋ **Safe controls** | Pause, resume, stop (a 1.5 s hold, so a stray finger never ends a print) and the printer's light. Nothing else is ever sent: no heating, no moving. |
+| ✋ **Safe controls** | Pause, resume, stop (it asks for a confirmation first, so a stray finger never ends a print) and the printer's light. Nothing else is ever sent: no heating, no moving. |
 | 🔄 **Updates itself** | New versions arrive over Wi-Fi, verified before install, rolled back by themselves if they fail to start. |
 | 🌍 **Eleven languages** | English, French, German, Spanish, Italian, Chinese, Portuguese (Brazil and Portugal), Polish, Russian, Dutch. |
 | 💸 **Free and open source** | MIT licensed. No subscription, no account fee, no cloud of ours between you and your printers. |
@@ -176,8 +176,8 @@ each know **one** family of printers.
 | **Eleven languages, time zone from your country** | ✅ | - | - |
 | **Free and open source (MIT)** | ✅ | - | - |
 
-What each one sends to a printer: Tiger Touch pauses, resumes, stops (with a
-1.5 s hold) and switches the light, **and nothing else, on purpose**: a stray
+What each one sends to a printer: Tiger Touch pauses, resumes, stops (after a
+confirmation) and switches the light, **and nothing else, on purpose**: a stray
 touch on a shared screen never heats, moves or starts anything. BIGTREETECH's
 firmwares give full control of their one family (starting prints, temperatures,
 moves), and you can go back to them at any time ([docs/INSTALL.md](docs/INSTALL.md)).

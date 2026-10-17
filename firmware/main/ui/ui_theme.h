@@ -21,4 +21,5 @@ LV_FONT_DECLARE(font_icon_32); /* FontAwesome's sun alone, 32 px (tools/make_fon
 #define C_ACCENT   lv_color_hex(0xf58220)
 #define C_GREEN    lv_color_hex(0x3ecf8e)
 #define C_RED      lv_color_hex(0xf06a6a)
-#define C_AMBER    lv_color_hex(0xf5b84a) /* paused */
+#define C_AMBER    lv_color_hex(0xf5b84a) /* a warning: a load near full, a weak signal */
+#define C_BLUE     lv_color_hex(0x3da4f0) /* a print running */

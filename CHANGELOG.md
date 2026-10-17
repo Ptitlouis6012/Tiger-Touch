@@ -39,6 +39,14 @@ they were written.
   button to tigersystem.io, in the eleven languages.
 
 ### Changed
+- **A print's colour says its state**, the same on the ring, the card and the
+  list bar: blue while it prints, orange paused, green finished, red on a
+  fault. The dot beside the name still says the connection.
+- **Stop asks before it acts**: a touch opens a confirmation ("Stop this
+  print? It cannot be resumed."), and only its red *Stop* sends the command;
+  *Cancel* or a touch outside closes it. It replaces the 1.5 s hold.
+- **The clock is also in the Settings header and in a printer's full view**,
+  centred, as on the home screen.
 - **The README shows the screen at work**: its top picture turns, in BIGTREETECH's
   45-degree drawing, from the start-up screen to the cards, the list and a
   printer's full view; the gallery shows printers printing (their progress was

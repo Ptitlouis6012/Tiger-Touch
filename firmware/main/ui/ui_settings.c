@@ -328,6 +328,7 @@ void ui_show_settings_menu(const settings_menu_t *m)
 {
     lv_obj_t *scr = ui_kit_page();
     header(scr, tr(S_SETTINGS));
+    ui_kit_clock(scr, 22);
     lv_obj_t *list = ui_kit_scroll_list(scr, 2 * (ROW_H + ROW_GAP));
 
     char buf[48];

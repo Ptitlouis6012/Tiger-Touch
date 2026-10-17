@@ -218,6 +218,7 @@ void ui_dashboard_create(lv_obj_t *parent)
     /* The state (a dot and a word) is in the top bar, at the right, left of the
      * Wi-Fi wave: the card's top right is for the three buttons. 144 wide:
      * "Imprimiendo" and "A imprimir" must not touch the dot. */
+    ui_kit_clock(parent, 12); /* between the back arrow and the state */
     s_chip = lv_obj_create(parent);
     lv_obj_align(s_chip, LV_ALIGN_TOP_RIGHT, -92, 10);
     lv_obj_set_size(s_chip, 144, 32);
@@ -254,7 +255,7 @@ void ui_dashboard_create(lv_obj_t *parent)
     lv_obj_set_style_arc_width(s_arc, 14, LV_PART_MAIN);
     lv_obj_set_style_arc_width(s_arc, 14, LV_PART_INDICATOR);
     lv_obj_set_style_arc_color(s_arc, C_LINE, LV_PART_MAIN);
-    lv_obj_set_style_arc_color(s_arc, C_ACCENT, LV_PART_INDICATOR);
+    lv_obj_set_style_arc_color(s_arc, C_BLUE, LV_PART_INDICATOR);
     lv_obj_set_style_arc_rounded(s_arc, true, LV_PART_INDICATOR);
     /* A new LVGL arc is drawn half full until it is given a value. */
     lv_arc_set_value(s_arc, 0);
@@ -373,6 +374,23 @@ void ui_fmt_left(char *out, size_t n, int sec)
 }
 
 /* The local time at which the print will end, "--:--" when it is not known. */
+lv_color_t ui_progress_color(const printer_view_t *v, bool live)
+{
+    if (live && v->state == PV_PAUSED)
+    {
+        return C_ACCENT;
+    }
+    if (live && v->state == PV_ERROR)
+    {
+        return C_RED;
+    }
+    if (live && (v->state == PV_DONE || v->progress >= 100))
+    {
+        return C_GREEN;
+    }
+    return C_BLUE;
+}
+
 void ui_fmt_end(char *out, size_t n, int left_s)
 {
     snprintf(out, n, "--:--");
@@ -453,21 +471,7 @@ void ui_dashboard_update(const printer_view_t *v)
      * values it gave. */
     const bool live = v->online;
     lv_arc_set_value(s_arc, live ? v->progress : 0);
-    /* The card's colours: amber while paused, red on a fault, green once full. */
-    lv_color_t ring = C_ACCENT;
-    if (live && v->state == PV_PAUSED)
-    {
-        ring = C_AMBER;
-    }
-    else if (live && v->state == PV_ERROR)
-    {
-        ring = C_RED;
-    }
-    else if (live && v->progress >= 100)
-    {
-        ring = C_GREEN;
-    }
-    lv_obj_set_style_arc_color(s_arc, ring, LV_PART_INDICATOR);
+    lv_obj_set_style_arc_color(s_arc, ui_progress_color(v, live), LV_PART_INDICATOR);
     snprintf(buf, sizeof buf, "%d %%", v->progress);
     lv_label_set_text(s_pct, live ? buf : "--");
     lv_obj_align_to(s_pct, s_arc, LV_ALIGN_CENTER, 0, 0);
