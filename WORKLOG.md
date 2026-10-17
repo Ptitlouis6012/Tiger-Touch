@@ -23,6 +23,7 @@ reset to this header at each release.
 - The installer page is laid out for desktop, tablet and phone; the brand logos follow the text colour.
 - The printer-brands strip sits above the picture of the screen, in the README and on the installer page.
 - The README presents the TigerPOD Mini (picture, what it does, its free MakerWorld file) in place of the original TigerPOD.
+- The TigerPOD Mini's picture is the new blue one, at the old picture's size (420 x 622).
 
 ## Fixed
 - Demo mode: the estimated end no longer moves (the time left runs at the progress's pace); the Ender-3 S1 prints too.
