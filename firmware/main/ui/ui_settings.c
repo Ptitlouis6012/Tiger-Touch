@@ -337,7 +337,7 @@ void ui_show_settings_menu(const settings_menu_t *m)
     settings_row(list, ICON_GLYPH, LV_SYMBOL_WIFI, m->wifi_connected ? C_GREEN : C_RED, tr(S_WIFI), C_TEXT,
                  m->wifi_connected ? m->wifi_ssid : tr(S_NOT_CONNECTED), C_MUTED, EV_OPEN_WIFI);
     settings_row(list, ICON_USER, NULL, m->account_state == 2 ? C_GREEN : m->account_state == 1 ? C_ACCENT : C_RED,
-                 tr(S_CHANGE_ACCOUNT), C_TEXT,
+                 tr(S_ACCOUNT), C_TEXT,
                  m->account_state ? m->account_email : tr(S_NO_ACCOUNT), C_MUTED, EV_CHANGE_ACCOUNT);
     settings_row(list, ICON_SUN, NULL, C_TEXT, tr(S_SCREEN), C_TEXT, NULL, C_MUTED, EV_OPEN_SCREEN);
     settings_row(list, ICON_GLYPH, LV_SYMBOL_BATTERY_FULL, m->battery ? C_ACCENT : C_MUTED, tr(S_BATT_TITLE), C_TEXT,

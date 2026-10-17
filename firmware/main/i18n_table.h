@@ -166,9 +166,8 @@ X(S_SCREEN, "Screen", "Écran", "Bildschirm", "Pantalla", "Schermo", "屏幕", "
   "Экран", "Scherm")
 X(S_LANGUAGE, "Language", "Langue", "Sprache", "Idioma", "Lingua", "语言", "Idioma", "Idioma", "Język",
   "Язык", "Taal")
-X(S_CHANGE_ACCOUNT, "Change account", "Changer de compte", "Konto wechseln", "Cambiar de cuenta",
-  "Cambia account", "切换账号", "Trocar de conta", "Mudar de conta", "Zmień konto", "Сменить аккаунт",
-  "Van account wisselen")
+X(S_ACCOUNT, "Account", "Compte", "Konto", "Cuenta", "Account", "账号", "Conta", "Conta", "Konto", "Аккаунт",
+  "Account")
 X(S_RESTART, "Restart", "Redémarrer", "Neu starten", "Reiniciar", "Riavvia", "重启", "Reiniciar",
   "Reiniciar", "Uruchom ponownie", "Перезапустить", "Herstarten")
 X(S_RESTART_ASK, "Restart the Tiger Touch?", "Redémarrer le Tiger Touch ?", "Tiger Touch neu starten?",

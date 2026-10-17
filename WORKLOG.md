@@ -10,6 +10,7 @@ reset to this header at each release.
 - The installer page invites people not installing today to join the TigerSquad on tigersystem.io.
 
 ## Changed
+- The settings row 'Change account' is now just 'Account'.
 - The installer page opens on the name, Tiger Touch, in large type, on every screen size.
 - The installer page is laid out for desktop, tablet and phone; the brand logos follow the text colour.
 - The printer-brands strip sits above the picture of the screen, in the README and on the installer page.

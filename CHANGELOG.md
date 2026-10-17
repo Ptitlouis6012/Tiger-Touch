@@ -29,6 +29,7 @@ they were written.
   button to tigersystem.io, in the eleven languages.
 
 ### Changed
+- **The settings row reads *Account*** instead of *Change account*.
 - **The installer page uses the width of the screen**: on a computer, the
   pitch and the install steps beside a large picture of the screen, then
   "Before you start" in two columns and the comparison across the page; on a
