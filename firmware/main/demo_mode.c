@@ -65,7 +65,7 @@ static const demo_printer_t DEMO[] = {
     {"prusa", "Core One", 1, U_NONE, false, true, PV_PRINTING, 74, "Lamp shade"},
     {"klipper", "Voron 2.4", 1, U_AFC, true, true, PV_PRINTING, 9, "Gear set"},
     {"bambulab", "P2S", 1, U_AMS, true, true, PV_PRINTING, 95, "Planter"},
-    {"octoprint", "Ender-3 S1", 1, U_NONE, false, false, PV_IDLE, 0, ""},
+    {"octoprint", "Ender-3 S1", 1, U_NONE, false, false, PV_PRINTING, 61, "Wall bracket"},
 };
 #define DEMO_N ((int)(sizeof DEMO / sizeof DEMO[0]))
 
@@ -116,7 +116,6 @@ static void fill_unit(pv_unit_t *u, const char *label, int slots, int active)
 #define PCT_EVERY_US (20LL * 1000 * 1000) /* one per cent every 20 s */
 #define DONE_FOR_US (40LL * 1000 * 1000)  /* a finished print shows for 40 s, then the next starts */
 #define LAYERS 240
-#define MINUTES_PER_PCT 2                 /* what the time left says: a four-hour print */
 
 typedef struct
 {
@@ -230,7 +229,14 @@ static void demo_snapshot(void *ctx, printer_view_t *v)
     strlcpy(v->file, c->state == PV_IDLE ? "" : d->file, sizeof v->file);
     v->total_layer = busy || c->state == PV_DONE ? LAYERS : 0;
     v->layer = v->total_layer ? pct * LAYERS / 100 : 0;
-    v->left_s = busy ? (100 - pct) * MINUTES_PER_PCT * 60 : 0;
+    /* The time left runs down at the clock's pace, at the same rate as the
+     * progress, so that the estimated end (now + time left) stays where it is. */
+    int64_t left_us = (int64_t)(100 - c->base_pct) * PCT_EVERY_US;
+    if (c->state == PV_PRINTING)
+    {
+        left_us -= now - c->base_us;
+    }
+    v->left_s = busy && left_us > 0 ? (int)(left_us / 1000000) : 0;
 
     const float nt = busy ? 220.0f : 0.0f, bt = busy ? 60.0f : 0.0f;
     v->nozzle_target = nt;

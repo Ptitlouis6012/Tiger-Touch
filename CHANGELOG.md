@@ -17,6 +17,8 @@ they were written.
 ## [Unreleased]
 
 ### Added
+- **The time on the home screen**: hours and minutes, local time, in the middle
+  of its top line; "--:--" until the clock is set.
 - **Settings > Demo mode**, for a showroom, a fair or screenshots: the screen
   shows ten made-up printers of every brand, printing - progress that moves,
   temperatures that wobble, prints that finish and start again, filament colours
@@ -63,6 +65,12 @@ they were written.
   K-Touch's own firmwares, the donation links, and a light or dark theme to
   choose (following the system until one is picked). The picture of the screen
   turns from the start-up screen to the printers when the pointer is on it.
+
+### Fixed
+- **Demo mode: the estimated end no longer moves.** The time left ran down six
+  times faster than the clock, so the end jumped back every 20 s and crept
+  forward in between; it now runs at the progress's pace and the end stays put.
+  The demo's Ender-3 S1 prints too, instead of sitting idle.
 
 ## [2.0.0] - 2026-10-16
 

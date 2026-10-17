@@ -6,6 +6,7 @@ disappear. `CHANGELOG.md`'s `[Unreleased]` section is written from it, and it is
 reset to this header at each release.
 
 ## Added
+- The home screen shows the time (hours and minutes) in the middle of its top line.
 - Settings > Demo mode: ten made-up printers printing, for showrooms and screenshots; nothing real reached or sent.
 - Settings > Battery (yes by default), sent to the account as battery_present.
 - The installer page invites people not installing today to join the TigerSquad on tigersystem.io.
@@ -19,5 +20,6 @@ reset to this header at each release.
 - The README presents the TigerPOD Mini (picture, what it does, its free MakerWorld file) in place of the original TigerPOD.
 
 ## Fixed
+- Demo mode: the estimated end no longer moves (the time left runs at the progress's pace); the Ender-3 S1 prints too.
 
 ## Removed

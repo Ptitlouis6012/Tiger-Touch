@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #include "boot_splash.h"
 #include "brand_logos.h"
@@ -661,6 +662,49 @@ static void view_button(lv_obj_t *scr)
     }
 }
 
+/* The clock in the middle of the home's top line: hours and minutes, local
+ * time (the time zone follows the country). "--:--" until the clock is set.
+ * Written only when the minute changes: a label set to the same text is still
+ * redrawn. The timer goes with the label, never after it. */
+static void clock_text(char *out, size_t n)
+{
+    const time_t now = time(NULL);
+    if (now < 1700000000)
+    {
+        snprintf(out, n, "--:--");
+        return;
+    }
+    struct tm lt;
+    localtime_r(&now, &lt);
+    strftime(out, n, "%H:%M", &lt);
+}
+
+static void clock_tick(lv_timer_t *t)
+{
+    lv_obj_t *l = (lv_obj_t *)lv_timer_get_user_data(t);
+    char buf[8];
+    clock_text(buf, sizeof buf);
+    if (strcmp(lv_label_get_text(l), buf) != 0)
+    {
+        lv_label_set_text(l, buf);
+    }
+}
+
+static void clock_gone(lv_event_t *e)
+{
+    lv_timer_delete((lv_timer_t *)lv_event_get_user_data(e));
+}
+
+static void header_clock(lv_obj_t *scr)
+{
+    char buf[8];
+    clock_text(buf, sizeof buf);
+    lv_obj_t *l = txt(scr, &font_ui_24, C_TEXT, buf, 0, 0);
+    lv_obj_align(l, LV_ALIGN_TOP_MID, 0, 18);
+    lv_timer_t *t = lv_timer_create(clock_tick, 1000, l);
+    lv_obj_add_event_cb(l, clock_gone, LV_EVENT_DELETE, t);
+}
+
 /* The printers page: the header (settings, Wi-Fi, account) and one live card per
  * switched-on printer, which ui_cards.c draws and keeps current. */
 void ui_show_printers(const printer_row_t *rows, int n)
@@ -670,6 +714,7 @@ void ui_show_printers(const printer_row_t *rows, int n)
      * Wi-Fi wave and the account, then the gear as a bare icon - no boxes. */
     lv_obj_t *t = txt(scr, &font_ui_24, C_TEXT, tr(S_PRINTERS), 24, 0);
     lv_obj_align(t, LV_ALIGN_TOP_LEFT, 24, 18);
+    header_clock(scr);
 
     lv_obj_t *gear = lv_button_create(scr);
     lv_obj_set_size(gear, 72, 60);
