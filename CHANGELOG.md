@@ -16,6 +16,9 @@ they were written.
 
 ## [Unreleased]
 
+## [2.1.1] - 2026-10-18
+
+
 ### Added
 - **A window announces a new version**, as on TigerScale V3 and TigerSpool:
   "New firmware available. Go to the update page?", the move (`2.1.0 > 2.2.0`),
