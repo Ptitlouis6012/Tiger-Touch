@@ -16,6 +16,9 @@ they were written.
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-10-18
+
+
 ### Added
 - **Settings > LAN mode**, as on TigerScale V3: Tiger Studio Manager, on the
   same Wi-Fi, takes the screen's picture (for an issue or a post), shows it
