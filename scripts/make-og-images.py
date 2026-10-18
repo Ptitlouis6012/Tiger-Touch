@@ -86,9 +86,18 @@ def card(title2, sub, device, printers, footer, font):
     # A few of the brand's printers along the bottom.
     x = 52
     for p in printers[:4]:
-        paste_fit(im, p, (x, 410, 140, 140))
+        paste_fit(im, p, (x, 396, 140, 140))
         x += 146
-    d.text((64, 572), footer, font=font(22, False), fill=MUTED)
+    # What to do next, as the button the site uses: a click is what a share wants.
+    cta = "Install it free"
+    co = font(26)
+    tw = d.textlength(cta, font=co) + 34  # the text, then a drawn arrow (no font has one here)
+    d.rounded_rectangle((64, 560, 64 + tw + 48, 608), radius=24, fill=ACCENT)
+    d.text((64 + 24, 584), cta, font=co, fill=(255, 255, 255), anchor="lm")
+    ax = 64 + 24 + tw - 22
+    d.line((ax, 584, ax + 20, 584), fill=(255, 255, 255), width=4)
+    d.line((ax + 12, 576, ax + 21, 584, ax + 12, 592), fill=(255, 255, 255), width=4, joint="curve")
+    d.text((64 + tw + 72, 584), footer, font=font(20, False), fill=MUTED, anchor="lm")
     return im.convert("RGB")
 
 
@@ -101,7 +110,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     data = json.loads((ROOT / "installer" / "brand-pages.json").read_text())["brands"]
     models = ROOT / "assets" / "printers" / "models"
-    footer = "Free and open source  ·  9 brands, one screen  ·  Tiger Touch"
+    footer = "Free and open source  ·  9 brands, one screen"
     for b in data:
         im = card([(b["name"], ACCENT), (" printers", TEXT)],
                   "Free firmware for the BIGTREETECH Panda Touch and K-Touch",
@@ -112,7 +121,7 @@ def main():
                                  "prusa_core_one.png")]
     home = card([], "Every 3D printer on one screen: free firmware for the BIGTREETECH Panda Touch and K-Touch",
                 ROOT / "assets" / "devices" / "tiger-touch-cards.png", lead,
-                "Bambu Lab · Creality · Elegoo · Anycubic · Snapmaker · FlashForge · Prusa · Klipper · OctoPrint", font)
+                "9 brands, one screen  ·  open source", font)
     home.save(out / "home.jpg", quality=86, optimize=True, progressive=True)
     print("og images: %s" % ", ".join(sorted(p.name for p in out.glob("*.jpg"))))
 

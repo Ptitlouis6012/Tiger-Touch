@@ -140,7 +140,8 @@ def page(b, brands, pieces, svg):
     title = "%s printers on a Panda Touch or K-Touch - Tiger Touch" % name
     desc = b["meta"]  # written for search results: 150-160 characters, a whole sentence
     img = BASE + "img/%s.png" % slug
-    og = BASE + "og/%s.jpg" % slug
+    # With its fingerprint: a network that cached an older picture fetches the new one.
+    og = BASE + "og/%s.jpg?v=%s" % (slug, hashlib.sha256((ROOT / "assets" / "og" / (slug + ".jpg")).read_bytes()).hexdigest()[:10])
     slugs = {x["logo"]: x["slug"] for x in brands}
     others = [x for x in brands if x["slug"] != slug]
     logo = next(p for p in pieces if p[0] == b["logo"])
@@ -180,7 +181,7 @@ def page(b, brands, pieces, svg):
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tiger Touch">
 <meta property="og:title" content="Tiger Touch for {name} printers">
-<meta property="og:description" content="{desc}">
+<meta property="og:description" content="{ogdesc}">
 <meta property="og:url" content="{url}">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="{og}">
@@ -189,7 +190,7 @@ def page(b, brands, pieces, svg):
 <meta property="og:image:alt" content="TigerTouch for {name} printers: the screen showing a {name} printer, and its lineup">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tiger Touch for {name} printers">
-<meta name="twitter:description" content="{desc}">
+<meta name="twitter:description" content="{ogdesc}">
 <meta name="twitter:image" content="{og}">
 <meta name="twitter:image:alt" content="TigerTouch for {name} printers: the screen showing a {name} printer, and its lineup">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -308,7 +309,7 @@ def page(b, brands, pieces, svg):
 </main>
 </body>
 </html>
-""".format(title=esc(title), desc=esc(desc), url=url, name=esc(name), img=img, og=og, slug=slug, repo=REPO,
+""".format(title=esc(title), desc=esc(desc), ogdesc=esc(b["og"]), url=url, name=esc(name), img=img, og=og, slug=slug, repo=REPO,
            ld=json.dumps(ld, ensure_ascii=False).replace("</", "<\\/"), logo_svg=logo_svg, lead=esc(b["lead"]),
            models=esc(b["models"]), connection=esc(b["connection"]), status=esc(b["status"]),
            shot_alt=esc(b["shot_alt"]), shows=li(b["shows"]), controls=esc(b["controls"]),
@@ -357,6 +358,8 @@ def main():
     slugs = {b["logo"]: b["slug"] for b in brands}
     home = replace_strip(index.read_text(), strip(svg, pieces, slugs, "", None))
     home = static_english(home, english((out / "i18n.js").read_text()))
+    stamp = hashlib.sha256((ROOT / "assets" / "og" / "home.jpg").read_bytes()).hexdigest()[:10]
+    home = re.sub(r'(og/home\.jpg)(\?v=\w+)?"', r'\1?v=%s"' % stamp, home)
     home = re.sub(r'href="site\.css(\?v=\w+)?"', 'href="site.css?v=%s"' % STAMPS["v_css"], home)
     home = re.sub(r'src="theme\.js(\?v=\w+)?"', 'src="theme.js?v=%s"' % STAMPS["v_theme"], home)
     index.write_text(home)

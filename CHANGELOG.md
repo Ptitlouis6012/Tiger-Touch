@@ -101,6 +101,10 @@ they were written.
   OctoPrint), say the screen's data is made up in Demo mode, link the way back,
   and list the same models as their lineups. `llms.txt` says what TigerSystem
   and TigerTag each are.
+- **Share previews pass opengraph.xyz's checks**: a social description of its
+  own (125 characters at most, where previews cut; the search description stays
+  150 to 160), an "Install it free" button in every share picture, and the
+  picture's address carries its fingerprint so networks drop an old copy.
 - **The README and llms.txt link every brand page**: the brands of the
   printer table and a line under it in the README, a section of its own in
   `llms.txt`, so that search engines and AI assistants find each page.
