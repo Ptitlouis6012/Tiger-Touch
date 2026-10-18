@@ -124,7 +124,8 @@ they were written.
 - **A media kit page** (`/press/`, in the eleven languages): the fact sheet,
   a one-sentence and a one-paragraph description with a copy button, and every
   picture to download (front mockups, screen captures, illustrations, share
-  pictures, the TigerTag logo), with the whole kit as one ZIP built with the
+  pictures, the TigerSystem square tiger head, framed and full, and the
+  TigerTag logo), with the whole kit as one ZIP built with the
   site. Linked from the foot of every page, the README and llms.txt.
 ### Changed
 - **One stylesheet and one theme script for the whole site** (`installer/site.css`,

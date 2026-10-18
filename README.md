@@ -478,7 +478,7 @@ the illustrations and the share pictures.
 </p>
 
 - **[The media kit page](https://tigertag-project.github.io/Tiger-Touch/press/)**, in the eleven languages, with **[the whole kit as one ZIP](https://tigertag-project.github.io/Tiger-Touch/press/tiger-touch-media-kit.zip)**
-- In this repository: [front mockups](assets/mockups/front/) · [screen captures](assets/screens/) · [illustrations](assets/devices/) · [share pictures](assets/og/)
+- In this repository: [front mockups](assets/mockups/front/) · [screen captures](assets/screens/) · [illustrations](assets/devices/) · [share pictures](assets/og/) · [TigerSystem logos](assets/brand/) (the square tiger head, framed for light and dark backgrounds, and full)
 - Questions or an interview: [GitHub issues](https://github.com/TigerTag-Project/Tiger-Touch/issues) or [tigersystem.io](https://tigersystem.io)
 
 The screen pictured is the BIGTREETECH Panda Touch; BIGTREETECH's name and the

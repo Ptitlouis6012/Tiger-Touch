@@ -474,7 +474,9 @@ MEDIA_KIT = [
                                         "assets/devices/tiger-touch-list.png", "assets/devices/tiger-touch-printer.png",
                                         "assets/devices/brands/*.png"]),
     ("share", "mk_g_share", ["assets/og/*.jpg"]),
-    ("brand", "mk_g_brand", ["assets/logo-tigertag-head.svg", "assets/logo-tigertag-head-dark.svg",
+    ("brand", "mk_g_brand", ["assets/brand/tigersystem-icon-framed.svg", "assets/brand/tigersystem-icon-framed.png",
+                             "assets/brand/tigersystem-icon-square.svg", "assets/brand/tigersystem-icon-square.png",
+                             "assets/logo-tigertag-head.svg", "assets/logo-tigertag-head-dark.svg",
                              "assets/Hero-TigerSystem-ecosystem.png"]),
 ]
 KIT_ZIP = "tiger-touch-media-kit.zip"
