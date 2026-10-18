@@ -137,7 +137,7 @@ FEATURES = [
 def page(b, brands, pieces, svg):
     slug, name = b["slug"], b["name"]
     url = BASE + slug + "/"
-    title = "%s printers on a Panda Touch or K-Touch - Tiger Touch" % name
+    title = "%s printers on Panda Touch / K-Touch | Tiger Touch" % name  # 60 characters at most
     desc = b["meta"]  # written for search results: 150-160 characters, a whole sentence
     img = BASE + "img/%s.png" % slug
     # With its fingerprint: a network that cached an older picture fetches the new one.
