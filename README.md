@@ -85,14 +85,14 @@ browser, and two minutes later it shows your printers.
 
 | | |
 |---|---|
-| 🖨️ **Every brand on one screen** | Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, plus any Klipper (Moonraker) or OctoPrint machine. Tiger Studio's printer catalogue lists close to 400 models from about 60 makers. |
-| ☁️ **Cloud and LAN** | Bambu Lab through the **Bambu cloud** or in LAN mode; Anycubic through the **Anycubic cloud**; the others on your local network. |
-| 🔌 **Plug and play** | Printers come from your TigerSystem account, with their addresses and access codes. Nothing to type on the screen but your Wi-Fi. |
-| 📊 **Live, all of them** | State, progress, file, time left and end time, nozzles, bed, chamber, filament units (AMS, CFS, Station, ACE, MMU / AFC lanes), up to ten printers followed at once. |
-| ✋ **Safe controls** | Pause, resume, stop (it asks for a confirmation first, so a stray finger never ends a print) and the printer's light. Nothing else is ever sent: no heating, no moving. |
-| 🔄 **Updates itself** | New versions arrive over Wi-Fi, verified before install, rolled back by themselves if they fail to start. |
-| 🌍 **Eleven languages** | English, French, German, Spanish, Italian, Chinese, Portuguese (Brazil and Portugal), Polish, Russian, Dutch. |
-| 💸 **Free and open source** | MIT licensed. No subscription, no account fee, no cloud of ours between you and your printers. |
+| <img src="assets/icons/printer.svg" width="20" height="20" alt="Every brand"> **Every brand on one screen** | Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, plus any Klipper (Moonraker) or OctoPrint machine. Tiger Studio's printer catalogue lists close to 400 models from about 60 makers. |
+| <img src="assets/icons/cloud.svg" width="20" height="20" alt="Cloud and LAN"> **Cloud and LAN** | Bambu Lab through the **Bambu cloud** or in LAN mode; Anycubic through the **Anycubic cloud**; the others on your local network. |
+| <img src="assets/icons/plug.svg" width="20" height="20" alt="Plug and play"> **Plug and play** | Printers come from your TigerSystem account, with their addresses and access codes. Nothing to type on the screen but your Wi-Fi. |
+| <img src="assets/icons/chart.svg" width="20" height="20" alt="Live data"> **Live, all of them** | State, progress, file, time left and end time, nozzles, bed, chamber, filament units (AMS, CFS, Station, ACE, MMU / AFC lanes), up to ten printers followed at once. |
+| <img src="assets/icons/shield.svg" width="20" height="20" alt="Safe controls"> **Safe controls** | Pause, resume, stop (it asks for a confirmation first, so a stray finger never ends a print) and the printer's light. Nothing else is ever sent: no heating, no moving. |
+| <img src="assets/icons/refresh.svg" width="20" height="20" alt="Updates"> **Updates itself** | New versions arrive over Wi-Fi, verified before install, rolled back by themselves if they fail to start. |
+| <img src="assets/icons/globe.svg" width="20" height="20" alt="Languages"> **Eleven languages** | English, French, German, Spanish, Italian, Chinese, Portuguese (Brazil and Portugal), Polish, Russian, Dutch. |
+| <img src="assets/icons/open.svg" width="20" height="20" alt="Free and open source"> **Free and open source** | MIT licensed. No subscription, no account fee, no cloud of ours between you and your printers. |
 
 ## Screens
 
@@ -173,20 +173,20 @@ each know **one** family of printers.
 |---|:---:|:---:|:---:|
 | **Printer families on one screen** | **9** | 1 (Bambu Lab) | 1 (Klipper) |
 | **Printers live at once** | **up to 10**, all updating together | several Bambu Lab, slows down from about 3 in our use | **1** at a time (50 saved, switch between them) |
-| **Bambu Lab**: LAN and Bambu cloud | ✅ | ✅ | ❌ |
-| **Anycubic**: Anycubic cloud and LAN | ✅ | ❌ | ❌ |
-| **Creality** K1 / K2 / Hi / Ender-3 V4 | ✅ | ❌ | ❌ |
-| **[Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/)** Centauri Carbon 1 and 2 | ✅ | ❌ | ❌ |
-| **[Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/)** U1 | ✅ | ❌ | ❌ |
-| **FlashForge** AD5X / Adventurer 5M / Creator 5 | ✅ | ❌ | ❌ |
-| **Prusa** (PrusaLink) | ✅ | ❌ | ❌ |
-| **Klipper** (Moonraker) | ✅ | ❌ | ✅ |
-| **OctoPrint** | ✅ | ❌ | ❌ |
-| **Printers set up without typing on the screen** | ✅ from your TigerSystem account | ❌ IP, serial, access code | ❌ IP and port, or a scan |
-| **Filament units shown** (AMS, CFS, Station, ACE, MMU / AFC) | ✅ every brand | ✅ AMS | - |
-| **Over-the-air updates**: the screen finds new versions and installs them itself, verified, with automatic roll-back | ✅ | ❌ | ❌ |
-| **Eleven languages, time zone from your country** | ✅ | - | - |
-| **Free and open source (MIT)** | ✅ | - | - |
+| **Bambu Lab**: LAN and Bambu cloud | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| **Anycubic**: Anycubic cloud and LAN | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| **Creality** K1 / K2 / Hi / Ender-3 V4 | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| **[Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/)** Centauri Carbon 1 and 2 | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| **[Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/)** U1 | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| **FlashForge** AD5X / Adventurer 5M / Creator 5 | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| **Prusa** (PrusaLink) | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| **Klipper** (Moonraker) | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> |
+| **OctoPrint** | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| **Printers set up without typing on the screen** | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> from your TigerSystem account | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> IP, serial, access code | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> IP and port, or a scan |
+| **Filament units shown** (AMS, CFS, Station, ACE, MMU / AFC) | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> every brand | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> AMS | - |
+| **Over-the-air updates**: the screen finds new versions and installs them itself, verified, with automatic roll-back | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| **Eleven languages, time zone from your country** | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | - | - |
+| **Free and open source (MIT)** | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | - | - |
 
 What each one sends to a printer: Tiger Touch pauses, resumes, stops (after a
 confirmation) and switches the light, **and nothing else, on purpose**: a stray
@@ -211,7 +211,7 @@ moves), and you can go back to them at any time ([docs/INSTALL.md](docs/INSTALL.
 [K-Touch](https://global.bttwiki.com/Klipper%20Touch.html), read 2026-10-16),
 which publishes no limit on how many Bambu Lab printers the Panda Touch follows;
 "slows down from about 3" is the TigerTag team's own experience with it, not a
-BIGTREETECH figure. A dash means the wiki does not say. A ✅ for Tiger Touch
+BIGTREETECH figure. A dash means the wiki does not say. A tick for Tiger Touch
 means supported; which brands have already run on a real machine is in
 [Printers](#printers). Tiger Touch's figures
 are measured on the board: [docs/CONNECTION-BUDGET.md](docs/CONNECTION-BUDGET.md),
@@ -394,9 +394,9 @@ settings area and wipes the saved Wi-Fi and account.
 TigerSystem is a personal, community open-source project, built and maintained in free time.
 Everything stays free; if it saves you a trip to the printer room, you can support it:
 
-- ☕ [Buy Me a Coffee](https://buymeacoffee.com/benoitl)
-- ❤️ [Ko-fi](https://ko-fi.com/tigersystemio)
-- 💙 [PayPal](https://paypal.me/tigersystemio)
+- <img src="assets/icons/coffee.svg" width="20" height="20" alt=""> [Buy Me a Coffee](https://buymeacoffee.com/benoitl)
+- <img src="assets/icons/heart.svg" width="20" height="20" alt=""> [Ko-fi](https://ko-fi.com/tigersystemio)
+- <img src="assets/icons/card.svg" width="20" height="20" alt=""> [PayPal](https://paypal.me/tigersystemio)
 
 ## Contributing
 

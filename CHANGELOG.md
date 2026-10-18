@@ -40,6 +40,10 @@ they were written.
   manifest published with every release (`installer/release.js`): no page holds
   a version, so a release changes nothing to edit.
 - **The FlashForge page lists the Creator 5 Pro**, in its models and lineup.
+- **The README has no emoji left**: the feature table, the comparison's ticks
+  and crosses and the support links use small SVG icons (`assets/icons/`), each
+  with alternative text ("Yes", "No", the feature's name) that screen readers
+  and search engines read, where an emoji was read as a symbol name.
 - **The README and llms.txt link every brand page**: the brands of the
   printer table and a line under it in the README, a section of its own in
   `llms.txt`, so that search engines and AI assistants find each page.
