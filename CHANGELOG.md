@@ -80,6 +80,13 @@ they were written.
   computer" reads "no computer left on" and "two minutes" "a few minutes"; the
   installer (eleven languages) and every brand page say the project is not
   affiliated with BIGTREETECH or the printer makers.
+- **Every page has its own share picture and a full set of tags**: a 1200x630
+  Open Graph image per page ("TigerTouch for <Brand> printers", the brand's
+  screen and printers; `assets/og/`, made by `scripts/make-og-images.py`), its
+  size and alternative text, the Twitter card's title, description and image,
+  the locale, and the installer page's canonical address. Each brand page's
+  description is written for search results (150 to 160 characters, a whole
+  sentence) instead of its first paragraph cut with "...".
 - **The README and llms.txt link every brand page**: the brands of the
   printer table and a line under it in the README, a section of its own in
   `llms.txt`, so that search engines and AI assistants find each page.

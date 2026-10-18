@@ -114,10 +114,9 @@ def page(b, brands, pieces, svg):
     slug, name = b["slug"], b["name"]
     url = BASE + slug + "/"
     title = "%s printers on a Panda Touch or K-Touch - Tiger Touch" % name
-    desc = b["lead"]
-    if len(desc) > 158:
-        desc = desc[:155].rsplit(" ", 1)[0] + "..."
+    desc = b["meta"]  # written for search results: 150-160 characters, a whole sentence
     img = BASE + "img/%s.png" % slug
+    og = BASE + "og/%s.jpg" % slug
     slugs = {x["logo"]: x["slug"] for x in brands}
     others = [x for x in brands if x["slug"] != slug]
     logo = next(p for p in pieces if p[0] == b["logo"])
@@ -126,7 +125,7 @@ def page(b, brands, pieces, svg):
         {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Tiger Touch",
          "applicationCategory": "UtilitiesApplication",
          "operatingSystem": "Firmware for the BIGTREETECH Panda Touch and K-Touch (ESP32-S3)",
-         "description": b["lead"], "url": url, "image": img, "license": "https://opensource.org/licenses/MIT",
+         "description": b["lead"], "url": url, "image": [og, img], "license": "https://opensource.org/licenses/MIT",
          "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"},
          "isAccessibleForFree": True, "downloadUrl": BASE, "codeRepository": REPO,
          "featureList": [s for s in b["shows"]]},
@@ -156,11 +155,19 @@ def page(b, brands, pieces, svg):
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tiger Touch">
-<meta property="og:title" content="Tiger Touch for {name}">
+<meta property="og:title" content="Tiger Touch for {name} printers">
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{img}">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="{og}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="TigerTouch for {name} printers: the screen showing a {name} printer, and its lineup">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tiger Touch for {name} printers">
+<meta name="twitter:description" content="{desc}">
+<meta name="twitter:image" content="{og}">
+<meta name="twitter:image:alt" content="TigerTouch for {name} printers: the screen showing a {name} printer, and its lineup">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../site.css?v={v_css}">
 <script>try {{ var t = localStorage.getItem("tigertouch-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; }} catch (e) {{}}</script>
@@ -275,7 +282,7 @@ def page(b, brands, pieces, svg):
 </main>
 </body>
 </html>
-""".format(title=esc(title), desc=esc(desc), url=url, name=esc(name), img=img, slug=slug, repo=REPO,
+""".format(title=esc(title), desc=esc(desc), url=url, name=esc(name), img=img, og=og, slug=slug, repo=REPO,
            ld=json.dumps(ld, ensure_ascii=False).replace("</", "<\\/"), logo_svg=logo_svg, lead=esc(b["lead"]),
            models=esc(b["models"]), connection=esc(b["connection"]), status=esc(b["status"]),
            shot_alt=esc(b["shot_alt"]), shows=li(b["shows"]), controls=esc(b["controls"]),
@@ -302,6 +309,8 @@ def main():
     pieces = logos(svg)
     labels = {p[0] for p in pieces}
     (out / "img").mkdir(parents=True, exist_ok=True)
+    # The share pictures (scripts/make-og-images.py, committed).
+    shutil.copytree(ROOT / "assets" / "og", out / "og", dirs_exist_ok=True)
     # The brands' logos one file each, for the installer page's comparison.
     shutil.copytree(ROOT / "assets" / "brands" / "logos", out / "logos", dirs_exist_ok=True)
     for b in brands:

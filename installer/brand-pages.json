@@ -8,6 +8,7 @@
       "models": "X1 Carbon, X1E, P1S, P1P, P2S, A1, A1 mini, H2D, H2C, H2S",
       "short": "Bambu cloud or LAN mode, every AMS slot, the light",
       "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your Bambu Lab printers: progress, layers, time left, temperatures and every AMS slot, through the Bambu cloud or in LAN mode.",
+      "meta": "Free firmware that turns a BIGTREETECH Panda Touch or K-Touch into a live screen for Bambu Lab printers: every AMS slot, progress, temperatures, cloud or LAN.",
       "connection": "Bambu cloud (MQTT over TLS to Bambu's region broker, with the session Tiger Studio Manager stored in your account), or LAN mode (MQTT over TLS to the printer, port 8883, with its access code).",
       "status": "Seen on real printers: a full print on a P2S through the cloud; an X1 Carbon and an A1 in LAN mode.",
       "shows": [
@@ -69,6 +70,7 @@
       "models": "K2 Plus, K2, K1, K1 Max, K1C, Hi, Ender-3 V4, Ender-3 V3 KE; older Creality printers behind OctoPrint",
       "short": "On your network, the CFS, the light, pause and stop",
       "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your Creality printers: progress, layers, temperatures and the CFS, straight from the printer on your network.",
+      "meta": "Free firmware that turns a Panda Touch or K-Touch into a live screen for Creality K2, K1, Hi and Ender-3 V4 printers: progress, temperatures and the CFS.",
       "connection": "The printer's own WebSocket on your local network (port 9999), no cloud.",
       "status": "Seen on real printers: a full print on a K2 Plus, with its CFS; an Ender-3 V4 idle with its CFS.",
       "shows": [
@@ -146,6 +148,7 @@
       "models": "Centauri Carbon 2 (and Combo), Centauri 2 (and Combo), Centauri Carbon; the Neptune 4 family and the OrangeStorm Giga through Klipper",
       "short": "Centauri Carbon 1 and 2 on your network, the Canvas",
       "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your Elegoo Centauri Carbon: progress, temperatures and, on the Centauri Carbon 2, the Canvas filament system.",
+      "meta": "Free firmware that turns a Panda Touch or K-Touch into a live screen for the Elegoo Centauri Carbon 2 and Centauri Carbon, and the Neptune 4 through Klipper.",
       "connection": "On your local network: MQTT for the Centauri Carbon 2 (port 1883), SDCP for the Centauri Carbon (discovery on UDP 3000, then WebSocket 3030).",
       "status": "Written from Elegoo's protocols and compiled; not yet run on a real Centauri Carbon. A report from your printer is the most useful thing you can send.",
       "shows": [
@@ -230,6 +233,7 @@
       "models": "Kobra S1, Kobra X, Kobra 3, Kobra 3 Combo",
       "short": "Anycubic cloud or your network, every ACE slot",
       "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your Anycubic printers: their state and every ACE slot, through the Anycubic cloud or on your network.",
+      "meta": "Free firmware that turns a Panda Touch or K-Touch into a live screen for Anycubic Kobra S1, Kobra X and Kobra 3 printers: every ACE slot, cloud or LAN.",
       "connection": "The Anycubic cloud (one session for all the cloud printers of your account, signed in as the Anycubic slicer is), or on your network (MQTT over TLS, port 9883).",
       "status": "Seen on a real printer: a Kobra X idle through the Anycubic cloud, with the four slots of its ACE. The local connection is compiled, not yet run.",
       "shows": [
@@ -286,6 +290,7 @@
       "models": "U1",
       "short": "The U1 on your network, its four tool heads",
       "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your Snapmaker U1: its four tool heads, the one at work ringed, progress and temperatures.",
+      "meta": "Free firmware that turns a Panda Touch or K-Touch into a live screen for the Snapmaker U1: its four tool heads, their spools, progress and temperatures.",
       "connection": "Moonraker's WebSocket on your local network (port 7125), with the U1's own filament data.",
       "status": "Seen on a real U1, idle: state, the four nozzles with the active one ringed, the bed.",
       "shows": [
@@ -330,6 +335,7 @@
       "models": "AD5X, Adventurer 5M, Adventurer 5M Pro, Creator 5, Creator 5 Pro",
       "short": "On your network, the AD5X material station",
       "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your FlashForge printers: progress, temperatures, the external spool and the AD5X's material station.",
+      "meta": "Free firmware that turns a Panda Touch or K-Touch into a live screen for FlashForge AD5X, Adventurer 5M and Creator 5: progress and the material station.",
       "connection": "The printer's HTTP interface on your local network (port 8898), read every 2 seconds.",
       "status": "Seen on a real AD5X, idle: state, nozzle and bed temperatures.",
       "shows": [
@@ -390,6 +396,7 @@
       "models": "Core One, MK4, MK4S, XL, MINI",
       "short": "PrusaLink on your network: progress and temperatures",
       "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your Prusa printers through PrusaLink: progress, time left and temperatures.",
+      "meta": "Free firmware that turns a Panda Touch or K-Touch into a live screen for Prusa Core One, MK4, XL and MINI printers through PrusaLink, no Prusa Connect.",
       "connection": "PrusaLink over HTTP on your local network, with Digest authentication (or the legacy API key when your account holds one).",
       "status": "Written from PrusaLink's API and compiled; not yet run on a real Prusa. A report from your printer is the most useful thing you can send.",
       "shows": [
@@ -445,6 +452,7 @@
       "models": "Voron, Qidi, Sovol, RatRig and any printer running Klipper with Moonraker",
       "short": "Moonraker: Voron, Qidi, Sovol, AFC and Happy Hare",
       "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for any Klipper printer with Moonraker: progress, temperatures, up to four extruders, the light and AFC or Happy Hare lanes.",
+      "meta": "Free firmware that turns a Panda Touch or K-Touch into a live screen for Klipper printers (Voron, Qidi, Sovol) through Moonraker, with AFC and Happy Hare.",
       "connection": "Moonraker over HTTP on your local network (port 7125 unless you give another), read every 2 seconds, with an API key when Moonraker asks for one.",
       "status": "Run against Tiger Studio Manager's Moonraker test printer: printing, paused, finished, cancelled, errors, the light and four AFC lanes. Not yet on a real printer.",
       "shows": [
@@ -505,6 +513,7 @@
       "models": "Any Marlin printer behind OctoPrint (Ender, Prusa MK3, Anet and more)",
       "short": "Any Marlin printer behind OctoPrint",
       "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for a printer behind OctoPrint: progress, time left and temperatures, for any Marlin printer.",
+      "meta": "Free firmware that turns a Panda Touch or K-Touch into a live screen for any printer behind OctoPrint: progress, time left and temperatures, on your network.",
       "connection": "OctoPrint's REST API over HTTP on your local network (port 80 unless you give another), read every 2 seconds, with its API key.",
       "status": "Run against Tiger Studio Manager's OctoPrint test server: printing, paused, finished, errors and no printer plugged in. Not yet on a real printer.",
       "shows": [
