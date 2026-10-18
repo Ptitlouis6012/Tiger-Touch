@@ -337,6 +337,8 @@ void ui_show_settings_menu(const settings_menu_t *m)
                  tr(m->battery ? S_BATT_FITTED : S_BATT_NONE), C_MUTED, EV_OPEN_BATTERY);
     settings_row(list, ICON_GLOBE, NULL, C_TEXT, tr(S_LANGUAGE), C_TEXT, i18n_native_name(i18n_lang()), C_MUTED,
                  EV_OPEN_LANGUAGE);
+    settings_row(list, ICON_GLYPH, LV_SYMBOL_EYE_OPEN, m->lan ? C_GREEN : C_MUTED, tr(S_LAN), C_TEXT,
+                 tr(m->lan ? S_ON : S_OFF), m->lan ? C_GREEN : C_MUTED, EV_OPEN_LAN);
     settings_row(list, ICON_GLYPH, LV_SYMBOL_PLAY, m->demo ? C_ACCENT : C_MUTED, tr(S_DEMO), C_TEXT,
                  tr(m->demo ? S_ON : S_OFF), m->demo ? C_ACCENT : C_MUTED, EV_OPEN_DEMO);
     /* With a newer version seen, the row spells the move ("1.3.2 > 2.0.0") in orange. */
@@ -822,6 +824,71 @@ void ui_show_demo_page(bool on)
     lv_obj_set_width(i2, W - 64);
     lv_label_set_long_mode(i2, LV_LABEL_LONG_WRAP);
     lv_obj_align_to(i2, i1, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 18);
+}
+
+/* ---- LAN mode ------------------------------------------------------------- */
+/* The switch, the address, the code and its button: what Tiger Studio needs. */
+
+static void on_lan_switch(lv_event_t *e)
+{
+    const bool on = lv_obj_has_state(lv_event_get_target_obj(e), LV_STATE_CHECKED);
+    ui_post(EV_SET_LAN_LIVE, on ? 1 : 0, NULL, NULL);
+}
+
+static void on_lan_new_code(lv_event_t *e)
+{
+    (void)e;
+    ui_post(EV_LAN_NEW_CODE, 0, NULL, NULL);
+}
+
+void ui_show_lan_page(bool live, const char *ip, const char *code)
+{
+    lv_obj_t *scr = ui_kit_page();
+    header(scr, tr(S_LAN));
+
+    lv_obj_t *row = card_box(scr, 16, 80, W - 32, 72);
+    lv_obj_t *l = ui_kit_txt(row, &font_ui_24, C_TEXT, tr(S_LAN_LIVE), 0, 0);
+    lv_obj_align(l, LV_ALIGN_LEFT_MID, 22, 0);
+    lv_obj_t *sw = lv_switch_create(row);
+    lv_obj_set_size(sw, 70, 38);
+    lv_obj_align(sw, LV_ALIGN_RIGHT_MID, -18, 0);
+    lv_obj_set_style_bg_color(sw, C_LINE, LV_PART_MAIN);
+    lv_obj_set_style_bg_color(sw, C_ACCENT, LV_PART_INDICATOR | LV_STATE_CHECKED);
+    lv_obj_set_style_bg_color(sw, C_TEXT, LV_PART_KNOB);
+    if (live)
+    {
+        lv_obj_add_state(sw, LV_STATE_CHECKED);
+    }
+    lv_obj_add_event_cb(sw, on_lan_switch, LV_EVENT_VALUE_CHANGED, NULL);
+
+    lv_obj_t *a = card_box(scr, 16, 164, W - 32, 72);
+    lv_obj_t *al = ui_kit_txt(a, &font_ui_20, C_TEXT, tr(S_LAN_ADDRESS), 0, 0);
+    lv_obj_align(al, LV_ALIGN_LEFT_MID, 22, 0);
+    lv_obj_t *av = ui_kit_txt(a, &font_ui_20, live && ip ? C_TEXT : C_MUTED, ip ? ip : tr(S_NOT_CONNECTED), 0, 0);
+    lv_obj_align(av, LV_ALIGN_RIGHT_MID, -22, 0);
+
+    lv_obj_t *c = card_box(scr, 16, 248, W - 32, 72);
+    lv_obj_t *cl = ui_kit_txt(c, &font_ui_20, C_TEXT, tr(S_LAN_CODE), 0, 0);
+    lv_obj_align(cl, LV_ALIGN_LEFT_MID, 22, 0);
+    lv_obj_t *nb = lv_button_create(c);
+    lv_obj_set_size(nb, 64, 52);
+    lv_obj_align(nb, LV_ALIGN_RIGHT_MID, -12, 0);
+    lv_obj_set_style_bg_color(nb, C_TILE, 0);
+    lv_obj_set_style_radius(nb, 10, 0);
+    lv_obj_set_style_border_width(nb, 0, 0);
+    lv_obj_set_style_shadow_width(nb, 0, 0);
+    lv_obj_t *nl = lv_label_create(nb);
+    lv_label_set_text(nl, LV_SYMBOL_REFRESH);
+    lv_obj_set_style_text_font(nl, &lv_font_montserrat_32, 0);
+    lv_obj_set_style_text_color(nl, C_TEXT, 0);
+    lv_obj_center(nl);
+    lv_obj_add_event_cb(nb, on_lan_new_code, LV_EVENT_CLICKED, NULL);
+    lv_obj_t *cv = ui_kit_txt(c, &font_ui_24, live ? C_TEXT : C_MUTED, code, 0, 0);
+    lv_obj_align_to(cv, nb, LV_ALIGN_OUT_LEFT_MID, -20, 0);
+
+    lv_obj_t *i = ui_kit_txt(scr, &font_ui_16, C_MUTED, tr(live ? S_LAN_INFO : S_LAN_OFF_INFO), 24, 340);
+    lv_obj_set_width(i, W - 48);
+    lv_label_set_long_mode(i, LV_LABEL_LONG_WRAP);
 }
 
 /* ---- Language ------------------------------------------------------------- */

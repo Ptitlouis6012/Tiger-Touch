@@ -78,7 +78,7 @@ e-mail in NVS, nothing else.
 | `users/{uid}/prefs/app` `lang` | at start, when no local choice is waiting | when a language is picked on the device (see [ONBOARDING.md](ONBOARDING.md#1-language)) |
 | `users/{uid}` country fields | at start, for the time zone | never |
 | The Bambu Lab cloud session stored by Tiger Studio | for a Bambu printer reached through the cloud | never |
-| `users/{uid}/tigertouches/{mac}` | its `display_name`, on a full heartbeat | every 30 s, every 5 min while the screen sleeps (below) |
+| `users/{uid}/tigertouchs/{mac}` | its `display_name`, on a full heartbeat | every 30 s, every 5 min while the screen sleeps (below) |
 
 ### The device's presence
 
@@ -102,15 +102,16 @@ reads the other.
 | `power_source`, `battery_percent`, `is_charging` | every heartbeat | null: the board gives the firmware no way to read them ([HARDWARE.md](HARDWARE.md#power-the-switch-the-dock-and-the-battery)); TigerSpool measures its battery on an analog input wired to it, which this board does not have |
 | `printers_active`, `printer_ids`, `printers_online` | every heartbeat | how many printers are switched on, their account ids, the ones answering (none in demo mode) |
 | `demo` | every heartbeat | `true` while *Settings > Demo mode* is on: the screen then shows made-up printers and lists none here |
+| `lan_live`, `lan_access_code`, `lan_url` | every heartbeat, and at once when they change | *Settings > LAN mode*: whether live view is on, its access code, `http://<address>` while it is on (else null), so that Tiger Studio can reach it ([LAN-MODE.md](LAN-MODE.md), [TELEMETRY.md](TELEMETRY.md)) |
 
 A full heartbeat (identity fields too) is sent at start and after a sign-in;
 then every 30 s while the screen is on, every 5 minutes while it sleeps, and at
-once when the printers switched on or answering change. After three failures in
+once when the printers switched on or answering change, or the LAN mode does. After three failures in
 a row it waits 5 minutes. It runs in a task of its own on core 0, and skips a
 beat when internal RAM has no 24 KB block for a TLS session.
 
 **What the account needs.** The project's Firestore rules must let the owner
-write `users/{uid}/tigertouches/{deviceId}` (the same rule as `tigerspools`);
+write `users/{uid}/tigertouchs/{deviceId}` (the same rule as `tigerspools`);
 without it every heartbeat is refused with HTTP 403 and nothing else changes.
 Tiger Studio shows the document once it has a reader for this collection.
 

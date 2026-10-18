@@ -52,6 +52,8 @@ that look like bugs and are not, or look fine and are not.
 - [docs/ONBOARDING.md](docs/ONBOARDING.md): the first start as on TigerScale V3 - language first, then Wi-Fi and account questions with Later, reminders on the home screen, what makes a device "new".
 - [docs/ACCOUNT-PAIRING.md](docs/ACCOUNT-PAIRING.md): e-mail/password, and Google accounts by QR pairing (Cloud Functions pairStart/pairPoll, kind "display", signInWithCustomToken, uid from the JWT).
 - [docs/INSTALL.md](docs/INSTALL.md): replacing the BigTreeTech firmware (backup first with scripts/backup-flash.sh), the CH340K driver macOS lacks, building with Docker or ESP-IDF, flashing at 115200, going back.
+- [docs/TELEMETRY.md](docs/TELEMETRY.md): the presence document users/{uid}/tigertouchs/{mac}, every field, cadence, online rule, LAN mode fields, and a paste-ready brief for the Tiger Studio Manager agent.
+- [docs/LAN-MODE.md](docs/LAN-MODE.md): Settings > LAN mode, for Tiger Studio: /screen.ver, /screen.bmp, POST /api/tap and /api/swipe on port 80, every request with the six-character access code (also in the account presence: lan_live, lan_access_code, lan_url). No web page.
 - [docs/OTA.md](docs/OTA.md): two 6 MB slots, the manifest on GitHub Pages, SHA-256 + application name + version checks, rollback after a 60 s probation, and the open question of signing.
 - [docs/HARDWARE.md](docs/HARDWARE.md): the screen (Panda Touch / K-Touch) as this firmware uses it.
 - [docs/ROADMAP.md](docs/ROADMAP.md): what is deliberately not done yet.

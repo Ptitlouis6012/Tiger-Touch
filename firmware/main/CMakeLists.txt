@@ -9,6 +9,7 @@ idf_component_register(
         "net/cloud.c"
         "net/http_lite.c"
         "net/ota.c"
+        "net/lan_mode.c"
         "drivers/drivers.c"
         "drivers/links.c"
         "drivers/k2_client.c"
@@ -46,7 +47,7 @@ idf_component_register(
     REQUIRES PandaTouch_IDF lvgl
     PRIV_REQUIRES
         esp_wifi esp_event esp_netif esp_timer nvs_flash esp_app_format
-        esp_http_client esp-tls mbedtls json driver app_update esp_partition espressif__esp_websocket_client mqtt
+        esp_http_client esp-tls mbedtls json esp_http_server driver app_update esp_partition espressif__esp_websocket_client mqtt
 )
 # The warnings of the CI build, written out. They come from ESP-IDF's own project
 # setup, which is not the same on every machine: a build that does not ask for them

@@ -53,7 +53,8 @@ scripts/             verify.sh, the guards, build and flash, release and site he
   wrapper is where the toolchain conflicts came from.
 - No bench console, demo or capture code in the tree, ever - except the owner's
   Demo mode (`demo_mode.c`): made-up printers only, nothing reached, nothing sent,
-  off by default (see CLAUDE.md).
+  off by default (see CLAUDE.md) - and LAN mode (`net/lan_mode.c`), a product
+  feature, not bench code: the screen for Tiger Studio behind an access code.
 - Private data never enters the repository; there is no "temporarily".
 - A driver that has not run against a real machine says so, in
   `docs/PRINTER-COMPATIBILITY.md` and in its header.

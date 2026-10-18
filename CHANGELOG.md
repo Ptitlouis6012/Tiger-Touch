@@ -17,6 +17,14 @@ they were written.
 ## [Unreleased]
 
 ### Added
+- **Settings > LAN mode**, as on TigerScale V3: Tiger Studio Manager, on the
+  same Wi-Fi, takes the screen's picture (for an issue or a post), shows it
+  live and sends touches and swipes. Every request carries a six-character
+  access code (capitals and digits) drawn on the device, kept across updates,
+  renewable with one touch, and written to the account with the presence
+  (`lan_live`, `lan_access_code`, `lan_url`) where Studio reads it. Ten wrong
+  codes lock it for a minute; switched off, nothing is served. Live view is on
+  by default. No web page (`docs/LAN-MODE.md`, `docs/TELEMETRY.md`).
 - **The time on the home screen**: hours and minutes, local time, in the middle
   of its top line; "--:--" until the clock is set.
 - **Settings > Demo mode**, for a showroom, a fair or screenshots: the screen
@@ -39,6 +47,9 @@ they were written.
   button to tigersystem.io, in the eleven languages.
 
 ### Changed
+- **The presence document moves to `users/{uid}/tigertouchs/{mac}`** (it was
+  `tigertouches`); the account's rules name the new collection only, so a 2.0.0
+  screen's heartbeat is refused until it updates.
 - **Every picture of the screen**, in the README, `docs/OTA.md`, the device
   drawings and the installer page, taken anew in English in Demo mode, with the
   new header, the clock and the progress colours; the README gallery gains the

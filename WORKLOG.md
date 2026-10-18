@@ -6,12 +6,15 @@ disappear. `CHANGELOG.md`'s `[Unreleased]` section is written from it, and it is
 reset to this header at each release.
 
 ## Added
+- Settings > LAN mode, as on TigerScale V3: Tiger Studio takes screenshots, shows the screen live and sends touches, behind a six-character access code also written to the account (lan_live, lan_access_code, lan_url). No web page.
+- docs/TELEMETRY.md: the presence document field by field, and the brief for Tiger Studio.
 - The home screen shows the time (hours and minutes) in the middle of its top line.
 - Settings > Demo mode: ten made-up printers printing, for showrooms and screenshots; nothing real reached or sent.
 - Settings > Battery (yes by default), sent to the account as battery_present.
 - The installer page invites people not installing today to join the TigerSquad on tigersystem.io.
 
 ## Changed
+- The presence document is now users/{uid}/tigertouchs/{mac} (was tigertouches).
 - Settings shows the account's display name, as TigerScale V3 does, instead of its e-mail.
 - One header on every screen: 64 px, no rule under it, everything centred on the same line.
 - Every picture of the screen (README, docs, installer) taken anew, in English, in Demo mode; the gallery gains the X1 Carbon and the K2 Plus.

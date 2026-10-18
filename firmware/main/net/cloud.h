@@ -136,7 +136,7 @@ cloud_err_t cloud_push_lang(const char *code);
 /* ---- Presence in the account -----------------------------------------------
  * The device says it is there, as TigerScale (users/{uid}/scales/{mac}) and
  * TigerSpool (users/{uid}/tigerspools/{mac}) do, in
- * users/{uid}/tigertouches/{mac}: its version, its Wi-Fi, whether its screen
+ * users/{uid}/tigertouchs/{mac}: its version, its Wi-Fi, whether its screen
  * sleeps, and the printers it follows. One Firestore commit, the same contract
  * and field names as TigerSpool's heartbeat (its docs/PRESENCE.md); the server
  * stamps last_heartbeat_at. The first heartbeat creates the document. */
@@ -152,6 +152,8 @@ typedef struct
     bool screen_off;     /* asleep: Studio then waits longer before calling it offline */
     bool battery;        /* fitted, as the owner declared it (Settings > Battery) */
     bool demo;           /* demo mode is on: the screen shows made-up printers */
+    bool lan_live;       /* LAN mode: live view served (lan_mode.h) */
+    char lan_code[8];    /* its access code */
     int n;               /* printers switched on */
     char ids[CLOUD_PRESENCE_MAX][40];
     bool online[CLOUD_PRESENCE_MAX];

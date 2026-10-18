@@ -16,6 +16,7 @@ encrypted**; anyone with physical access to the board can read it.
 | The TigerTag account's refresh token and its e-mail | to sign in again without asking; the **password is never stored** |
 | The language, the screen settings, which printers are on | preferences |
 | The country the account holds (two letters, or a Canadian province) | to choose the time zone before the account is read again |
+| The LAN mode's access code, and whether live view is on | to serve the screen to a browser ([docs/LAN-MODE.md](docs/LAN-MODE.md)) |
 
 Printer access details (access codes, addresses) are not stored on the device:
 they are read from the account at each start.
@@ -23,15 +24,18 @@ they are read from the account at each start.
 ## What the device sends, and where
 
 - To Google's identity and Firestore endpoints, over verified TLS: the sign-in and
-  the account's printer list, language and country. One thing is written back:
-  the language, when it is picked on the device (`users/{uid}/prefs/app.lang`).
+  the account's printer list, language and country. Written back: the
+  language, when it is picked on the device (`users/{uid}/prefs/app.lang`), and
+  the device's presence (`users/{uid}/tigertouchs/{mac}`), which includes the
+  LAN mode's access code; only the owner reads it
+  ([docs/ACCOUNT-PAIRING.md](docs/ACCOUNT-PAIRING.md#the-devices-presence)).
 - To TigerTag's Cloud Functions (`pairStart`, `pairPoll`), over verified TLS,
   when the owner chooses **Continue with Google**: the device's name
   (`tigertouch-xxxx`, from its Wi-Fi address), "Tiger Touch", its firmware
   version. The answer is a one-time code; the session it ends in is the same as
   a password sign-in's ([docs/ACCOUNT-PAIRING.md](docs/ACCOUNT-PAIRING.md)).
 - To each printer, by the protocol its maker uses: status requests, and a pause,
-  resume or stop only on a touch (stop needs a hold of 1.5 s). A Bambu printer in LAN mode
+  resume or stop only on a touch (stop asks for a confirmation first). A Bambu printer in LAN mode
   presents a self-signed certificate; the connection is made to a private address
   with the printer's access code, and the chain is not verified for that
   connection only. The same applies to an Anycubic printer's broker.
@@ -39,6 +43,17 @@ they are read from the account at each start.
 - To GitHub, over verified TLS: a read of the published update manifest a minute
   after start-up and once a day, and the firmware image when someone touches
   **Install**. Nothing identifying the device is sent; it is a plain download.
+
+## What the device serves
+
+While *Settings > LAN mode > Live view* is on (the default), a server on port
+80 gives the screen's picture to Tiger Studio on the same network and takes
+touches from it. Every request carries the six-character access code; after
+ten wrong codes nothing is accepted for a minute. The connection is plain HTTP:
+someone who can watch the network's traffic can read the code. Anyone with the
+code can do what a finger on the screen can, so a stop still asks for its
+confirmation. To take the access away, draw a new code or switch live view off
+([docs/LAN-MODE.md](docs/LAN-MODE.md)).
 
 ## Updates
 

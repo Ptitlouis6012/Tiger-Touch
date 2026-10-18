@@ -4,6 +4,7 @@
 
 #include "cloud.h"
 #include "demo_mode.h"
+#include "lan_mode.h"
 #include "esp_attr.h"
 #include "i18n.h"
 #include "screen.h"
@@ -785,6 +786,35 @@ static void run_demo_page(void)
     }
 }
 
+/* LAN mode: the switch, the address, the code. Redrawn after each change, so
+ * the address follows the Wi-Fi and the code the button. */
+static void run_lan_page(void)
+{
+    flush_events();
+    for (;;)
+    {
+        wifi_link_info_t li = {0};
+        const bool online = wifi_mgr_state() == WIFI_STATE_CONNECTED && wifi_mgr_info(&li) && li.ip[0];
+        PT_LVGL_SCOPE_LOCK()
+        {
+            ui_show_lan_page(lan_mode_live(), online ? li.ip : NULL, lan_mode_code());
+        }
+        app_event_t e = wait_event();
+        if (e.type == EV_SET_LAN_LIVE)
+        {
+            lan_mode_set_live(e.index != 0);
+        }
+        else if (e.type == EV_LAN_NEW_CODE)
+        {
+            lan_mode_new_code();
+        }
+        else if (e.type == EV_BACK)
+        {
+            return;
+        }
+    }
+}
+
 static void run_language_page(void)
 {
     for (;;)
@@ -1031,6 +1061,7 @@ static void run_settings(void)
             .update_offered = has_offer ? offered.version : NULL,
             .battery = screen_battery(),
             .demo = demo_mode_on(),
+            .lan = lan_mode_live(),
         };
         for (int i = 0; i < s_printer_count; i++)
         {
@@ -1057,6 +1088,9 @@ static void run_settings(void)
             break;
         case EV_OPEN_DEMO:
             run_demo_page();
+            break;
+        case EV_OPEN_LAN:
+            run_lan_page();
             break;
         case EV_OPEN_LANGUAGE:
             run_language_page();
@@ -1398,8 +1432,11 @@ static void presence_task(void *arg)
         }
         p.screen_off = screen_asleep();
         p.battery = screen_battery();
+        p.lan_live = lan_mode_live();
+        strlcpy(p.lan_code, lan_mode_code(), sizeof p.lan_code);
         /* What a person would see change: the printers on, which answer, the screen. */
-        uint32_t sig = (uint32_t)p.n * 2654435761u ^ (p.screen_off ? 1u : 0u) ^ (p.battery ? 2u : 0u);
+        uint32_t sig = (uint32_t)p.n * 2654435761u ^ (p.screen_off ? 1u : 0u) ^ (p.battery ? 2u : 0u) ^
+                       (lan_mode_version() << 2);
         for (int k = 0; k < p.n; k++)
         {
             sig = sig * 31u + (p.online[k] ? 2u : 1u) + (uint32_t)p.ids[k][0];
@@ -2062,6 +2099,7 @@ void app_main(void)
     }
     pt_backlight_set(0); /* switched on once the power-on picture is drawn */
     wifi_mgr_init();
+    lan_mode_init();
 
     /* TLS handshakes and JSON parsing want a deep stack. It lives in PSRAM, as
      * the LVGL task's does: the internal RAM is what Wi-Fi and TLS need. */

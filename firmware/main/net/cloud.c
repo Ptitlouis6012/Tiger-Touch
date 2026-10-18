@@ -1354,7 +1354,7 @@ cloud_err_t cloud_heartbeat(const cloud_presence_t *p)
         return te;
     }
     char path[160];
-    snprintf(path, sizeof path, "projects/" PROJECT "/databases/(default)/documents/users/%s/tigertouches/%s", s_uid,
+    snprintf(path, sizeof path, "projects/" PROJECT "/databases/(default)/documents/users/%s/tigertouchs/%s", s_uid,
              p->mac);
     char doc_url[300];
     snprintf(doc_url, sizeof doc_url, "https://firestore.googleapis.com/v1/%s", path);
@@ -1405,6 +1405,22 @@ cloud_err_t cloud_heartbeat(const cloud_presence_t *p)
     cJSON *dm = cJSON_AddObjectToObject(f, "demo");
     cJSON_AddBoolToObject(dm, "booleanValue", p->demo);
     cJSON_AddItemToArray(mask, cJSON_CreateString("demo"));
+    /* LAN mode, as on TigerScale V3: the access code goes to the account, which
+     * only its owner reads, so that Tiger Studio can open the live view. */
+    cJSON *ll = cJSON_AddObjectToObject(f, "lan_live");
+    cJSON_AddBoolToObject(ll, "booleanValue", p->lan_live);
+    cJSON_AddItemToArray(mask, cJSON_CreateString("lan_live"));
+    fs_put_str(f, mask, "lan_access_code", p->lan_code);
+    if (p->lan_live && p->ip[0])
+    {
+        char url[32];
+        snprintf(url, sizeof url, "http://%s", p->ip);
+        fs_put_str(f, mask, "lan_url", url);
+    }
+    else
+    {
+        fs_put_null(f, mask, "lan_url");
+    }
     fs_put_null(f, mask, "power_source");
     fs_put_null(f, mask, "battery_percent");
     fs_put_null(f, mask, "is_charging");
