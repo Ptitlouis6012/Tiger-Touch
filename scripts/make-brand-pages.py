@@ -271,7 +271,9 @@ def page(b, brands, pieces, svg):
            setup=li(b["setup"]), tips=esc(b["tips"]), faq=faq, strip=strip(svg, pieces, slugs, "../", slug),
            others=other_rows, feats=feats, **STAMPS,
            lineup="".join('<li><img src="../img/models/%s" width="240" height="240" loading="lazy" alt="%s %s">'
-                          '<span>%s</span></li>' % (esc(f), esc(name), esc(n), esc(n)) for f, n in b["lineup"]))
+                          '<span>%s</span>%s</li>' % (esc(m[0]), esc(name), esc(m[1]), esc(m[1]),
+                                                      '<small>%s</small>' % esc(m[2]) if len(m) > 2 else "")
+                          for m in b["lineup"]))
 
 
 def main():
@@ -301,8 +303,8 @@ def main():
         (d / "favicon.svg").write_text(favicon(p[1], p[2]))
         shutil.copyfile(ROOT / "assets" / "devices" / "brands" / (b["shot"] + ".png"), out / "img" / (b["slug"] + ".png"))
         (out / "img" / "models").mkdir(exist_ok=True)
-        for f, _n in b["lineup"]:
-            shutil.copyfile(ROOT / "assets" / "printers" / "models" / f, out / "img" / "models" / f)
+        for m in b["lineup"]:
+            shutil.copyfile(ROOT / "assets" / "printers" / "models" / m[0], out / "img" / "models" / m[0])
     # The installer page shows the same strip, each logo a link to its page.
     index = out / "index.html"
     slugs = {b["logo"]: b["slug"] for b in brands}

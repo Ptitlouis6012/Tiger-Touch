@@ -262,3 +262,4 @@ nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.c
 
 /* The TigerSquad card stands on its own between the install card and the brands. */
 .join { margin: 28px 0 30px; }
+.lineup small { color: var(--muted); font-size: .8rem; margin-top: 2px; }

@@ -62,6 +62,14 @@ they were written.
   OctoPrint shared one row.
 - **The TigerSquad card comes right after the install card** on the installer
   page, above the brand logos, instead of at the bottom.
+- **A brand page shows the whole brand**, including the models reached
+  through another connection, each marked: Elegoo's Centauri Carbon 2, its
+  Combo emoji® edition, the Centauri 2 and 2 Combo and the Centauri Carbon, plus
+  the OrangeStorm Giga and the Neptune 4, 4 Pro and 4 Max "via Klipper";
+  Creality's K2 Plus, K2, K1 Max, K1C, Hi, Ender-3 V4 and V3 KE, plus an Ender-3
+  S1 "via OctoPrint". Each page's questions say how. The Elegoo pictures are the
+  ones Tiger Studio Manager's catalogue names.
+- **The installer's title reads "TigerTouch"**, the two colours joined.
 - **The README and llms.txt link every brand page**: the brands of the
   printer table and a line under it in the README, a section of its own in
   `llms.txt`, so that search engines and AI assistants find each page.

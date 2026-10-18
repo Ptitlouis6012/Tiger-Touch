@@ -66,7 +66,7 @@
       "slug": "creality",
       "name": "Creality",
       "logo": "Creality",
-      "models": "K2 Plus, K2, K1, K1 Max, K1C, Hi, Ender-3 V4",
+      "models": "K2 Plus, K2, K1, K1 Max, K1C, Hi, Ender-3 V4, Ender-3 V3 KE; older Creality printers behind OctoPrint",
       "short": "On your network, the CFS, the light, pause and stop",
       "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your Creality printers: progress, layers, temperatures and the CFS, straight from the printer on your network.",
       "connection": "The printer's own WebSocket on your local network (port 9999), no cloud.",
@@ -97,12 +97,20 @@
         [
           "Which Creality printers?",
           "The K2 family, the K1 family, the Hi and the Ender-3 V4: those Tiger Studio Manager adds. It was run on a K2 Plus and an Ender-3 V4."
+        ],
+        [
+          "What about an older Creality, such as an Ender-3 S1?",
+          "Put it behind OctoPrint (an OctoPi, for instance): Tiger Touch follows it through its OctoPrint connection."
         ]
       ],
       "lineup": [
         [
           "creality_k2_plus.png",
           "K2 Plus"
+        ],
+        [
+          "creality_k2.png",
+          "K2"
         ],
         [
           "creality_k1_max.png",
@@ -119,6 +127,15 @@
         [
           "creality_ender_3_v4.png",
           "Ender-3 V4"
+        ],
+        [
+          "creality_ender_3_v3_ke.png",
+          "Ender-3 V3 KE"
+        ],
+        [
+          "creality_ender_3_s1.png",
+          "Ender-3 S1",
+          "via OctoPrint"
         ]
       ]
     },
@@ -126,7 +143,7 @@
       "slug": "elegoo",
       "name": "Elegoo",
       "logo": "Elegoo",
-      "models": "Centauri Carbon 2, Centauri Carbon",
+      "models": "Centauri Carbon 2 (and Combo), Centauri 2 (and Combo), Centauri Carbon; the Neptune 4 family and the OrangeStorm Giga through Klipper",
       "short": "Centauri Carbon 1 and 2 on your network, the Canvas",
       "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your Elegoo Centauri Carbon: progress, temperatures and, on the Centauri Carbon 2, the Canvas filament system.",
       "connection": "On your local network: MQTT for the Centauri Carbon 2 (port 1883), SDCP for the Centauri Carbon (discovery on UDP 3000, then WebSocket 3030).",
@@ -157,6 +174,10 @@
         [
           "Does it show the Canvas?",
           "On the Centauri Carbon 2, yes: its slots with material and colour."
+        ],
+        [
+          "What about the Neptune 4 and the OrangeStorm Giga?",
+          "They run Klipper with Moonraker, so Tiger Touch follows them through its Klipper connection: add them in Tiger Studio Manager as Klipper printers."
         ]
       ],
       "lineup": [
@@ -165,8 +186,40 @@
           "Centauri Carbon 2"
         ],
         [
+          "elegoo_centauri_carbon_2_combo_emoji.png",
+          "Centauri Carbon 2 Combo emoji®"
+        ],
+        [
+          "elegoo_centauri_2.png",
+          "Centauri 2"
+        ],
+        [
+          "elegoo_centauri_2_combo.png",
+          "Centauri 2 Combo"
+        ],
+        [
           "elegoo_centauri_carbon.png",
           "Centauri Carbon"
+        ],
+        [
+          "elegoo_orangestorm_giga.png",
+          "OrangeStorm Giga",
+          "via Klipper"
+        ],
+        [
+          "elegoo_neptune_4.png",
+          "Neptune 4",
+          "via Klipper"
+        ],
+        [
+          "elegoo_neptune_4_pro.png",
+          "Neptune 4 Pro",
+          "via Klipper"
+        ],
+        [
+          "elegoo_neptune_4_max.png",
+          "Neptune 4 Max",
+          "via Klipper"
         ]
       ]
     },
