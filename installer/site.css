@@ -323,6 +323,18 @@ nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.c
 .mk-grid a:hover .mk-name { color: var(--link); }
 .mk-name { overflow-wrap: anywhere; }
 
+/* Share this page: one round button per site, then copy the link and the phone's own sheet. */
+.share { margin: 30px 0 6px; }
+.share h2 { margin: 0 0 12px; font-size: 1.15rem; }
+.share-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.share-btn, .share-btn:visited { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px;
+  border-radius: 50%; border: 1px solid var(--line); background: var(--card); color: var(--text); }
+.share-btn svg { width: 20px; height: 20px; }
+.share-btn:hover, .share-btn:focus-visible { border-color: var(--accent); color: var(--link); }
+.share-copy { display: inline-flex; align-items: center; gap: 8px; }
+.share-copy svg { width: 18px; height: 18px; }
+.share [hidden] { display: none; }
+
 /* The rest of TigerSystem, at the foot of every page: secondary, there to be discovered. */
 .eco-sec { margin: 34px 0 8px; }
 .eco-sec h2 { margin: 0 0 6px; font-size: 1.3rem; }

@@ -80,3 +80,7 @@ Manager:
   Klipper and OctoPrint ones are plain letter or outline marks, not those
   projects' official logos.
 - `assets/ecosystem/` holds the TigerSystem products' own pictures.
+- `assets/icons/share/` holds the marks of the sites a page can be shared to,
+  drawn by [Simple Icons](https://simpleicons.org) (CC0 1.0, public domain);
+  LinkedIn's comes from Tiger Studio Manager's own icons. The marks belong to
+  their owners and only name where a link is shared.

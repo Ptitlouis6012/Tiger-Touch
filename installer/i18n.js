@@ -161,6 +161,10 @@ en: {
   mk_g_anim_front: "Animations, front view",
   mk_g_anim_angle: "Animations, three-quarter view",
   mk_g_angle: "The screen, three-quarter view",
+  share_title: "Share this page",
+  share_copy: "Copy the link",
+  share_copied: "Link copied",
+  share_more: "More…",
 },
 
 fr: {
@@ -305,6 +309,10 @@ fr: {
   mk_g_anim_front: "Animations, vue de face",
   mk_g_anim_angle: "Animations, vue de trois quarts",
   mk_g_angle: "L'écran, vue de trois quarts",
+  share_title: "Partager cette page",
+  share_copy: "Copier le lien",
+  share_copied: "Lien copié",
+  share_more: "Plus…",
 },
 
 de: {
@@ -449,6 +457,10 @@ de: {
   mk_g_anim_front: "Animationen, Vorderansicht",
   mk_g_anim_angle: "Animationen, Dreiviertelansicht",
   mk_g_angle: "Der Bildschirm, Dreiviertelansicht",
+  share_title: "Diese Seite teilen",
+  share_copy: "Link kopieren",
+  share_copied: "Link kopiert",
+  share_more: "Mehr…",
 },
 
 es: {
@@ -593,6 +605,10 @@ es: {
   mk_g_anim_front: "Animaciones, vista frontal",
   mk_g_anim_angle: "Animaciones, vista de tres cuartos",
   mk_g_angle: "La pantalla, vista de tres cuartos",
+  share_title: "Compartir esta página",
+  share_copy: "Copiar el enlace",
+  share_copied: "Enlace copiado",
+  share_more: "Más…",
 },
 
 it: {
@@ -737,6 +753,10 @@ it: {
   mk_g_anim_front: "Animazioni, vista frontale",
   mk_g_anim_angle: "Animazioni, vista di tre quarti",
   mk_g_angle: "Lo schermo, vista di tre quarti",
+  share_title: "Condividi questa pagina",
+  share_copy: "Copia il link",
+  share_copied: "Link copiato",
+  share_more: "Altro…",
 },
 
 zh: {
@@ -881,6 +901,10 @@ zh: {
   mk_g_anim_front: "动画，正面视角",
   mk_g_anim_angle: "动画，四分之三视角",
   mk_g_angle: "屏幕，四分之三视角",
+  share_title: "分享此页面",
+  share_copy: "复制链接",
+  share_copied: "链接已复制",
+  share_more: "更多…",
 },
 
 pt: {
@@ -1025,6 +1049,10 @@ pt: {
   mk_g_anim_front: "Animações, vista frontal",
   mk_g_anim_angle: "Animações, vista em três quartos",
   mk_g_angle: "A tela, vista em três quartos",
+  share_title: "Compartilhar esta página",
+  share_copy: "Copiar o link",
+  share_copied: "Link copiado",
+  share_more: "Mais…",
 },
 
 "pt-pt": {
@@ -1169,6 +1197,10 @@ pt: {
   mk_g_anim_front: "Animações, vista frontal",
   mk_g_anim_angle: "Animações, vista de três quartos",
   mk_g_angle: "O ecrã, vista de três quartos",
+  share_title: "Partilhar esta página",
+  share_copy: "Copiar a ligação",
+  share_copied: "Ligação copiada",
+  share_more: "Mais…",
 },
 
 pl: {
@@ -1313,6 +1345,10 @@ pl: {
   mk_g_anim_front: "Animacje, widok z przodu",
   mk_g_anim_angle: "Animacje, widok trzy czwarte",
   mk_g_angle: "Ekran, widok trzy czwarte",
+  share_title: "Udostępnij tę stronę",
+  share_copy: "Kopiuj link",
+  share_copied: "Link skopiowany",
+  share_more: "Więcej…",
 },
 
 ru: {
@@ -1457,6 +1493,10 @@ ru: {
   mk_g_anim_front: "Анимации, вид спереди",
   mk_g_anim_angle: "Анимации, вид в три четверти",
   mk_g_angle: "Экран, вид в три четверти",
+  share_title: "Поделиться страницей",
+  share_copy: "Копировать ссылку",
+  share_copied: "Ссылка скопирована",
+  share_more: "Ещё…",
 },
 
 nl: {
@@ -1601,6 +1641,10 @@ nl: {
   mk_g_anim_front: "Animaties, vooraanzicht",
   mk_g_anim_angle: "Animaties, driekwartaanzicht",
   mk_g_angle: "Het scherm, driekwartaanzicht",
+  share_title: "Deel deze pagina",
+  share_copy: "Link kopiëren",
+  share_copied: "Link gekopieerd",
+  share_more: "Meer…",
 },
 
 };

@@ -119,13 +119,13 @@
   "lead": "Tiger Touch trasforma un BIGTREETECH Panda Touch o K-Touch in uno schermo in diretta per le tue stampanti Anycubic: il loro stato e ogni slot ACE, tramite il cloud Anycubic o sulla tua rete.",
   "models": "Kobra S1, Kobra S1 Max, Kobra X, Kobra 3, Kobra 3 V2, Kobra 3 Max",
   "connection": "Il cloud Anycubic (una sessione per tutte le stampanti cloud del tuo account, con l'accesso fatto come lo fa lo slicer Anycubic), oppure la tua rete (MQTT su TLS, porta 9883).",
-  "status": "Visto su una stampante reale: una Kobra X inattiva tramite il cloud Anycubic, con i quattro slot del suo ACE. La connessione locale è compilata, non ancora provata.",
+  "status": "Visto su una stampante reale: una Kobra X tramite il cloud Anycubic, con i quattro slot del suo ACE, la luce, e pausa, ripresa e stop durante una stampa. La connessione locale segue lo stesso protocollo convalidato.",
   "shows": [
    "Stato online, avanzamento e il file in stampa",
    "Ogni slot ACE con materiale e colore",
    "Temperature durante la stampa (tramite il cloud arrivano con i rapporti della stampante stessa)"
   ],
-  "controls": "Tramite il cloud, pausa, ripresa, stop e luce restano disattivati: il broker chiude l'intera sessione davanti a un comando che non ammette, quindi non ne viene inviato nessuno finché non si sa che è accettato. Sulla rete locale vengono inviati; lo stop chiede prima una conferma.",
+  "controls": "Pausa, ripresa e stop, tramite il cloud Anycubic come sulla tua rete; lo stop chiede prima una conferma. Anche la luce si accende e si spegne; tramite il cloud il pulsante mostra ciò che è stato chiesto, perché il cloud non riporta lo stato della luce.",
   "setup": [
    "Aggiungi la stampante in Tiger Studio Manager (app desktop), con l'accesso al tuo account Anycubic per il cloud.",
    "Installa Tiger Touch, accedi con lo stesso account TigerSystem.",
@@ -140,7 +140,7 @@
    ],
    [
     "Posso fermare una stampa Anycubic dallo schermo?",
-    "Sulla rete locale sì. Tramite il cloud non ancora: i pulsanti sono visibili ma disattivati."
+    "Sì, tramite il cloud Anycubic come sulla tua rete; lo stop chiede prima una conferma. Tramite il cloud, aggiorna una volta la stampante in un Tiger Studio Manager aggiornato: scrive ciò che serve allo schermo per inviare i comandi."
    ],
    [
     "Mostra l'ACE?",
@@ -187,7 +187,7 @@
   "lead": "Tiger Touch trasforma un BIGTREETECH Panda Touch o K-Touch in uno schermo in diretta per le tue stampanti FlashForge: avanzamento, temperature, la bobina esterna e la stazione materiali dell'AD5X.",
   "models": "AD5X, Adventurer 5M, Adventurer 5M Pro, Creator 5, Creator 5 Pro",
   "connection": "L'interfaccia HTTP della stampante sulla tua rete locale (porta 8898), letta ogni 2 secondi.",
-  "status": "Visto su una vera AD5X, inattiva: stato, temperature di ugello e piano.",
+  "status": "Visto su una AD5X reale: stato, temperature di ugello e piano, e pausa, stop e luce dallo schermo.",
   "shows": [
    "Stato, avanzamento, strati e il file in stampa",
    "Temperature di ugello e piano; entrambi gli ugelli di un doppio estrusore e il cambio utensile della Creator 5 Pro",

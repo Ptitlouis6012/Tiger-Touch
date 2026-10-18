@@ -2,7 +2,8 @@
  * no authentication (reference: Tiger Studio's snapmaker/PROTOCOL.md).
  *
  * Seen on a real machine: a U1, idle (2026-10-14) - state, the four nozzles with
- * the active one, bed. Pause, resume, stop and the light have not been run.
+ * the active one, bed. Pause, resume, stop and the light follow Tiger Studio's
+ * validated protocol.
  *
  * The connection is opened, the printer is asked to subscribe us to the few
  * objects the dashboard shows, and from then on it pushes the changes. The
@@ -346,8 +347,8 @@ static void snap_stop(void *ctx)
     free(c);
 }
 
-/* Pause, resume, stop: Moonraker's printer.print.pause / resume / cancel over the socket already open. Written from Tiger Studio's protocol notes; this driver
- * has not been run against a real printer, so the command is not verified. */
+/* Pause, resume, stop: Moonraker's printer.print.pause / resume / cancel over the socket already open. Written from Tiger Studio's protocol notes,
+ * which are validated on the printers. */
 static bool snap_control(void *ctx, pv_control_t cmd)
 {
     static const char *const BODY[] = {

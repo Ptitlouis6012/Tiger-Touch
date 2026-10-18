@@ -473,7 +473,8 @@ static const char *MASK =
 static const char *MASK_ACU_CLOUD =
     "&mask.fieldPaths=key&mask.fieldPaths=machineType&mask.fieldPaths=cloudPrinterId"
     "&mask.fieldPaths=cloudEmail&mask.fieldPaths=cloudToken&mask.fieldPaths=acuCloudCaDerB64"
-    "&mask.fieldPaths=acuCloudClientCertPem&mask.fieldPaths=acuCloudClientKeyPem";
+    "&mask.fieldPaths=acuCloudClientCertPem&mask.fieldPaths=acuCloudClientKeyPem"
+    "&mask.fieldPaths=acuCloudAppId&mask.fieldPaths=acuCloudAppSecret&mask.fieldPaths=acuCloudAppVersion";
 
 /* The Anycubic account and client identity from the last read, in PSRAM.
  * Never logged and never stored: the account read brings them at every start. */
@@ -481,6 +482,7 @@ static struct
 {
     SemaphoreHandle_t lock;
     char *email, *token, *ca_der_b64, *cert_pem, *key_pem;
+    char *app_id, *app_secret, *app_ver; /* what signs a REST order (cloud_anycubic_signer) */
 } s_acu;
 
 static char *ps_dup(const char *s)
@@ -823,6 +825,9 @@ cloud_err_t cloud_fetch_printers(account_printer_t *out, int max, int *count, in
                 acu_keep(&s_acu.ca_der_b64, fs_str(fields, "acuCloudCaDerB64"));
                 acu_keep(&s_acu.cert_pem, fs_str(fields, "acuCloudClientCertPem"));
                 acu_keep(&s_acu.key_pem, fs_str(fields, "acuCloudClientKeyPem"));
+                acu_keep(&s_acu.app_id, fs_str(fields, "acuCloudAppId"));
+                acu_keep(&s_acu.app_secret, fs_str(fields, "acuCloudAppSecret"));
+                acu_keep(&s_acu.app_ver, fs_str(fields, "acuCloudAppVersion"));
                 xSemaphoreGive(s_acu.lock);
                 /* Which fields are there, by name, never by value. */
                 const bool has_key = p->dev_id[0], has_type = p->acu_model[0];
@@ -898,6 +903,60 @@ void cloud_anycubic_identity_free(cloud_acu_identity_t *id)
     free(id->cert_pem);
     free(id->key_pem);
     memset(id, 0, sizeof *id);
+}
+
+bool cloud_anycubic_signer(cloud_acu_signer_t *out)
+{
+    memset(out, 0, sizeof *out);
+    if (!s_acu.lock)
+    {
+        return false;
+    }
+    xSemaphoreTake(s_acu.lock, portMAX_DELAY);
+    const bool ok = s_acu.token && s_acu.app_id && s_acu.app_secret && s_acu.app_ver;
+    if (ok)
+    {
+        out->token = ps_dup(s_acu.token);
+        out->app_id = ps_dup(s_acu.app_id);
+        out->app_secret = ps_dup(s_acu.app_secret);
+        out->app_ver = ps_dup(s_acu.app_ver);
+    }
+    xSemaphoreGive(s_acu.lock);
+    if (ok && !(out->token && out->app_id && out->app_secret && out->app_ver))
+    {
+        cloud_anycubic_signer_free(out);
+        return false;
+    }
+    return ok;
+}
+
+void cloud_anycubic_signer_free(cloud_acu_signer_t *s)
+{
+    if (s->app_secret)
+    {
+        memset(s->app_secret, 0, strlen(s->app_secret));
+    }
+    if (s->token)
+    {
+        memset(s->token, 0, strlen(s->token));
+    }
+    free(s->token);
+    free(s->app_id);
+    free(s->app_secret);
+    free(s->app_ver);
+    memset(s, 0, sizeof *s);
+}
+
+bool cloud_anycubic_can_sign(void)
+{
+    if (!s_acu.lock)
+    {
+        return false;
+    }
+    xSemaphoreTake(s_acu.lock, portMAX_DELAY);
+    const bool ok = s_acu.token && s_acu.app_id && s_acu.app_secret && s_acu.app_ver;
+    xSemaphoreGive(s_acu.lock);
+    return ok;
 }
 
 cloud_err_t cloud_bambu_session(char *user, size_t user_size, char *token, size_t token_size,

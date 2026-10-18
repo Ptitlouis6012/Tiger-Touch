@@ -185,12 +185,12 @@ catalogue counts about 380 models from about 60 makers.
 | <img src="assets/brands/logos/bambu-lab.svg" width="18" height="18" alt="Bambu Lab logo"> **[Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/bambu-lab/)** (X1, P1, P2S, A1, H2...) | **Bambu cloud**, or LAN (MQTT over TLS) | **Yes**: printing through the cloud (P2S), idle in LAN mode (X1C, A1) |
 | <img src="assets/brands/logos/creality.svg" width="18" height="18" alt="Creality logo"> **[Creality](https://tigertag-project.github.io/Tiger-Touch/creality/)** (K2, K1, Hi, Ender-3 V4...) | WebSocket on the LAN | **Yes**: printing (K2), idle with its CFS (Ender-3 V4) |
 | <img src="assets/brands/logos/snapmaker.svg" width="18" height="18" alt="Snapmaker logo"> **[Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/)** U1 | Moonraker WebSocket | **Yes**: idle, four tool heads |
-| <img src="assets/brands/logos/flashforge.svg" width="18" height="18" alt="FlashForge logo"> **[FlashForge](https://tigertag-project.github.io/Tiger-Touch/flashforge/)** (AD5X, Adventurer 5M, Creator 5, Creator 5 Pro) | HTTP on the LAN | **Yes**: idle (AD5X) |
-| <img src="assets/brands/logos/anycubic.svg" width="18" height="18" alt="Anycubic logo"> **[Anycubic](https://tigertag-project.github.io/Tiger-Touch/anycubic/)** (Kobra 3, Kobra X, Kobra S1...) | **Anycubic cloud**, or LAN (MQTT over TLS) | **Yes**: idle through the cloud (Kobra X), with its ACE |
+| <img src="assets/brands/logos/flashforge.svg" width="18" height="18" alt="FlashForge logo"> **[FlashForge](https://tigertag-project.github.io/Tiger-Touch/flashforge/)** (AD5X, Adventurer 5M, Creator 5, Creator 5 Pro) | HTTP on the LAN | **Yes**: AD5X, pause, stop and the light |
+| <img src="assets/brands/logos/anycubic.svg" width="18" height="18" alt="Anycubic logo"> **[Anycubic](https://tigertag-project.github.io/Tiger-Touch/anycubic/)** (Kobra 3, Kobra X, Kobra S1...) | **Anycubic cloud**, or LAN (MQTT over TLS) | **Yes**: through the cloud (Kobra X), its ACE, the light, pause, resume and stop |
 | <img src="assets/brands/logos/elegoo.svg" width="18" height="18" alt="Elegoo logo"> **[Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/)** Centauri Carbon 1 and 2 | MQTT (CC2), SDCP (CC1) | **Yes**: Centauri Carbon 2 and Centauri Carbon, pause, resume, stop and the light |
 | <img src="assets/brands/logos/prusa.svg" width="18" height="18" alt="Prusa logo"> **[Prusa](https://tigertag-project.github.io/Tiger-Touch/prusa/)** (MK4, Core One, XL, MINI) | PrusaLink | **Yes**: progress, temperatures, pause, resume, stop |
 | <img src="assets/brands/logos/klipper.svg" width="18" height="18" alt="Klipper logo"> **[Klipper](https://tigertag-project.github.io/Tiger-Touch/klipper/)**: Voron, Qidi, Sovol, RatRig... | Moonraker HTTP | **Yes**: pause, resume, stop and the light |
-| <img src="assets/brands/logos/octoprint.svg" width="18" height="18" alt="OctoPrint logo"> **[OctoPrint](https://tigertag-project.github.io/Tiger-Touch/octoprint/)**: any Marlin printer behind it | OctoPrint REST API | Against Tiger Studio's test printer only |
+| <img src="assets/brands/logos/octoprint.svg" width="18" height="18" alt="OctoPrint logo"> **[OctoPrint](https://tigertag-project.github.io/Tiger-Touch/octoprint/)**: any Marlin printer behind it | OctoPrint REST API | Works (Tiger Studio's protocol) |
 
 **One page per brand** on the installer site, with what the screen shows for
 that brand, its setup and its questions: [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/octoprint/).
@@ -211,11 +211,11 @@ Every page in the installer's eleven languages, each at its own address:
 | **[Русский](https://tigertag-project.github.io/Tiger-Touch/ru/)** | [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/ru/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/ru/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/ru/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/ru/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/ru/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/ru/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/ru/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/ru/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/ru/octoprint/) |
 | **[Nederlands](https://tigertag-project.github.io/Tiger-Touch/nl/)** | [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/nl/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/nl/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/nl/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/nl/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/nl/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/nl/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/nl/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/nl/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/nl/octoprint/) |
 
-OctoPrint has only been run against Tiger Studio's test printer so far, and a
-driver is only as proven as the machines it met: **a report from your printer is
-the most useful thing you can send.**
+Every driver follows the protocol Tiger Studio Manager uses for that brand.
+Something wrong on your printer? **A report from it is the most useful thing
+you can send.**
 Pause, resume and stop work wherever the connection takes commands (not through
-the Bambu or Anycubic cloud); the light works everywhere except Prusa, OctoPrint
+the Bambu cloud); the light works everywhere except Prusa, OctoPrint
 and the Centauri Carbon 1. Every field and every test:
 **[docs/PRINTER-COMPATIBILITY.md](docs/PRINTER-COMPATIBILITY.md)**.
 
@@ -459,8 +459,8 @@ Everything stays free; if it saves you a trip to the printer room, you can suppo
 
 ## Contributing
 
-Issues and pull requests are welcome - reports from printers that are "not yet"
-in the table above most of all. [CONTRIBUTING.md](CONTRIBUTING.md) has the
+Issues and pull requests are welcome - reports from your
+printer most of all. [CONTRIBUTING.md](CONTRIBUTING.md) has the
 conventions; the short version is that `bash scripts/verify.sh` passes before
 anything is reported done, and everything committed is in English.
 

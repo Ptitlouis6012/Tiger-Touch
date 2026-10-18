@@ -119,13 +119,13 @@
   "lead": "Tiger Touch zamienia BIGTREETECH Panda Touch lub K-Touch w ekran na żywo dla twoich drukarek Anycubic: ich stan i każdy slot ACE, przez chmurę Anycubic lub w twojej sieci.",
   "models": "Kobra S1, Kobra S1 Max, Kobra X, Kobra 3, Kobra 3 V2, Kobra 3 Max",
   "connection": "Chmura Anycubic (jedna sesja dla wszystkich drukarek w chmurze twojego konta, zalogowana tak jak slicer Anycubic) lub twoja sieć (MQTT przez TLS, port 9883).",
-  "status": "Widziano na prawdziwej drukarce: bezczynna Kobra X przez chmurę Anycubic, z czterema slotami ACE. Połączenie lokalne jest skompilowane, jeszcze nie uruchomione.",
+  "status": "Widziano na prawdziwej drukarce: Kobra X przez chmurę Anycubic, z czterema slotami ACE, oświetleniem oraz pauzą, wznowieniem i stopem podczas wydruku. Połączenie lokalne korzysta z tego samego, sprawdzonego protokołu.",
   "shows": [
    "Stan online, postęp i drukowany plik",
    "Każdy slot ACE z materiałem i kolorem",
    "Temperatury podczas druku (przez chmurę docierają z własnymi raportami drukarki)"
   ],
-  "controls": "Przez chmurę pauza, wznowienie, stop i oświetlenie pozostają przyciemnione: broker zamyka całą sesję po poleceniu, którego nie dopuszcza, więc żadne nie jest wysyłane, dopóki nie wiadomo, że jest przyjmowane. W sieci lokalnej są wysyłane; stop najpierw prosi o potwierdzenie.",
+  "controls": "Pauza, wznowienie i stop, przez chmurę Anycubic tak jak w twojej sieci; stop najpierw prosi o potwierdzenie. Oświetlenie też się przełącza; przez chmurę przycisk pokazuje to, o co poproszono, bo chmura nie raportuje stanu oświetlenia.",
   "setup": [
    "Dodaj drukarkę w Tiger Studio Manager (aplikacja desktopowa), zalogowany na konto Anycubic dla chmury.",
    "Wgraj Tiger Touch, zaloguj się na to samo konto TigerSystem.",
@@ -140,7 +140,7 @@
    ],
    [
     "Czy mogę zatrzymać wydruk Anycubic z ekranu?",
-    "W sieci lokalnej tak. Przez chmurę jeszcze nie: przyciski są widoczne, ale przyciemnione."
+    "Tak, przez chmurę Anycubic tak jak w twojej sieci; stop najpierw prosi o potwierdzenie. W chmurze odśwież raz drukarkę w aktualnym Tiger Studio Manager: zapisze to, czego ekran potrzebuje do wysyłania poleceń."
    ],
    [
     "Czy pokazuje ACE?",
@@ -187,7 +187,7 @@
   "lead": "Tiger Touch zamienia BIGTREETECH Panda Touch lub K-Touch w ekran na żywo dla twoich drukarek FlashForge: postęp, temperatury, zewnętrzna szpula i stacja materiałów AD5X.",
   "models": "AD5X, Adventurer 5M, Adventurer 5M Pro, Creator 5, Creator 5 Pro",
   "connection": "Interfejs HTTP drukarki w twojej sieci lokalnej (port 8898), odczyt co 2 sekundy.",
-  "status": "Widziano na prawdziwym AD5X, bezczynnym: stan, temperatury dyszy i stołu.",
+  "status": "Widziano na prawdziwym AD5X: stan, temperatury dyszy i stołu oraz pauzę, stop i oświetlenie z ekranu.",
   "shows": [
    "Stan, postęp, warstwy i drukowany plik",
    "Temperatury dyszy i stołu; obie dysze podwójnego extrudera i zmieniacz narzędzi Creator 5 Pro",

@@ -30,13 +30,17 @@
 
 #include "addr.h"
 #include "cJSON.h"
+#include "esp_crt_bundle.h"
 #include "esp_heap_caps.h"
+#include "esp_http_client.h"
 #include "esp_log.h"
 #include "esp_mac.h"
 #include "esp_random.h"
 #include "esp_rom_md5.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
+#include "freertos/idf_additions.h"
+#include "freertos/queue.h"
 #include "freertos/semphr.h"
 #include "cloud.h"
 #include "i18n.h"
@@ -96,6 +100,8 @@ typedef struct
     uint32_t ext_color;
     char ext_material[12];
     bool light_on; /* the chamber light, from the `light` report */
+    char cloud_id[24]; /* cloud: the printer's id at Anycubic (cloudPrinterId), for REST orders */
+    char taskid[24];   /* the job in the print reports, the project an order names */
 } acu_t;
 
 /* ---- Requests ------------------------------------------------------------- */
@@ -179,6 +185,16 @@ static void apply_print_fields(acu_t *c, const cJSON *d)
         {
             *dot = '\0';
         }
+    }
+    /* The job, as the project a cloud order names (-1 is "none"). */
+    const cJSON *tk = cJSON_GetObjectItem(d, "taskid");
+    if (cJSON_IsString(tk) && tk->valuestring[0] && strcmp(tk->valuestring, "-1") != 0)
+    {
+        strlcpy(c->taskid, tk->valuestring, sizeof c->taskid);
+    }
+    else if (cJSON_IsNumber(tk) && tk->valuedouble > 0)
+    {
+        snprintf(c->taskid, sizeof c->taskid, "%.0f", tk->valuedouble);
     }
     inum(d, "progress", &c->progress);
     inum(d, "remain_time", &c->remain_min); /* minutes */
@@ -922,6 +938,11 @@ static void *acu_start(const account_printer_t *p)
 
     if (p->cloud)
     {
+        /* The account's sn is the cloudPrinterId of a cloud printer (net/cloud.c), digits only. */
+        if (p->sn[0] && strspn(p->sn, "0123456789") == strlen(p->sn))
+        {
+            strlcpy(c->cloud_id, p->sn, sizeof c->cloud_id);
+        }
         const bool has_key = p->dev_id[0], has_type = p->acu_model[0];
         if (!has_key || !has_type)
         {
@@ -1020,20 +1041,239 @@ static void acu_stop(void *ctx)
     free(c);
 }
 
+/* ---- Orders through the cloud's REST API ---------------------------------
+ *
+ * Over the cloud, a command is not published on the session: the broker
+ * closes the whole session - every cloud printer's - on a publish it does not
+ * allow. It goes as Tiger Studio sends it, a REST order:
+ * POST .../work/operation/sendOrder {order_id, printer_id, project_id, data},
+ * signed as the slicer signs its calls (md5 of app id, time, version, secret,
+ * a nonce and the app id again) with the account's workbench token. The app
+ * id, secret and version come from the account (cloud_anycubic_signer), never
+ * from this firmware. Orders: 2 pause, 3 resume, 4 stop (they name the job),
+ * 1233 light {type 3, status, brightness}.
+ *
+ * A REST call takes a second or two (a TLS handshake): it runs on a small task
+ * of its own, fed by a queue, so a touch never waits for it. */
+
+#define ACU_API "https://cloud-universe.anycubic.com/p/p/workbench/api/work/operation/sendOrder"
+#define ORD_PAUSE 2
+#define ORD_RESUME 3
+#define ORD_STOP 4
+#define ORD_LIGHT 1233
+
+typedef struct
+{
+    char printer[24];
+    char project[24];
+    int order;
+    int light; /* ORD_LIGHT: 1 on, 0 off */
+} acu_order_t;
+
+static QueueHandle_t s_orders;
+
+static void uuid4(char out[37])
+{
+    uint8_t b[16];
+    esp_fill_random(b, sizeof b);
+    b[6] = (b[6] & 0x0f) | 0x40;
+    b[8] = (b[8] & 0x3f) | 0x80;
+    snprintf(out, 37, "%02x%02x%02x%02x-%02x%02x-%02x%02x-%02x%02x-%02x%02x%02x%02x%02x%02x", b[0], b[1], b[2], b[3],
+             b[4], b[5], b[6], b[7], b[8], b[9], b[10], b[11], b[12], b[13], b[14], b[15]);
+}
+
+static esp_err_t on_order_http(esp_http_client_event_t *e)
+{
+    if (e->event_id == HTTP_EVENT_ON_DATA && e->user_data)
+    {
+        char *buf = (char *)e->user_data;
+        const size_t have = strlen(buf);
+        const size_t room = 255 - have;
+        const size_t n = (size_t)e->data_len < room ? (size_t)e->data_len : room;
+        memcpy(buf + have, e->data, n);
+        buf[have + n] = '\0';
+    }
+    return ESP_OK;
+}
+
+static bool send_order(const acu_order_t *o)
+{
+    cloud_acu_signer_t s;
+    if (!cloud_anycubic_signer(&s))
+    {
+        ESP_LOGW(TAG, "cloud order %d not sent: the account lacks the signing fields (refresh it in Tiger Studio)",
+                 o->order);
+        return false;
+    }
+    char body[192];
+    if (o->order == ORD_LIGHT)
+    {
+        snprintf(body, sizeof body,
+                 "{\"order_id\":%d,\"printer_id\":%s,\"data\":{\"type\":3,\"status\":%d,\"brightness\":%d}}",
+                 o->order, o->printer, o->light, o->light ? 100 : 0);
+    }
+    else if (o->project[0])
+    {
+        snprintf(body, sizeof body, "{\"order_id\":%d,\"printer_id\":%s,\"project_id\":%s,\"data\":{}}",
+                 o->order, o->printer, o->project);
+    }
+    else
+    {
+        snprintf(body, sizeof body, "{\"order_id\":%d,\"printer_id\":%s,\"data\":{}}", o->order, o->printer);
+    }
+    char ts[24], nonce[37], sig[33];
+    snprintf(ts, sizeof ts, "%lld", (long long)time(NULL) * 1000LL);
+    uuid4(nonce);
+    const char *parts[] = {s.app_id, ts, s.app_ver, s.app_secret, nonce, s.app_id};
+    md5_context_t m;
+    uint8_t d[ESP_ROM_MD5_DIGEST_LEN];
+    esp_rom_md5_init(&m);
+    for (int i = 0; i < 6; i++)
+    {
+        esp_rom_md5_update(&m, parts[i], strlen(parts[i]));
+    }
+    esp_rom_md5_final(d, &m);
+    for (int i = 0; i < ESP_ROM_MD5_DIGEST_LEN; i++)
+    {
+        sprintf(sig + 2 * i, "%02x", d[i]);
+    }
+
+    char reply[256] = "";
+    esp_http_client_config_t cfg = {
+        .url = ACU_API,
+        .method = HTTP_METHOD_POST,
+        .event_handler = on_order_http,
+        .user_data = reply,
+        .crt_bundle_attach = esp_crt_bundle_attach,
+        .timeout_ms = 10000,
+        .buffer_size = 1024,
+        .buffer_size_tx = 2048,
+    };
+    esp_http_client_handle_t h = esp_http_client_init(&cfg);
+    bool ok = false;
+    if (h)
+    {
+        esp_http_client_set_header(h, "Content-Type", "application/json");
+        esp_http_client_set_header(h, "Xx-Device-Type", "pcf");
+        esp_http_client_set_header(h, "Xx-Is-Cn", "1");
+        esp_http_client_set_header(h, "Xx-Nonce", nonce);
+        esp_http_client_set_header(h, "Xx-Signature", sig);
+        esp_http_client_set_header(h, "Xx-Timestamp", ts);
+        esp_http_client_set_header(h, "Xx-Version", s.app_ver);
+        esp_http_client_set_header(h, "XX-LANGUAGE", "US");
+        esp_http_client_set_header(h, "XX-Token", s.token);
+        esp_http_client_set_post_field(h, body, (int)strlen(body));
+        const esp_err_t e = esp_http_client_perform(h);
+        const int status = e == ESP_OK ? esp_http_client_get_status_code(h) : -1;
+        esp_http_client_cleanup(h);
+        /* {"code":1,...} is accepted; 10001 is a token a newer slicer sign-in revoked. */
+        cJSON *j = cJSON_Parse(reply);
+        const cJSON *code = j ? cJSON_GetObjectItem(j, "code") : NULL;
+        const int k = cJSON_IsNumber(code) ? code->valueint : 0;
+        ok = k == 1;
+        ESP_LOGI(TAG, "cloud order %d: HTTP %d, code %d%s", o->order, status, k,
+                 k == 10001 ? " (the token was revoked: refresh it in Tiger Studio)" : "");
+        cJSON_Delete(j);
+    }
+    memset(sig, 0, sizeof sig);
+    cloud_anycubic_signer_free(&s);
+    return ok;
+}
+
+static void order_task(void *arg)
+{
+    (void)arg;
+    acu_order_t o;
+    for (;;)
+    {
+        if (xQueueReceive(s_orders, &o, portMAX_DELAY) == pdTRUE)
+        {
+            send_order(&o);
+        }
+    }
+}
+
+/* Queue an order; the task that sends them is made on the first one. */
+static bool queue_order(const acu_order_t *o)
+{
+    static SemaphoreHandle_t once;
+    if (!once)
+    {
+        once = xSemaphoreCreateMutex();
+    }
+    if (!once)
+    {
+        return false;
+    }
+    xSemaphoreTake(once, portMAX_DELAY);
+    if (!s_orders)
+    {
+        s_orders = xQueueCreate(4, sizeof(acu_order_t));
+        /* Core 0, as every network task; its stack in PSRAM (mbedTLS allocates there too). */
+        if (s_orders && xTaskCreatePinnedToCoreWithCaps(order_task, "acu_order", 8 * 1024, NULL, 3, NULL, 0,
+                                                         MALLOC_CAP_SPIRAM) != pdPASS)
+        {
+            ESP_LOGE(TAG, "no task for the cloud orders");
+            vQueueDelete(s_orders);
+            s_orders = NULL;
+        }
+    }
+    xSemaphoreGive(once);
+    return s_orders && xQueueSend(s_orders, o, 0) == pdTRUE;
+}
+
+static bool cloud_control(acu_t *c, pv_control_t cmd)
+{
+    if (!c->cloud_id[0] || !cloud_anycubic_can_sign())
+    {
+        return false;
+    }
+    acu_order_t o = {0};
+    strlcpy(o.printer, c->cloud_id, sizeof o.printer);
+    if (cmd == PV_CTL_LIGHT_ON || cmd == PV_CTL_LIGHT_OFF)
+    {
+        o.order = ORD_LIGHT;
+        o.light = cmd == PV_CTL_LIGHT_ON;
+    }
+    else if (cmd == PV_CTL_PAUSE || cmd == PV_CTL_RESUME || cmd == PV_CTL_STOP)
+    {
+        o.order = cmd == PV_CTL_PAUSE ? ORD_PAUSE : cmd == PV_CTL_RESUME ? ORD_RESUME : ORD_STOP;
+        xSemaphoreTake(c->lock, portMAX_DELAY);
+        strlcpy(o.project, c->taskid, sizeof o.project);
+        xSemaphoreGive(c->lock);
+    }
+    else
+    {
+        return false;
+    }
+    if (!queue_order(&o))
+    {
+        return false;
+    }
+    if (o.order == ORD_LIGHT)
+    {
+        /* The cloud sends no light report: the button shows what was asked. */
+        xSemaphoreTake(c->lock, portMAX_DELAY);
+        c->light_on = o.light;
+        xSemaphoreGive(c->lock);
+    }
+    return true;
+}
+
 static int box_order(const void *a, const void *b)
 {
     return ((const box_t *)a)->id - ((const box_t *)b)->id;
 }
 
-/* Pause, resume, stop: a print request with action pause / resume / stop and taskid -1, on the family topic. Written from Tiger Studio's protocol notes; this driver
- * has not been run against a real printer, so the command is not verified. */
+/* Pause, resume, stop: a print request with action pause / resume / stop and taskid -1, on the family topic. Written from Tiger Studio's protocol notes,
+ * which are validated on the printers. */
 static bool acu_control(void *ctx, pv_control_t cmd)
 {
     static const char *const ACTION[] = {[PV_CTL_PAUSE] = "pause", [PV_CTL_RESUME] = "resume", [PV_CTL_STOP] = "stop"};
     acu_t *c = (acu_t *)ctx;
     if (c && c->shared)
     {
-        return false; /* no command over the cloud until each one is seen allowed (ask_layout) */
+        return cloud_control(c, cmd); /* a REST order, never a publish on the shared session */
     }
     if (c && c->mqtt && c->connected && c->subscribed && (cmd == PV_CTL_LIGHT_ON || cmd == PV_CTL_LIGHT_OFF))
     {
@@ -1103,8 +1343,10 @@ static void acu_snapshot(void *ctx, printer_view_t *v)
     xSemaphoreTake(c->lock, portMAX_DELAY);
     v->online = c->connected && c->subscribed && !c->reported_offline && c->last_msg_us != 0 &&
                 (now - c->last_msg_us) < ONLINE_WINDOW_US;
-    v->can_control = v->online && !c->shared;
-    v->can_light = v->online && !c->shared;
+    /* Through the cloud, only when the account holds what signs a REST order. */
+    const bool can = v->online && (!c->shared || (c->cloud_id[0] && cloud_anycubic_can_sign()));
+    v->can_control = can;
+    v->can_light = can;
     v->light_on = c->light_on;
 
     const char *s = c->pstate;

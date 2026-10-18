@@ -12,6 +12,8 @@ reset to this header at each release.
 - Site: a media kit page (/press/) with every picture and a ZIP; README section Media kit - Press.
 - Site icon: the framed tiger head; animated views (cards, list, update) by scripts/make-mockups.py, method in docs/MOCKUPS.md.
 - Installer: the three-quarter tour as its picture; animations split into screen/, front/, angle/.
+- Anycubic cloud: pause, resume, stop and light as REST orders (sendOrder), signed with fields Tiger Studio writes; seen on a Kobra X (light, pause, resume, stop).
+- Site: share buttons on every page (installer/share.js, assets/icons/share/).
 
 ## Changed
 - Site: one stylesheet and theme script shared by every page.

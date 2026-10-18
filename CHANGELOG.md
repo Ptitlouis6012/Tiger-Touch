@@ -16,6 +16,9 @@ they were written.
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-10-18
+
+
 ### Added
 - **PandaTouch Reforged campaign artwork and an English Reddit launch draft**, showing an unused Panda Touch given a second life with TigerTouch, with the existing device and Demo mode interface as references.
 - **One page per printer brand on the site**, for people who search for their
@@ -146,6 +149,19 @@ they were written.
   in place of the turning drawing; its description follows the language.
 - **Animations in three folders**, `assets/mockups/animated/screen/`, `front/`
   and `angle/`, and three galleries in the media kit.
+- **Pause, resume, stop and the light for an Anycubic through the cloud**, sent
+  as Tiger Studio sends them: REST orders (`sendOrder`), on a task of their own so
+  a touch never waits, never a publish on the shared MQTT session (which the
+  broker would close). Signed with the slicer's app id, secret and version that
+  Tiger Studio now writes on every cloud printer of the account; without them the
+  buttons stay dimmed. Seen on a Kobra X through the cloud (2026-10-18): the light
+  on and off, pause, resume and stop during a print. The light shows what was
+  asked: the cloud sends no light report.
+- **Share this page**, on every page of the site in every language: WhatsApp,
+  Telegram, X, Bluesky, Facebook, Reddit, LinkedIn, e-mail, copy the link, and the
+  phone's own share sheet where there is one. Each link carries the page's
+  address in the language read and its title; nothing is sent until the reader
+  picks a site (`installer/share.js`, the marks in `assets/icons/share/`).
 ### Changed
 - **One stylesheet and one theme script for the whole site** (`installer/site.css`,
   `installer/theme.js`), shared by the installer page and the brand pages; the

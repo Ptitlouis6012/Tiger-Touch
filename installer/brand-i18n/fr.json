@@ -119,13 +119,13 @@
   "lead": "Tiger Touch transforme un BIGTREETECH Panda Touch ou K-Touch en écran en direct pour vos imprimantes Anycubic : leur état et chaque emplacement ACE, via le cloud Anycubic ou sur votre réseau.",
   "models": "Kobra S1, Kobra S1 Max, Kobra X, Kobra 3, Kobra 3 V2, Kobra 3 Max",
   "connection": "Le cloud Anycubic (une seule session pour toutes les imprimantes cloud de votre compte, connectée comme le fait le slicer Anycubic), ou sur votre réseau (MQTT sur TLS, port 9883).",
-  "status": "Vu sur une vraie imprimante : une Kobra X au repos via le cloud Anycubic, avec les quatre emplacements de son ACE. La connexion locale est compilée, pas encore essayée.",
+  "status": "Vu sur une vraie imprimante : une Kobra X via le cloud Anycubic, avec les quatre emplacements de son ACE, la lumière, et pause, reprise et arrêt pendant une impression. La connexion locale suit le même protocole validé.",
   "shows": [
    "État en ligne, progression et fichier en cours d'impression",
    "Chaque emplacement ACE avec matière et couleur",
    "Températures pendant l'impression (via le cloud, elles arrivent avec les rapports propres de l'imprimante)"
   ],
-  "controls": "Via le cloud, pause, reprise, arrêt et lumière restent grisés : le broker ferme toute la session sur une commande qu'il n'autorise pas, donc aucune n'est envoyée tant qu'on ne sait pas qu'elle est acceptée. Sur le réseau local, elles sont envoyées ; l'arrêt demande d'abord une confirmation.",
+  "controls": "Pause, reprise et arrêt, via le cloud Anycubic comme sur votre réseau ; l'arrêt demande d'abord une confirmation. La lumière s'allume et s'éteint aussi ; via le cloud, le bouton montre ce qui a été demandé, car le cloud ne renvoie pas l'état de la lumière.",
   "setup": [
    "Ajoutez l'imprimante dans Tiger Studio Manager (application de bureau), connecté à votre compte Anycubic pour le cloud.",
    "Installez Tiger Touch, connectez-vous avec le même compte TigerSystem.",
@@ -140,7 +140,7 @@
    ],
    [
     "Puis-je arrêter une impression Anycubic depuis l'écran ?",
-    "Sur le réseau local, oui. Via le cloud, pas encore : les boutons sont affichés mais grisés."
+    "Oui, via le cloud Anycubic comme sur votre réseau ; l'arrêt demande d'abord une confirmation. En cloud, actualisez une fois l'imprimante dans un Tiger Studio Manager à jour : il écrit ce dont l'écran a besoin pour envoyer les commandes."
    ],
    [
     "Affiche-t-il l'ACE ?",
@@ -187,7 +187,7 @@
   "lead": "Tiger Touch transforme un BIGTREETECH Panda Touch ou K-Touch en écran en direct pour vos imprimantes FlashForge : progression, températures, la bobine externe et la station de matériaux de l'AD5X.",
   "models": "AD5X, Adventurer 5M, Adventurer 5M Pro, Creator 5, Creator 5 Pro",
   "connection": "L'interface HTTP de l'imprimante sur votre réseau local (port 8898), lue toutes les 2 secondes.",
-  "status": "Vu sur une vraie AD5X, au repos : l'état, les températures de la buse et du plateau.",
+  "status": "Vu sur une vraie AD5X : état, températures de la buse et du plateau, et pause, arrêt et lumière depuis l'écran.",
   "shows": [
    "État, progression, couches et fichier en cours d'impression",
    "Températures de la buse et du plateau ; les deux buses d'un double extrudeur et le changeur d'outils de la Creator 5 Pro",

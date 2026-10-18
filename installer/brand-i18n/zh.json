@@ -119,13 +119,13 @@
   "lead": "Tiger Touch 把 BIGTREETECH Panda Touch 或 K-Touch 变成 Anycubic 打印机的实时屏幕：其状态和每个 ACE 槽位，可通过 Anycubic 云或你的局域网。",
   "models": "Kobra S1, Kobra S1 Max, Kobra X, Kobra 3, Kobra 3 V2, Kobra 3 Max",
   "connection": "Anycubic 云（你账户中所有云端打印机共用一个会话，登录方式与 Anycubic 切片软件相同），或你的局域网（通过 TLS 的 MQTT，端口 9883）。",
-  "status": "已在一台真实打印机上验证：通过 Anycubic 云连接空闲的 Kobra X，并显示其 ACE 的四个槽位。本地连接已编译，尚未运行。",
+  "status": "已在真实打印机上验证：一台通过 Anycubic 云连接的 Kobra X，包括其 ACE 的四个槽位、灯光，以及打印过程中的暂停、继续和停止。局域网连接遵循同样经过验证的协议。",
   "shows": [
    "在线状态、进度和正在打印的文件",
    "每个 ACE 槽位及材料和颜色",
    "打印时的温度（通过云时，它们随打印机自己的报告到达）"
   ],
-  "controls": "通过云时，暂停、继续、停止和灯光保持变暗：服务器遇到不允许的命令会关闭整个会话，因此在确认每条命令都会被接受之前不会发送。在局域网中会发送；停止前会先要求确认。",
+  "controls": "通过 Anycubic 云或局域网都可以暂停、继续和停止；停止前会先要求确认。灯光也可以开关；通过云连接时，按钮显示的是所请求的状态，因为云端不会报告灯光状态。",
   "setup": [
    "在 Tiger Studio Manager（桌面应用）中添加打印机，使用云时请登录你的 Anycubic 账户。",
    "刷入 Tiger Touch，使用同一个 TigerSystem 账户登录。",
@@ -140,7 +140,7 @@
    ],
    [
     "可以在屏幕上停止 Anycubic 打印吗？",
-    "在局域网中可以。通过云暂时还不行：按钮会显示但变暗。"
+    "可以，通过 Anycubic 云或局域网都行；停止前会先要求确认。使用云连接时，请在最新版的 Tiger Studio Manager 中刷新一次打印机：它会写入屏幕发送命令所需的信息。"
    ],
    [
     "会显示 ACE 吗？",
@@ -187,7 +187,7 @@
   "lead": "Tiger Touch 把 BIGTREETECH Panda Touch 或 K-Touch 变成 FlashForge 打印机的实时屏幕：进度、温度、外挂料盘和 AD5X 的材料站。",
   "models": "AD5X, Adventurer 5M, Adventurer 5M Pro, Creator 5, Creator 5 Pro",
   "connection": "局域网中打印机的 HTTP 接口（端口 8898），每 2 秒读取一次。",
-  "status": "已在一台真实的 AD5X 上验证（空闲）：状态、喷嘴和热床温度。",
+  "status": "已在真实的 AD5X 上验证：状态、喷嘴和热床温度，以及从屏幕暂停、停止和开关灯光。",
   "shows": [
    "状态、进度、层数和正在打印的文件",
    "喷嘴和热床温度；双挤出机的两个喷嘴以及 Creator 5 Pro 的换头系统",

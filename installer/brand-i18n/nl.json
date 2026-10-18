@@ -119,13 +119,13 @@
   "lead": "Tiger Touch verandert een BIGTREETECH Panda Touch of K-Touch in een live scherm voor uw Anycubic-printers: hun status en elk ACE-slot, via de Anycubic-cloud of op uw netwerk.",
   "models": "Kobra S1, Kobra S1 Max, Kobra X, Kobra 3, Kobra 3 V2, Kobra 3 Max",
   "connection": "De Anycubic-cloud (één sessie voor alle cloudprinters van uw account, aangemeld zoals de Anycubic-slicer dat doet), of op uw netwerk (MQTT over TLS, poort 9883).",
-  "status": "Gezien op een echte printer: een Kobra X inactief via de Anycubic-cloud, met de vier slots van zijn ACE. De lokale verbinding is gecompileerd, nog niet gedraaid.",
+  "status": "Gezien op een echte printer: een Kobra X via de Anycubic-cloud, met de vier slots van zijn ACE, het licht, en pauzeren, hervatten en stoppen tijdens een print. De lokale verbinding volgt hetzelfde gevalideerde protocol.",
   "shows": [
    "Onlinestatus, voortgang en het bestand dat wordt geprint",
    "Elk ACE-slot met materiaal en kleur",
    "Temperaturen tijdens het printen (via de cloud komen ze mee met de eigen rapporten van de printer)"
   ],
-  "controls": "Via de cloud blijven pauzeren, hervatten, stoppen en het licht gedimd: de broker sluit de hele sessie af bij een opdracht die hij niet toestaat, dus er wordt er geen verzonden zolang niet van elk vaststaat dat het wordt aangenomen. Op het lokale netwerk worden ze wel verzonden; stoppen vraagt eerst om bevestiging.",
+  "controls": "Pauzeren, hervatten en stoppen, via de Anycubic-cloud net als op uw netwerk; stoppen vraagt eerst om bevestiging. Ook het licht schakelt; via de cloud toont de knop wat gevraagd werd, omdat de cloud de lichtstatus niet doorgeeft.",
   "setup": [
    "Voeg de printer toe in Tiger Studio Manager (desktop-app), voor de cloud aangemeld bij uw Anycubic-account.",
    "Installeer Tiger Touch en meld u aan met hetzelfde TigerSystem-account.",
@@ -140,7 +140,7 @@
    ],
    [
     "Kan ik een Anycubic-print vanaf het scherm stoppen?",
-    "Op het lokale netwerk wel. Via de cloud nog niet: de knoppen worden getoond maar zijn gedimd."
+    "Ja, via de Anycubic-cloud net als op uw netwerk; stoppen vraagt eerst om bevestiging. Via de cloud vernieuwt u de printer één keer in een bijgewerkte Tiger Studio Manager: die schrijft wat het scherm nodig heeft om de opdrachten te sturen."
    ],
    [
     "Toont het de ACE?",
@@ -187,7 +187,7 @@
   "lead": "Tiger Touch verandert een BIGTREETECH Panda Touch of K-Touch in een live scherm voor uw FlashForge-printers: voortgang, temperaturen, de externe spoel en het materiaalstation van de AD5X.",
   "models": "AD5X, Adventurer 5M, Adventurer 5M Pro, Creator 5, Creator 5 Pro",
   "connection": "De HTTP-interface van de printer op uw lokale netwerk (poort 8898), om de 2 seconden uitgelezen.",
-  "status": "Gezien op een echte AD5X, inactief: status, temperaturen van nozzle en bed.",
+  "status": "Gezien op een echte AD5X: status, temperaturen van nozzle en bed, en pauzeren, stoppen en het licht vanaf het scherm.",
   "shows": [
    "Status, voortgang, lagen en het bestand dat wordt geprint",
    "Temperaturen van nozzle en bed; beide nozzles van een dubbele extruder en de toolwisselaar van de Creator 5 Pro",

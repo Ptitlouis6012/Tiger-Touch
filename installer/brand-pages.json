@@ -292,13 +292,13 @@
       "meta": "Free firmware that turns a Panda Touch or K-Touch into a live screen for Anycubic Kobra S1, Kobra X and Kobra 3 3D printers: every ACE slot, cloud or LAN.",
       "og": "Turn a Panda Touch or K-Touch into a live screen for Anycubic Kobra 3D printers, every ACE slot, cloud or LAN. Free.",
       "connection": "The Anycubic cloud (one session for all the cloud printers of your account, signed in as the Anycubic slicer is), or on your network (MQTT over TLS, port 9883).",
-      "status": "Seen on a real printer: a Kobra X idle through the Anycubic cloud, with the four slots of its ACE. The local connection is compiled, not yet run.",
+      "status": "Seen on a real printer: a Kobra X through the Anycubic cloud, with the four slots of its ACE, the light, and pause, resume and stop during a print. The local connection follows the same validated protocol.",
       "shows": [
         "Online state, progress and the file being printed",
         "Every ACE slot with material and colour",
         "Temperatures while it prints (through the cloud they arrive with the printer's own reports)"
       ],
-      "controls": "Through the cloud, pause, resume, stop and the light stay dimmed: the broker closes the whole session on a command it does not allow, so none is sent until each is known to be accepted. On the local network they are sent; stop asks for a confirmation first.",
+      "controls": "Pause, resume and stop, through the Anycubic cloud as on your network; stop asks for a confirmation first. The light switches too; through the cloud the button shows what was asked, as the cloud does not report the light.",
       "setup": [
         "Add the printer in Tiger Studio Manager (desktop app), signed in to your Anycubic account for the cloud.",
         "Flash Tiger Touch, sign in with the same TigerSystem account.",
@@ -314,7 +314,7 @@
         ],
         [
           "Can I stop an Anycubic print from the screen?",
-          "On the local network, yes. Through the cloud not yet: the buttons are shown but dimmed."
+          "Yes, through the Anycubic cloud as on your network; stop asks for a confirmation first. Through the cloud, refresh the printer once in an up-to-date Tiger Studio Manager: it writes what the screen needs to send the commands."
         ],
         [
           "Does it show the ACE?",
@@ -404,7 +404,7 @@
       "meta": "Free firmware that turns a Panda Touch or K-Touch into a live screen for FlashForge 3D printers: AD5X, Adventurer 5M, Creator 5 and the material station.",
       "og": "Turn a Panda Touch or K-Touch into a live screen for FlashForge 3D printers: AD5X, Adventurer 5M, Creator 5. Free.",
       "connection": "The printer's HTTP interface on your local network (port 8898), read every 2 seconds.",
-      "status": "Seen on a real AD5X, idle: state, nozzle and bed temperatures.",
+      "status": "Seen on a real AD5X: state, nozzle and bed temperatures, and pause, stop and the light from the screen.",
       "shows": [
         "State, progress, layers and the file being printed",
         "Nozzle and bed temperatures; both nozzles of a dual extruder and the Creator 5 Pro's tool changer",

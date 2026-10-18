@@ -94,6 +94,20 @@ typedef struct
 bool cloud_anycubic_identity(cloud_acu_identity_t *out);
 void cloud_anycubic_identity_free(cloud_acu_identity_t *id);
 
+/* What signs an order sent to an Anycubic through its cloud's REST API (pause,
+ * resume, stop, light): the account's workbench token, and the slicer's app id,
+ * secret and version that Tiger Studio writes on every cloud printer beside the
+ * identity above - they are never in this firmware. Copies in PSRAM, released
+ * with cloud_anycubic_signer_free(); false when any of the four is missing. */
+typedef struct
+{
+    char *token, *app_id, *app_secret, *app_ver;
+} cloud_acu_signer_t;
+bool cloud_anycubic_signer(cloud_acu_signer_t *out);
+void cloud_anycubic_signer_free(cloud_acu_signer_t *s);
+/* True when the last account read brought all four: orders can be signed. */
+bool cloud_anycubic_can_sign(void);
+
 cloud_err_t cloud_bambu_session(char *user, size_t user_size, char *token, size_t token_size,
                                 char *region, size_t region_size);
 

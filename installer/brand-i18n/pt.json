@@ -119,13 +119,13 @@
   "lead": "O Tiger Touch transforma um BIGTREETECH Panda Touch ou K-Touch em uma tela ao vivo para suas impressoras Anycubic: o estado delas e todos os slots do ACE, pela nuvem Anycubic ou na sua rede.",
   "models": "Kobra S1, Kobra S1 Max, Kobra X, Kobra 3, Kobra 3 V2, Kobra 3 Max",
   "connection": "A nuvem Anycubic (uma sessão para todas as impressoras na nuvem da sua conta, conectada como o slicer da Anycubic) ou na sua rede (MQTT sobre TLS, porta 9883).",
-  "status": "Visto em uma impressora real: uma Kobra X parada pela nuvem Anycubic, com os quatro slots do ACE. A conexão local está compilada, ainda não executada.",
+  "status": "Visto em uma impressora real: uma Kobra X pela nuvem da Anycubic, com os quatro slots do seu ACE, a luz, e pausar, retomar e parar durante uma impressão. A conexão local segue o mesmo protocolo validado.",
   "shows": [
    "Estado online, progresso e o arquivo em impressão",
    "Todos os slots do ACE com material e cor",
    "Temperaturas durante a impressão (pela nuvem chegam junto com os relatórios da própria impressora)"
   ],
-  "controls": "Pela nuvem, pausar, retomar, parar e a luz ficam esmaecidos: o broker encerra a sessão inteira diante de um comando que não permite, então nenhum é enviado até que se saiba que cada um é aceito. Na rede local eles são enviados; parar pede uma confirmação antes.",
+  "controls": "Pausar, retomar e parar, pela nuvem da Anycubic como na sua rede; parar pede uma confirmação antes. A luz também liga e desliga; pela nuvem, o botão mostra o que foi pedido, pois a nuvem não informa o estado da luz.",
   "setup": [
    "Adicione a impressora no Tiger Studio Manager (aplicativo para computador), conectado à sua conta Anycubic para usar a nuvem.",
    "Instale o Tiger Touch e entre com a mesma conta TigerSystem.",
@@ -140,7 +140,7 @@
    ],
    [
     "Posso parar uma impressão Anycubic pela tela?",
-    "Na rede local, sim. Pela nuvem, ainda não: os botões aparecem, mas esmaecidos."
+    "Sim, pela nuvem da Anycubic como na sua rede; parar pede uma confirmação antes. Pela nuvem, atualize a impressora uma vez em um Tiger Studio Manager atualizado: ele grava o que a tela precisa para enviar os comandos."
    ],
    [
     "Mostra o ACE?",
@@ -187,7 +187,7 @@
   "lead": "O Tiger Touch transforma um BIGTREETECH Panda Touch ou K-Touch em uma tela ao vivo para suas impressoras FlashForge: progresso, temperaturas, o carretel externo e a estação de material da AD5X.",
   "models": "AD5X, Adventurer 5M, Adventurer 5M Pro, Creator 5, Creator 5 Pro",
   "connection": "A interface HTTP da impressora na sua rede local (porta 8898), lida a cada 2 segundos.",
-  "status": "Visto em uma AD5X real, parada: estado, temperaturas do bico e da mesa.",
+  "status": "Visto em uma AD5X real: estado, temperaturas do bico e da mesa, e pausar, parar e a luz pela tela.",
   "shows": [
    "Estado, progresso, camadas e o arquivo em impressão",
    "Temperaturas do bico e da mesa; os dois bicos de um extrusor duplo e o trocador de ferramentas da Creator 5 Pro",

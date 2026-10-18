@@ -36,7 +36,7 @@ DIALOG_LABELS = {
     "keep_html": ["Erase device"],
 }
 # Keys read by the script of the page rather than by a data-i18n attribute.
-USED_BY_SCRIPT = {"lang_name", "title", "bp_title", "rel_latest", "rel_released"}
+USED_BY_SCRIPT = {"lang_name", "title", "bp_title", "rel_latest", "rel_released", "share_copied"}
 PLACEHOLDERS = ("{name}", "{date}")
 LINE = re.compile(r'^  ([a-z_0-9]+): ("(?:[^"\\]|\\.)*"),$')
 HEAD = re.compile(r'^(?:([a-z]{2})|"([a-z]{2}-[a-z]{2})"): \{$')

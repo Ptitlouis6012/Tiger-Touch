@@ -245,6 +245,7 @@ def page(b, brands, pieces, svg, en, tr):
 <script src="../theme.js?v={v_theme}" defer></script>
 <script src="../lang.js?v={v_lang}" defer></script>
 <script src="../release.js?v={v_release}" defer></script>
+<script src="../share.js?v={v_share}" defer></script>
 <script type="application/ld+json">{ld}</script>
 </head>
 <body data-brand="{name}" data-title="bp_title">
@@ -332,6 +333,7 @@ def page(b, brands, pieces, svg, en, tr):
     <p class="cta"><a class="pill solid big" href="../#install" data-i18n="bp_cta2">{t_cta2}</a></p>
   </section>
 
+  {share}
   {eco}
   <footer>
   <nav class="foot">
@@ -365,7 +367,7 @@ def page(b, brands, pieces, svg, en, tr):
            t_what_text=T("bp_what_text"), t_phil=T("phil_title"), t_phil_html=E("phil_html"), t_phil_more=T("bp_phil_more"),
            t_cta2=T("bp_cta2"), t_join=T("join_title"), t_join_text=T("join_text"), t_join_btn=T("join_btn"),
            t_foot=T("bp_foot_installer"), t_f_source=T("f_source"), t_f_wiki=T("f_wiki"), t_f_releases=T("f_releases"),
-           t_legal=T("legal"), eco=ecosystem("../", en), t_mk=T("mk_nav"),
+           t_legal=T("legal"), eco=ecosystem("../", en), t_mk=T("mk_nav"), share=share_bar(en),
            # Printers on a row: all of them up to seven, else half (rounded up) -
            # one row, or two, never three (site.css shrinks them to fit).
            per=len(b["lineup"]) if len(b["lineup"]) <= 7 else (len(b["lineup"]) + 1) // 2,
@@ -462,6 +464,37 @@ def ecosystem(prefix, en):
             '    <p data-i18n="eco_sub">%s</p>\n'
             '    <div class="eco-grid">%s</div>\n'
             '  </section>\n' % (esc(en["eco_title"]), esc(en["eco_sub"]), "".join(cards)))
+
+
+# ---- Share this page --------------------------------------------------------------
+
+# (key in installer/share.js, name shown, icon in assets/icons/share/)
+SHARE = [("whatsapp", "WhatsApp"), ("telegram", "Telegram"), ("x", "X"), ("bluesky", "Bluesky"),
+         ("facebook", "Facebook"), ("reddit", "Reddit"), ("linkedin", "LinkedIn")]
+MAIL_ICON = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+             'stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>')
+LINK_ICON = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" '
+             'stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>'
+             '<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>')
+
+
+def share_bar(en):
+    """The row of share buttons every page ends with; installer/share.js writes their addresses."""
+    links = []
+    for key, name in SHARE:
+        svg = (ROOT / "assets" / "icons" / "share" / (key + ".svg")).read_text()
+        inner = re.sub(r"^<svg[^>]*>", "", svg.strip())[: -len("</svg>")]
+        inner = re.sub(r"<title>.*?</title>", "", inner)
+        icon = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">%s</svg>' % inner
+        links.append('<a class="share-btn" data-share="%s" href="#" target="_blank" rel="noopener" title="%s" aria-label="%s">%s</a>'
+                     % (key, name, name, icon))
+    links.append('<a class="share-btn" data-share="mail" href="#" title="E-mail" aria-label="E-mail">%s</a>' % MAIL_ICON)
+    return ('<section class="share" aria-labelledby="share-title">\n'
+            '    <h2 id="share-title" data-i18n="share_title">%s</h2>\n'
+            '    <div class="share-row">%s'
+            '<button class="pill share-copy" type="button" data-share-copy>%s<span data-i18n="share_copy">%s</span></button>'
+            '<button class="pill" type="button" data-share-native hidden><span data-i18n="share_more">%s</span></button></div>\n'
+            '  </section>\n' % (esc(en["share_title"]), "".join(links), LINK_ICON, esc(en["share_copy"]), esc(en["share_more"])))
 
 
 # ---- The media kit ----------------------------------------------------------------
@@ -571,6 +604,7 @@ def media_kit(out, en):
 <script src="../theme.js?v={v_theme}" defer></script>
 <script src="../lang.js?v={v_lang}" defer></script>
 <script src="../release.js?v={v_release}" defer></script>
+<script src="../share.js?v={v_share}" defer></script>
 </head>
 <body data-title="mk_title" data-desc="mk_lead">
 {header}<main class="wrap">
@@ -606,6 +640,7 @@ def media_kit(out, en):
       <a class="pill" href="https://tigersystem.io" target="_blank" rel="noopener">tigersystem.io</a></p>
   </section>
 
+  {share}
   {eco}
   <footer>
   <nav class="foot">
@@ -632,7 +667,7 @@ def media_kit(out, en):
 </html>
 """.format(title=T("mk_title"), desc=T("mk_lead"), url=url, og=og, repo=REPO, repo_short=REPO.replace("https://", ""),
            header=header('    <a class="logo" href="../">Tiger<span>System</span></a>', en), zip=KIT_ZIP, size=size,
-           facts=facts, galleries="".join(gallery(*g) for g in groups), eco=ecosystem("../", en),
+           facts=facts, galleries="".join(gallery(*g) for g in groups), eco=ecosystem("../", en), share=share_bar(en),
            t_crumbs=T("crumbs_aria"), t_nav=T("mk_nav"), t_h1=T("mk_h1"), t_lead=T("mk_lead"), t_download=T("mk_download"),
            t_facts=T("mk_facts_title"), t_version=T("mk_k_version"), t_source=T("mk_k_source"),
            t_short_title=T("mk_short_title"), t_short=T("mk_short"), t_long_title=T("mk_long_title"), t_long=T("mk_long"),
@@ -785,7 +820,7 @@ def main():
     out = pathlib.Path(a.out)
     # Each shared file is linked with its own fingerprint: a page never meets a
     # stylesheet older than itself in a browser's cache (Pages keeps them 10 min).
-    for name in ("site.css", "theme.js", "release.js", "i18n.js", "lang.js"):
+    for name in ("site.css", "theme.js", "release.js", "i18n.js", "lang.js", "share.js"):
         STAMPS["v_" + name.split(".")[0].replace("site", "css")] = hashlib.sha256((out / name).read_bytes()).hexdigest()[:10]
     en = english((out / "i18n.js").read_text())
     data = json.loads((ROOT / "installer" / "brand-pages.json").read_text())
@@ -820,7 +855,7 @@ def main():
     index = out / "index.html"
     slugs = {b["logo"]: b["slug"] for b in brands}
     home = replace_strip(index.read_text(), strip(svg, pieces, slugs, "", None))
-    home = home.replace("\n  <footer>", "\n  " + ecosystem("", en) + "  <footer>", 1)
+    home = home.replace("\n  <footer>", "\n  " + share_bar(en) + "  " + ecosystem("", en) + "  <footer>", 1)
     home = static_english(home, en)
     stamp = hashlib.sha256((ROOT / "assets" / "og" / "home.jpg").read_bytes()).hexdigest()[:10]
     home = re.sub(r'(og/home\.jpg)(\?v=\w+)?"', r'\1?v=%s"' % stamp, home)
@@ -828,7 +863,7 @@ def main():
     # Fingerprinted, so a browser that kept the old icon fetches the new one.
     icon = hashlib.sha256((out / "favicon.svg").read_bytes()).hexdigest()[:10]
     home = re.sub(r'href="favicon\.svg(\?v=\w+)?"', 'href="favicon.svg?v=%s"' % icon, home)
-    for js in ("theme", "lang", "i18n"):
+    for js in ("theme", "lang", "i18n", "share"):
         home = re.sub(r'src="%s\.js(\?v=\w+)?"' % js, 'src="%s.js?v=%s"' % (js, STAMPS["v_" + js]), home)
     index.write_text(home)
     media_kit(out, en)

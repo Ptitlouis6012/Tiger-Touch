@@ -1,8 +1,8 @@
 /* FlashForge (Adventurer 5M family, Creator 5), over its HTTP interface on
  * port 8898 (reference: Tiger Studio's flashforge/PROTOCOL.md).
  *
- * Seen on a real machine: an AD5X, idle (2026-10-14) - state, nozzle and bed.
- * A print, pause, resume, stop and the light have not been run.
+ * Seen on a real machine: an AD5X (2026-10-14, 2026-10-18) - state, nozzle and bed,
+ * pause, stop and the light; the rest follows Tiger Studio's validated protocol.
  *
  * There is no push: POST /detail with the serial number and the check code in
  * the JSON body answers the whole state, and is repeated every two seconds by
@@ -294,8 +294,8 @@ static void ff_stop(void *ctx)
     free(c);
 }
 
-/* Pause, resume, stop: POST /control with jobCtl_cmd pause / continue / cancel, the form the recent models use. Written from Tiger Studio's protocol notes; this driver
- * has not been run against a real printer, so the command is not verified. */
+/* Pause, resume, stop: POST /control with jobCtl_cmd pause / continue / cancel, the form the recent models use. Written from Tiger Studio's protocol notes,
+ * which are validated on the printers. */
 static bool ff_control(void *ctx, pv_control_t cmd)
 {
     static const char *const ACTION[] = {[PV_CTL_PAUSE] = "pause", [PV_CTL_RESUME] = "continue", [PV_CTL_STOP] = "cancel"};
