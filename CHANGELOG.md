@@ -36,18 +36,17 @@ they were written.
   each named; the header reads "<Brand> x TigerSystem" and the brand's logo
   stands beside the title.
 - **Each brand page shows the latest version** ("Latest version v2.1.1,
-  released ..., What's new") and carries it in its structured data and the
-  sitemap: the pages are rebuilt from the release the site is published from,
-  with the release's own date, so a new release updates them with nothing to
-  edit.
+  released ..., What's new"), read when the page opens from `version.json`, the
+  manifest published with every release (`installer/release.js`): no page holds
+  a version, so a release changes nothing to edit.
 - **The FlashForge page lists the Creator 5 Pro**, in its models and lineup.
 - **The README and llms.txt link every brand page**: the brands of the
   printer table and a line under it in the README, a section of its own in
   `llms.txt`, so that search engines and AI assistants find each page.
 - **Every logo of the brand strip is a link** to its brand's page, on the
-  installer page and on every brand page (the current one in orange). Their
-  colours are explicit: Chrome drew a visited logo's name in its own dark link
-  colour, invisible on the dark theme.
+  installer page and on every brand page (the current one in orange). The strip
+  is HTML, its colours explicit: as SVG text, a visited logo's name kept
+  Chrome's dark link colour and vanished on the dark theme.
 
 ### Changed
 - **One stylesheet and one theme script for the whole site** (`installer/site.css`,

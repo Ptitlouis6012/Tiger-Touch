@@ -48,12 +48,10 @@ jobs:
           mkdir -p dist
           gh release download "$TAG" --repo "${{ github.repository }}" --dir dist
           echo "VERSION=${TAG#v}" >> "$GITHUB_ENV"
-          # The release's own date, shown on the brand pages (not the day the site is rebuilt).
-          echo "RELEASED=$(gh release view "$TAG" --repo "${{ github.repository }}" --json publishedAt -q .publishedAt | cut -c1-10)" >> "$GITHUB_ENV"
 
       - name: Build the site
         run: |
-          python3 scripts/make-manifest.py --version "$VERSION" --date "$RELEASED" \
+          python3 scripts/make-manifest.py --version "$VERSION" \
             --repo "${{ github.repository }}" --dist dist --out site
           ls -l site
 

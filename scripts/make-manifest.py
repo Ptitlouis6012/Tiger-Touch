@@ -68,7 +68,6 @@ def main():
     ap.add_argument("--dist", required=True, help="the release's assets")
     ap.add_argument("--out", required=True)
     ap.add_argument("--installer", default="installer", help="the page's sources")
-    ap.add_argument("--date", help="the release's date, YYYY-MM-DD, shown on the brand pages")
     a = ap.parse_args()
 
     dist, out = pathlib.Path(a.dist), pathlib.Path(a.out)
@@ -83,10 +82,7 @@ def main():
     root = pathlib.Path(__file__).resolve().parent.parent
     shutil.copyfile(root / "assets" / "devices" / "tiger-touch-views.webp", out / "tiger-touch-views.webp")
     # One page per printer brand, the sitemap and robots.txt (make-brand-pages.py).
-    # Built from the release being published: every release refreshes the pages'
-    # version, date and link with nothing to edit.
-    subprocess.run([sys.executable, str(root / "scripts" / "make-brand-pages.py"), "--out", str(out),
-                    "--version", a.version] + (["--date", a.date] if a.date else []), check=True)
+    subprocess.run([sys.executable, str(root / "scripts" / "make-brand-pages.py"), "--out", str(out)], check=True)
 
     base = "https://github.com/%s/releases/download/v%s" % (a.repo, a.version)
     parts = []

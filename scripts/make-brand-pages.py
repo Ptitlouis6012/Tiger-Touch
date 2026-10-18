@@ -26,7 +26,6 @@ copy and a generated one drift). To look at it locally:
   python3 scripts/make-brand-pages.py --out /tmp/site   (then serve /tmp/site)
 """
 import argparse
-import datetime
 import html
 import json
 import pathlib
@@ -62,34 +61,27 @@ def logos(svg):
 
 
 def strip(svg, pieces, slugs, prefix, current):
-    """The brand strip with each logo a link to its page; the current one marked."""
-    out, last = [], 0
-    for label, _vb, logo, text, start, end in pieces:
-        out.append(svg[last:start])
+    """The brand strip as HTML: each logo and its name one link to the brand's
+    page, the current one marked. HTML text, not SVG: Chrome keeps its own dark
+    colour on a visited link's SVG fill, whatever the stylesheet says."""
+    items = []
+    for label, vb, logo, _text, _s, _e in pieces:
         slug = slugs.get(label)
-        cls = ' class="cur" aria-current="page"' if slug == current else ""
-        if slug:
-            out.append('<a href="%s%s/"%s>%s%s</a>' % (prefix, slug, cls, logo, svg[start + len(logo):end]))
-        else:
-            out.append(svg[start:end])
-        last = end
-    out.append(svg[last:])
-    s = "".join(out)
-    # Inline in the page: sized by the stylesheet, drawn in the text's colour.
-    root = ' width="1080" height="110" color="#8b93a1" fill="#8b93a1"'
-    if root not in s:
-        raise SystemExit("brands.svg's root changed: update strip()")
-    names = ", ".join(p[0] for p in pieces)
-    return s.replace(root, ' fill="currentColor" class="brands strip" role="img" aria-label="%s"' % names, 1)
+        inner = re.sub(r"^<svg[^>]*>", "", logo)[: -len("</svg>")]
+        icon = '<svg viewBox="%s" fill="currentColor" aria-hidden="true">%s</svg>' % (vb, inner)
+        cur = ' class="cur" aria-current="page"' if slug == current else ""
+        items.append('<a href="%s%s/"%s>%s<span>%s</span></a>' % (prefix, slug, cur, icon, esc(label)))
+    return '<nav class="brands strip" aria-label="Printer brands">%s</nav>' % "".join(items)
 
 
 def replace_strip(page_html, new):
-    """The installer page's strip, swapped for the generated one (with links)."""
-    start = page_html.index('class="brands strip"')
-    start = page_html.rindex("<svg", 0, start)
+    """The installer page's strip (an inline SVG or an earlier HTML strip), swapped for the generated one."""
+    i = page_html.index('class="brands strip"')
+    start = page_html.rindex("<", 0, i)
+    tag = re.match(r"<(\w+)", page_html[start:]).group(1)
     depth = 0
-    for t in re.finditer(r"<svg\b|</svg>", page_html[start:]):
-        depth += -1 if t.group() == "</svg>" else 1
+    for t in re.finditer(r"<%s\b|</%s>" % (tag, tag), page_html[start:]):
+        depth += -1 if t.group().startswith("</") else 1
         if depth == 0:
             return page_html[:start] + new + page_html[start + t.end():]
     raise SystemExit("the installer page's brand strip is not closed")
@@ -115,7 +107,7 @@ FEATURES = [
 ]
 
 
-def page(b, brands, pieces, svg, version):
+def page(b, brands, pieces, svg):
     slug, name = b["slug"], b["name"]
     url = BASE + slug + "/"
     title = "%s printers on a Panda Touch or K-Touch - Tiger Touch" % name
@@ -134,8 +126,6 @@ def page(b, brands, pieces, svg, version):
          "description": b["lead"], "url": url, "image": img, "license": "https://opensource.org/licenses/MIT",
          "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"},
          "isAccessibleForFree": True, "downloadUrl": BASE, "codeRepository": REPO,
-         "softwareVersion": version["number"], "datePublished": version["date"],
-         "releaseNotes": version["url"],
          "featureList": [s for s in b["shows"]]},
         {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Tiger Touch", "item": BASE},
@@ -172,6 +162,7 @@ def page(b, brands, pieces, svg, version):
 <link rel="stylesheet" href="../site.css">
 <script>try {{ var t = localStorage.getItem("tigertouch-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; }} catch (e) {{}}</script>
 <script src="../theme.js" defer></script>
+<script src="../release.js" defer></script>
 <script type="application/ld+json">{ld}</script>
 </head>
 <body>
@@ -204,7 +195,7 @@ def page(b, brands, pieces, svg, version):
       </dl>
       <p class="cta"><a class="pill solid big" href="../#install">Install Tiger Touch from your browser</a>
         <a class="pill" href="{repo}">Source on GitHub</a></p>
-      <p class="latest">Latest version <b>v{vnum}</b>{vdate} &middot; <a href="{vurl}">What's new</a></p>
+      <p class="latest" data-latest hidden></p>
     </div>
     <figure class="show bp-shot">
       <img src="../img/{slug}.png" width="607" height="738" alt="{shot_alt}">
@@ -273,8 +264,7 @@ def page(b, brands, pieces, svg, version):
            models=esc(b["models"]), connection=esc(b["connection"]), status=esc(b["status"]),
            shot_alt=esc(b["shot_alt"]), shows=li(b["shows"]), controls=esc(b["controls"]),
            setup=li(b["setup"]), tips=esc(b["tips"]), faq=faq, strip=strip(svg, pieces, slugs, "../", slug),
-           others=other_rows, feats=feats, vnum=esc(version["number"]), vurl=version["url"],
-           vdate=(", released %s" % version["human"]) if version["human"] else "",
+           others=other_rows, feats=feats,
            lineup="".join('<li><img src="../img/models/%s" width="240" height="240" loading="lazy" alt="%s %s">'
                           '<span>%s</span></li>' % (esc(f), esc(name), esc(n), esc(n)) for f, n in b["lineup"]))
 
@@ -282,14 +272,7 @@ def page(b, brands, pieces, svg, version):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True, help="the site being built")
-    ap.add_argument("--version", help="the release being published (make-manifest.py passes it); "
-                    "without it, PROJECT_VER, for a local look")
-    ap.add_argument("--date", help="its date, YYYY-MM-DD (default: today, the day it is published)")
     a = ap.parse_args()
-    number = a.version or re.search(r'PROJECT_VER "([^"]+)"', (ROOT / "firmware" / "CMakeLists.txt").read_text()).group(1)
-    day = datetime.date.fromisoformat(a.date) if a.date else datetime.date.today()
-    version = {"number": number, "date": day.isoformat(), "human": day.strftime("%d %B %Y").lstrip("0"),
-               "url": "%s/releases/tag/v%s" % (REPO, number)}
     out = pathlib.Path(a.out)
     data = json.loads((ROOT / "installer" / "brand-pages.json").read_text())
     brands = data["brands"]
@@ -302,7 +285,7 @@ def main():
             raise SystemExit("no logo named %r in brands.svg" % b["logo"])
         d = out / b["slug"]
         d.mkdir(parents=True, exist_ok=True)
-        (d / "index.html").write_text(page(b, brands, pieces, svg, version))
+        (d / "index.html").write_text(page(b, brands, pieces, svg))
         p = next(p for p in pieces if p[0] == b["logo"])
         (d / "favicon.svg").write_text(favicon(p[1], p[2]))
         shutil.copyfile(ROOT / "assets" / "devices" / "brands" / (b["shot"] + ".png"), out / "img" / (b["slug"] + ".png"))
@@ -316,11 +299,10 @@ def main():
     urls = [BASE] + [BASE + b["slug"] + "/" for b in brands]
     (out / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + "".join("  <url><loc>%s</loc><lastmod>%s</lastmod></url>\n" % (u, version["date"]) for u in urls)
-        + "</urlset>\n")
+        + "".join("  <url><loc>%s</loc></url>\n" % u for u in urls) + "</urlset>\n")
     (out / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: %ssitemap.xml\n" % BASE)
     (out / "brand-pages.json").unlink(missing_ok=True)
-    print("brand pages (v%s): %s" % (number, ", ".join(b["slug"] for b in brands)))
+    print("brand pages: %s" % ", ".join(b["slug"] for b in brands))
 
 
 if __name__ == "__main__":
