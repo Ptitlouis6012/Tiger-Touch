@@ -16,7 +16,28 @@ they were written.
 
 ## [Unreleased]
 
+### Added
+- **One page per printer brand on the site**, for people who search for their
+  printer: Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa,
+  Klipper and OctoPrint, at `/<brand>/`. Each puts its brand first (models,
+  connection, what was seen on a real machine, what the screen shows, pause /
+  stop / light, three setup steps, its own questions), then the other brands one
+  line each with a link, then the project itself. Each has its brand's logo as
+  favicon, its own title, description, canonical address and Open Graph card,
+  and structured data (SoftwareApplication, BreadcrumbList, FAQPage); the site
+  gains `sitemap.xml` and `robots.txt`. The pictures are the device's own screen
+  in Demo mode, set in the 45-degree drawing (`assets/devices/brands/`), five of
+  them new: Centauri Carbon 2, Kobra S1, Core One, a Voron on Klipper and an
+  Ender-3 S1 behind OctoPrint. Built from one template and one data file
+  (`scripts/make-brand-pages.py`, `installer/brand-pages.json`) when the site is
+  built; never committed.
+- **Every logo of the brand strip is a link** to its brand's page, on the
+  installer page and on every brand page (the current one in orange).
+
 ### Changed
+- **One stylesheet and one theme script for the whole site** (`installer/site.css`,
+  `installer/theme.js`), shared by the installer page and the brand pages; the
+  installer page gains a favicon.
 - **It is a TigerSystem account, not a TigerTag account**: the installer page
   (in its eleven languages), the README, the documents and the screen's own
   texts ("Link a TigerSystem account?", the battery and Live view notes) say

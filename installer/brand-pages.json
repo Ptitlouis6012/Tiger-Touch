@@ -1,0 +1,347 @@
+{
+  "_about": "One page per printer brand, built by scripts/make-brand-pages.py into <slug>/index.html. Every claim here is in docs/PRINTER-COMPATIBILITY.md: a driver never run on the machine says so.",
+  "brands": [
+    {
+      "slug": "bambu-lab",
+      "name": "Bambu Lab",
+      "logo": "Bambu Lab",
+      "models": "X1 Carbon, X1E, P1S, P1P, P2S, A1, A1 mini, H2D, H2C, H2S",
+      "short": "Bambu cloud or LAN mode, every AMS slot, the light",
+      "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your Bambu Lab printers: progress, layers, time left, temperatures and every AMS slot, through the Bambu cloud or in LAN mode.",
+      "connection": "Bambu cloud (MQTT over TLS to Bambu's region broker, with the session Tiger Studio Manager stored in your account), or LAN mode (MQTT over TLS to the printer, port 8883, with its access code).",
+      "status": "Seen on real printers: a full print on a P2S through the cloud; an X1 Carbon and an A1 in LAN mode.",
+      "shows": [
+        "Progress, current and total layers, time left and the estimated end",
+        "Nozzle, bed and chamber temperatures (the A1, A1 mini, P1P and P1S have no chamber sensor: shown as --)",
+        "Every AMS and AMS HT unit with its slots, material and colour, the slot in use ringed, and the external spool",
+        "Both nozzles of an H2D, H2C or X2D, the active one marked"
+      ],
+      "controls": "The chamber light switches from the screen, through the cloud as on the local network. Pause, resume and stop work in LAN mode only: the Bambu cloud takes no such command from a third-party session, so the buttons stay dimmed there.",
+      "setup": [
+        "Add the printer in Tiger Studio Manager (desktop app), signed in to your Bambu account or with LAN mode on the printer.",
+        "For LAN mode, keep the access code and the address Tiger Studio found: Tiger Touch reads them from your TigerSystem account.",
+        "Flash Tiger Touch from the installer, sign in with the same TigerSystem account, and switch the printer on in Settings > Printers."
+      ],
+      "tips": "A Bambu printer in LAN mode streams its full reports continuously: give the screen a good Wi-Fi signal. A printer allows only a few local clients at a time.",
+      "shot": "bambu-lab",
+      "shot_alt": "Tiger Touch on a Panda Touch showing a Bambu Lab X1 Carbon printing: progress ring, layers, time left, temperatures and its AMS",
+      "faq": [
+        [
+          "Does it need the Bambu cloud?",
+          "No. It works through the Bambu cloud or in LAN mode; each printer uses the connection Tiger Studio Manager set up for it."
+        ],
+        [
+          "Can I pause or stop a Bambu print from the screen?",
+          "In LAN mode, yes: stop asks for a confirmation first. Through the Bambu cloud the buttons are shown but dimmed, because the cloud does not accept these commands from a third-party session."
+        ],
+        [
+          "Does it show the AMS?",
+          "Yes: every AMS and AMS HT unit with its four slots (one for the HT), the material, the colour and the slot in use, plus the external spool."
+        ]
+      ]
+    },
+    {
+      "slug": "creality",
+      "name": "Creality",
+      "logo": "Creality",
+      "models": "K2 Plus, K2, K1, K1 Max, K1C, Hi, Ender-3 V4",
+      "short": "On your network, the CFS, the light, pause and stop",
+      "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your Creality printers: progress, layers, temperatures and the CFS, straight from the printer on your network.",
+      "connection": "The printer's own WebSocket on your local network (port 9999), no cloud.",
+      "status": "Seen on real printers: a full print on a K2 Plus, with its CFS; an Ender-3 V4 idle with its CFS.",
+      "shows": [
+        "State, progress, layers, time left and the estimated end, the file being printed",
+        "Nozzle, bed and chamber temperatures with their set points",
+        "The CFS slots with material and colour, the slot in use ringed, and the external spool"
+      ],
+      "controls": "The light switches from the screen (seen on a K2). Pause, resume and stop are sent as Creality Print does; stop asks for a confirmation first.",
+      "setup": [
+        "Make sure LAN mode is on in the printer's settings (it is off by default on some models).",
+        "Add the printer in Tiger Studio Manager (desktop app): it finds it on your network.",
+        "Flash Tiger Touch, sign in with the same TigerSystem account, and switch the printer on in Settings > Printers."
+      ],
+      "tips": "A Creality printer that shows offline almost always has LAN mode off, or a new address after a router restart: refresh it in Tiger Studio Manager.",
+      "shot": "creality",
+      "shot_alt": "Tiger Touch on a Panda Touch showing a Creality K2 Plus printing: progress ring, layers, time left, temperatures and its CFS",
+      "faq": [
+        [
+          "Does it work with the CFS?",
+          "Yes: every CFS slot with material and colour, the active one ringed, and the external spool."
+        ],
+        [
+          "Does it need Creality Cloud?",
+          "No. Tiger Touch talks to the printer directly on your local network."
+        ],
+        [
+          "Which Creality printers?",
+          "The K2 family, the K1 family, the Hi and the Ender-3 V4: those Tiger Studio Manager adds. It was run on a K2 Plus and an Ender-3 V4."
+        ]
+      ]
+    },
+    {
+      "slug": "elegoo",
+      "name": "Elegoo",
+      "logo": "Elegoo",
+      "models": "Centauri Carbon 2, Centauri Carbon",
+      "short": "Centauri Carbon 1 and 2 on your network, the Canvas",
+      "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your Elegoo Centauri Carbon: progress, temperatures and, on the Centauri Carbon 2, the Canvas filament system.",
+      "connection": "On your local network: MQTT for the Centauri Carbon 2 (port 1883), SDCP for the Centauri Carbon (discovery on UDP 3000, then WebSocket 3030).",
+      "status": "Written from Elegoo's protocols and compiled; not yet run on a real Centauri Carbon. A report from your printer is the most useful thing you can send.",
+      "shows": [
+        "State, progress, layers, time left and the file being printed",
+        "Nozzle, bed and chamber temperatures",
+        "The Canvas slots of a Centauri Carbon 2 with material and colour"
+      ],
+      "controls": "Pause, resume and stop are sent with Elegoo's own commands; stop asks for a confirmation first. The light switches on a Centauri Carbon 2 (the Centauri Carbon has no light command).",
+      "setup": [
+        "Add the printer in Tiger Studio Manager (desktop app): it finds it on your network.",
+        "Flash Tiger Touch, sign in with the same TigerSystem account.",
+        "Switch the printer on in Settings > Printers."
+      ],
+      "tips": "Tell us how it goes on your Centauri Carbon: an issue on GitHub with what the screen shows is how a driver goes from compiled to proven.",
+      "shot": "elegoo",
+      "shot_alt": "Tiger Touch on a Panda Touch showing an Elegoo Centauri Carbon 2 printing, with its Canvas filament slots",
+      "faq": [
+        [
+          "Is the Centauri Carbon supported?",
+          "Yes, both the Centauri Carbon (SDCP) and the Centauri Carbon 2 (MQTT). The drivers follow Elegoo's protocols and have not been run on a real printer yet."
+        ],
+        [
+          "Does it need the Elegoo cloud?",
+          "No. Tiger Touch talks to the printer on your local network."
+        ],
+        [
+          "Does it show the Canvas?",
+          "On the Centauri Carbon 2, yes: its slots with material and colour."
+        ]
+      ]
+    },
+    {
+      "slug": "anycubic",
+      "name": "Anycubic",
+      "logo": "Anycubic",
+      "models": "Kobra S1, Kobra X, Kobra 3, Kobra 3 Combo",
+      "short": "Anycubic cloud or your network, every ACE slot",
+      "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your Anycubic printers: their state and every ACE slot, through the Anycubic cloud or on your network.",
+      "connection": "The Anycubic cloud (one session for all the cloud printers of your account, signed in as the Anycubic slicer is), or on your network (MQTT over TLS, port 9883).",
+      "status": "Seen on a real printer: a Kobra X idle through the Anycubic cloud, with the four slots of its ACE. The local connection is compiled, not yet run.",
+      "shows": [
+        "Online state, progress and the file being printed",
+        "Every ACE slot with material and colour",
+        "Temperatures while it prints (through the cloud they arrive with the printer's own reports)"
+      ],
+      "controls": "Through the cloud, pause, resume, stop and the light stay dimmed: the broker closes the whole session on a command it does not allow, so none is sent until each is known to be accepted. On the local network they are sent; stop asks for a confirmation first.",
+      "setup": [
+        "Add the printer in Tiger Studio Manager (desktop app), signed in to your Anycubic account for the cloud.",
+        "Flash Tiger Touch, sign in with the same TigerSystem account.",
+        "Switch the printer on in Settings > Printers."
+      ],
+      "tips": "If the screen says the cloud sign-in is missing or refused, refresh the printer in Tiger Studio Manager: it writes a new sign-in to your account.",
+      "shot": "anycubic",
+      "shot_alt": "Tiger Touch on a Panda Touch showing an Anycubic Kobra S1 printing, with the four slots of its ACE",
+      "faq": [
+        [
+          "Does it work through the Anycubic cloud?",
+          "Yes. All the cloud printers of your account share one session, signed in as the Anycubic slicer is. It was run on a Kobra X."
+        ],
+        [
+          "Can I stop an Anycubic print from the screen?",
+          "On the local network, yes. Through the cloud not yet: the buttons are shown but dimmed."
+        ],
+        [
+          "Does it show the ACE?",
+          "Yes: each slot with its material and colour."
+        ]
+      ]
+    },
+    {
+      "slug": "snapmaker",
+      "name": "Snapmaker",
+      "logo": "Snapmaker",
+      "models": "U1",
+      "short": "The U1 on your network, its four tool heads",
+      "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your Snapmaker U1: its four tool heads, the one at work ringed, progress and temperatures.",
+      "connection": "Moonraker's WebSocket on your local network (port 7125), with the U1's own filament data.",
+      "status": "Seen on a real U1, idle: state, the four nozzles with the active one ringed, the bed.",
+      "shows": [
+        "Progress, layers, time left and the file being printed",
+        "All four tool heads with their temperatures, the active one ringed",
+        "Each head's spool with material and colour"
+      ],
+      "controls": "Pause, resume and stop through Moonraker; stop asks for a confirmation first. The cavity light switches from the screen.",
+      "setup": [
+        "Add the U1 in Tiger Studio Manager (desktop app): it finds it on your network.",
+        "Flash Tiger Touch, sign in with the same TigerSystem account.",
+        "Switch the printer on in Settings > Printers."
+      ],
+      "tips": "The U1 runs Klipper, but keeps a driver of its own on Tiger Touch for its filament data.",
+      "shot": "snapmaker",
+      "shot_alt": "Tiger Touch on a Panda Touch showing a Snapmaker U1 printing: four tool heads, the active one ringed, and their spools",
+      "faq": [
+        [
+          "Does it show the four heads of the U1?",
+          "Yes: four tiles with their temperatures, the head at work ringed, and each head's spool."
+        ],
+        [
+          "Does it need the Snapmaker cloud?",
+          "No. It talks to the printer on your local network."
+        ],
+        [
+          "Was it tried on a real U1?",
+          "Yes, idle: state, the four nozzles and the bed. A print has not been followed yet."
+        ]
+      ]
+    },
+    {
+      "slug": "flashforge",
+      "name": "FlashForge",
+      "logo": "FlashForge",
+      "models": "AD5X, Adventurer 5M, Adventurer 5M Pro, Creator 5",
+      "short": "On your network, the AD5X material station",
+      "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your FlashForge printers: progress, temperatures, the external spool and the AD5X's material station.",
+      "connection": "The printer's HTTP interface on your local network (port 8898), read every 2 seconds.",
+      "status": "Seen on a real AD5X, idle: state, nozzle and bed temperatures.",
+      "shows": [
+        "State, progress, layers and the file being printed",
+        "Nozzle and bed temperatures; both nozzles of a dual extruder and the Creator 5's tool changer",
+        "The external spool and the four slots of the AD5X's material station"
+      ],
+      "controls": "Pause, resume, stop and the light on recent models; stop asks for a confirmation first.",
+      "setup": [
+        "Turn LAN mode on in the printer's network settings (it is off by default).",
+        "Add the printer in Tiger Studio Manager (desktop app).",
+        "Flash Tiger Touch, sign in with the same TigerSystem account, and switch the printer on in Settings > Printers."
+      ],
+      "tips": "A FlashForge that shows offline usually has LAN mode off: it is a setting on the printer's own screen.",
+      "shot": "flashforge",
+      "shot_alt": "Tiger Touch on a Panda Touch showing a FlashForge AD5X paused, with its external spool and its four-slot material station",
+      "faq": [
+        [
+          "Does it show the AD5X material station?",
+          "Yes: its four slots with material and colour, and the external spool."
+        ],
+        [
+          "Does it need FlashForge's cloud?",
+          "No. It reads the printer on your local network; LAN mode must be on."
+        ],
+        [
+          "Which FlashForge printers?",
+          "The AD5X, the Adventurer 5M and 5M Pro and the Creator 5. It was run on an AD5X."
+        ]
+      ]
+    },
+    {
+      "slug": "prusa",
+      "name": "Prusa",
+      "logo": "Prusa",
+      "models": "Core One, MK4, MK4S, XL, MINI",
+      "short": "PrusaLink on your network: progress and temperatures",
+      "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for your Prusa printers through PrusaLink: progress, time left and temperatures.",
+      "connection": "PrusaLink over HTTP on your local network, with Digest authentication (or the legacy API key when your account holds one).",
+      "status": "Written from PrusaLink's API and compiled; not yet run on a real Prusa. A report from your printer is the most useful thing you can send.",
+      "shows": [
+        "State, progress, time left and the file being printed",
+        "Nozzle and bed temperatures, the chamber on a Core One"
+      ],
+      "controls": "Pause, resume and stop through PrusaLink; stop asks for a confirmation first. PrusaLink has no light command, so the light button stays dimmed.",
+      "setup": [
+        "Enable PrusaLink on the printer and note its user and password.",
+        "Add the printer in Tiger Studio Manager (desktop app).",
+        "Flash Tiger Touch, sign in with the same TigerSystem account, and switch the printer on in Settings > Printers."
+      ],
+      "tips": "Tell us how it goes on your Prusa: an issue on GitHub with what the screen shows is how a driver goes from compiled to proven.",
+      "shot": "prusa",
+      "shot_alt": "Tiger Touch on a Panda Touch showing a Prusa Core One printing: progress ring, time left and temperatures",
+      "faq": [
+        [
+          "Does it need Prusa Connect?",
+          "No. It talks to PrusaLink on your local network."
+        ],
+        [
+          "Can it switch the light?",
+          "No: PrusaLink has no light command."
+        ],
+        [
+          "Was it tried on a real Prusa?",
+          "Not yet: the driver follows PrusaLink's API and is compiled. Reports are welcome."
+        ]
+      ]
+    },
+    {
+      "slug": "klipper",
+      "name": "Klipper",
+      "logo": "Klipper",
+      "models": "Voron, Qidi, Sovol, RatRig and any printer running Klipper with Moonraker",
+      "short": "Moonraker: Voron, Qidi, Sovol, AFC and Happy Hare",
+      "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for any Klipper printer with Moonraker: progress, temperatures, up to four extruders, the light and AFC or Happy Hare lanes.",
+      "connection": "Moonraker over HTTP on your local network (port 7125 unless you give another), read every 2 seconds, with an API key when Moonraker asks for one.",
+      "status": "Run against Tiger Studio Manager's Moonraker test printer: printing, paused, finished, cancelled, errors, the light and four AFC lanes. Not yet on a real printer.",
+      "shows": [
+        "State, progress, layers, time left and the file being printed",
+        "Up to four extruders, the bed and a chamber sensor",
+        "AFC lanes or a Happy Hare MMU, the active one ringed"
+      ],
+      "controls": "Pause, resume and stop through Moonraker; stop asks for a confirmation first. The light switches when the printer has an LED chain or an output pin named like a light.",
+      "setup": [
+        "Make sure Moonraker answers on your network (Mainsail or Fluidd use it already).",
+        "Add the printer in Tiger Studio Manager (desktop app) with its address; Tiger Touch does not resolve .local names.",
+        "Flash Tiger Touch, sign in with the same TigerSystem account, and switch the printer on in Settings > Printers."
+      ],
+      "tips": "Write the printer's IP address, not voron.local: the screen has no mDNS.",
+      "shot": "klipper",
+      "shot_alt": "Tiger Touch on a Panda Touch showing a Voron 2.4 running Klipper, printing, with four AFC lanes",
+      "faq": [
+        [
+          "Does it work with Voron, Qidi or Sovol?",
+          "Yes, with any printer that runs Klipper with Moonraker."
+        ],
+        [
+          "Does it need Mainsail or Fluidd?",
+          "No, only Moonraker, which they already use."
+        ],
+        [
+          "Does it show AFC or Happy Hare?",
+          "Yes: the lanes or gates with material and colour, the active one ringed."
+        ]
+      ]
+    },
+    {
+      "slug": "octoprint",
+      "name": "OctoPrint",
+      "logo": "OctoPrint",
+      "models": "Any Marlin printer behind OctoPrint (Ender, Prusa MK3, Anet and more)",
+      "short": "Any Marlin printer behind OctoPrint",
+      "lead": "Tiger Touch turns a BIGTREETECH Panda Touch or K-Touch into a live screen for a printer behind OctoPrint: progress, time left and temperatures, for any Marlin printer.",
+      "connection": "OctoPrint's REST API over HTTP on your local network (port 80 unless you give another), read every 2 seconds, with its API key.",
+      "status": "Run against Tiger Studio Manager's OctoPrint test server: printing, paused, finished, errors and no printer plugged in. Not yet on a real printer.",
+      "shows": [
+        "State, progress, time left and the file being printed",
+        "Nozzle and bed temperatures",
+        "When no printer is plugged into OctoPrint, the card says so instead of showing it offline"
+      ],
+      "controls": "Pause, resume and stop through OctoPrint; stop asks for a confirmation first. OctoPrint has no light command, so the light button stays dimmed.",
+      "setup": [
+        "Create an API key in OctoPrint (Settings > Application keys).",
+        "Add the printer in Tiger Studio Manager (desktop app) with OctoPrint's address and key.",
+        "Flash Tiger Touch, sign in with the same TigerSystem account, and switch the printer on in Settings > Printers."
+      ],
+      "tips": "An OctoPi answers on port 80; write another port after the address if yours differs.",
+      "shot": "octoprint",
+      "shot_alt": "Tiger Touch on a Panda Touch showing an Ender-3 S1 behind OctoPrint, printing: progress ring, time left and temperatures",
+      "faq": [
+        [
+          "Which printers work through OctoPrint?",
+          "Any printer OctoPrint drives, most of them on Marlin: Ender, Prusa MK3, Anet and more."
+        ],
+        [
+          "Do I need an API key?",
+          "Yes: create one in OctoPrint and add it in Tiger Studio Manager."
+        ],
+        [
+          "Can it switch the light?",
+          "No: OctoPrint has no light command."
+        ]
+      ]
+    }
+  ]
+}

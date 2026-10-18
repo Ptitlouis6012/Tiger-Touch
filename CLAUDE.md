@@ -117,7 +117,7 @@ bash scripts/verify.sh                 # every guard, then the build
 |---|---|
 | Any push, any branch; a pull request | **build** - no AI attribution in the new commits (and the pull request's text), the guards, the firmware build, the images kept 30 days |
 | A `v*` tag | **release** - tag = `PROJECT_VER`, notes present, history clean, build, publish the four images and `SHA256SUMS.txt` with the changelog section as notes, then **pages** |
-| **pages** (called by release, or by hand) | Builds the site from the latest release's assets - the web installer, `manifest.json`, `version.json` - deploys it, then fetches it back and compares it with the release. The only workflow that deploys the site. |
+| **pages** (called by release, or by hand) | Builds the site from the latest release's assets - the web installer, one page per printer brand with `sitemap.xml` (`scripts/make-brand-pages.py`), `manifest.json`, `version.json` - deploys it, then fetches it back and compares it with the release. The only workflow that deploys the site. |
 
 There is no path filtering: a list of paths that decides whether the build runs is
 a second source of truth about what a change affects.

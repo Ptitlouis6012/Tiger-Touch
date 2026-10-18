@@ -15,192 +15,13 @@
      is read (its flashing speed above all, see README.md) before it is taken. -->
 <script type="module" src="https://unpkg.com/esp-web-tools@10.4.0/dist/web/install-button.js?module"></script>
 <script src="i18n.js"></script>
+<script src="theme.js" defer></script>
 <script>
   /* The chosen theme, applied before the page is drawn so it never flashes. */
   try { var t = localStorage.getItem("tigertouch-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
-<style>
-  /* Dark by default; light when the system asks for it, or when chosen with
-     the button (data-theme on <html>, remembered in this browser). */
-  :root {
-    --bg: #14161a; --card: #1e2128; --line: #2b2f38; --text: #f2f2f2;
-    --muted: #8b909a; --accent: #f58220; --danger: #f06a6a; --ok: #3ecf8e;
-    --warn-bg: #3a1f1f; --warn-line: #5a2f2f; --shadow: rgba(0, 0, 0, .45);
-    color-scheme: dark;
-  }
-  @media (prefers-color-scheme: light) {
-    :root:not([data-theme="dark"]) {
-      --bg: #f4f5f7; --card: #ffffff; --line: #dde0e6; --text: #16181d;
-      --muted: #5d6470; --accent: #e06d0c; --danger: #c93a3a; --ok: #1a9a62;
-      --warn-bg: #fdecec; --warn-line: #f2c4c4; --shadow: rgba(0, 0, 0, .12);
-      color-scheme: light;
-    }
-  }
-  :root[data-theme="light"] {
-    --bg: #f4f5f7; --card: #ffffff; --line: #dde0e6; --text: #16181d;
-    --muted: #5d6470; --accent: #e06d0c; --danger: #c93a3a; --ok: #1a9a62;
-    --warn-bg: #fdecec; --warn-line: #f2c4c4; --shadow: rgba(0, 0, 0, .12);
-    color-scheme: light;
-  }
-  .themebtn {
-    display: grid; place-items: center; width: 36px; height: 36px; cursor: pointer;
-    background: var(--bg); color: var(--muted); border: 1px solid var(--line); border-radius: 10px;
-  }
-  .themebtn:hover { border-color: var(--accent); color: var(--text); }
-  .themebtn svg { width: 17px; height: 17px; }
-  .themebtn .sun { display: none; }
-  :root[data-shown="light"] .themebtn .sun { display: block; }
-  :root[data-shown="light"] .themebtn .moon { display: none; }
-  .tools { display: flex; gap: 8px; align-items: center; }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; min-height: 100vh; background: var(--bg); color: var(--text);
-    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  }
-  /* One centred column of sections, wide on a computer, full width on a phone. */
-  .wrap { width: min(1200px, 100% - 48px); margin: 0 auto; }
-  header.bar { padding: 20px 0 8px; }
-  header.bar .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
-  .logo { font-size: 1rem; font-weight: 700; color: var(--muted); text-decoration: none; letter-spacing: .02em; }
-  .logo span { color: var(--muted); font-weight: 400; }
-  .logo:hover, .logo:hover span { color: var(--accent); }
-  main { padding: 8px 0 40px; }
-  section { margin-top: 28px; }
-  .card {
-    background: var(--card); border: 1px solid var(--line);
-    border-radius: 18px; padding: 28px;
-  }
-  h1, h2 { line-height: 1.2; }
-  p { margin: 0 0 14px; color: var(--muted); }
-  ol { margin: 0 0 20px; padding-left: 20px; color: var(--muted); }
-  li { margin-bottom: 6px; }
-  b { color: var(--text); }
-  .go { text-align: center; margin: 22px 0 6px; }
-
-  /* Hero: the pitch and the install card on one side, the screen on the other. */
-  .hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 40px; align-items: center; }
-  /* The name first, large; the promise under it. */
-  .hero .name { margin: 0; font-size: clamp(2.8rem, 1.6rem + 5vw, 5rem); font-weight: 800; letter-spacing: -.02em; line-height: 1; }
-  .hero .name span { color: var(--accent); }
-  .hero .headline { text-wrap: balance; margin: 14px 0 10px; color: var(--text); font-weight: 650; line-height: 1.25; font-size: clamp(1.25rem, 1rem + 1.2vw, 1.9rem); }
-  .hero .lead { font-size: 1.08rem; margin-bottom: 18px; }
-  .brands { display: block; width: 100%; height: auto; color: var(--text); }
-  .brands.strip { margin: 10px 0 30px; }
-  .views { display: block; width: min(460px, 100%); height: auto; }
-  .install h2 { margin: 0 0 12px; font-size: 1.2rem; }
-  .show { display: flex; justify-content: center; }
-  /* The device, turning over from the start-up screen to the printers. */
-
-  /* Before you start: the picture beside the words. */
-  .pre { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 32px; align-items: center; }
-  .pre .eco { display: block; width: 100%; height: auto; border-radius: 12px; }
-  .pre h2 { margin: 0 0 10px; font-size: 1.35rem; }
-  .pre p { margin: 0 0 16px; }
-
-  /* The call to join, for people who are not installing today. */
-  .join {
-    display: flex; align-items: center; justify-content: space-between; gap: 24px;
-    padding: 30px 32px; border-radius: 18px; color: #fff;
-    background: linear-gradient(120deg, #f58220 0%, #e2531b 55%, #b8361a 100%);
-  }
-  .join h2 { margin: 0 0 6px; font-size: clamp(1.35rem, 1rem + 1.4vw, 2rem); }
-  .join p { margin: 0; color: rgba(255, 255, 255, .88); }
-  .joinbtn {
-    flex: 0 0 auto; padding: 14px 26px; border-radius: 999px; text-decoration: none;
-    background: #fff; color: #b8361a; font-weight: 700; white-space: nowrap;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
-  }
-  .joinbtn:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0, 0, 0, .24); }
-  @media (max-width: 639px) {
-    .join { flex-direction: column; align-items: flex-start; padding: 24px 20px; }
-    .joinbtn { align-self: stretch; text-align: center; }
-  }
-  .links, .foot { display: flex; flex-wrap: wrap; gap: 8px; }
-  .foot { justify-content: center; margin-top: 8px; }
-
-  /* Tablet: one wide column, the screen above the install card. */
-  @media (max-width: 999px) {
-    /* The name at the top, then the promise, the screen, the install card; the brands under them. */
-    .hero { grid-template-columns: 1fr; gap: 0; }
-    .hero .intro { display: contents; }
-    .hero .name { order: 1; } .hero .headline { order: 2; } .hero .lead { order: 3; }
-    .show { order: 5; margin: 6px 0 22px; } .hero .install { order: 6; }
-    .views { width: min(380px, 80%); }
-    .hero .name, .hero .headline, .hero .lead { text-align: center; }
-    .brands { margin-left: auto; margin-right: auto; }
-  }
-  /* Phone: everything stacked, tighter. */
-  @media (max-width: 639px) {
-    .wrap { width: calc(100% - 32px); }
-    .card { padding: 20px; border-radius: 14px; }
-    section { margin-top: 20px; }
-    .pre { grid-template-columns: 1fr; gap: 18px; }
-    .views { width: 88%; }
-  }
-  .pill {
-    display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 999px;
-    border: 1px solid var(--line); color: var(--text); text-decoration: none; font-size: .9rem;
-  }
-  .pill:hover { border-color: var(--accent); color: var(--accent); }
-  .pill.solid { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
-  .pill.solid:hover { filter: brightness(1.08); color: #fff; }
-  .pill svg { width: 16px; height: 16px; }
-  .support { text-align: center; margin-top: 22px; }
-  .support p { font-size: .9rem; margin: 0 0 10px; }
-  .support .links { justify-content: center; }
-  .cmp h2 { margin: 0 0 8px; font-size: 1.35rem; }
-  .tablewrap { overflow-x: auto; }
-  .cmp table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: .92rem; }
-  .cmp th, .cmp td { padding: 10px 10px; border-bottom: 1px solid var(--line); text-align: center; color: var(--muted); }
-  .cmp th { color: var(--text); font-weight: 600; vertical-align: bottom; }
-  .cmp td:first-child { text-align: left; color: var(--text); }
-  .cmp .tt { color: var(--accent); background: rgba(245, 130, 32, .07); }
-  .cmp .yes { color: var(--ok); font-weight: 700; }
-  .cmp .tt.yes { color: var(--ok); }
-  .cmp .no { color: var(--danger); }
-  esp-web-install-button button[slot="activate"] {
-    background: var(--accent); color: #14161a; border: 0; border-radius: 12px;
-    padding: 14px 28px; font: inherit; font-weight: 600; cursor: pointer;
-  }
-  esp-web-install-button button[slot="activate"]:hover { filter: brightness(1.08); }
-  .warn {
-    display: none; margin-top: 16px; padding: 12px 14px; border-radius: 10px;
-    background: var(--warn-bg); color: var(--danger); border: 1px solid var(--warn-line);
-  }
-  .warn b { color: inherit; }
-  small { color: var(--muted); display: block; margin-top: 18px; }
-  small + small { margin-top: 8px; }
-  .ver { font-size: .9rem; color: var(--muted); margin: 0 0 18px; }
-  a { color: var(--accent); }
-
-  /* Language menu. A native <select> cannot be styled below its border. */
-  .langbox { position: relative; flex: 0 0 auto; }
-  .langbtn {
-    display: flex; align-items: center; gap: 8px; cursor: pointer;
-    background: var(--bg); color: var(--text); font: inherit; font-size: .9rem;
-    border: 1px solid var(--line); border-radius: 10px; padding: 7px 10px;
-  }
-  .langbtn:hover, .langbox[data-open="1"] .langbtn { border-color: var(--accent); }
-  .langbtn svg { width: 15px; height: 15px; color: var(--muted); flex: 0 0 auto; }
-  .langbox[data-open="1"] .caret { transform: rotate(180deg); }
-  .langmenu {
-    position: absolute; right: 0; top: calc(100% + 6px); z-index: 5; margin: 0; padding: 6px;
-    list-style: none; min-width: 190px; max-height: 60vh; overflow-y: auto;
-    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
-    box-shadow: 0 12px 32px var(--shadow);
-    opacity: 0; transform: translateY(-4px); pointer-events: none;
-    transition: opacity .12s, transform .12s;
-  }
-  .langbox[data-open="1"] .langmenu { opacity: 1; transform: none; pointer-events: auto; }
-  .langmenu li {
-    display: flex; justify-content: space-between; align-items: center; gap: 12px;
-    margin: 0; padding: 8px 10px; border-radius: 8px; cursor: pointer; color: var(--text);
-  }
-  .langmenu li:hover, .langmenu li:focus-visible { background: var(--bg); outline: none; }
-  .langmenu li[aria-selected="true"] { color: var(--accent); font-weight: 600; }
-  .langmenu li svg { width: 14px; height: 14px; opacity: 0; color: var(--accent); }
-  .langmenu li[aria-selected="true"] svg { opacity: 1; }
-</style>
+<link rel="stylesheet" href="site.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body>
 <header class="bar">
@@ -233,7 +54,7 @@
       <h1 class="name">Tiger <span>Touch</span></h1>
       <p class="headline" data-i18n="hero_title">Every printer you own, on your Panda Touch or K‑Touch</p>
       <p class="lead" data-i18n="tagline">Install Tiger Touch on a BIGTREETECH Panda Touch or K-Touch, from this page.</p>
-      <div class="card install">
+      <div class="card install" id="install">
         <h2 data-i18n="title">Install Tiger Touch</h2>
         <p class="ver" id="verline" hidden><span data-i18n="fw">Firmware</span> <b id="ver"></b></p>
 
@@ -370,22 +191,6 @@
   </footer>
 </main>
 <script>
-  /* ---------- light / dark ------------------------------------------------- */
-  (function () {
-    const root = document.documentElement;
-    const mq = window.matchMedia("(prefers-color-scheme: light)");
-    const shown = () => root.dataset.theme || (mq.matches ? "light" : "dark");
-    const paint = () => { root.dataset.shown = shown(); };
-    paint();
-    mq.addEventListener("change", paint);
-    document.getElementById("themebtn").addEventListener("click", () => {
-      const next = shown() === "light" ? "dark" : "light";
-      root.dataset.theme = next;
-      try { localStorage.setItem("tigertouch-theme", next); } catch (e) {}
-      paint();
-    });
-  })();
-
   /* ---------- language ----------------------------------------------------- */
   const LANGS = Object.keys(window.I18N);
 

@@ -12,6 +12,8 @@ rebuilt). Written into `out`, beside a copy of installer/:
   manifest.json   read by ESP Web Tools on the installer page
   the four images the installer writes, at their offsets
   tiger-touch-views.webp  the README's picture of the screen, copied from assets/
+  <brand>/index.html      one page per printer brand, sitemap.xml, robots.txt
+                          (make-brand-pages.py)
 
 THREE RULES, each of which has cost a sibling project a release.
 
@@ -36,6 +38,7 @@ import hashlib
 import json
 import pathlib
 import shutil
+import subprocess
 import sys
 
 # Kept in step with firmware/partitions.csv. The NVS (0x9000) is in no part, so
@@ -78,6 +81,8 @@ def main():
     # The README's picture of the screen, the same file, so the two never differ.
     root = pathlib.Path(__file__).resolve().parent.parent
     shutil.copyfile(root / "assets" / "devices" / "tiger-touch-views.webp", out / "tiger-touch-views.webp")
+    # One page per printer brand, the sitemap and robots.txt (make-brand-pages.py).
+    subprocess.run([sys.executable, str(root / "scripts" / "make-brand-pages.py"), "--out", str(out)], check=True)
 
     base = "https://github.com/%s/releases/download/v%s" % (a.repo, a.version)
     parts = []
