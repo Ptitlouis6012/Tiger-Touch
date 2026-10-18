@@ -44,10 +44,15 @@ they were written.
   a browser that kept the previous stylesheet (Pages lets it for ten minutes)
   drew the new brand strip's logos at full width. Every logo is also sized in
   the page itself.
-- **The README has no emoji left**: the feature table, the comparison's ticks
-  and crosses and the support links use small SVG icons (`assets/icons/`), each
-  with alternative text ("Yes", "No", the feature's name) that screen readers
-  and search engines read, where an emoji was read as a symbol name.
+- **The README has no emoji left**: the feature table and the comparison's
+  ticks and crosses use small SVG icons (`assets/icons/`), each with alternative
+  text ("Yes", "No", the feature's name) that screen readers and search engines
+  read, where an emoji was read as a symbol name. The support links show Buy Me
+  a Coffee's, Ko-fi's and PayPal's own logos (Tiger Studio Manager's files), on
+  the installer page too.
+- **The brand logos stand before each brand** in the README's printer table,
+  comparison and protocols table, every brand linked to its page
+  (`assets/brands/logos/`, drawn from the brand strip).
 - **The README and llms.txt link every brand page**: the brands of the
   printer table and a line under it in the README, a section of its own in
   `llms.txt`, so that search engines and AI assistants find each page.

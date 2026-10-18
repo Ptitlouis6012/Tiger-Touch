@@ -139,15 +139,15 @@ catalogue counts about 380 models from about 60 makers.
 
 | Brand | Connection | Seen on a real machine |
 |---|---|---|
-| **[Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/bambu-lab/)** (X1, P1, P2S, A1, H2...) | **Bambu cloud**, or LAN (MQTT over TLS) | **Yes**: printing through the cloud (P2S), idle in LAN mode (X1C, A1) |
-| **[Creality](https://tigertag-project.github.io/Tiger-Touch/creality/)** (K2, K1, Hi, Ender-3 V4...) | WebSocket on the LAN | **Yes**: printing (K2), idle with its CFS (Ender-3 V4) |
-| **[Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/)** U1 | Moonraker WebSocket | **Yes**: idle, four tool heads |
-| **[FlashForge](https://tigertag-project.github.io/Tiger-Touch/flashforge/)** (AD5X, Adventurer 5M, Creator 5, Creator 5 Pro) | HTTP on the LAN | **Yes**: idle (AD5X) |
-| **[Anycubic](https://tigertag-project.github.io/Tiger-Touch/anycubic/)** (Kobra 3, Kobra X, Kobra S1...) | **Anycubic cloud**, or LAN (MQTT over TLS) | **Yes**: idle through the cloud (Kobra X), with its ACE |
-| **[Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/)** Centauri Carbon 1 and 2 | MQTT (CC2), SDCP (CC1) | Not yet |
-| **[Prusa](https://tigertag-project.github.io/Tiger-Touch/prusa/)** (MK4, Core One, XL, MINI) | PrusaLink | Not yet |
-| **[Klipper](https://tigertag-project.github.io/Tiger-Touch/klipper/)**: Voron, Qidi, Sovol, RatRig... | Moonraker HTTP | Against Tiger Studio's test printer only |
-| **[OctoPrint](https://tigertag-project.github.io/Tiger-Touch/octoprint/)**: any Marlin printer behind it | OctoPrint REST API | Against Tiger Studio's test printer only |
+| <img src="assets/brands/logos/bambu-lab.svg" width="18" height="18" alt="Bambu Lab logo"> **[Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/bambu-lab/)** (X1, P1, P2S, A1, H2...) | **Bambu cloud**, or LAN (MQTT over TLS) | **Yes**: printing through the cloud (P2S), idle in LAN mode (X1C, A1) |
+| <img src="assets/brands/logos/creality.svg" width="18" height="18" alt="Creality logo"> **[Creality](https://tigertag-project.github.io/Tiger-Touch/creality/)** (K2, K1, Hi, Ender-3 V4...) | WebSocket on the LAN | **Yes**: printing (K2), idle with its CFS (Ender-3 V4) |
+| <img src="assets/brands/logos/snapmaker.svg" width="18" height="18" alt="Snapmaker logo"> **[Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/)** U1 | Moonraker WebSocket | **Yes**: idle, four tool heads |
+| <img src="assets/brands/logos/flashforge.svg" width="18" height="18" alt="FlashForge logo"> **[FlashForge](https://tigertag-project.github.io/Tiger-Touch/flashforge/)** (AD5X, Adventurer 5M, Creator 5, Creator 5 Pro) | HTTP on the LAN | **Yes**: idle (AD5X) |
+| <img src="assets/brands/logos/anycubic.svg" width="18" height="18" alt="Anycubic logo"> **[Anycubic](https://tigertag-project.github.io/Tiger-Touch/anycubic/)** (Kobra 3, Kobra X, Kobra S1...) | **Anycubic cloud**, or LAN (MQTT over TLS) | **Yes**: idle through the cloud (Kobra X), with its ACE |
+| <img src="assets/brands/logos/elegoo.svg" width="18" height="18" alt="Elegoo logo"> **[Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/)** Centauri Carbon 1 and 2 | MQTT (CC2), SDCP (CC1) | Not yet |
+| <img src="assets/brands/logos/prusa.svg" width="18" height="18" alt="Prusa logo"> **[Prusa](https://tigertag-project.github.io/Tiger-Touch/prusa/)** (MK4, Core One, XL, MINI) | PrusaLink | Not yet |
+| <img src="assets/brands/logos/klipper.svg" width="18" height="18" alt="Klipper logo"> **[Klipper](https://tigertag-project.github.io/Tiger-Touch/klipper/)**: Voron, Qidi, Sovol, RatRig... | Moonraker HTTP | Against Tiger Studio's test printer only |
+| <img src="assets/brands/logos/octoprint.svg" width="18" height="18" alt="OctoPrint logo"> **[OctoPrint](https://tigertag-project.github.io/Tiger-Touch/octoprint/)**: any Marlin printer behind it | OctoPrint REST API | Against Tiger Studio's test printer only |
 
 **One page per brand** on the installer site, with what the screen shows for
 that brand, its setup and its questions: [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/octoprint/).
@@ -173,15 +173,15 @@ each know **one** family of printers.
 |---|:---:|:---:|:---:|
 | **Printer families on one screen** | **9** | 1 (Bambu Lab) | 1 (Klipper) |
 | **Printers live at once** | **up to 10**, all updating together | several Bambu Lab, slows down from about 3 in our use | **1** at a time (50 saved, switch between them) |
-| **Bambu Lab**: LAN and Bambu cloud | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
-| **Anycubic**: Anycubic cloud and LAN | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
-| **Creality** K1 / K2 / Hi / Ender-3 V4 | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
-| **[Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/)** Centauri Carbon 1 and 2 | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
-| **[Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/)** U1 | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
-| **FlashForge** AD5X / Adventurer 5M / Creator 5 | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
-| **Prusa** (PrusaLink) | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
-| **Klipper** (Moonraker) | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> |
-| **OctoPrint** | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| <img src="assets/brands/logos/bambu-lab.svg" width="18" height="18" alt="Bambu Lab logo"> **[Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/bambu-lab/)**: LAN and Bambu cloud | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| <img src="assets/brands/logos/anycubic.svg" width="18" height="18" alt="Anycubic logo"> **[Anycubic](https://tigertag-project.github.io/Tiger-Touch/anycubic/)**: Anycubic cloud and LAN | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| <img src="assets/brands/logos/creality.svg" width="18" height="18" alt="Creality logo"> **[Creality](https://tigertag-project.github.io/Tiger-Touch/creality/)** K1 / K2 / Hi / Ender-3 V4 | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| <img src="assets/brands/logos/elegoo.svg" width="18" height="18" alt="Elegoo logo"> **[Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/)** Centauri Carbon 1 and 2 | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| <img src="assets/brands/logos/snapmaker.svg" width="18" height="18" alt="Snapmaker logo"> **[Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/)** U1 | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| <img src="assets/brands/logos/flashforge.svg" width="18" height="18" alt="FlashForge logo"> **[FlashForge](https://tigertag-project.github.io/Tiger-Touch/flashforge/)** AD5X / Adventurer 5M / Creator 5 | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| <img src="assets/brands/logos/prusa.svg" width="18" height="18" alt="Prusa logo"> **[Prusa](https://tigertag-project.github.io/Tiger-Touch/prusa/)** (PrusaLink) | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
+| <img src="assets/brands/logos/klipper.svg" width="18" height="18" alt="Klipper logo"> **[Klipper](https://tigertag-project.github.io/Tiger-Touch/klipper/)** (Moonraker) | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> |
+| <img src="assets/brands/logos/octoprint.svg" width="18" height="18" alt="OctoPrint logo"> **[OctoPrint](https://tigertag-project.github.io/Tiger-Touch/octoprint/)** | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
 | **Printers set up without typing on the screen** | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> from your TigerSystem account | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> IP, serial, access code | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> IP and port, or a scan |
 | **Filament units shown** (AMS, CFS, Station, ACE, MMU / AFC) | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> every brand | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> AMS | - |
 | **Over-the-air updates**: the screen finds new versions and installs them itself, verified, with automatic roll-back | <img src="assets/icons/yes.svg" width="18" height="18" alt="Yes"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> | <img src="assets/icons/no.svg" width="18" height="18" alt="No"> |
@@ -196,15 +196,15 @@ moves), and you can go back to them at any time ([docs/INSTALL.md](docs/INSTALL.
 
 | Protocols | Tiger Touch | Panda Touch firmware | K-Touch firmware |
 |---|---|---|---|
-| Bambu Lab | MQTT over TLS on the LAN (access code), or the Bambu cloud broker | LAN (access code), or Bambu cloud with two-factor sign-in off | - |
-| Anycubic | Anycubic cloud (MQTT, mutual TLS), or MQTT over TLS on the LAN | - | - |
-| Creality | WebSocket | - | - |
-| Elegoo | MQTT (CC2), SDCP (CC1) | - | - |
-| Snapmaker | Moonraker WebSocket | - | - |
-| FlashForge | HTTP | - | - |
-| Prusa | PrusaLink HTTP | - | - |
-| Klipper | Moonraker HTTP | - | Klipper over Wi-Fi (port 7125) |
-| OctoPrint | OctoPrint REST API | - | - |
+| <img src="assets/brands/logos/bambu-lab.svg" width="18" height="18" alt="Bambu Lab logo"> [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/bambu-lab/) | MQTT over TLS on the LAN (access code), or the Bambu cloud broker | LAN (access code), or Bambu cloud with two-factor sign-in off | - |
+| <img src="assets/brands/logos/anycubic.svg" width="18" height="18" alt="Anycubic logo"> [Anycubic](https://tigertag-project.github.io/Tiger-Touch/anycubic/) | Anycubic cloud (MQTT, mutual TLS), or MQTT over TLS on the LAN | - | - |
+| <img src="assets/brands/logos/creality.svg" width="18" height="18" alt="Creality logo"> [Creality](https://tigertag-project.github.io/Tiger-Touch/creality/) | WebSocket | - | - |
+| <img src="assets/brands/logos/elegoo.svg" width="18" height="18" alt="Elegoo logo"> [Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/) | MQTT (CC2), SDCP (CC1) | - | - |
+| <img src="assets/brands/logos/snapmaker.svg" width="18" height="18" alt="Snapmaker logo"> [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/) | Moonraker WebSocket | - | - |
+| <img src="assets/brands/logos/flashforge.svg" width="18" height="18" alt="FlashForge logo"> [FlashForge](https://tigertag-project.github.io/Tiger-Touch/flashforge/) | HTTP | - | - |
+| <img src="assets/brands/logos/prusa.svg" width="18" height="18" alt="Prusa logo"> [Prusa](https://tigertag-project.github.io/Tiger-Touch/prusa/) | PrusaLink HTTP | - | - |
+| <img src="assets/brands/logos/klipper.svg" width="18" height="18" alt="Klipper logo"> [Klipper](https://tigertag-project.github.io/Tiger-Touch/klipper/) | Moonraker HTTP | - | Klipper over Wi-Fi (port 7125) |
+| <img src="assets/brands/logos/octoprint.svg" width="18" height="18" alt="OctoPrint logo"> [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/octoprint/) | OctoPrint REST API | - | - |
 
 <sub>Panda Touch and K-Touch: features from BIGTREETECH's wiki
 ([Panda Touch](https://global.bttwiki.com/PandaTouch.html),
@@ -394,9 +394,9 @@ settings area and wipes the saved Wi-Fi and account.
 TigerSystem is a personal, community open-source project, built and maintained in free time.
 Everything stays free; if it saves you a trip to the printer room, you can support it:
 
-- <img src="assets/icons/coffee.svg" width="20" height="20" alt=""> [Buy Me a Coffee](https://buymeacoffee.com/benoitl)
-- <img src="assets/icons/heart.svg" width="20" height="20" alt=""> [Ko-fi](https://ko-fi.com/tigersystemio)
-- <img src="assets/icons/card.svg" width="20" height="20" alt=""> [PayPal](https://paypal.me/tigersystemio)
+- <img src="assets/icons/buymeacoffee.svg" width="20" height="20" alt="Buy Me a Coffee logo"> [Buy Me a Coffee](https://buymeacoffee.com/benoitl)
+- <img src="assets/icons/kofi.svg" width="20" height="20" alt="Ko-fi logo"> [Ko-fi](https://ko-fi.com/tigersystemio)
+- <img src="assets/icons/paypal.svg" width="20" height="20" alt="PayPal logo"> [PayPal](https://paypal.me/tigersystemio)
 
 ## Contributing
 

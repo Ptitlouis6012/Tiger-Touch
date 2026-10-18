@@ -247,3 +247,4 @@ nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.c
 .latest { margin: 14px 0 0; color: var(--muted); font-size: .92rem; }
 .latest b { color: var(--ok); }
 .latest a { color: var(--accent); }
+.pill-ico { width: 18px; height: 18px; vertical-align: -3px; margin-right: 4px; }
