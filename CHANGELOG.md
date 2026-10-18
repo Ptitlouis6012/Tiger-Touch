@@ -35,6 +35,9 @@ they were written.
   of the page (Tiger Studio Manager's printer pictures, `assets/printers/models/`),
   each named; the header reads "<Brand> x TigerSystem" and the brand's logo
   stands beside the title.
+- **The README and llms.txt link every brand page**: the brands of the
+  printer table and a line under it in the README, a section of its own in
+  `llms.txt`, so that search engines and AI assistants find each page.
 - **Every logo of the brand strip is a link** to its brand's page, on the
   installer page and on every brand page (the current one in orange). Their
   colours are explicit: Chrome drew a visited logo's name in its own dark link

@@ -33,6 +33,19 @@ If you are an agent about to change something here, read `CLAUDE.md` and
 reporting the work done. The Landmines table in `CODEMAP.md` lists behaviours
 that look like bugs and are not, or look fine and are not.
 
+
+## Tiger Touch for each printer brand
+
+- [Tiger Touch for Bambu Lab printers](https://tigertag-project.github.io/Tiger-Touch/bambu-lab/): Bambu cloud or LAN mode, every AMS slot, the light. Models: X1 Carbon, X1E, P1S, P1P, P2S, A1, A1 mini, H2D, H2C, H2S.
+- [Tiger Touch for Creality printers](https://tigertag-project.github.io/Tiger-Touch/creality/): On your network, the CFS, the light, pause and stop. Models: K2 Plus, K2, K1, K1 Max, K1C, Hi, Ender-3 V4.
+- [Tiger Touch for Elegoo printers](https://tigertag-project.github.io/Tiger-Touch/elegoo/): Centauri Carbon 1 and 2 on your network, the Canvas. Models: Centauri Carbon 2, Centauri Carbon.
+- [Tiger Touch for Anycubic printers](https://tigertag-project.github.io/Tiger-Touch/anycubic/): Anycubic cloud or your network, every ACE slot. Models: Kobra S1, Kobra X, Kobra 3, Kobra 3 Combo.
+- [Tiger Touch for Snapmaker printers](https://tigertag-project.github.io/Tiger-Touch/snapmaker/): The U1 on your network, its four tool heads. Models: U1.
+- [Tiger Touch for FlashForge printers](https://tigertag-project.github.io/Tiger-Touch/flashforge/): On your network, the AD5X material station. Models: AD5X, Adventurer 5M, Adventurer 5M Pro, Creator 5.
+- [Tiger Touch for Prusa printers](https://tigertag-project.github.io/Tiger-Touch/prusa/): PrusaLink on your network: progress and temperatures. Models: Core One, MK4, MK4S, XL, MINI.
+- [Tiger Touch for Klipper printers](https://tigertag-project.github.io/Tiger-Touch/klipper/): Moonraker: Voron, Qidi, Sovol, AFC and Happy Hare. Models: Voron, Qidi, Sovol, RatRig and any printer running Klipper with Moonraker.
+- [Tiger Touch for OctoPrint printers](https://tigertag-project.github.io/Tiger-Touch/octoprint/): Any Marlin printer behind OctoPrint. Models: Any Marlin printer behind OctoPrint (Ender, Prusa MK3, Anet and more).
+
 ## Working here
 
 - [CLAUDE.md](CLAUDE.md): non-negotiables with the consequence of ignoring each, hardware facts that bite, build and flash, what a push and a tag set off.

@@ -139,15 +139,18 @@ catalogue counts about 380 models from about 60 makers.
 
 | Brand | Connection | Seen on a real machine |
 |---|---|---|
-| **Bambu Lab** (X1, P1, P2S, A1, H2...) | **Bambu cloud**, or LAN (MQTT over TLS) | **Yes**: printing through the cloud (P2S), idle in LAN mode (X1C, A1) |
-| **Creality** (K2, K1, Hi, Ender-3 V4...) | WebSocket on the LAN | **Yes**: printing (K2), idle with its CFS (Ender-3 V4) |
-| **Snapmaker** U1 | Moonraker WebSocket | **Yes**: idle, four tool heads |
-| **FlashForge** (AD5X, Adventurer 5M, Creator 5) | HTTP on the LAN | **Yes**: idle (AD5X) |
-| **Anycubic** (Kobra 3, Kobra X, Kobra S1...) | **Anycubic cloud**, or LAN (MQTT over TLS) | **Yes**: idle through the cloud (Kobra X), with its ACE |
-| **Elegoo** Centauri Carbon 1 and 2 | MQTT (CC2), SDCP (CC1) | Not yet |
-| **Prusa** (MK4, Core One, XL, MINI) | PrusaLink | Not yet |
-| **Klipper**: Voron, Qidi, Sovol, RatRig... | Moonraker HTTP | Against Tiger Studio's test printer only |
-| **OctoPrint**: any Marlin printer behind it | OctoPrint REST API | Against Tiger Studio's test printer only |
+| **[Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/bambu-lab/)** (X1, P1, P2S, A1, H2...) | **Bambu cloud**, or LAN (MQTT over TLS) | **Yes**: printing through the cloud (P2S), idle in LAN mode (X1C, A1) |
+| **[Creality](https://tigertag-project.github.io/Tiger-Touch/creality/)** (K2, K1, Hi, Ender-3 V4...) | WebSocket on the LAN | **Yes**: printing (K2), idle with its CFS (Ender-3 V4) |
+| **[Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/)** U1 | Moonraker WebSocket | **Yes**: idle, four tool heads |
+| **[FlashForge](https://tigertag-project.github.io/Tiger-Touch/flashforge/)** (AD5X, Adventurer 5M, Creator 5) | HTTP on the LAN | **Yes**: idle (AD5X) |
+| **[Anycubic](https://tigertag-project.github.io/Tiger-Touch/anycubic/)** (Kobra 3, Kobra X, Kobra S1...) | **Anycubic cloud**, or LAN (MQTT over TLS) | **Yes**: idle through the cloud (Kobra X), with its ACE |
+| **[Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/)** Centauri Carbon 1 and 2 | MQTT (CC2), SDCP (CC1) | Not yet |
+| **[Prusa](https://tigertag-project.github.io/Tiger-Touch/prusa/)** (MK4, Core One, XL, MINI) | PrusaLink | Not yet |
+| **[Klipper](https://tigertag-project.github.io/Tiger-Touch/klipper/)**: Voron, Qidi, Sovol, RatRig... | Moonraker HTTP | Against Tiger Studio's test printer only |
+| **[OctoPrint](https://tigertag-project.github.io/Tiger-Touch/octoprint/)**: any Marlin printer behind it | OctoPrint REST API | Against Tiger Studio's test printer only |
+
+**One page per brand** on the installer site, with what the screen shows for
+that brand, its setup and its questions: [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/octoprint/).
 
 "Not yet" means written from the maker's protocol and compiled, never run on that
 machine: **a report from your printer is the most useful thing you can send.**
@@ -173,8 +176,8 @@ each know **one** family of printers.
 | **Bambu Lab**: LAN and Bambu cloud | ✅ | ✅ | ❌ |
 | **Anycubic**: Anycubic cloud and LAN | ✅ | ❌ | ❌ |
 | **Creality** K1 / K2 / Hi / Ender-3 V4 | ✅ | ❌ | ❌ |
-| **Elegoo** Centauri Carbon 1 and 2 | ✅ | ❌ | ❌ |
-| **Snapmaker** U1 | ✅ | ❌ | ❌ |
+| **[Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/)** Centauri Carbon 1 and 2 | ✅ | ❌ | ❌ |
+| **[Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/)** U1 | ✅ | ❌ | ❌ |
 | **FlashForge** AD5X / Adventurer 5M / Creator 5 | ✅ | ❌ | ❌ |
 | **Prusa** (PrusaLink) | ✅ | ❌ | ❌ |
 | **Klipper** (Moonraker) | ✅ | ❌ | ✅ |
