@@ -69,7 +69,10 @@ they were written.
   Creality's K2 Plus, K2, K1 Max, K1C, Hi, Ender-3 V4 and V3 KE, plus an Ender-3
   S1 "via OctoPrint". Each page's questions say how. The Elegoo pictures are the
   ones Tiger Studio Manager's catalogue names.
-- **The installer's title reads "TigerTouch"**, the two colours joined.
+- **"TigerTouch" in two colours, joined, in every title** of the site: the
+  installer's (after each translation too) and the brand pages'.
+- **A brand's lineup stands on two rows**, as many columns as half its
+  printers, the second row centred; three columns on a phone.
 - **The README and llms.txt link every brand page**: the brands of the
   printer table and a line under it in the README, a section of its own in
   `llms.txt`, so that search engines and AI assistants find each page.

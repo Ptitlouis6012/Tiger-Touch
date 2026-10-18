@@ -15,3 +15,26 @@
     paint();
   });
 })();
+
+/* "TigerTouch" in two colours, joined, in every title - also after the
+   installer page translates them (it calls this again). */
+window.ttBrandify = function () {
+  document.querySelectorAll("h1, h2, h3").forEach(h => {
+    if (h.querySelector(".tt-touch") || !/Tiger Touch/.test(h.textContent)) return;
+    const walk = document.createTreeWalker(h, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walk.nextNode()) nodes.push(walk.currentNode);
+    nodes.forEach(n => {
+      const i = n.data.indexOf("Tiger Touch");
+      if (i < 0) return;
+      const after = n.splitText(i);
+      after.data = after.data.slice("Tiger Touch".length);
+      const span = document.createElement("span");
+      span.className = "tt-touch";
+      span.textContent = "Touch";
+      n.parentNode.insertBefore(document.createTextNode("Tiger"), after);
+      n.parentNode.insertBefore(span, after);
+    });
+  });
+};
+window.ttBrandify();

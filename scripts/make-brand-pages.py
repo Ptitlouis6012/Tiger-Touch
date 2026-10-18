@@ -188,7 +188,7 @@ def page(b, brands, pieces, svg):
     <div class="intro">
       <div class="bp-head">
         {logo_svg}
-        <h1 class="bp-title">Tiger Touch for <span>{name}</span> printers</h1>
+        <h1 class="bp-title">Tiger<span>Touch</span> for <span>{name}</span> printers</h1>
       </div>
       <p class="lead">{lead}</p>
       <dl class="facts">
@@ -207,7 +207,7 @@ def page(b, brands, pieces, svg):
   </section>
 
   <section class="bp-sec lineup-sec" aria-label="{name} printers">
-    <ul class="lineup">{lineup}</ul>
+    <ul class="lineup" style="--cols: {cols}">{lineup}</ul>
   </section>
 
   <section class="card bp-sec">
@@ -236,7 +236,7 @@ def page(b, brands, pieces, svg):
   </section>
 
   <section class="card bp-sec">
-    <h2>What Tiger Touch is</h2>
+    <h2>What Tiger<span class="tt-touch">Touch</span> is</h2>
     <p>A free, open-source firmware that turns the BIGTREETECH Panda Touch or K-Touch, a 5-inch touchscreen made for Bambu Lab, into one live screen for all your 3D printers. No computer and no bridge: it signs in to your TigerSystem account, reads your printers from it and talks to each one directly.</p>
     <h3>Built around makers, not around a brand</h3>
     <p>Printer makers build their software around their own machines: their apps, their clouds and their screens are designed to keep you with their printers. <b>TigerSystem starts from the other end: you.</b> Whatever printers you own, whatever their brand, whatever computer or phone you use, our tools adapt to the way you work, not the other way round. A {name} printer today, another brand tomorrow: the same screen follows both.</p>
@@ -269,7 +269,7 @@ def page(b, brands, pieces, svg):
            models=esc(b["models"]), connection=esc(b["connection"]), status=esc(b["status"]),
            shot_alt=esc(b["shot_alt"]), shows=li(b["shows"]), controls=esc(b["controls"]),
            setup=li(b["setup"]), tips=esc(b["tips"]), faq=faq, strip=strip(svg, pieces, slugs, "../", slug),
-           others=other_rows, feats=feats, **STAMPS,
+           others=other_rows, feats=feats, cols=(len(b["lineup"]) + 1) // 2, **STAMPS,
            lineup="".join('<li><img src="../img/models/%s" width="240" height="240" loading="lazy" alt="%s %s">'
                           '<span>%s</span>%s</li>' % (esc(m[0]), esc(name), esc(m[1]), esc(m[1]),
                                                       '<small>%s</small>' % esc(m[2]) if len(m) > 2 else "")

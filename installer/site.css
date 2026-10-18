@@ -202,9 +202,13 @@ nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.c
 .logo.duo b { color: var(--text); }
 .logo .x { color: var(--accent); font-weight: 600; margin: 0 4px; }
 .lineup-sec { margin: 6px 0 26px; }
-.lineup { list-style: none; padding: 0 !important; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 28px; }
-.lineup li { margin: 0 !important; display: flex; flex-direction: column; align-items: center; width: 170px; }
-.lineup img { display: block; width: 170px; height: 170px; object-fit: contain; }
+/* Two rows: as many columns as half the printers (the page sets --cols). */
+.lineup { list-style: none; padding: 0 !important; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 10px 22px; max-width: calc(var(--cols, 4) * 192px); }
+.lineup li { margin: 0 !important; display: flex; flex-direction: column; align-items: center; min-width: 0;
+  flex: 0 0 calc((100% - (var(--cols, 4) - 1) * 22px) / var(--cols, 4)); }
+.lineup img { display: block; width: 100%; max-width: 170px; height: auto; aspect-ratio: 1; object-fit: contain; }
+@media (max-width: 640px) { .lineup { --cols: 3 !important; } }
 .lineup span { margin-top: 4px; font-weight: 600; font-size: .95rem; text-align: center; }
 .bp-title { margin: 0; font-size: clamp(2rem, 1.3rem + 2.6vw, 3.3rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.08; }
 .bp-title span { color: var(--accent); }
@@ -263,3 +267,4 @@ nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.c
 /* The TigerSquad card stands on its own between the install card and the brands. */
 .join { margin: 28px 0 30px; }
 .lineup small { color: var(--muted); font-size: .8rem; margin-top: 2px; }
+.tt-touch { color: var(--accent); }

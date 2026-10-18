@@ -261,6 +261,7 @@
   }
   function choose(code, remember) {
     applyLang(code);
+    if (window.ttBrandify) window.ttBrandify();
     now.textContent = window.I18N[code].lang_name;
     menu.querySelectorAll("li").forEach(li =>
       li.setAttribute("aria-selected", li.dataset.code === code ? "true" : "false"));
