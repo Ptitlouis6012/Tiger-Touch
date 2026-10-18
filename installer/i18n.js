@@ -114,6 +114,12 @@ en: {
   rel_released: "released {date}",
   alt_device: "A BIGTREETECH Panda Touch running Tiger Touch, in turn: its start-up screen, the printers as live cards, the printers as a list, and one printer's full view with its four tool heads",
   alt_ecosystem: "A TigerPOD reader holding a spool, Tiger Studio Manager on a computer, and the TigerTag app on a phone",
+  eco_title: "The rest of the TigerSystem family",
+  eco_sub: "Tiger Touch is one of TigerSystem's free tools. The others share the same account, the same spools and the same printers:",
+  eco_studio: "Mission control for your filament and your printers, on Windows, macOS and Linux. Start here: your account and your printers are set up there.",
+  eco_pod: "A spool scanner for your desk that you print yourself: put a spool down and it opens in Tiger Studio.",
+  eco_scale: "An open-source scale: the chip says what the spool is, the load cell how many grams are left.",
+  eco_spool: "A small box beside the printer: hold a spool against it and the filament is written into the printer's slot.",
 },
 
 fr: {
@@ -211,6 +217,12 @@ fr: {
   rel_released: "publiée le {date}",
   alt_device: "Un BIGTREETECH Panda Touch sous Tiger Touch, tour à tour : son écran de démarrage, les imprimantes en cartes en direct, les imprimantes en liste, et la vue complète d'une imprimante avec ses quatre têtes",
   alt_ecosystem: "Un lecteur TigerPOD portant une bobine, Tiger Studio Manager sur un ordinateur et l'application TigerTag sur un téléphone",
+  eco_title: "Le reste de la famille TigerSystem",
+  eco_sub: "Tiger Touch est l'un des outils gratuits de TigerSystem. Les autres partagent le même compte, les mêmes bobines et les mêmes imprimantes :",
+  eco_studio: "Le poste de pilotage de vos filaments et de vos imprimantes, sur Windows, macOS et Linux. Commencez ici : votre compte et vos imprimantes s'y configurent.",
+  eco_pod: "Un scanner de bobines pour votre bureau, à imprimer vous-même : posez une bobine, elle s'ouvre dans Tiger Studio.",
+  eco_scale: "Une balance open source : la puce dit quelle est la bobine, le capteur combien de grammes il reste.",
+  eco_spool: "Un petit boîtier à côté de l'imprimante : approchez une bobine et le filament est inscrit dans l'emplacement de l'imprimante.",
 },
 
 de: {
@@ -308,6 +320,12 @@ de: {
   rel_released: "veröffentlicht am {date}",
   alt_device: "Ein BIGTREETECH Panda Touch mit Tiger Touch, nacheinander: der Startbildschirm, die Drucker als Live-Karten, die Drucker als Liste und die Vollansicht eines Druckers mit seinen vier Werkzeugköpfen",
   alt_ecosystem: "Ein TigerPOD-Leser mit einer Spule, Tiger Studio Manager auf einem Computer und die TigerTag-App auf einem Telefon",
+  eco_title: "Die übrige TigerSystem-Familie",
+  eco_sub: "Tiger Touch ist eines der kostenlosen Werkzeuge von TigerSystem. Die anderen teilen dasselbe Konto, dieselben Spulen und dieselben Drucker:",
+  eco_studio: "Die Zentrale für Ihr Filament und Ihre Drucker, unter Windows, macOS und Linux. Fangen Sie hier an: Dort werden Ihr Konto und Ihre Drucker eingerichtet.",
+  eco_pod: "Ein Spulenscanner für den Schreibtisch, den Sie selbst drucken: Spule auflegen, und sie öffnet sich in Tiger Studio.",
+  eco_scale: "Eine Open-Source-Waage: Der Chip sagt, welche Spule es ist, die Wägezelle, wie viele Gramm übrig sind.",
+  eco_spool: "Ein kleines Kästchen neben dem Drucker: Spule daranhalten, und das Filament wird in den Slot des Druckers geschrieben.",
 },
 
 es: {
@@ -405,6 +423,12 @@ es: {
   rel_released: "publicada el {date}",
   alt_device: "Un BIGTREETECH Panda Touch con Tiger Touch, por turnos: su pantalla de inicio, las impresoras como tarjetas en directo, las impresoras en lista y la vista completa de una impresora con sus cuatro cabezales",
   alt_ecosystem: "Un lector TigerPOD con una bobina, Tiger Studio Manager en un ordenador y la app TigerTag en un teléfono",
+  eco_title: "El resto de la familia TigerSystem",
+  eco_sub: "Tiger Touch es una de las herramientas gratuitas de TigerSystem. Las demás comparten la misma cuenta, las mismas bobinas y las mismas impresoras:",
+  eco_studio: "El centro de control de tus filamentos y tus impresoras, en Windows, macOS y Linux. Empieza aquí: tu cuenta y tus impresoras se configuran allí.",
+  eco_pod: "Un escáner de bobinas para tu escritorio que imprimes tú mismo: deja una bobina y se abre en Tiger Studio.",
+  eco_scale: "Una báscula de código abierto: el chip dice qué bobina es, la célula de carga cuántos gramos quedan.",
+  eco_spool: "Una pequeña caja junto a la impresora: acerca una bobina y el filamento se escribe en la ranura de la impresora.",
 },
 
 it: {
@@ -502,6 +526,12 @@ it: {
   rel_released: "pubblicata il {date}",
   alt_device: "Un BIGTREETECH Panda Touch con Tiger Touch, a turno: la schermata di avvio, le stampanti come schede in diretta, le stampanti in elenco e la vista completa di una stampante con le sue quattro testine",
   alt_ecosystem: "Un lettore TigerPOD con una bobina, Tiger Studio Manager su un computer e l'app TigerTag su un telefono",
+  eco_title: "Il resto della famiglia TigerSystem",
+  eco_sub: "Tiger Touch è uno degli strumenti gratuiti di TigerSystem. Gli altri condividono lo stesso account, le stesse bobine e le stesse stampanti:",
+  eco_studio: "La centrale di controllo dei tuoi filamenti e delle tue stampanti, su Windows, macOS e Linux. Inizia da qui: account e stampanti si configurano lì.",
+  eco_pod: "Uno scanner di bobine per la scrivania, da stampare da te: appoggia una bobina e si apre in Tiger Studio.",
+  eco_scale: "Una bilancia open source: il chip dice che bobina è, la cella di carico quanti grammi restano.",
+  eco_spool: "Una piccola scatola accanto alla stampante: avvicina una bobina e il filamento viene scritto nello slot della stampante.",
 },
 
 zh: {
@@ -599,6 +629,12 @@ zh: {
   rel_released: "发布于 {date}",
   alt_device: "运行 Tiger Touch 的 BIGTREETECH Panda Touch，依次显示：启动画面、实时卡片形式的打印机、列表形式的打印机，以及一台打印机带四个工具头的完整视图",
   alt_ecosystem: "托着线轴的 TigerPOD 读取器、电脑上的 Tiger Studio Manager，以及手机上的 TigerTag 应用",
+  eco_title: "TigerSystem 家族的其他成员",
+  eco_sub: "Tiger Touch 是 TigerSystem 的免费工具之一。其他工具共用同一个账户、同样的线轴和同样的打印机：",
+  eco_studio: "耗材和打印机的控制中心，支持 Windows、macOS 和 Linux。从这里开始：你的账户和打印机都在这里设置。",
+  eco_pod: "可自己打印的桌面线轴扫描器：放上线轴，它就会在 Tiger Studio 中打开。",
+  eco_scale: "开源电子秤：芯片说明是哪卷线轴，称重传感器告诉你还剩多少克。",
+  eco_spool: "放在打印机旁的小盒子：把线轴靠近它，耗材信息就会写入打印机的槽位。",
 },
 
 pt: {
@@ -696,6 +732,12 @@ pt: {
   rel_released: "lançada em {date}",
   alt_device: "Um BIGTREETECH Panda Touch com Tiger Touch, em sequência: a tela inicial, as impressoras como cartões ao vivo, as impressoras em lista e a visão completa de uma impressora com seus quatro cabeçotes",
   alt_ecosystem: "Um leitor TigerPOD segurando um carretel, o Tiger Studio Manager em um computador e o app TigerTag em um celular",
+  eco_title: "O resto da família TigerSystem",
+  eco_sub: "O Tiger Touch é uma das ferramentas gratuitas do TigerSystem. As outras compartilham a mesma conta, os mesmos carretéis e as mesmas impressoras:",
+  eco_studio: "A central de controle dos seus filamentos e impressoras, no Windows, macOS e Linux. Comece aqui: sua conta e suas impressoras são configuradas nele.",
+  eco_pod: "Um scanner de carretéis para a sua mesa, que você mesmo imprime: coloque um carretel e ele abre no Tiger Studio.",
+  eco_scale: "Uma balança open source: o chip diz qual é o carretel, a célula de carga quantos gramas restam.",
+  eco_spool: "Uma caixinha ao lado da impressora: aproxime um carretel e o filamento é gravado no slot da impressora.",
 },
 
 "pt-pt": {
@@ -793,6 +835,12 @@ pt: {
   rel_released: "publicada em {date}",
   alt_device: "Um BIGTREETECH Panda Touch com Tiger Touch, alternadamente: o ecrã de arranque, as impressoras como cartões em direto, as impressoras em lista e a vista completa de uma impressora com as suas quatro cabeças",
   alt_ecosystem: "Um leitor TigerPOD com uma bobina, o Tiger Studio Manager num computador e a aplicação TigerTag num telemóvel",
+  eco_title: "O resto da família TigerSystem",
+  eco_sub: "O Tiger Touch é uma das ferramentas gratuitas do TigerSystem. As outras partilham a mesma conta, as mesmas bobinas e as mesmas impressoras:",
+  eco_studio: "O centro de controlo dos seus filamentos e impressoras, em Windows, macOS e Linux. Comece aqui: a sua conta e as suas impressoras são configuradas aí.",
+  eco_pod: "Um leitor de bobinas para a secretária, que imprime você mesmo: pouse uma bobina e ela abre no Tiger Studio.",
+  eco_scale: "Uma balança open source: o chip diz qual é a bobina, a célula de carga quantos gramas restam.",
+  eco_spool: "Uma pequena caixa ao lado da impressora: aproxime uma bobina e o filamento é escrito na ranhura da impressora.",
 },
 
 pl: {
@@ -890,6 +938,12 @@ pl: {
   rel_released: "wydana {date}",
   alt_device: "BIGTREETECH Panda Touch z Tiger Touch, po kolei: ekran startowy, drukarki jako karty na żywo, drukarki jako lista i pełny widok drukarki z czterema głowicami",
   alt_ecosystem: "Czytnik TigerPOD ze szpulą, Tiger Studio Manager na komputerze i aplikacja TigerTag na telefonie",
+  eco_title: "Reszta rodziny TigerSystem",
+  eco_sub: "Tiger Touch to jedno z darmowych narzędzi TigerSystem. Pozostałe korzystają z tego samego konta, tych samych szpul i tych samych drukarek:",
+  eco_studio: "Centrum sterowania filamentem i drukarkami, na Windows, macOS i Linux. Zacznij tutaj: tam zakładasz konto i dodajesz drukarki.",
+  eco_pod: "Skaner szpul na biurko, który drukujesz sam: połóż szpulę, a otworzy się w Tiger Studio.",
+  eco_scale: "Otwarta waga: chip mówi, co to za szpula, a czujnik wagi, ile gramów zostało.",
+  eco_spool: "Małe pudełko obok drukarki: przyłóż szpulę, a filament zostanie zapisany w gnieździe drukarki.",
 },
 
 ru: {
@@ -987,6 +1041,12 @@ ru: {
   rel_released: "выпущена {date}",
   alt_device: "BIGTREETECH Panda Touch с Tiger Touch, по очереди: экран запуска, принтеры в виде живых карточек, принтеры списком и полный вид принтера с четырьмя печатающими головками",
   alt_ecosystem: "Считыватель TigerPOD с катушкой, Tiger Studio Manager на компьютере и приложение TigerTag на телефоне",
+  eco_title: "Остальные инструменты TigerSystem",
+  eco_sub: "Tiger Touch — один из бесплатных инструментов TigerSystem. Остальные используют тот же аккаунт, те же катушки и те же принтеры:",
+  eco_studio: "Центр управления вашим филаментом и принтерами для Windows, macOS и Linux. Начните здесь: в нём настраиваются аккаунт и принтеры.",
+  eco_pod: "Настольный сканер катушек, который вы печатаете сами: положите катушку, и она откроется в Tiger Studio.",
+  eco_scale: "Весы с открытым исходным кодом: чип говорит, что это за катушка, тензодатчик — сколько граммов осталось.",
+  eco_spool: "Небольшая коробочка рядом с принтером: поднесите катушку, и филамент запишется в слот принтера.",
 },
 
 nl: {
@@ -1084,6 +1144,12 @@ nl: {
   rel_released: "uitgebracht op {date}",
   alt_device: "Een BIGTREETECH Panda Touch met Tiger Touch, om beurten: het opstartscherm, de printers als live kaarten, de printers als lijst en de volledige weergave van een printer met zijn vier printkoppen",
   alt_ecosystem: "Een TigerPOD-lezer met een spoel, Tiger Studio Manager op een computer en de TigerTag-app op een telefoon",
+  eco_title: "De rest van de TigerSystem-familie",
+  eco_sub: "Tiger Touch is een van de gratis tools van TigerSystem. De andere delen hetzelfde account, dezelfde spoelen en dezelfde printers:",
+  eco_studio: "Het controlecentrum voor uw filament en uw printers, op Windows, macOS en Linux. Begin hier: uw account en uw printers worden daar ingesteld.",
+  eco_pod: "Een spoelscanner voor uw bureau die u zelf print: leg een spoel neer en hij opent in Tiger Studio.",
+  eco_scale: "Een opensource-weegschaal: de chip zegt welke spoel het is, de weegcel hoeveel gram er over is.",
+  eco_spool: "Een klein kastje naast de printer: houd er een spoel tegen en het filament wordt in het slot van de printer geschreven.",
 },
 
 };

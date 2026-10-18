@@ -308,6 +308,26 @@ nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.c
   .cmp .tt { background: transparent; }
 }
 
+/* The rest of TigerSystem, at the foot of every page: secondary, there to be discovered. */
+.eco-sec { margin: 34px 0 8px; }
+.eco-sec h2 { margin: 0 0 6px; font-size: 1.3rem; }
+.eco-sec > p { margin: 0 0 16px; color: var(--muted); }
+.eco-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.eco-item, .eco-item:visited { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px 16px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px; color: var(--text); text-decoration: none; }
+.eco-item:hover, .eco-item:focus-visible { border-color: var(--accent); }
+.eco-item img { width: 100%; height: 120px; object-fit: contain; margin-bottom: 6px; }
+.eco-item h3 { margin: 0; font-size: 1rem; }
+.eco-item:hover h3 { color: var(--link); }
+.eco-item p { margin: 0; color: var(--muted); font-size: .9rem; }
+@media (max-width: 999px) { .eco-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 540px) {
+  .eco-grid { grid-template-columns: 1fr; }
+  .eco-item { flex-direction: row; flex-wrap: wrap; align-items: center; column-gap: 14px; }
+  .eco-item img { width: 72px; height: 72px; margin: 0; }
+  .eco-item h3 { flex: 1; }
+}
+
 /* Asked for less motion: the menu and the caret switch at once. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }

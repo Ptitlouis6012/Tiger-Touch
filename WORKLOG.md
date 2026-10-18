@@ -7,6 +7,7 @@ reset to this header at each release.
 
 ## Added
 - Site: one page per printer brand (SEO), brand favicons, sitemap and robots.txt, logos linked; five new Demo captures.
+- Site: the rest of TigerSystem (Studio, TigerPOD, TigerScale, TigerSpool) at the foot of every page.
 
 ## Changed
 - Site: one stylesheet and theme script shared by every page.

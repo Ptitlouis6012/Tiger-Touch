@@ -116,6 +116,10 @@ they were written.
   installer page and on every brand page (the current one in orange). The strip
   is HTML, its colours explicit: as SVG text, a visited logo's name kept
   Chrome's dark link colour and vanished on the dark theme.
+- **The rest of TigerSystem at the foot of every page**: Tiger Studio Manager,
+  TigerPOD Mini, TigerScale V3 and TigerSpool, a picture and a line each and a
+  link to their project, in the eleven languages, on the installer and every
+  brand page.
 
 ### Changed
 - **One stylesheet and one theme script for the whole site** (`installer/site.css`,

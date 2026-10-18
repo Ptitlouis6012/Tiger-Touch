@@ -34,6 +34,7 @@ import posixpath
 import pathlib
 import re
 import shutil
+import struct
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 STAMPS = {}
@@ -321,6 +322,7 @@ def page(b, brands, pieces, svg, en, tr):
     <a class="joinbtn" href="https://tigersystem.io" target="_blank" rel="noopener" data-i18n="join_btn">{t_join_btn}</a>
   </section>
 
+  {eco}
   <footer>
   <nav class="foot">
     <a class="pill" href="../" data-i18n="bp_foot_installer">{t_foot}</a>
@@ -351,7 +353,7 @@ def page(b, brands, pieces, svg, en, tr):
            t_what_text=T("bp_what_text"), t_phil=T("phil_title"), t_phil_html=E("phil_html"), t_phil_more=T("bp_phil_more"),
            t_cta2=T("bp_cta2"), t_join=T("join_title"), t_join_text=T("join_text"), t_join_btn=T("join_btn"),
            t_foot=T("bp_foot_installer"), t_f_source=T("f_source"), t_f_wiki=T("f_wiki"), t_f_releases=T("f_releases"),
-           t_legal=T("legal"),
+           t_legal=T("legal"), eco=ecosystem("../", en),
            # Printers on a row: all of them up to seven, else half (rounded up) -
            # one row, or two, never three (site.css shrinks them to fit).
            per=len(b["lineup"]) if len(b["lineup"]) <= 7 else (len(b["lineup"]) + 1) // 2,
@@ -418,6 +420,37 @@ def translations(brands):
     for f in sorted((ROOT / "installer" / "brand-i18n").glob("*.json")):
         tr[f.stem] = json.loads(f.read_text())
     return tr
+
+# ---- The rest of TigerSystem, at the foot of every page ---------------------------
+
+# (picture in assets/ecosystem/, name, address, i18n.js key of its line)
+ECOSYSTEM = [
+    ("studio-and-connect.png", "Tiger Studio Manager", "https://github.com/TigerTag-Project/TigerTag-Studio-Manager", "eco_studio"),
+    ("tigerpod-mini.png", "TigerPOD Mini", "https://github.com/TigerTag-Project/TigerPOD", "eco_pod"),
+    ("tigerscale-v3.png", "TigerScale V3", "https://github.com/TigerTag-Project/Tiger-Scale-V3", "eco_scale"),
+    ("tigerspool.png", "TigerSpool", "https://github.com/TigerTag-Project/TigerSpool-RFID", "eco_spool"),
+]
+
+
+def png_size(path):
+    w, h = struct.unpack(">II", path.read_bytes()[16:24])
+    return w, h
+
+
+def ecosystem(prefix, en):
+    """The other TigerSystem tools, one card each: secondary to the page, there to be discovered."""
+    cards = []
+    for pic, name, url, key in ECOSYSTEM:
+        w, h = png_size(ROOT / "assets" / "ecosystem" / pic)
+        cards.append('<a class="eco-item" href="%s" target="_blank" rel="noopener">'
+                     '<img src="%seco/%s" width="%d" height="%d" loading="lazy" alt="">'
+                     '<h3>%s</h3><p data-i18n="%s">%s</p></a>' % (url, prefix, pic, w, h, esc(name), key, esc(en[key])))
+    return ('<section class="eco-sec" aria-labelledby="eco-title">\n'
+            '    <h2 id="eco-title" data-i18n="eco_title">%s</h2>\n'
+            '    <p data-i18n="eco_sub">%s</p>\n'
+            '    <div class="eco-grid">%s</div>\n'
+            '  </section>\n' % (esc(en["eco_title"]), esc(en["eco_sub"]), "".join(cards)))
+
 
 # ---- One address per language --------------------------------------------------
 
@@ -575,6 +608,8 @@ def main():
     shutil.copytree(ROOT / "assets" / "og", out / "og", dirs_exist_ok=True)
     # The brands' logos one file each, for the installer page's comparison.
     shutil.copytree(ROOT / "assets" / "brands" / "logos", out / "logos", dirs_exist_ok=True)
+    # The other TigerSystem tools' pictures, for the foot of every page.
+    shutil.copytree(ROOT / "assets" / "ecosystem", out / "eco", dirs_exist_ok=True)
     for b in brands:
         if b["logo"] not in labels:
             raise SystemExit("no logo named %r in brands.svg" % b["logo"])
@@ -591,6 +626,7 @@ def main():
     index = out / "index.html"
     slugs = {b["logo"]: b["slug"] for b in brands}
     home = replace_strip(index.read_text(), strip(svg, pieces, slugs, "", None))
+    home = home.replace("\n  <footer>", "\n  " + ecosystem("", en) + "  <footer>", 1)
     home = static_english(home, en)
     stamp = hashlib.sha256((ROOT / "assets" / "og" / "home.jpg").read_bytes()).hexdigest()[:10]
     home = re.sub(r'(og/home\.jpg)(\?v=\w+)?"', r'\1?v=%s"' % stamp, home)

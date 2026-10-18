@@ -161,6 +161,8 @@ def main():
         keys = set(re.findall(r'data-i18n(?:-html|-aria|-alt)?="([a-z_0-9]+)"', src))
         # The brand template's features, listed by name: a title and a line each.
         keys |= {f + s for f in re.findall(r'"(bp_f\d)"', src) for s in ("_t", "_d")}
+        # The TigerSystem cards, listed by key in the brand template.
+        keys |= set(re.findall(r'"(eco_[a-z]+)"', src))
         # Keys the brand pages fill from their own dictionary, not from i18n.js.
         keys = {k for k in keys if not k.startswith(("b_", "short_"))}
         for k in sorted(keys - set(en)):
