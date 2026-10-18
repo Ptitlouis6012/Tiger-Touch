@@ -251,16 +251,17 @@ and connects in the background.
 
 ### Updates
 
-Nothing to do. The device checks once a day and shows a new version in
-*Settings > Update*; two touches install it, verified first, with your Wi-Fi and
+Nothing to do. The device checks at start and every six hours and, when a new version is
+out, asks on its home screen whether to open the update page (it is also in
+*Settings > Update*); two touches install it, verified first, with your Wi-Fi and
 account kept ([docs/OTA.md](docs/OTA.md)).
 
 ### See it from Tiger Studio
 
-*Settings > LAN mode* gives Tiger Studio Manager, on the same Wi-Fi, the screen
+*Settings > Live view* gives Tiger Studio Manager, on the same Wi-Fi, the screen
 live: it can show it, touch it and take a screenshot of it for an issue or a
 post. Its access code is shown on the screen and written to your TigerTag
-account, where Studio reads it ([docs/LAN-MODE.md](docs/LAN-MODE.md)).
+account, where Studio reads it ([docs/LIVE-VIEW.md](docs/LIVE-VIEW.md)).
 
 ## Questions
 
@@ -376,7 +377,7 @@ settings area and wipes the saved Wi-Fi and account.
 | [docs/ONBOARDING.md](docs/ONBOARDING.md) | The first start, screen by screen, and the reminders |
 | [docs/ACCOUNT-PAIRING.md](docs/ACCOUNT-PAIRING.md) | E-mail and password, the Google sign-in by QR, and what the device writes to the account |
 | [docs/OTA.md](docs/OTA.md) | The flash layout, the update path, what is checked and what is not |
-| [docs/LAN-MODE.md](docs/LAN-MODE.md) | The screen live for Tiger Studio, its access code, screenshots |
+| [docs/LIVE-VIEW.md](docs/LIVE-VIEW.md) | The screen live for Tiger Studio, its access code, screenshots |
 | [docs/TELEMETRY.md](docs/TELEMETRY.md) | What the device writes to the account, field by field, and the brief for Tiger Studio |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | The tasks, the drivers, and why no screen knows which brand is behind it |
 | [docs/CONNECTION-BUDGET.md](docs/CONNECTION-BUDGET.md) | How many printers at once, and the measured price of each connection |

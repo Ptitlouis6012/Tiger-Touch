@@ -16,7 +16,7 @@ encrypted**; anyone with physical access to the board can read it.
 | The TigerTag account's refresh token and its e-mail | to sign in again without asking; the **password is never stored** |
 | The language, the screen settings, which printers are on | preferences |
 | The country the account holds (two letters, or a Canadian province) | to choose the time zone before the account is read again |
-| The LAN mode's access code, and whether live view is on | to serve the screen to a browser ([docs/LAN-MODE.md](docs/LAN-MODE.md)) |
+| The live view's access code, and whether it is on | to give the screen to Tiger Studio ([docs/LIVE-VIEW.md](docs/LIVE-VIEW.md)) |
 
 Printer access details (access codes, addresses) are not stored on the device:
 they are read from the account at each start.
@@ -27,7 +27,7 @@ they are read from the account at each start.
   the account's printer list, language and country. Written back: the
   language, when it is picked on the device (`users/{uid}/prefs/app.lang`), and
   the device's presence (`users/{uid}/tigertouchs/{mac}`), which includes the
-  LAN mode's access code; only the owner reads it
+  live view's access code; only the owner reads it
   ([docs/ACCOUNT-PAIRING.md](docs/ACCOUNT-PAIRING.md#the-devices-presence)).
 - To TigerTag's Cloud Functions (`pairStart`, `pairPoll`), over verified TLS,
   when the owner chooses **Continue with Google**: the device's name
@@ -46,14 +46,14 @@ they are read from the account at each start.
 
 ## What the device serves
 
-While *Settings > LAN mode > Live view* is on (the default), a server on port
+While *Settings > Live view* is on (the default), a server on port
 80 gives the screen's picture to Tiger Studio on the same network and takes
 touches from it. Every request carries the six-character access code; after
 ten wrong codes nothing is accepted for a minute. The connection is plain HTTP:
 someone who can watch the network's traffic can read the code. Anyone with the
 code can do what a finger on the screen can, so a stop still asks for its
 confirmation. To take the access away, draw a new code or switch live view off
-([docs/LAN-MODE.md](docs/LAN-MODE.md)).
+([docs/LIVE-VIEW.md](docs/LIVE-VIEW.md)).
 
 ## Updates
 

@@ -16,6 +16,40 @@ they were written.
 
 ## [Unreleased]
 
+### Added
+- **A window announces a new version**, as on TigerScale V3 and TigerSpool:
+  "New firmware available. Go to the update page?", the move (`2.1.0 > 2.2.0`),
+  *Later* and *Yes*, which opens the update page. A Tiger Touch runs day and
+  night and its settings are seldom opened, so the orange *Update* row alone
+  went unseen. It shows only over the home screens (cards, list, a printer's
+  full view), awake, and never over the reminder or the stop confirmation: at
+  once for a version not offered yet, and the same version again a day later if
+  it is still not installed.
+
+### Changed
+- **"LAN mode" is now "Live view"**: the settings row, its page and its
+  switch read *Live view* in every language, the name Tiger Studio uses for it
+  (`docs/LIVE-VIEW.md`, was `docs/LAN-MODE.md`). The code, the account's
+  fields (`lan_live`, `lan_access_code`, `lan_url`) and the API are unchanged.
+- **The battery is green when declared**: the *Battery* row's icon, its value
+  and the battery drawn on its page turn green with the switch on, and the row
+  reads *On* or *Off* instead of *Fitted* / *None*.
+- **The manifest is read 20 s after start, again every minute until it is
+  read, then every 6 hours**, as TigerScale V3 and TigerSpool do. It was read a
+  minute after start, and a screen offline at that minute missed it.
+
+### Fixed
+- **An Anycubic printer followed through the cloud stayed "Offline" after a
+  restart** while Tiger Studio showed it connected. Its link opens from the
+  printer list kept since the last start, about ten seconds before the account
+  is read again, and the cloud identity (certificate and token) comes with that
+  read; the driver tried once without it, said nothing, and never tried again.
+  It now tries every 10 s until the identity is there, and says so in the log.
+- **The update check ran every 8 minutes instead of once a day.**
+  `pdMS_TO_TICKS()` multiplies before it divides, in 32 bits, and overflows past
+  71 minutes at 1 kHz: a day came out as about 8 minutes, and the new 6 hours
+  as 125 s (seen on the serial log). Long waits now go in one-minute steps.
+
 ## [2.1.0] - 2026-10-18
 
 
@@ -27,7 +61,7 @@ they were written.
   renewable with one touch, and written to the account with the presence
   (`lan_live`, `lan_access_code`, `lan_url`) where Studio reads it. Ten wrong
   codes lock it for a minute; switched off, nothing is served. Live view is on
-  by default. No web page (`docs/LAN-MODE.md`, `docs/TELEMETRY.md`).
+  by default. No web page (`docs/LIVE-VIEW.md`, `docs/TELEMETRY.md`).
 - **The time on the home screen**: hours and minutes, local time, in the middle
   of its top line; "--:--" until the clock is set.
 - **Settings > Demo mode**, for a showroom, a fair or screenshots: the screen

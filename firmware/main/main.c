@@ -27,6 +27,7 @@
 #include "tz.h"
 #include "ui_cards.h"
 #include "ui_dashboard.h"
+#include "ui_job.h"
 #include "ui_setup.h"
 #include "wifi_mgr.h"
 
@@ -786,7 +787,7 @@ static void run_demo_page(void)
     }
 }
 
-/* LAN mode: the switch, the address, the code. Redrawn after each change, so
+/* Live view: the switch, the address, the code. Redrawn after each change, so
  * the address follows the Wi-Fi and the code the button. */
 static void run_lan_page(void)
 {
@@ -991,20 +992,70 @@ static void run_update_page(void)
 /* A look at the manifest a little after start-up, then once a day, so that the
  * settings menu can say a new version is out. It only reads; installing is
  * always a touch on the update page. */
-#define OTA_FIRST_CHECK_MS (60 * 1000)
-#define OTA_CHECK_EVERY_MS (24 * 60 * 60 * 1000)
+/* As TigerScale V3 and TigerSpool: 20 s after start, again every minute while
+ * the Wi-Fi or the manifest is not there, then every 6 h. A screen that runs
+ * for months still hears of every version. */
+#define OTA_FIRST_CHECK_MS (20 * 1000)
+#define OTA_RETRY_MS (60 * 1000)
+#define OTA_CHECK_EVERY_MS (6 * 60 * 60 * 1000)
+
+/* A new version, offered by a window as TigerScale V3 and TigerSpool do: a
+ * Tiger Touch runs day and night and its settings are seldom opened, so the
+ * orange row alone goes unseen. Only on the home screens, awake, with nothing
+ * else open over them (a touch that wakes the screen must not answer it). At
+ * once for a version not offered yet; the same version again a day later, if it
+ * is still not installed. */
+#define UPD_PROMPT_EVERY_US (24LL * 60 * 60 * 1000 * 1000)
+static int64_t s_upd_prompt_after;
+static char s_upd_prompted[16]; /* the version last offered */
+
+static bool offer_update(void)
+{
+    ota_offer_t o;
+    if (screen_asleep() || !ota_cached_offer(&o) ||
+        (strcmp(o.version, s_upd_prompted) == 0 && esp_timer_get_time() < s_upd_prompt_after))
+    {
+        return false;
+    }
+    bool shown = false;
+    PT_LVGL_SCOPE_LOCK()
+    {
+        if (!ui_side_prompt_open() && !ui_job_modal_open() && !ui_update_prompt_open())
+        {
+            ui_show_update_prompt(esp_app_get_description()->version, o.version);
+            shown = true;
+        }
+    }
+    if (shown)
+    {
+        s_upd_prompt_after = esp_timer_get_time() + UPD_PROMPT_EVERY_US;
+        strlcpy(s_upd_prompted, o.version, sizeof s_upd_prompted);
+        ESP_LOGI(TAG, "version %s offered on the home screen", o.version);
+    }
+    return shown;
+}
+
+/* pdMS_TO_TICKS(ms) multiplies before it divides, in 32 bits: at 1 kHz it
+ * overflows past 71 minutes (6 h came out as 125 s). Long waits go in
+ * one-minute steps. */
+static void sleep_long(uint32_t ms)
+{
+    while (ms > 0)
+    {
+        const uint32_t step = ms > 60000 ? 60000 : ms;
+        vTaskDelay(pdMS_TO_TICKS(step));
+        ms -= step;
+    }
+}
 
 static void ota_watch_task(void *arg)
 {
     (void)arg;
-    vTaskDelay(pdMS_TO_TICKS(OTA_FIRST_CHECK_MS));
+    sleep_long(OTA_FIRST_CHECK_MS);
     for (;;)
     {
-        if (wifi_mgr_connected())
-        {
-            ota_check(NULL);
-        }
-        vTaskDelay(pdMS_TO_TICKS(OTA_CHECK_EVERY_MS));
+        const bool read = wifi_mgr_connected() && ota_check(NULL) != OTA_CHECK_FAILED;
+        sleep_long(read ? OTA_CHECK_EVERY_MS : OTA_RETRY_MS);
     }
 }
 
@@ -1254,7 +1305,17 @@ static bool run_printer_menu(bool boot)
                 /* Nothing touched: the cards follow their printers (a link that
                  * settles, a printer switched on or off, a print that moves). */
                 refresh_cards(row_printer, nrows);
+                offer_update();
                 continue;
+            }
+            if (e.type == EV_UPD_PROMPT_LATER)
+            {
+                continue;
+            }
+            if (e.type == EV_UPD_PROMPT_GO)
+            {
+                run_update_page();
+                break; /* rebuild the list */
             }
             if (e.type == EV_PRINTER_JOB && e.index >= 0 && e.index < nrows)
             {
@@ -1986,6 +2047,20 @@ static void app_task(void *arg)
             }
             enter_dashboard();
             shown_count = s_printer_count;
+            continue;
+        }
+        if (e.type == EV_NONE && offer_update())
+        {
+            continue;
+        }
+        if (e.type == EV_UPD_PROMPT_LATER)
+        {
+            continue;
+        }
+        if (e.type == EV_UPD_PROMPT_GO)
+        {
+            run_update_page();
+            show_dashboard();
             continue;
         }
         if (e.type == EV_ACCOUNT_SYNCED || (e.type == EV_NONE && esp_timer_get_time() < remind_at))

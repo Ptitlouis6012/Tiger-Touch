@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-/* LAN mode (Settings > LAN mode), as on TigerScale V3: Tiger Studio Manager, on
+/* Live view (Settings > Live view), as on TigerScale V3: Tiger Studio Manager, on
  * the same network, sees the screen live, touches it and takes screenshots of it
  * (for an issue report or a post). There is no web page: Studio is the client.
  *

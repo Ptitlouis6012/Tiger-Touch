@@ -333,11 +333,11 @@ void ui_show_settings_menu(const settings_menu_t *m)
                  tr(S_ACCOUNT), C_TEXT,
                  m->account_state ? m->account_email : tr(S_NO_ACCOUNT), C_MUTED, EV_CHANGE_ACCOUNT);
     settings_row(list, ICON_SUN, NULL, C_TEXT, tr(S_SCREEN), C_TEXT, NULL, C_MUTED, EV_OPEN_SCREEN);
-    settings_row(list, ICON_GLYPH, LV_SYMBOL_BATTERY_FULL, m->battery ? C_ACCENT : C_MUTED, tr(S_BATT_TITLE), C_TEXT,
-                 tr(m->battery ? S_BATT_FITTED : S_BATT_NONE), C_MUTED, EV_OPEN_BATTERY);
+    settings_row(list, ICON_GLYPH, LV_SYMBOL_BATTERY_FULL, m->battery ? C_GREEN : C_MUTED, tr(S_BATT_TITLE), C_TEXT,
+                 tr(m->battery ? S_ON : S_OFF), m->battery ? C_GREEN : C_MUTED, EV_OPEN_BATTERY);
     settings_row(list, ICON_GLOBE, NULL, C_TEXT, tr(S_LANGUAGE), C_TEXT, i18n_native_name(i18n_lang()), C_MUTED,
                  EV_OPEN_LANGUAGE);
-    settings_row(list, ICON_GLYPH, LV_SYMBOL_EYE_OPEN, m->lan ? C_GREEN : C_MUTED, tr(S_LAN), C_TEXT,
+    settings_row(list, ICON_GLYPH, LV_SYMBOL_EYE_OPEN, m->lan ? C_GREEN : C_MUTED, tr(S_LAN_LIVE), C_TEXT,
                  tr(m->lan ? S_ON : S_OFF), m->lan ? C_GREEN : C_MUTED, EV_OPEN_LAN);
     settings_row(list, ICON_GLYPH, LV_SYMBOL_PLAY, m->demo ? C_ACCENT : C_MUTED, tr(S_DEMO), C_TEXT,
                  tr(m->demo ? S_ON : S_OFF), m->demo ? C_ACCENT : C_MUTED, EV_OPEN_DEMO);
@@ -714,7 +714,7 @@ static lv_obj_t *s_batt_body, *s_batt_cap, *s_batt_seg[BATT_SEGS];
 
 static void paint_battery(bool fitted)
 {
-    const lv_color_t c = fitted ? C_ACCENT : C_LINE;
+    const lv_color_t c = fitted ? C_GREEN : C_LINE;
     lv_obj_set_style_border_color(s_batt_body, c, 0);
     lv_obj_set_style_bg_color(s_batt_cap, c, 0);
     for (int i = 0; i < BATT_SEGS; i++)
@@ -826,7 +826,7 @@ void ui_show_demo_page(bool on)
     lv_obj_align_to(i2, i1, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 18);
 }
 
-/* ---- LAN mode ------------------------------------------------------------- */
+/* ---- Live view ------------------------------------------------------------ */
 /* The switch, the address, the code and its button: what Tiger Studio needs. */
 
 static void on_lan_switch(lv_event_t *e)
@@ -844,7 +844,7 @@ static void on_lan_new_code(lv_event_t *e)
 void ui_show_lan_page(bool live, const char *ip, const char *code)
 {
     lv_obj_t *scr = ui_kit_page();
-    header(scr, tr(S_LAN));
+    header(scr, tr(S_LAN_LIVE));
 
     lv_obj_t *row = card_box(scr, 16, 80, W - 32, 72);
     lv_obj_t *l = ui_kit_txt(row, &font_ui_24, C_TEXT, tr(S_LAN_LIVE), 0, 0);
@@ -1072,6 +1072,88 @@ void ui_show_update_page(const char *installed, upd_state_t state, const char *o
 }
 
 /* "Confirm update?" with the two-minute warning, Yes / No. */
+/* ---- A new version: the window over the home screens --------------------- */
+
+static lv_obj_t *s_upd_prompt;
+
+static void upd_prompt_gone(lv_event_t *e)
+{
+    (void)e;
+    s_upd_prompt = NULL;
+}
+
+static void upd_prompt_answer(lv_event_t *e)
+{
+    /* The backdrop takes the touches outside the panel; the panel's own do not reach it. */
+    const ev_type_t ev = (ev_type_t)(intptr_t)lv_event_get_user_data(e);
+    if (ev == EV_UPD_PROMPT_LATER && lv_event_get_target_obj(e) != lv_event_get_current_target_obj(e))
+    {
+        return;
+    }
+    if (s_upd_prompt)
+    {
+        lv_obj_t *o = s_upd_prompt;
+        s_upd_prompt = NULL;
+        lv_obj_delete_async(o); /* not inside its own event */
+    }
+    ui_post(ev, 0, NULL, NULL);
+}
+
+bool ui_update_prompt_open(void)
+{
+    return s_upd_prompt != NULL;
+}
+
+void ui_show_update_prompt(const char *from, const char *to)
+{
+    if (s_upd_prompt)
+    {
+        return;
+    }
+    lv_obj_t *bg = s_upd_prompt = lv_obj_create(lv_layer_top());
+    lv_obj_remove_style_all(bg);
+    lv_obj_set_size(bg, W, 480);
+    lv_obj_set_style_bg_color(bg, lv_color_black(), 0);
+    lv_obj_set_style_bg_opa(bg, LV_OPA_60, 0);
+    lv_obj_set_clickable(bg, true);
+    lv_obj_set_scrollable(bg, false);
+    lv_obj_add_event_cb(bg, upd_prompt_answer, LV_EVENT_CLICKED, (void *)(intptr_t)EV_UPD_PROMPT_LATER);
+    lv_obj_add_event_cb(bg, upd_prompt_gone, LV_EVENT_DELETE, NULL);
+
+    const int w = 560, h = 268;
+    lv_obj_t *panel = lv_obj_create(bg);
+    lv_obj_set_size(panel, w, h);
+    lv_obj_center(panel);
+    lv_obj_set_style_bg_color(panel, C_CARD, 0);
+    lv_obj_set_style_bg_opa(panel, LV_OPA_COVER, 0);
+    lv_obj_set_style_border_color(panel, C_ACCENT, 0);
+    lv_obj_set_style_border_width(panel, 2, 0);
+    lv_obj_set_style_radius(panel, 18, 0);
+    lv_obj_set_style_pad_all(panel, 0, 0);
+    lv_obj_set_scrollable(panel, false);
+    lv_obj_set_clickable(panel, true); /* a touch on it is not a touch outside */
+
+    lv_obj_t *icon = lv_label_create(panel);
+    lv_label_set_text(icon, LV_SYMBOL_DOWNLOAD);
+    lv_obj_set_style_text_font(icon, &lv_font_montserrat_32, 0);
+    lv_obj_set_style_text_color(icon, C_ACCENT, 0);
+    lv_obj_align(icon, LV_ALIGN_TOP_MID, 0, 20);
+    lv_obj_t *q = ui_kit_txt(panel, &font_ui_20, C_TEXT, tr(S_UPD_FOUND), 0, 0);
+    lv_obj_set_width(q, w - 48);
+    lv_obj_set_style_text_align(q, LV_TEXT_ALIGN_CENTER, 0);
+    lv_label_set_long_mode(q, LV_LABEL_LONG_WRAP);
+    lv_obj_align(q, LV_ALIGN_TOP_MID, 0, 66);
+    char v[40];
+    snprintf(v, sizeof v, "%s  >  %s", from, to);
+    lv_obj_t *vl = ui_kit_txt(panel, &font_ui_20, C_ACCENT, v, 0, 0);
+    lv_obj_align(vl, LV_ALIGN_TOP_MID, 0, 128);
+
+    const int bw = (w - 24 * 2 - 16) / 2, bh = 56, by = h - bh - 22;
+    ui_kit_button(panel, tr(S_LATER), 24, by, bw, bh, false, upd_prompt_answer, (void *)(intptr_t)EV_UPD_PROMPT_LATER);
+    ui_kit_button(panel, tr(S_YES), 24 + bw + 16, by, bw, bh, true, upd_prompt_answer,
+                  (void *)(intptr_t)EV_UPD_PROMPT_GO);
+}
+
 void ui_show_update_confirm(void)
 {
     lv_obj_t *scr = ui_kit_page();

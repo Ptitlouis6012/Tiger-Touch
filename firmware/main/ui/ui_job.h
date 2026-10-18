@@ -49,4 +49,7 @@ void ui_job_set_light(job_buttons_t *b, bool can, bool on);
 
 /* Makes the pair active (clickable, full strength) or inert (dimmed, no touch),
  * and the first one "resume" while paused. The pair is never hidden. */
+/* The stop confirmation is on show. */
+bool ui_job_modal_open(void);
+
 void ui_job_set(job_buttons_t *b, bool active, bool paused);

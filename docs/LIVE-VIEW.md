@@ -1,13 +1,13 @@
-# LAN mode: the screen for Tiger Studio
+# Live view: the screen for Tiger Studio
 
-*Settings > LAN mode* lets Tiger Studio Manager, on the same network, see the
+*Settings > Live view* lets Tiger Studio Manager, on the same network, see the
 screen live, touch it and take screenshots of it, as TigerScale V3 does. This is
 how to get a screenshot for an issue report or a post. The device serves no web
 page: Studio is the client.
 
 ## On the screen
 
-*Settings > LAN mode* shows:
+*Settings > Live view* shows:
 - **Live view**, on by default. Switched off, nothing is served at all.
 - **Address**, the screen's address on the local network.
 - **Access code**, six characters, with the ↻ button that draws a new one.

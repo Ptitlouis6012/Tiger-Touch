@@ -102,11 +102,11 @@ reads the other.
 | `power_source`, `battery_percent`, `is_charging` | every heartbeat | null: the board gives the firmware no way to read them ([HARDWARE.md](HARDWARE.md#power-the-switch-the-dock-and-the-battery)); TigerSpool measures its battery on an analog input wired to it, which this board does not have |
 | `printers_active`, `printer_ids`, `printers_online` | every heartbeat | how many printers are switched on, their account ids, the ones answering (none in demo mode) |
 | `demo` | every heartbeat | `true` while *Settings > Demo mode* is on: the screen then shows made-up printers and lists none here |
-| `lan_live`, `lan_access_code`, `lan_url` | every heartbeat, and at once when they change | *Settings > LAN mode*: whether live view is on, its access code, `http://<address>` while it is on (else null), so that Tiger Studio can reach it ([LAN-MODE.md](LAN-MODE.md), [TELEMETRY.md](TELEMETRY.md)) |
+| `lan_live`, `lan_access_code`, `lan_url` | every heartbeat, and at once when they change | *Settings > Live view*: whether live view is on, its access code, `http://<address>` while it is on (else null), so that Tiger Studio can reach it ([LIVE-VIEW.md](LIVE-VIEW.md), [TELEMETRY.md](TELEMETRY.md)) |
 
 A full heartbeat (identity fields too) is sent at start and after a sign-in;
 then every 30 s while the screen is on, every 5 minutes while it sleeps, and at
-once when the printers switched on or answering change, or the LAN mode does. After three failures in
+once when the printers switched on or answering change, or the live view does. After three failures in
 a row it waits 5 minutes. It runs in a task of its own on core 0, and skips a
 beat when internal RAM has no 24 KB block for a TLS session.
 

@@ -63,7 +63,7 @@ one price in `links.c`.
 | LVGL task | the widgets | yes, it is the owner |
 | application task | the flow, the account, the settings | only under `PT_LVGL_SCOPE_LOCK` |
 | feed task | the per-second view, the token keep-alive | only under the lock |
-| update watch task | a read of the OTA manifest a minute after start, then daily | never |
+| update watch task | a read of the OTA manifest 20 s after start (each minute until it is read), then every 6 h; a version found is offered by a window on the home screens | never |
 | update task (during an install) | the download and the flash writes, stack in **internal** RAM | never; progress goes through the lock |
 | `esp_timer` | the end of a new image's 60 s probation | never |
 | a driver's own tasks (WebSocket, MQTT, poll) | its report | never |

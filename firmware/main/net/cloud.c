@@ -1405,7 +1405,7 @@ cloud_err_t cloud_heartbeat(const cloud_presence_t *p)
     cJSON *dm = cJSON_AddObjectToObject(f, "demo");
     cJSON_AddBoolToObject(dm, "booleanValue", p->demo);
     cJSON_AddItemToArray(mask, cJSON_CreateString("demo"));
-    /* LAN mode, as on TigerScale V3: the access code goes to the account, which
+    /* Live view, as on TigerScale V3: the access code goes to the account, which
      * only its owner reads, so that Tiger Studio can open the live view. */
     cJSON *ll = cJSON_AddObjectToObject(f, "lan_live");
     cJSON_AddBoolToObject(ll, "booleanValue", p->lan_live);

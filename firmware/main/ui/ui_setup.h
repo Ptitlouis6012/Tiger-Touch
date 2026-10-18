@@ -56,6 +56,8 @@ typedef enum
     EV_GOOGLE,           /* "Continue with Google" */
     EV_UPD_CHECK,        /* read the manifest again */
     EV_UPD_INSTALL,      /* install the version offered */
+    EV_UPD_PROMPT_GO,    /* the new-version window: "Yes", open the update page */
+    EV_UPD_PROMPT_LATER, /* the new-version window: "Later", or a touch outside it */
     EV_ACCOUNT_SYNCED,   /* the background start-up read the account again (main.c) */
     EV_TOGGLE_VIEW,      /* the home: cards <-> list */
 } ev_type_t;
@@ -138,7 +140,7 @@ typedef struct
     const char *update_offered; /* a newer version seen, or NULL */
     bool battery;               /* declared fitted (Settings > Battery) */
     bool demo;                  /* demo mode is on */
-    bool lan;                   /* LAN mode: live view on */
+    bool lan;                   /* Live view is on */
 } settings_menu_t;
 void ui_show_settings_menu(const settings_menu_t *m);
 void ui_settings_menu_reset_scroll(void);
@@ -175,7 +177,7 @@ void ui_show_screen_page(int brightness, int sleep_s, int rotation);
 void ui_show_battery_page(bool fitted);
 /* The demo mode page (demo_mode.h). */
 void ui_show_demo_page(bool on);
-/* LAN mode (lan_mode.h): the live view switch, the address (`ip` NULL without
+/* Live view (lan_mode.h): the live view switch, the address (`ip` NULL without
  * Wi-Fi), the access code and the button for a new one. */
 void ui_show_lan_page(bool live, const char *ip, const char *code);
 /* `first_boot`: the first page of the setup - its title is "Language" in
@@ -196,6 +198,14 @@ typedef enum
     UPD_FAILED,       /* red badge and Retry: an install was refused or broke off */
 } upd_state_t;
 void ui_show_update_page(const char *installed, upd_state_t state, const char *offered);
+/* The window that says a new version is out, over the home screens, as
+ * TigerScale V3's: the question, "1.0.0 > 1.1.0", Later and Yes (posting
+ * EV_UPD_PROMPT_LATER / EV_UPD_PROMPT_GO; a touch outside is Later). On the top
+ * layer, so a screen rebuilt under it does not take it away; it closes itself
+ * when answered. */
+void ui_show_update_prompt(const char *from, const char *to);
+bool ui_update_prompt_open(void);
+
 /* "Confirm update?": Yes posts EV_UPD_INSTALL, No EV_CANCEL. */
 void ui_show_update_confirm(void);
 /* The install: the green ring, the percentage, "Do not power off". */

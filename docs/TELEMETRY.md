@@ -18,11 +18,11 @@ different work from a scale.
 | Channel | Who reads it | Transport |
 |---|---|---|
 | Firestore heartbeat | Tiger Studio Manager, any cloud dashboard | `documents:commit` to `users/{uid}/tigertouchs/{mac}` |
-| LAN mode | Tiger Studio on the same network | `http://<ip>/...?c=CODE`, behind the access code ([LAN-MODE.md](LAN-MODE.md)) |
+| Live view | Tiger Studio on the same network | `http://<ip>/...?c=CODE`, behind the access code ([LIVE-VIEW.md](LIVE-VIEW.md)) |
 
 Firestore carries what changes slowly and must be reachable from anywhere:
-identity, signal, power, the printers followed, and how to reach the LAN mode.
-The LAN mode carries the screen itself: its picture and touches.
+identity, signal, power, the printers followed, and how to reach the live view.
+The live view carries the screen itself: its picture and touches.
 
 ## Where it writes
 
@@ -83,7 +83,7 @@ after a sign-in.
 | `printers_online` | array of strings | the subset of `printer_ids` the screen reaches right now (its green dot) |
 | `demo` | bool | `true` while *Settings > Demo mode* is on. The screen then shows ten made-up printers and `printer_ids` is empty. |
 
-**LAN mode: on every heartbeat.**
+**Live view: on every heartbeat.**
 
 | Field | Type | Value |
 |---|---|---|
@@ -123,12 +123,12 @@ after a sign-in.
 A heartbeat is skipped while the internal RAM has no 24 KB block for a TLS
 session. The device then catches up on the next one.
 
-## LAN mode: the screen itself
+## Live view: the screen itself
 
 With `lan_live` true and `lan_url` set, the screen answers on the local network.
 There is no web page (`GET /` and `GET /<code>` answer 404); every request
 carries the code in `c`. The full reference, with the `rle565` format and the
-fast live-view loop, is [LAN-MODE.md](LAN-MODE.md#what-is-served).
+fast live-view loop, is [LIVE-VIEW.md](LIVE-VIEW.md#what-is-served).
 
 | Request | Answer |
 |---|---|
@@ -193,7 +193,7 @@ Self-contained; paste it as is.
 > not. Do not derive that dot from Studio's own connection to the printer. When
 > `demo` is true, say "Demo mode" and list no printers.
 >
-> **4. The screen (LAN mode).** Available when `lan_live` is true and `lan_url`
+> **4. The screen (Live view).** Available when `lan_live` is true and `lan_url`
 > is a string. The screen must be on the same network as this computer.
 >
 > - **Requests.** Every request is
@@ -245,7 +245,7 @@ Self-contained; paste it as is.
 > - **The code.** Show `lan_access_code` in the device's details, monospace,
 >   with a copy button. It is changed only on the screen (*Settings > LAN
 >   mode*); offer no "regenerate" button. When `lan_live` is false, show "Live
->   view is off on the screen (Settings > LAN mode)".
+>   view is off on the screen (Settings > Live view)".
 >
 > **5. Secrets.** `lan_access_code` controls the screen for anyone on that
 > network. Never put it, or a URL carrying it, in anything shared: friends'

@@ -30,6 +30,11 @@ static void on_light(lv_event_t *e)
 static lv_obj_t *s_modal;
 static int s_modal_index;
 
+bool ui_job_modal_open(void)
+{
+    return s_modal != NULL;
+}
+
 static void close_modal(void)
 {
     if (s_modal)

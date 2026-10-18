@@ -34,11 +34,13 @@ a third of a slot today.
 
 ```
  Tiger Touch                               GitHub
-     |  GET version.json  (Pages, TLS verified)  |   1 min after start, then daily,
+     |  GET version.json  (Pages, TLS verified)  |   20 s after start (each minute until
+     |                                           |   read), then every 6 h,
      |<-- version, firmware_url, sha256 ---------|   and on "Check for updates"
      |                                           |
-  newer than the running one?  -> Settings shows it, in orange
-  a touch on "Install"
+  newer than the running one?  -> a window on the home screen, and Settings
+                                  shows it in orange
+  "Yes", then a touch on "Install"
      |  GET firmware_url  (release asset, TLS verified, redirects followed)
      |<== streamed into the other slot ==========|
   first block: application name = tiger_touch, version = the one announced
@@ -75,8 +77,24 @@ the same way:
   <img src="../assets/screens/update-ring.png" alt="The update ring at 34 percent, a green arrow in the middle, Installing, Do not power off" width="380">
 </p>
 
-Between checks the settings menu shows a newer version in orange on the
-*Update* row; nothing is ever installed without the two touches above.
+**A new version is announced by a window**, as on TigerScale V3, because a
+Tiger Touch runs day and night and its settings are seldom opened. The window
+says "New firmware available. Go to the update page?", shows the move (for
+example `2.1.0 > 2.2.0`), and offers *Later* and *Yes*. *Yes* opens the update
+page.
+
+- **Where it shows.** Only over the home screens (the cards or the list, and a
+  printer's full view), while the screen is awake, and never over another
+  window (a reminder or the stop confirmation). A touch that wakes the screen
+  therefore cannot answer it unseen.
+- **How often.** At once for a version it has not offered yet. The same
+  version again a day later, if it is still not installed.
+- **When it looks.** As TigerScale V3 and TigerSpool: 20 s after start, again
+  every minute while the Wi-Fi or the manifest is missing, then every 6 hours.
+  A screen that runs for months still hears of every version.
+
+The settings menu also shows the newer version in orange on the *Update* row.
+Nothing is ever installed without the touches above.
 
 ### What is checked, and what it protects against
 

@@ -152,7 +152,7 @@ typedef struct
     bool screen_off;     /* asleep: Studio then waits longer before calling it offline */
     bool battery;        /* fitted, as the owner declared it (Settings > Battery) */
     bool demo;           /* demo mode is on: the screen shows made-up printers */
-    bool lan_live;       /* LAN mode: live view served (lan_mode.h) */
+    bool lan_live;       /* Live view: the screen served (lan_mode.h) */
     char lan_code[8];    /* its access code */
     int n;               /* printers switched on */
     char ids[CLOUD_PRESENCE_MAX][40];

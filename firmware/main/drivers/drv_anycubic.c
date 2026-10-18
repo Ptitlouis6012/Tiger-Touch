@@ -83,6 +83,7 @@ typedef struct
 
     bool connected, subscribed, reported_offline;
     int64_t last_msg_us, last_temp_us, last_info_us;
+    int64_t join_us; /* the last try at the cloud session, while reason is 2 */
     uint32_t seq;
 
     char pstate[12]; /* idle preparing printing paused finished failed */
@@ -785,6 +786,8 @@ static void on_cloud_mqtt(void *arg, esp_event_base_t base, int32_t id, void *da
 
 /* Joins the account's cloud session, opening it when this is the first cloud
  * printer. Returns false when the account holds no usable identity. */
+#define JOIN_RETRY_US (10LL * 1000 * 1000)
+
 static bool cloud_join(acu_t *c)
 {
     xSemaphoreTake(as_lock(), portMAX_DELAY);
@@ -933,9 +936,14 @@ static void *acu_start(const account_printer_t *p)
         snprintf(c->t_cmd_prefix, sizeof c->t_cmd_prefix, "anycubic/anycubicCloud/v1/web/printer/%s/%s", c->model,
                  c->devid);
         snprintf(c->prefix, sizeof c->prefix, "/public/%s/%s/", c->model, c->devid);
+        c->join_us = esp_timer_get_time();
         if (!cloud_join(c))
         {
-            c->reason = 2; /* alive, silent, and the notice says why */
+            /* Alive, silent, and the notice says why. The link may open from the
+             * list kept since the last start, before the account is read again
+             * and its identity is there: acu_snapshot() tries again. */
+            c->reason = 2;
+            ESP_LOGW(TAG, "no Anycubic cloud identity yet: trying again every %d s", (int)(JOIN_RETRY_US / 1000000));
         }
         return c;
     }
@@ -1055,6 +1063,15 @@ static bool acu_control(void *ctx, pv_control_t cmd)
 static void acu_snapshot(void *ctx, printer_view_t *v)
 {
     acu_t *c = (acu_t *)ctx;
+    if (c->reason == 2 && esp_timer_get_time() - c->join_us > JOIN_RETRY_US)
+    {
+        c->join_us = esp_timer_get_time();
+        if (cloud_join(c))
+        {
+            c->reason = 0;
+            ESP_LOGI(TAG, "the Anycubic cloud identity is there now: joining the session");
+        }
+    }
     if (c->reason)
     {
         v->online = false;
