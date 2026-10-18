@@ -308,6 +308,21 @@ nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.c
   .cmp .tt { background: transparent; }
 }
 
+/* The media kit (press/): the files, as a grid of downloads. */
+.mk-hero { margin: 28px 0 8px; }
+.mk-hero h1 { margin: 0 0 10px; font-size: clamp(2rem, 1.3rem + 2.6vw, 3rem); font-weight: 800; letter-spacing: -.02em; }
+.mk-size { opacity: .75; font-weight: 500; }
+.mk-facts { grid-template-columns: minmax(110px, max-content) 1fr; }
+.mk-quote { margin: 8px 0 10px; padding: 14px 16px; border-left: 3px solid var(--accent); background: var(--bg); border-radius: 0 10px 10px 0; }
+.mk-grid { list-style: none; margin: 12px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+.mk-grid a, .mk-grid a:visited { display: flex; flex-direction: column; gap: 6px; color: var(--muted); text-decoration: none; font-size: .8rem; }
+.mk-thumb { display: flex; align-items: center; justify-content: center; height: 130px; padding: 8px; border: 1px solid var(--line); border-radius: 10px;
+  background: repeating-conic-gradient(#8a8f98 0% 25%, #a3a8b0 0% 50%) 50% / 16px 16px; }
+.mk-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.mk-grid a:hover .mk-thumb, .mk-grid a:focus-visible .mk-thumb { border-color: var(--accent); }
+.mk-grid a:hover .mk-name { color: var(--link); }
+.mk-name { overflow-wrap: anywhere; }
+
 /* The rest of TigerSystem, at the foot of every page: secondary, there to be discovered. */
 .eco-sec { margin: 34px 0 8px; }
 .eco-sec h2 { margin: 0 0 6px; font-size: 1.3rem; }

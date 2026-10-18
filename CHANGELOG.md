@@ -121,6 +121,11 @@ they were written.
   link to their project, in the eleven languages, on the installer and every
   brand page.
 
+- **A media kit page** (`/press/`, in the eleven languages): the fact sheet,
+  a one-sentence and a one-paragraph description with a copy button, and every
+  picture to download (front mockups, screen captures, illustrations, share
+  pictures, the TigerTag logo), with the whole kit as one ZIP built with the
+  site. Linked from the foot of every page, the README and llms.txt.
 ### Changed
 - **One stylesheet and one theme script for the whole site** (`installer/site.css`,
   `installer/theme.js`), shared by the installer page and the brand pages; the

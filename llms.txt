@@ -49,6 +49,10 @@ Tiger Touch is part of the TigerSystem ecosystem, made by the TigerTag project. 
 - [Tiger Touch for Klipper printers](https://tigertag-project.github.io/Tiger-Touch/klipper/): Moonraker: Voron, Qidi, Sovol, AFC and Happy Hare. Models: Voron, Qidi, Sovol, RatRig and any printer running Klipper with Moonraker.
 - [Tiger Touch for OctoPrint printers](https://tigertag-project.github.io/Tiger-Touch/octoprint/): Any Marlin printer behind OctoPrint. Models: Any Marlin printer behind OctoPrint (Ender, Prusa MK3, Anet and more).
 
+## Media kit
+
+- [Media kit and press](https://tigertag-project.github.io/Tiger-Touch/press/): the fact sheet, a one-sentence and a one-paragraph description, the screen in front view with every capture, illustrations and share pictures, free to use; the whole kit as [one ZIP](https://tigertag-project.github.io/Tiger-Touch/press/tiger-touch-media-kit.zip). Also in each language's folder (/fr/press/...).
+
 ## Tiger Touch in other languages
 
 Every page also exists in each of the installer's other ten languages, at its own address (the language's folder before the page); each page names the others with hreflang, and English is the default at the root.

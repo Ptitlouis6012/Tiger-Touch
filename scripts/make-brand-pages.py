@@ -35,6 +35,7 @@ import pathlib
 import re
 import shutil
 import struct
+import zipfile
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 STAMPS = {}
@@ -128,6 +129,39 @@ def favicon(viewbox, logo):
 
 # ---- The page ------------------------------------------------------------------
 
+def header(logo, en):
+    """The bar at the top of a page below the root: its logo, Install, the theme and the language menus."""
+    return HEADER.format(logo=logo, t_install=esc(en["cta_btn"]), t_theme=esc(en["theme_label"]), t_lang=esc(en["lang_label"]))
+
+
+HEADER = """<header class="bar">
+  <div class="wrap">
+{logo}
+    <div class="tools">
+      <a class="pill solid" href="../#install" data-i18n="cta_btn">{t_install}</a>
+      <button class="themebtn" id="themebtn" type="button" data-i18n-aria="theme_label" aria-label="{t_theme}">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <div class="langbox" id="langbox" data-open="0">
+        <button class="langbtn" id="langbtn" type="button" aria-haspopup="listbox"
+                aria-expanded="false" data-i18n-aria="lang_label" aria-label="{t_lang}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/>
+          </svg>
+          <span id="langnow">English</span>
+          <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <ul class="langmenu" id="langmenu" role="listbox"></ul>
+      </div>
+    </div>
+  </div>
+</header>
+"""
+
+
 # The six features of "What Tiger Touch is": a title (<key>_t) and a line (<key>_d) each, in i18n.js.
 FEATURES = ("bp_f1", "bp_f2", "bp_f3", "bp_f4", "bp_f5", "bp_f6")
 
@@ -214,32 +248,7 @@ def page(b, brands, pieces, svg, en, tr):
 <script type="application/ld+json">{ld}</script>
 </head>
 <body data-brand="{name}" data-title="bp_title">
-<header class="bar">
-  <div class="wrap">
-    <a class="logo duo" href="../"><b>{name}</b> <span class="x">x</span> Tiger<span>System</span></a>
-    <div class="tools">
-      <a class="pill solid" href="../#install" data-i18n="cta_btn">{t_install}</a>
-      <button class="themebtn" id="themebtn" type="button" data-i18n-aria="theme_label" aria-label="{t_theme}">
-        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      </button>
-      <div class="langbox" id="langbox" data-open="0">
-        <button class="langbtn" id="langbtn" type="button" aria-haspopup="listbox"
-                aria-expanded="false" data-i18n-aria="lang_label" aria-label="{t_lang}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/>
-          </svg>
-          <span id="langnow">English</span>
-          <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <ul class="langmenu" id="langmenu" role="listbox"></ul>
-      </div>
-    </div>
-  </div>
-</header>
-<main class="wrap">
+{header}<main class="wrap">
   <nav class="crumbs" data-i18n-aria="crumbs_aria" aria-label="{t_crumbs}"><a href="../">Tiger Touch</a> <span aria-hidden="true">/</span> <span>{name}</span></nav>
 
   <section class="hero bp-hero">
@@ -330,6 +339,7 @@ def page(b, brands, pieces, svg, en, tr):
     <a class="pill" href="{repo}" target="_blank" rel="noopener" data-i18n="f_source">{t_f_source}</a>
     <a class="pill" href="https://wiki.tigersystem.io" target="_blank" rel="noopener" data-i18n="f_wiki">{t_f_wiki}</a>
     <a class="pill" href="{repo}/releases" target="_blank" rel="noopener" data-i18n="f_releases">{t_f_releases}</a>
+    <a class="pill" href="../press/" data-i18n="mk_nav">{t_mk}</a>
     <a class="pill" href="https://tigersystem.io" target="_blank" rel="noopener">tigersystem.io</a>
   </nav>
   <p class="legal"><span data-i18n="legal">{t_legal}</span> <a href="{repo}/blob/main/TRADEMARK.md">TRADEMARK.md</a></p>
@@ -344,7 +354,8 @@ def page(b, brands, pieces, svg, en, tr):
            setup=li("b_setup", b["setup"]), tips=esc(b["tips"]), faq=faq, strip=strip(svg, pieces, slugs, "../", slug),
            others=other_rows, feats=feats, page_dict=page_dict(b, brands, tr),
            h1=E("bp_h1_html"),
-           t_install=T("cta_btn"), t_theme=T("theme_label"), t_lang=T("lang_label"), t_crumbs=T("crumbs_aria"),
+           header=header('    <a class="logo duo" href="../"><b>%s</b> <span class="x">x</span> Tiger<span>System</span></a>' % esc(name), en),
+           t_crumbs=T("crumbs_aria"),
            t_models=T("bp_models"), t_connection=T("bp_connection"), t_tested=T("bp_tested"), t_cta=T("bp_cta"),
            t_source=T("bp_source"), t_restore=T("restore_txt"), t_restore_link=T("restore_link"),
            t_caption=T("bp_caption"), t_lineup=T("bp_lineup_aria"), t_need=T("bp_need_title"),
@@ -354,7 +365,7 @@ def page(b, brands, pieces, svg, en, tr):
            t_what_text=T("bp_what_text"), t_phil=T("phil_title"), t_phil_html=E("phil_html"), t_phil_more=T("bp_phil_more"),
            t_cta2=T("bp_cta2"), t_join=T("join_title"), t_join_text=T("join_text"), t_join_btn=T("join_btn"),
            t_foot=T("bp_foot_installer"), t_f_source=T("f_source"), t_f_wiki=T("f_wiki"), t_f_releases=T("f_releases"),
-           t_legal=T("legal"), eco=ecosystem("../", en),
+           t_legal=T("legal"), eco=ecosystem("../", en), t_mk=T("mk_nav"),
            # Printers on a row: all of them up to seven, else half (rounded up) -
            # one row, or two, never three (site.css shrinks them to fit).
            per=len(b["lineup"]) if len(b["lineup"]) <= 7 else (len(b["lineup"]) + 1) // 2,
@@ -453,6 +464,177 @@ def ecosystem(prefix, en):
             '  </section>\n' % (esc(en["eco_title"]), esc(en["eco_sub"]), "".join(cards)))
 
 
+# ---- The media kit ----------------------------------------------------------------
+
+# (folder in the kit, i18n.js key of its title, the files, from the repository's root)
+MEDIA_KIT = [
+    ("mockups", "mk_g_mockups", ["assets/mockups/front/*.png"]),
+    ("screens", "mk_g_screens", ["assets/screens/*.png"]),
+    ("illustrations", "mk_g_drawings", ["assets/devices/tiger-touch-splash.png", "assets/devices/tiger-touch-cards.png",
+                                        "assets/devices/tiger-touch-list.png", "assets/devices/tiger-touch-printer.png",
+                                        "assets/devices/brands/*.png"]),
+    ("share", "mk_g_share", ["assets/og/*.jpg"]),
+    ("brand", "mk_g_brand", ["assets/logo-tigertag-head.svg", "assets/logo-tigertag-head-dark.svg",
+                             "assets/Hero-TigerSystem-ecosystem.png"]),
+]
+KIT_ZIP = "tiger-touch-media-kit.zip"
+
+
+def kit_files():
+    """[(folder, title key, [paths])], every pattern resolved and sorted."""
+    out = []
+    for folder, key, patterns in MEDIA_KIT:
+        files = []
+        for pat in patterns:
+            found = sorted(ROOT.glob(pat))
+            if not found:
+                raise SystemExit("media kit: nothing matches %s" % pat)
+            files += found
+        out.append((folder, key, files))
+    return out
+
+
+def fact_sheet(en):
+    """The kit's FACTS.txt: the fact sheet and the descriptions, in English, as plain text."""
+    rows = [("mk_k_what", "mk_v_what"), ("mk_k_price", "mk_v_price"), ("mk_k_hw", "mk_v_hw"),
+            ("mk_k_printers", "mk_v_printers"), ("mk_k_lang", "mk_v_lang"), ("mk_k_install", "mk_v_install"),
+            ("mk_k_by", "mk_v_by")]
+    lines = ["Tiger Touch - media kit", "", BASE, REPO, ""]
+    lines += ["%s: %s" % (en[k], en[v]) for k, v in rows]
+    lines += ["", en["mk_short_title"], en["mk_short"], "", en["mk_long_title"], en["mk_long"], "",
+              en["mk_terms_title"], en["mk_terms"], REPO + "/blob/main/TRADEMARK.md", ""]
+    return "\n".join(lines)
+
+
+def media_kit(out, en):
+    """press/: the page, the files it shows and the whole kit as one ZIP."""
+    d = out / "press"
+    groups = kit_files()
+    d.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(d / KIT_ZIP, "w", zipfile.ZIP_DEFLATED) as z:
+        z.writestr("tiger-touch-media-kit/FACTS.txt", fact_sheet(en))
+        for folder, _key, files in groups:
+            (d / "files" / folder).mkdir(parents=True, exist_ok=True)
+            for f in files:
+                shutil.copyfile(f, d / "files" / folder / f.name)
+                z.write(f, "tiger-touch-media-kit/%s/%s" % (folder, f.name))
+    size = (d / KIT_ZIP).stat().st_size / 1e6
+    T = lambda k: esc(en[k])
+
+    def gallery(folder, key, files):
+        items = "".join(
+            '<li><a href="files/%s/%s" download><span class="mk-thumb"><img src="files/%s/%s" loading="lazy" alt="%s"></span>'
+            '<span class="mk-name">%s</span></a></li>' % (folder, esc(f.name), folder, esc(f.name),
+                                                          esc("Tiger Touch: " + f.stem.replace("-", " ")), esc(f.name))
+            for f in files)
+        return ('  <section class="card bp-sec">\n    <h2 data-i18n="%s">%s</h2>\n    <ul class="mk-grid">%s</ul>\n  </section>\n'
+                % (key, T(key), items))
+
+    facts = "".join('<dt data-i18n="%s">%s</dt><dd data-i18n="%s">%s</dd>' % (k, T(k), v, T(v)) for k, v in (
+        ("mk_k_what", "mk_v_what"), ("mk_k_price", "mk_v_price"), ("mk_k_hw", "mk_v_hw"),
+        ("mk_k_printers", "mk_v_printers"), ("mk_k_lang", "mk_v_lang"), ("mk_k_install", "mk_v_install"),
+        ("mk_k_by", "mk_v_by")))
+    og = BASE + "og/home.jpg?v=%s" % hashlib.sha256((ROOT / "assets" / "og" / "home.jpg").read_bytes()).hexdigest()[:10]
+    url = BASE + "press/"
+    html_ = """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<link rel="canonical" href="{url}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tiger Touch">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{url}">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="{og}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{desc}">
+<meta name="twitter:image" content="{og}">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../site.css?v={v_css}">
+<script>try {{ var t = localStorage.getItem("tigertouch-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; }} catch (e) {{}}</script>
+<script src="../i18n.js?v={v_i18n}"></script>
+<script src="../theme.js?v={v_theme}" defer></script>
+<script src="../lang.js?v={v_lang}" defer></script>
+<script src="../release.js?v={v_release}" defer></script>
+</head>
+<body data-title="mk_title" data-desc="mk_lead">
+{header}<main class="wrap">
+  <nav class="crumbs" data-i18n-aria="crumbs_aria" aria-label="{t_crumbs}"><a href="../">Tiger Touch</a> <span aria-hidden="true">/</span> <span data-i18n="mk_nav">{t_nav}</span></nav>
+
+  <section class="mk-hero">
+    <h1 data-i18n="mk_h1">{t_h1}</h1>
+    <p class="lead" data-i18n="mk_lead">{t_lead}</p>
+    <p class="cta"><a class="pill solid big" href="{zip}" download><span data-i18n="mk_download">{t_download}</span> <span class="mk-size">{size:.1f} MB</span></a></p>
+  </section>
+
+  <section class="card bp-sec">
+    <h2 data-i18n="mk_facts_title">{t_facts}</h2>
+    <dl class="facts mk-facts">{facts}<dt data-i18n="mk_k_version">{t_version}</dt><dd><span data-latest hidden></span></dd><dt data-i18n="mk_k_source">{t_source}</dt><dd><a href="{repo}">{repo_short}</a></dd></dl>
+  </section>
+
+  <section class="card bp-sec">
+    <h2 data-i18n="mk_short_title">{t_short_title}</h2>
+    <blockquote class="mk-quote" id="mk-short" data-i18n="mk_short">{t_short}</blockquote>
+    <p><button class="pill mk-copy" type="button" data-copy="mk-short" data-i18n="mk_copy">{t_copy}</button></p>
+    <h2 data-i18n="mk_long_title">{t_long_title}</h2>
+    <blockquote class="mk-quote" id="mk-long" data-i18n="mk_long">{t_long}</blockquote>
+    <p><button class="pill mk-copy" type="button" data-copy="mk-long" data-i18n="mk_copy">{t_copy}</button></p>
+  </section>
+
+{galleries}
+  <section class="card bp-sec">
+    <h2 data-i18n="mk_terms_title">{t_terms_title}</h2>
+    <p><span data-i18n="mk_terms">{t_terms}</span> <a href="{repo}/blob/main/TRADEMARK.md">TRADEMARK.md</a></p>
+    <h2 data-i18n="mk_contact_title">{t_contact_title}</h2>
+    <p data-i18n="mk_contact">{t_contact}</p>
+    <p class="cta"><a class="pill" href="{repo}/issues" target="_blank" rel="noopener">GitHub</a>
+      <a class="pill" href="https://tigersystem.io" target="_blank" rel="noopener">tigersystem.io</a></p>
+  </section>
+
+  {eco}
+  <footer>
+  <nav class="foot">
+    <a class="pill" href="../" data-i18n="bp_foot_installer">{t_foot}</a>
+    <a class="pill" href="{repo}" target="_blank" rel="noopener" data-i18n="f_source">{t_f_source}</a>
+    <a class="pill" href="https://wiki.tigersystem.io" target="_blank" rel="noopener" data-i18n="f_wiki">{t_f_wiki}</a>
+    <a class="pill" href="{repo}/releases" target="_blank" rel="noopener" data-i18n="f_releases">{t_f_releases}</a>
+    <a class="pill" href="https://tigersystem.io" target="_blank" rel="noopener">tigersystem.io</a>
+  </nav>
+  <p class="legal"><span data-i18n="legal">{t_legal}</span> <a href="{repo}/blob/main/TRADEMARK.md">TRADEMARK.md</a></p>
+  </footer>
+</main>
+<script>
+  /* Copy a description: the text as shown, in the page's language. */
+  document.querySelectorAll(".mk-copy").forEach(b => b.addEventListener("click", () => {{
+    const text = document.getElementById(b.dataset.copy).textContent.trim();
+    navigator.clipboard.writeText(text).then(() => {{
+      b.textContent = (window.ttWord && window.ttWord("mk_copied")) || "Copied";
+      setTimeout(() => {{ b.textContent = (window.ttWord && window.ttWord("mk_copy")) || "Copy"; }}, 1500);
+    }}).catch(() => {{}});
+  }}));
+</script>
+</body>
+</html>
+""".format(title=T("mk_title"), desc=T("mk_lead"), url=url, og=og, repo=REPO, repo_short=REPO.replace("https://", ""),
+           header=header('    <a class="logo" href="../">Tiger<span>System</span></a>', en), zip=KIT_ZIP, size=size,
+           facts=facts, galleries="".join(gallery(*g) for g in groups), eco=ecosystem("../", en),
+           t_crumbs=T("crumbs_aria"), t_nav=T("mk_nav"), t_h1=T("mk_h1"), t_lead=T("mk_lead"), t_download=T("mk_download"),
+           t_facts=T("mk_facts_title"), t_version=T("mk_k_version"), t_source=T("mk_k_source"),
+           t_short_title=T("mk_short_title"), t_short=T("mk_short"), t_long_title=T("mk_long_title"), t_long=T("mk_long"),
+           t_copy=T("mk_copy"), t_terms_title=T("mk_terms_title"), t_terms=T("mk_terms"),
+           t_contact_title=T("mk_contact_title"), t_contact=T("mk_contact"), t_foot=T("bp_foot_installer"),
+           t_f_source=T("f_source"), t_f_wiki=T("f_wiki"), t_f_releases=T("f_releases"), t_legal=T("legal"), **STAMPS)
+    (d / "index.html").write_text(html_)
+
+
 # ---- One address per language --------------------------------------------------
 
 # The site's languages: (code, folder, hreflang, og:locale). English is the root;
@@ -535,7 +717,8 @@ def translate(page_html, path, code, folder, hreflang, locale, words):
     out = localize(page_html, words, brand)
     title_key = re.search(r'<body[^>]*\sdata-title="(\w+)"', page_html)
     title = words[title_key.group(1) if title_key else "title"].replace("{name}", brand)
-    desc = sentence(words["b_lead"] if "b_lead" in words else words["tagline"])
+    desc_key = re.search(r'<body[^>]*\sdata-desc="(\w+)"', page_html)
+    desc = sentence(words[desc_key.group(1)] if desc_key else words["b_lead"] if "b_lead" in words else words["tagline"])
     url = BASE + folder + path
     out = out.replace('<html lang="en">', '<html lang="%s" data-fixed-lang="%s">' % (hreflang, code), 1)
     out = re.sub(r"<title>.*?</title>", "<title>%s</title>" % esc(title), out, count=1)
@@ -635,7 +818,8 @@ def main():
     for js in ("theme", "lang", "i18n"):
         home = re.sub(r'src="%s\.js(\?v=\w+)?"' % js, 'src="%s.js?v=%s"' % (js, STAMPS["v_" + js]), home)
     index.write_text(home)
-    languages(out, [""] + [b["slug"] + "/" for b in brands], (out / "i18n.js").read_text())
+    media_kit(out, en)
+    languages(out, [""] + [b["slug"] + "/" for b in brands] + ["press/"], (out / "i18n.js").read_text())
     (out / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: %ssitemap.xml\n" % BASE)
     (out / "brand-pages.json").unlink(missing_ok=True)
     shutil.rmtree(out / "brand-i18n", ignore_errors=True)

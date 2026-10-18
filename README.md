@@ -82,6 +82,8 @@
   <a href="#build-it-yourself">Build it yourself</a>
   &nbsp;&middot;&nbsp;
   <a href="#powered-by-tigersystem">TigerSystem</a>
+  &nbsp;&middot;&nbsp;
+  <a href="#media-kit---press">Media kit</a>
 </p>
 
 ---
@@ -463,6 +465,24 @@ conventions; the short version is that `bash scripts/verify.sh` passes before
 anything is reported done, and everything committed is in English.
 
 Security reports: [SECURITY.md](SECURITY.md). Credits: [AUTHORS.md](AUTHORS.md).
+
+## Media kit - Press
+
+Writing about Tiger Touch, making a video or a post? Everything is free to use:
+the facts, ready-to-use descriptions, the screen in front view with every capture,
+the illustrations and the share pictures.
+
+<p align="center">
+  <a href="https://tigertag-project.github.io/Tiger-Touch/press/"><img src="assets/mockups/front/panda-touch-front-home-cards.png" alt="The Panda Touch running Tiger Touch, front view, its printers as live cards" width="300"></a>
+  <a href="https://tigertag-project.github.io/Tiger-Touch/press/"><img src="assets/mockups/front/panda-touch-front-brands-title-row.png" alt="The Panda Touch, front view, its screen showing TigerTouch and the logos of the nine supported printer families" width="300"></a>
+</p>
+
+- **[The media kit page](https://tigertag-project.github.io/Tiger-Touch/press/)**, in the eleven languages, with **[the whole kit as one ZIP](https://tigertag-project.github.io/Tiger-Touch/press/tiger-touch-media-kit.zip)**
+- In this repository: [front mockups](assets/mockups/front/) · [screen captures](assets/screens/) · [illustrations](assets/devices/) · [share pictures](assets/og/)
+- Questions or an interview: [GitHub issues](https://github.com/TigerTag-Project/Tiger-Touch/issues) or [tigersystem.io](https://tigersystem.io)
+
+The screen pictured is the BIGTREETECH Panda Touch; BIGTREETECH's name and the
+printer makers' names and logos belong to their owners ([TRADEMARK.md](TRADEMARK.md)).
 
 ## The rest of the TigerSystem family
 
