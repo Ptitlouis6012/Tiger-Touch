@@ -26,6 +26,7 @@ copy and a generated one drift). To look at it locally:
   python3 scripts/make-brand-pages.py --out /tmp/site   (then serve /tmp/site)
 """
 import argparse
+import hashlib
 import html
 import json
 import pathlib
@@ -33,6 +34,7 @@ import re
 import shutil
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+STAMPS = {}
 BASE = "https://tigertag-project.github.io/Tiger-Touch/"
 REPO = "https://github.com/TigerTag-Project/Tiger-Touch"
 
@@ -68,7 +70,8 @@ def strip(svg, pieces, slugs, prefix, current):
     for label, vb, logo, _text, _s, _e in pieces:
         slug = slugs.get(label)
         inner = re.sub(r"^<svg[^>]*>", "", logo)[: -len("</svg>")]
-        icon = '<svg viewBox="%s" fill="currentColor" aria-hidden="true">%s</svg>' % (vb, inner)
+        # Sized here too: a page served before its stylesheet still draws small logos.
+        icon = '<svg viewBox="%s" width="48" height="48" fill="currentColor" aria-hidden="true">%s</svg>' % (vb, inner)
         cur = ' class="cur" aria-current="page"' if slug == current else ""
         items.append('<a href="%s%s/"%s>%s<span>%s</span></a>' % (prefix, slug, cur, icon, esc(label)))
     return '<nav class="brands strip" aria-label="Printer brands">%s</nav>' % "".join(items)
@@ -140,7 +143,7 @@ def page(b, brands, pieces, svg):
         for o in others)
     faq = "".join("<details><summary>%s</summary><p>%s</p></details>" % (esc(q), esc(a)) for q, a in b["faq"])
     feats = "".join("<div><h3>%s</h3><p>%s</p></div>" % (esc(t), esc(d)) for t, d in FEATURES)
-    logo_svg = logo[2].replace("<svg ", '<svg class="bp-logo" aria-hidden="true" ', 1)
+    logo_svg = logo[2].replace("<svg ", '<svg class="bp-logo" width="92" height="92" aria-hidden="true" ', 1)
     logo_svg = re.sub(r' x="[^"]+" y="[^"]+" width="[^"]+" height="[^"]+"', "", logo_svg, count=1)
 
     return """<!doctype html>
@@ -159,10 +162,10 @@ def page(b, brands, pieces, svg):
 <meta property="og:image" content="{img}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="../site.css?v={v_css}">
 <script>try {{ var t = localStorage.getItem("tigertouch-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; }} catch (e) {{}}</script>
-<script src="../theme.js" defer></script>
-<script src="../release.js" defer></script>
+<script src="../theme.js?v={v_theme}" defer></script>
+<script src="../release.js?v={v_release}" defer></script>
 <script type="application/ld+json">{ld}</script>
 </head>
 <body>
@@ -264,7 +267,7 @@ def page(b, brands, pieces, svg):
            models=esc(b["models"]), connection=esc(b["connection"]), status=esc(b["status"]),
            shot_alt=esc(b["shot_alt"]), shows=li(b["shows"]), controls=esc(b["controls"]),
            setup=li(b["setup"]), tips=esc(b["tips"]), faq=faq, strip=strip(svg, pieces, slugs, "../", slug),
-           others=other_rows, feats=feats,
+           others=other_rows, feats=feats, **STAMPS,
            lineup="".join('<li><img src="../img/models/%s" width="240" height="240" loading="lazy" alt="%s %s">'
                           '<span>%s</span></li>' % (esc(f), esc(name), esc(n), esc(n)) for f, n in b["lineup"]))
 
@@ -274,6 +277,10 @@ def main():
     ap.add_argument("--out", required=True, help="the site being built")
     a = ap.parse_args()
     out = pathlib.Path(a.out)
+    # Each shared file is linked with its own fingerprint: a page never meets a
+    # stylesheet older than itself in a browser's cache (Pages keeps them 10 min).
+    for name in ("site.css", "theme.js", "release.js"):
+        STAMPS["v_" + name.split(".")[0].replace("site", "css")] = hashlib.sha256((out / name).read_bytes()).hexdigest()[:10]
     data = json.loads((ROOT / "installer" / "brand-pages.json").read_text())
     brands = data["brands"]
     svg = (ROOT / "assets" / "brands" / "brands.svg").read_text()
@@ -295,7 +302,10 @@ def main():
     # The installer page shows the same strip, each logo a link to its page.
     index = out / "index.html"
     slugs = {b["logo"]: b["slug"] for b in brands}
-    index.write_text(replace_strip(index.read_text(), strip(svg, pieces, slugs, "", None)))
+    home = replace_strip(index.read_text(), strip(svg, pieces, slugs, "", None))
+    home = re.sub(r'href="site\.css(\?v=\w+)?"', 'href="site.css?v=%s"' % STAMPS["v_css"], home)
+    home = re.sub(r'src="theme\.js(\?v=\w+)?"', 'src="theme.js?v=%s"' % STAMPS["v_theme"], home)
+    index.write_text(home)
     urls = [BASE] + [BASE + b["slug"] + "/" for b in brands]
     (out / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
