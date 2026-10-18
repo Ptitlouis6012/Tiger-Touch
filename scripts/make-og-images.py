@@ -62,7 +62,7 @@ def card(title2, sub, device, printers, footer, font):
     d = ImageDraw.Draw(im)
     d.rectangle((0, 0, 10, H), fill=ACCENT)
     # The screen on the right, the words on the left.
-    paste_fit(im, device, (650, 18, 530, 540))
+    paste_fit(im, device, (650, 12, 530, 568))
     d.text((64, 52), "Tiger", font=font(30), fill=TEXT)
     d.text((64 + d.textlength("Tiger", font=font(30)), 52), "System", font=font(30, False), fill=MUTED)
     l1 = [("Tiger", TEXT), ("Touch", ACCENT), (" for" if title2 else "", TEXT)]
@@ -83,21 +83,23 @@ def card(title2, sub, device, printers, footer, font):
     for r in rows:
         d.text((64, y), r, font=so, fill=MUTED)
         y += so.size + 8
+    # What to do next, as the site's own button, big, under the words.
+    cta = "Install it free"
+    co = font(36)
+    tw = d.textlength(cta, font=co) + 44  # the text, then a drawn arrow (no font has one here)
+    top = y + 6
+    d.rounded_rectangle((64, top, 64 + tw + 64, top + 70), radius=35, fill=ACCENT)
+    d.text((64 + 32, top + 35), cta, font=co, fill=(255, 255, 255), anchor="lm")
+    ax = 64 + 32 + tw - 30
+    d.line((ax, top + 35, ax + 26, top + 35), fill=(255, 255, 255), width=5)
+    d.line((ax + 15, top + 24, ax + 27, top + 35, ax + 15, top + 46), fill=(255, 255, 255), width=5, joint="curve")
     # A few of the brand's printers along the bottom.
     x = 52
     for p in printers[:4]:
-        paste_fit(im, p, (x, 396, 140, 140))
+        paste_fit(im, p, (x, 476, 140, 140))
         x += 146
-    # What to do next, as the button the site uses: a click is what a share wants.
-    cta = "Install it free"
-    co = font(26)
-    tw = d.textlength(cta, font=co) + 34  # the text, then a drawn arrow (no font has one here)
-    d.rounded_rectangle((64, 560, 64 + tw + 48, 608), radius=24, fill=ACCENT)
-    d.text((64 + 24, 584), cta, font=co, fill=(255, 255, 255), anchor="lm")
-    ax = 64 + 24 + tw - 22
-    d.line((ax, 584, ax + 20, 584), fill=(255, 255, 255), width=4)
-    d.line((ax + 12, 576, ax + 21, 584, ax + 12, 592), fill=(255, 255, 255), width=4, joint="curve")
-    d.text((64 + tw + 72, 584), footer, font=font(20, False), fill=MUTED, anchor="lm")
+    # The small print, under the screen's drawing.
+    d.text((915, 606), footer, font=font(20, False), fill=MUTED, anchor="mm")
     return im.convert("RGB")
 
 
@@ -112,7 +114,7 @@ def main():
     models = ROOT / "assets" / "printers" / "models"
     footer = "Free and open source  ·  9 brands, one screen"
     for b in data:
-        im = card([(b["name"], ACCENT), (" printers", TEXT)],
+        im = card([(b["name"], ACCENT), (" 3D printers", TEXT)],
                   "Free firmware for the BIGTREETECH Panda Touch and K-Touch",
                   ROOT / "assets" / "devices" / "brands" / (b["shot"] + ".png"),
                   [models / m[0] for m in b["lineup"]], footer, font)

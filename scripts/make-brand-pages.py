@@ -137,7 +137,7 @@ FEATURES = [
 def page(b, brands, pieces, svg):
     slug, name = b["slug"], b["name"]
     url = BASE + slug + "/"
-    title = "%s printers on Panda Touch / K-Touch | Tiger Touch" % name  # 60 characters at most
+    title = "%s 3D printers on Panda Touch & K-Touch | TigerTouch" % name  # 60 characters at most
     desc = b["meta"]  # written for search results: 150-160 characters, a whole sentence
     img = BASE + "img/%s.png" % slug
     # With its fingerprint: a network that cached an older picture fetches the new one.
@@ -180,19 +180,19 @@ def page(b, brands, pieces, svg):
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tiger Touch">
-<meta property="og:title" content="Tiger Touch for {name} printers">
+<meta property="og:title" content="Tiger Touch for {name} 3D printers">
 <meta property="og:description" content="{ogdesc}">
 <meta property="og:url" content="{url}">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="{og}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="TigerTouch for {name} printers: the screen showing a {name} printer, and its lineup">
+<meta property="og:image:alt" content="TigerTouch for {name} 3D printers: the screen showing a {name} printer, and its lineup">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Tiger Touch for {name} printers">
+<meta name="twitter:title" content="Tiger Touch for {name} 3D printers">
 <meta name="twitter:description" content="{ogdesc}">
 <meta name="twitter:image" content="{og}">
-<meta name="twitter:image:alt" content="TigerTouch for {name} printers: the screen showing a {name} printer, and its lineup">
+<meta name="twitter:image:alt" content="TigerTouch for {name} 3D printers: the screen showing a {name} printer, and its lineup">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../site.css?v={v_css}">
 <script>try {{ var t = localStorage.getItem("tigertouch-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; }} catch (e) {{}}</script>
@@ -220,7 +220,7 @@ def page(b, brands, pieces, svg):
     <div class="intro">
       <div class="bp-head">
         {logo_svg}
-        <h1 class="bp-title">Tiger<span>Touch</span> for <span>{name}</span> printers</h1>
+        <h1 class="bp-title">Tiger<span>Touch</span> for <span>{name}</span> 3D printers</h1>
       </div>
       <p class="lead">{lead}</p>
       <dl class="facts">
@@ -255,7 +255,7 @@ def page(b, brands, pieces, svg):
   </section>
 
   <section class="card bp-sec">
-    <h2>What the screen shows for a {name} printer</h2>
+    <h2>What the screen shows for a {name} 3D printer</h2>
     <ul class="ticks">{shows}</ul>
     <h3>Pause, stop and the light</h3>
     <p>{controls}</p>

@@ -105,8 +105,10 @@ they were written.
   own (125 characters at most, where previews cut; the search description stays
   150 to 160), an "Install it free" button in every share picture, and the
   picture's address carries its fingerprint so networks drop an old copy.
-  Page titles hold 60 characters at most ("<Brand> printers on Panda Touch /
-  K-Touch | Tiger Touch"). All ten pages: 0 error, 0 warning.
+  Page titles hold 60 characters at most ("<Brand> 3D printers on Panda Touch
+  & K-Touch | TigerTouch"); headings, share titles and descriptions say "3D
+  printers". In the share pictures the button is large, above the printers, and
+  the small print sits under the screen's drawing.
 - **The README and llms.txt link every brand page**: the brands of the
   printer table and a line under it in the README, a section of its own in
   `llms.txt`, so that search engines and AI assistants find each page.
