@@ -18,7 +18,8 @@ Everything is built from one template and one data file:
 
 and written into the site (`out`), beside the installer page:
 
-  <slug>/index.html, <slug>/favicon.svg, img/<slug>.png, sitemap.xml, robots.txt
+  <slug>/index.html, <slug>/favicon.svg, img/<slug>.png, sitemap.xml, robots.txt,
+  and a copy of every page in each other language: <lang>/index.html, <lang>/<slug>/
 
 Called by make-manifest.py when the site is built; never committed (a committed
 copy and a generated one drift). To look at it locally:
@@ -29,6 +30,7 @@ import argparse
 import hashlib
 import html
 import json
+import posixpath
 import pathlib
 import re
 import shutil
@@ -417,6 +419,141 @@ def translations(brands):
         tr[f.stem] = json.loads(f.read_text())
     return tr
 
+# ---- One address per language --------------------------------------------------
+
+# The site's languages: (code, folder, hreflang, og:locale). English is the root;
+# every other language is a copy of every page under its folder (/fr/, /fr/elegoo/),
+# its text written in, so a search engine indexes each language at its own address.
+LANGS = [("en", "", "en", "en_US"), ("fr", "fr/", "fr", "fr_FR"), ("de", "de/", "de", "de_DE"),
+         ("es", "es/", "es", "es_ES"), ("it", "it/", "it", "it_IT"), ("zh", "zh/", "zh-Hans", "zh_CN"),
+         ("pt", "pt/", "pt-BR", "pt_BR"), ("pt-pt", "pt-pt/", "pt-PT", "pt_PT"), ("pl", "pl/", "pl", "pl_PL"),
+         ("ru", "ru/", "ru", "ru_RU"), ("nl", "nl/", "nl", "nl_NL")]
+
+
+def dictionaries(i18n_js):
+    """Every language of installer/i18n.js: {code: {key: text}}."""
+    out = {}
+    for m in re.finditer(r'^(?:(\w+)|"([\w-]+)"): \{$(.*?)^\},', i18n_js, re.M | re.S):
+        out[m.group(1) or m.group(2)] = {k.group(1): json.loads(k.group(2))
+                                         for k in re.finditer(r'^  (\w+): (".*"),?$', m.group(3), re.M)}
+    return out
+
+
+def alternates(path):
+    """The <link> tags naming every language's address of the page at `path` ("" or "elegoo/")."""
+    return "".join('<link rel="alternate" hreflang="%s" href="%s%s%s">\n' % (h, BASE, folder, path)
+                   for _c, folder, h, _l in LANGS) + '<link rel="alternate" hreflang="x-default" href="%s%s">\n' % (BASE, path)
+
+
+def sentence(text, limit=158):
+    """A description for search results: the text, cut at a word near `limit`."""
+    text = re.sub(r"<[^>]+>", "", text)
+    if len(text) <= limit:
+        return text
+    return text[:limit].rsplit(" ", 1)[0].rstrip(",;:") + "..."
+
+
+def localize(page_html, words, brand):
+    """The page with its text in one language: every data-i18n element filled
+    from `words` ({name} the page's brand), as lang.js would in the browser."""
+    w = lambda k: words[k].replace("{name}", brand) if k in words else None
+
+    def body(m):
+        opening, tag, as_html, key, closing = m.group(1), m.group(2), m.group(3), m.group(4), m.group(6)
+        v = w(key)
+        if v is None:
+            return m.group(0)
+        return opening + (v if as_html else html.escape(v, quote=False)) + closing
+    page_html = re.sub(r'(<(\w+)\b[^>]*?\sdata-i18n(-html)?="(\w+)"[^>]*>)(.*?)(</\2>)', body, page_html, flags=re.S)
+
+    def attr(m):
+        tag = m.group(0)
+        for kind, name in (("aria", "aria-label"), ("alt", "alt")):
+            k = re.search(r'data-i18n-%s="(\w+)"' % kind, tag)
+            if k and w(k.group(1)) is not None:
+                tag = re.sub(r'(\s%s=)"[^"]*"' % name, lambda a: '%s"%s"' % (a.group(1), esc(w(k.group(1)))), tag)
+        return tag
+    return re.sub(r'<[^>]*\sdata-i18n-(?:aria|alt)="\w+"[^>]*>', attr, page_html)
+
+
+def relocate(page_html, path, folder):
+    """A page at `path` moved under `folder`: links to files (a dot in their last
+    segment) still reach the one copy at the root; links to pages stay within
+    the language, as they are relative."""
+    up = "../" * (folder.count("/") + path.count("/"))
+
+    def fix(m):
+        url = m.group(2)
+        if re.match(r"[a-z]+:|/|#", url) or "." not in url.split("?")[0].rsplit("/", 1)[-1]:
+            return m.group(0)
+        target = posixpath.normpath(posixpath.join(path, url.split("?")[0]))
+        return '%s="%s%s%s"' % (m.group(1), up, target, ("?" + url.split("?", 1)[1]) if "?" in url else "")
+    return re.sub(r'\b(src|href|manifest)="([^"]*)"', fix, page_html)
+
+
+def translate(page_html, path, code, folder, hreflang, locale, words):
+    """The English page at `path`, as a page of its own in one language."""
+    brand = re.search(r'<body[^>]*\sdata-brand="([^"]*)"', page_html)
+    brand = html.unescape(brand.group(1)) if brand else ""
+    page_dict = re.search(r"window\.I18N_PAGE = (\{.*?\});</script>", page_html)
+    if page_dict:
+        words = dict(words, **json.loads(page_dict.group(1).replace("<\\/", "</")).get(code, {}))
+    out = localize(page_html, words, brand)
+    title_key = re.search(r'<body[^>]*\sdata-title="(\w+)"', page_html)
+    title = words[title_key.group(1) if title_key else "title"].replace("{name}", brand)
+    desc = sentence(words["b_lead"] if "b_lead" in words else words["tagline"])
+    url = BASE + folder + path
+    out = out.replace('<html lang="en">', '<html lang="%s" data-fixed-lang="%s">' % (hreflang, code), 1)
+    out = re.sub(r"<title>.*?</title>", "<title>%s</title>" % esc(title), out, count=1)
+    for prop, value in (("og:title", title), ("twitter:title", title)):
+        out = re.sub(r'(<meta (?:property|name)="%s" content=)"[^"]*"' % prop, lambda m: '%s"%s"' % (m.group(1), esc(value)), out)
+    for prop in ('name="description"', 'property="og:description"', 'name="twitter:description"'):
+        out = re.sub(r'(<meta %s content=)"[^"]*"' % prop, lambda m: '%s"%s"' % (m.group(1), esc(desc)), out)
+    out = re.sub(r'(<link rel="canonical" href=)"[^"]*"', '\\1"%s"' % url, out)
+    out = re.sub(r'(<meta property="og:url" content=)"[^"]*"', '\\1"%s"' % url, out)
+    out = re.sub(r'(<meta property="og:locale" content=)"[^"]*"', '\\1"%s"' % locale, out)
+    # The structured data in the page's language: its address, its description, its questions.
+    def data(m):
+        ld = json.loads(m.group(1).replace("<\\/", "</"))
+        for item in ld if isinstance(ld, list) else [ld]:
+            kind = item.get("@type")
+            if kind == "SoftwareApplication":
+                item["url"], item["description"], item["inLanguage"] = url, desc, hreflang
+            elif kind == "BreadcrumbList":
+                for i, li in enumerate(item["itemListElement"]):
+                    li["item"] = BASE + folder + ("" if i == 0 else path)
+            elif kind == "FAQPage":
+                for i, q in enumerate(item["mainEntity"]):
+                    q["name"] = words.get("b_faq_%d_q" % i, q["name"])
+                    q["acceptedAnswer"]["text"] = words.get("b_faq_%d_a" % i, q["acceptedAnswer"]["text"])
+        return '<script type="application/ld+json">%s</script>' % json.dumps(ld, ensure_ascii=False).replace("</", "<\\/")
+    out = re.sub(r'<script type="application/ld\+json">(.*?)</script>', data, out, flags=re.S)
+    out = out.replace('<span id="langnow">English</span>', '<span id="langnow">%s</span>' % esc(words["lang_name"]))
+    return relocate(out, path, folder)
+
+
+def languages(out, paths, i18n_js):
+    """Every page in every language, each naming the others (hreflang), and the sitemap."""
+    dicts = dictionaries(i18n_js)
+    for path in paths:
+        src = out / path / "index.html"
+        english_html = src.read_text().replace("</head>", alternates(path) + "</head>", 1)
+        src.write_text(english_html)
+        for code, folder, hreflang, locale in LANGS[1:]:
+            words = dict(dicts["en"], **dicts[code])
+            d = out / folder / path
+            d.mkdir(parents=True, exist_ok=True)
+            (d / "index.html").write_text(translate(english_html, path, code, folder, hreflang, locale, words))
+    rows = []
+    for path in paths:
+        links = "".join('    <xhtml:link rel="alternate" hreflang="%s" href="%s%s%s"/>\n' % (h, BASE, f, path)
+                        for _c, f, h, _l in LANGS)
+        rows += ["  <url><loc>%s%s%s</loc>\n%s  </url>\n" % (BASE, f, path, links) for _c, f, _h, _l in LANGS]
+    (out / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+        'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + "".join(rows) + "</urlset>\n")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True, help="the site being built")
@@ -461,10 +598,7 @@ def main():
     for js in ("theme", "lang", "i18n"):
         home = re.sub(r'src="%s\.js(\?v=\w+)?"' % js, 'src="%s.js?v=%s"' % (js, STAMPS["v_" + js]), home)
     index.write_text(home)
-    urls = [BASE] + [BASE + b["slug"] + "/" for b in brands]
-    (out / "sitemap.xml").write_text(
-        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + "".join("  <url><loc>%s</loc></url>\n" % u for u in urls) + "</urlset>\n")
+    languages(out, [""] + [b["slug"] + "/" for b in brands], (out / "i18n.js").read_text())
     (out / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: %ssitemap.xml\n" % BASE)
     (out / "brand-pages.json").unlink(missing_ok=True)
     shutil.rmtree(out / "brand-i18n", ignore_errors=True)

@@ -12,10 +12,17 @@
   const root = document.documentElement;
   /* {name} in a sentence is the page's brand. */
   const brand = document.body.dataset.brand || "";
+  /* A language's own copy of a page (/fr/elegoo/) is in that language for good;
+     an English page at the root follows the reader's choice in place. */
+  const fixed = root.dataset.fixedLang;
+  const HREFLANG = { zh: "zh-Hans", pt: "pt-BR", "pt-pt": "pt-PT" };
+  /* The site's root: the folder of i18n.js, whichever page this is. */
+  const siteRoot = new URL(".", document.querySelector('script[src*="i18n.js"]').src);
 
   /* Map what the browser reports onto what is shipped. European and Brazilian
      Portuguese are separate dictionaries, so `pt-PT` must not fall onto `pt`. */
   function pickLang() {
+    if (fixed && LANGS.includes(fixed)) return fixed;
     try {
       const saved = localStorage.getItem("tigertouch-lang");
       if (saved && LANGS.includes(saved)) return saved;
@@ -37,7 +44,7 @@
   }
 
   function applyLang(code) {
-    root.lang = code;
+    root.lang = HREFLANG[code] || code;
     const title = word(code, document.body.dataset.title || "title");
     if (title) document.title = title;
     document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -70,6 +77,7 @@
   const lbtn = document.getElementById("langbtn");
   const menu = document.getElementById("langmenu");
   const now = document.getElementById("langnow");
+  let current = "en";
   const TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" '
              + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
              + '<path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>';
@@ -93,19 +101,30 @@
     const at = items().findIndex(li => li.getAttribute("aria-selected") === "true");
     requestAnimationFrame(() => focusItem(Math.max(0, at)));
   }
+  /* The address of this page in another language. */
+  function addressIn(code) {
+    let rel = location.pathname.slice(siteRoot.pathname.length);
+    if (fixed && rel.startsWith(fixed + "/")) rel = rel.slice(fixed.length + 1);
+    return new URL((code === "en" ? "" : code + "/") + rel, siteRoot);
+  }
   function choose(code, remember) {
+    if (remember) {
+      try { localStorage.setItem("tigertouch-lang", code); } catch (e) {}
+      const there = addressIn(code);
+      if (there.pathname !== location.pathname) { location.href = there.href + location.hash; return; }
+    }
+    current = code;
     applyLang(code);
     labelComparison();
     if (window.ttBrandify) window.ttBrandify();
     now.textContent = window.I18N[code].lang_name;
     menu.querySelectorAll("li").forEach(li =>
       li.setAttribute("aria-selected", li.dataset.code === code ? "true" : "false"));
-    if (remember) { try { localStorage.setItem("tigertouch-lang", code); } catch (e) {} }
     setOpen(false);
     document.dispatchEvent(new CustomEvent("tt-lang", { detail: code }));
   }
   /* What other scripts read: the language shown and a word in it. */
-  window.ttLang = () => root.lang || "en";
+  window.ttLang = () => current;
   window.ttWord = key => word(window.ttLang(), key);
 
   lbtn.addEventListener("click", e => {

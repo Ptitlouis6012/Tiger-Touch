@@ -136,7 +136,11 @@ they were written.
   and the same remembered choice. One script for every page (`installer/lang.js`),
   the shared words in `installer/i18n.js`, each brand's own words in
   `installer/brand-i18n/<lang>.json`, written into its page when the site is
-  built; the HTML stays English for search engines. The latest-version line,
+  built. Each language also has its own address (`/fr/`, `/fr/elegoo/`, ...),
+  its text written into the HTML, with `hreflang` links between them, its own
+  canonical address, title, description and structured data, and every
+  address in `sitemap.xml`; the root stays English, and the menu opens the
+  chosen language's address. The latest-version line,
   the installer's picture descriptions and the brand strip's label follow the
   language. `check-installer-i18n.py` checks the brand words as it checks the
   installer's.

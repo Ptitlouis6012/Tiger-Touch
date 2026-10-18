@@ -225,7 +225,8 @@
   /* Written by scripts/make-manifest.py in the same run as manifest.json, so the
      number shown is the build that will be flashed. Absent when the page is
      opened from the source tree: the line then stays hidden. */
-  fetch("version.json", { cache: "no-store" })
+  /* From the site's root (the folder of i18n.js): the same from a language's copy of the page. */
+  fetch(new URL("version.json", document.querySelector('script[src*="i18n.js"]').src), { cache: "no-store" })
     .then(r => r.json())
     .then(v => {
       document.getElementById("ver").textContent = v.version;

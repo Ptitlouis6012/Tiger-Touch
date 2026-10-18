@@ -17,7 +17,8 @@ firmware/            the ESP-IDF project
 docs/                architecture, connection budget, compatibility, OTA, roadmap
 installer/           the site's sources, eleven languages: the installer page (ESP Web Tools),
                      i18n.js and lang.js for every page, brand-pages.json and brand-i18n/
-                     for the brand pages (built by scripts/make-brand-pages.py)
+                     for the brand pages; scripts/make-brand-pages.py builds them and
+                     each page's copy in every language (/fr/, /fr/elegoo/)
 scripts/             verify.sh, the guards, build and flash, release and site helpers
 .github/workflows/   build (every push), release (a v* tag), pages (the site)
 ```
