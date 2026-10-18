@@ -33,6 +33,7 @@
 </script>
 <link rel="stylesheet" href="site.css">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Tiger Touch", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Firmware for the BIGTREETECH Panda Touch and K-Touch (ESP32-S3)", "url": "https://tigertag-project.github.io/Tiger-Touch/", "image": "https://tigertag-project.github.io/Tiger-Touch/og/home.jpg", "description": "Free, open-source firmware that turns a BIGTREETECH Panda Touch or K-Touch into one live screen for Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, Klipper and OctoPrint printers.", "license": "https://opensource.org/licenses/MIT", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "codeRepository": "https://github.com/TigerTag-Project/Tiger-Touch", "downloadUrl": "https://tigertag-project.github.io/Tiger-Touch/", "inLanguage": ["en", "fr", "de", "es", "it", "zh", "pt-BR", "pt-PT", "pl", "ru", "nl"]}</script>
 </head>
 <body>
 <header class="bar">
@@ -65,14 +66,16 @@
       <h1 class="name">Tiger<span>Touch</span></h1>
       <p class="headline" data-i18n="hero_title">Every printer you own, on your Panda Touch or K‑Touch</p>
       <p class="lead" data-i18n="tagline">Install Tiger Touch on a BIGTREETECH Panda Touch or K-Touch, from this page.</p>
+      <p class="need" data-i18n="hero_need">Tiger Touch is free firmware, not a screen: you need a BIGTREETECH Panda Touch or K-Touch (5-inch touchscreen, sold separately), maybe the one already in your drawer.</p>
       <div class="card install" id="install">
         <h2 data-i18n="title">Install Tiger Touch</h2>
         <p class="ver" id="verline" hidden><span data-i18n="fw">Firmware</span> <b id="ver"></b></p>
+        <p class="first"><span data-i18n-html="first_html"><b>First</b>, create your free TigerSystem account and add your printers in <b>Tiger Studio Manager</b>, the desktop app. The web version cannot add printers.</span> <a href="#before">&darr;</a></p>
 
         <ol>
           <li data-i18n="n1">Plug the screen into this computer with its USB-C cable.</li>
-          <li data-i18n-html="n2_html">Press <b>Install</b> and pick the serial port (a "USB-SERIAL CH340" entry).</li>
-          <li data-i18n-html="n3_html">In the window that opens, which is in English, choose <b>Install Tiger Touch</b>. Leave <b>Erase device</b> unticked, then press <b>Next</b>.</li>
+          <li data-i18n-html="n2_html">Press <b>Install</b> and pick the serial port (a "USB-SERIAL CH340 / USB JTAG/serial debug unit" entry).</li>
+          <li data-i18n-html="n3_html">In the window that opens, which is in English, choose <b>Install Tiger Touch</b>. Coming from the BIGTREETECH firmware, tick <b>Erase device</b>; updating a Tiger Touch, leave it unticked. Then press <b>Next</b>.</li>
           <li data-i18n="n4">Wait for it to finish. The board restarts by itself.</li>
         </ol>
 
@@ -84,19 +87,11 @@
           </esp-web-install-button>
         </div>
 
-        <div class="warn" id="unsupported" data-i18n-html="unsup_html">
-          This browser cannot talk to a serial port. Use <b>Chrome</b> or <b>Edge</b> on a
-          computer; Safari, Firefox and phones do not support WebSerial.
-        </div>
+        <div class="warn" id="unsupported" data-i18n-html="unsup_html">This browser cannot talk to a serial port. Use <b>Chrome</b> or <b>Edge</b> on a computer; Safari, Firefox and phones do not support WebSerial.</div>
 
-        <small data-i18n-html="keep_html">
-          Your saved Wi-Fi and account are kept. Ticking <b>Erase device</b> wipes them and
-          gives a first start, in English.
-        </small>
-        <small data-i18n="driver">
-          No driver to hunt for on a recent Windows; on an older one or a Mac, install
-          the CH340 driver if no port appears.
-        </small>
+        <small data-i18n-html="keep_html">Your saved Wi-Fi and account are kept. Ticking <b>Erase device</b> wipes them and gives a first start, in English.</small>
+        <small><span data-i18n="restore_txt">Want the original firmware back one day? It can be reinstalled at any time:</span> <a href="https://github.com/TigerTag-Project/Tiger-Touch/blob/main/docs/INSTALL.md" data-i18n="restore_link">how to go back</a></small>
+        <small data-i18n="driver">No driver to hunt for on a recent Windows; on an older one or a Mac, install the CH340 driver if no port appears.</small>
       </div>
     </div>
     <!-- The README's picture: the start-up screen, the cards, the list and a printer's full view, in turn. -->
@@ -148,7 +143,7 @@
       <text x="1020" y="96" text-anchor="middle">OctoPrint</text>
       </svg>
 
-  <section class="card pre">
+  <section class="card pre" id="before">
     <img class="eco" src="ecosystem.png" alt="A TigerPOD reader holding a spool, Tiger Studio Manager on a computer, and the TigerTag app on a phone">
     <div>
         <h2 data-i18n="pre_title">Before you start: your printers</h2>

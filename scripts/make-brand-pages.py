@@ -77,6 +77,30 @@ def strip(svg, pieces, slugs, prefix, current):
     return '<nav class="brands strip" aria-label="Printer brands">%s</nav>' % "".join(items)
 
 
+def english(i18n_js):
+    """The English dictionary of installer/i18n.js: {key: text}."""
+    start = i18n_js.index("\nen: {")
+    end = i18n_js.index("\n},", start)
+    return {m.group(1): json.loads(m.group(2))
+            for m in re.finditer(r'^  (\w+): (".*"),?$', i18n_js[start:end], re.M)}
+
+
+def static_english(page_html, en):
+    """The installer page's own text, set from the English dictionary.
+
+    The page translates itself in the browser; what a search engine, a reader
+    without JavaScript or an AI assistant reads is the HTML as written. That
+    copy drifted once (step 3 still said to leave Erase device unticked), so it
+    is rewritten from the dictionary every time the site is built."""
+    def put(m):
+        opening, tag, as_html, key, closing = m.group(1), m.group(2), m.group(3), m.group(4), m.group(6)
+        if key not in en:
+            return m.group(0)
+        text = en[key] if as_html else html.escape(en[key], quote=False)
+        return opening + text + closing
+    return re.sub(r'(<(\w+)\b[^>]*?\sdata-i18n(-html)?="(\w+)"[^>]*>)(.*?)(</\2>)', put, page_html, flags=re.S)
+
+
 def replace_strip(page_html, new):
     """The installer page's strip (an inline SVG or an earlier HTML strip), swapped for the generated one."""
     i = page_html.index('class="brands strip"')
@@ -203,13 +227,15 @@ def page(b, brands, pieces, svg):
         <dt>Connection</dt><dd>{connection}</dd>
         <dt>Tested</dt><dd>{status}</dd>
       </dl>
+      {note}
       <p class="cta"><a class="pill solid big" href="../#install">Install Tiger Touch from your browser</a>
         <a class="pill" href="{repo}">Source on GitHub</a></p>
       <p class="latest" data-latest hidden></p>
+      <p class="small-note">This guide is in English; the installer speaks eleven languages. The original firmware can be reinstalled at any time: <a href="{repo}/blob/main/docs/INSTALL.md">how to go back</a>.</p>
     </div>
     <figure class="show bp-shot">
       <img src="../img/{slug}.png" width="607" height="738" alt="{shot_alt}">
-      <figcaption>The screen in Demo mode, captured on a Panda Touch running Tiger Touch.</figcaption>
+      <figcaption>Captured in Demo mode on a Panda Touch running Tiger Touch: the screen is real, the printer data is made up.</figcaption>
     </figure>
   </section>
 
@@ -287,7 +313,8 @@ def page(b, brands, pieces, svg):
            models=esc(b["models"]), connection=esc(b["connection"]), status=esc(b["status"]),
            shot_alt=esc(b["shot_alt"]), shows=li(b["shows"]), controls=esc(b["controls"]),
            setup=li(b["setup"]), tips=esc(b["tips"]), faq=faq, strip=strip(svg, pieces, slugs, "../", slug),
-           others=other_rows, feats=feats, **STAMPS,
+           others=other_rows, feats=feats,
+           note=('<p class="bp-note">%s</p>' % esc(b["note"])) if b.get("note") else "", **STAMPS,
            lineup="".join('<li><img src="../img/models/%s" width="240" height="240" loading="lazy" alt="%s %s">'
                           '<span>%s</span>%s</li>' % (esc(m[0]), esc(name), esc(m[1]), esc(m[1]),
                                                       '<small>%s</small>' % esc(m[2]) if len(m) > 2 else "")
@@ -329,6 +356,7 @@ def main():
     index = out / "index.html"
     slugs = {b["logo"]: b["slug"] for b in brands}
     home = replace_strip(index.read_text(), strip(svg, pieces, slugs, "", None))
+    home = static_english(home, english((out / "i18n.js").read_text()))
     home = re.sub(r'href="site\.css(\?v=\w+)?"', 'href="site.css?v=%s"' % STAMPS["v_css"], home)
     home = re.sub(r'src="theme\.js(\?v=\w+)?"', 'src="theme.js?v=%s"' % STAMPS["v_theme"], home)
     index.write_text(home)

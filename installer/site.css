@@ -273,3 +273,9 @@ nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.c
 .tt-touch { color: var(--accent); }
 .legal { margin: 18px 0 0; color: var(--muted); font-size: .82rem; text-align: center; }
 .legal a { color: var(--muted); }
+.need { margin: -6px 0 18px; padding: 10px 14px; border-left: 3px solid var(--accent); background: var(--card); border-radius: 0 10px 10px 0; color: var(--text); font-size: .95rem; }
+.first { margin: 0 0 12px; padding: 10px 12px; border-radius: 10px; background: var(--bg); border: 1px solid var(--line); font-size: .93rem; }
+.first a, .install small a { color: var(--accent); }
+.bp-note { margin: -8px 0 18px; padding: 12px 14px; border-left: 3px solid var(--accent); background: var(--card); border-radius: 0 10px 10px 0; font-size: .95rem; }
+.small-note { margin: 8px 0 0; color: var(--muted); font-size: .85rem; }
+.small-note a { color: var(--muted); }

@@ -34,6 +34,9 @@ reporting the work done. The Landmines table in `CODEMAP.md` lists behaviours
 that look like bugs and are not, or look fine and are not.
 
 
+
+Tiger Touch is part of the TigerSystem ecosystem, made by the TigerTag project. TigerSystem is the account a Tiger Touch signs in to and reads its printers from; TigerTag is the project and its RFID chips. Klipper and OctoPrint are printer software, not brands: Tiger Touch follows any printer that runs them.
+
 ## Tiger Touch for each printer brand
 
 - [Tiger Touch for Bambu Lab printers](https://tigertag-project.github.io/Tiger-Touch/bambu-lab/): Bambu cloud or LAN mode, every AMS slot, the light. Models: X1 Carbon, X1E, P1S, P1P, P2S, A1, A1 mini, H2D, H2C, H2S.

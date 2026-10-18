@@ -89,6 +89,18 @@ they were written.
   the locale, and the installer page's canonical address. Each brand page's
   description is written for search results (150 to 160 characters, a whole
   sentence) instead of its first paragraph cut with "...".
+- **After a second outside audit**: the installer page's own HTML (what search
+  engines, assistants and readers without JavaScript read) still told step 3 to
+  leave *Erase device* unticked, where the translations say to tick it when
+  replacing the BIGTREETECH firmware; the site build now writes that text from
+  the English dictionary, so it cannot drift again. The installer adds, in
+  eleven languages, that the screen is sold separately, to add the printers in
+  Tiger Studio Manager first, and how to go back to the original firmware, plus
+  its structured data. Brand pages add a note for models reached through
+  another connection (Elegoo's Neptune 4 and Giga, older Creality behind
+  OctoPrint), say the screen's data is made up in Demo mode, link the way back,
+  and list the same models as their lineups. `llms.txt` says what TigerSystem
+  and TigerTag each are.
 - **The README and llms.txt link every brand page**: the brands of the
   printer table and a line under it in the README, a section of its own in
   `llms.txt`, so that search engines and AI assistants find each page.
