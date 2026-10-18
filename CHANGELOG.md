@@ -53,6 +53,13 @@ they were written.
 - **The brand logos stand before each brand** in the README's printer table,
   comparison and protocols table, every brand linked to its page
   (`assets/brands/logos/`, drawn from the brand strip).
+- **"Built around makers, not around a brand"**: why the project exists, on
+  the installer page (eleven languages), every brand page and the README. Printer
+  makers build their software around their own machines; TigerSystem starts from
+  the maker, whatever their printers, computer or phone, free and open.
+- **The installer's comparison has one row per brand**, each with its logo and
+  a link to its page, where Creality, Elegoo, Snapmaker, FlashForge, Prusa and
+  OctoPrint shared one row.
 - **The README and llms.txt link every brand page**: the brands of the
   printer table and a line under it in the README, a section of its own in
   `llms.txt`, so that search engines and AI assistants find each page.

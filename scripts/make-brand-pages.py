@@ -238,6 +238,8 @@ def page(b, brands, pieces, svg):
   <section class="card bp-sec">
     <h2>What Tiger Touch is</h2>
     <p>A free, open-source firmware that turns the BIGTREETECH Panda Touch or K-Touch, a 5-inch touchscreen made for Bambu Lab, into one live screen for all your 3D printers. No computer and no bridge: it signs in to your TigerSystem account, reads your printers from it and talks to each one directly.</p>
+    <h3>Built around makers, not around a brand</h3>
+    <p>Printer makers build their software around their own machines: their apps, their clouds and their screens are designed to keep you with their printers. <b>TigerSystem starts from the other end: you.</b> Whatever printers you own, whatever their brand, whatever computer or phone you use, our tools adapt to the way you work, not the other way round. A {name} printer today, another brand tomorrow: the same screen follows both.</p>
     <div class="features">{feats}</div>
     <p class="cta"><a class="pill solid big" href="../#install">Install it now, in two minutes</a></p>
   </section>
@@ -287,6 +289,8 @@ def main():
     pieces = logos(svg)
     labels = {p[0] for p in pieces}
     (out / "img").mkdir(parents=True, exist_ok=True)
+    # The brands' logos one file each, for the installer page's comparison.
+    shutil.copytree(ROOT / "assets" / "brands" / "logos", out / "logos", dirs_exist_ok=True)
     for b in brands:
         if b["logo"] not in labels:
             raise SystemExit("no logo named %r in brands.svg" % b["logo"])

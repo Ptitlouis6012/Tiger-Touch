@@ -248,3 +248,14 @@ nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.c
 .latest b { color: var(--ok); }
 .latest a { color: var(--accent); }
 .pill-ico { width: 18px; height: 18px; vertical-align: -3px; margin-right: 4px; }
+
+/* The comparison: one row per brand, its logo and a link to its page. */
+.cmp a.brand, .cmp a.brand:visited { display: inline-flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; }
+.cmp a.brand:hover { color: var(--accent); }
+.cmp a.brand img { flex: none; }
+
+/* Why it exists. */
+.phil h2 { margin: 0 0 10px; font-size: 1.35rem; }
+.phil p { margin: 0 0 14px; }
+.phil-points { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.phil-points li { padding: 14px 16px; background: var(--bg); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 0 12px 12px 0; }

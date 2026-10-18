@@ -81,6 +81,21 @@ browser, and two minutes later it shows your printers.
 > **Upcycling, not e-waste.** If you own a Panda Touch or a K-Touch that no
 > longer matches your printers, it is the hardware Tiger Touch was made for.
 
+## Built around makers, not around a brand
+
+Printer makers build their software around their own machines: their apps,
+their clouds and their screens are designed to keep you with their printers.
+**TigerSystem starts from the other end: you, the maker.** Whatever printers you
+own, whatever their brand, whatever computer or phone you use, our tools adapt
+to the way you work, not the other way round.
+
+- **Maker-centric**: one account, one screen, every printer, with the best
+  interface we can build for each of them.
+- **Open and cross-platform**: each brand's own protocol, on Windows, macOS,
+  Linux and your phone, with nothing locked in.
+- **No friction, no cost**: free and open source, on a screen you may already
+  have in a drawer.
+
 ## Why Tiger Touch
 
 | | |
