@@ -202,13 +202,16 @@ nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.c
 .logo.duo b { color: var(--text); }
 .logo .x { color: var(--accent); font-weight: 600; margin: 0 4px; }
 .lineup-sec { margin: 6px 0 26px; }
-/* Two rows: as many columns as half the printers (the page sets --cols). */
+/* One row of up to seven; a second only when there are more (14 at most). */
 .lineup { list-style: none; padding: 0 !important; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center;
-  gap: 10px 22px; max-width: calc(var(--cols, 4) * 192px); }
-.lineup li { margin: 0 !important; display: flex; flex-direction: column; align-items: center; min-width: 0;
-  flex: 0 0 calc((100% - (var(--cols, 4) - 1) * 22px) / var(--cols, 4)); }
-.lineup img { display: block; width: 100%; max-width: 170px; height: auto; aspect-ratio: 1; object-fit: contain; }
-@media (max-width: 640px) { .lineup { --cols: 3 !important; } }
+  gap: 10px 18px; max-width: calc(7 * 150px + 6 * 18px); }
+.lineup li { margin: 0 !important; display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 0 0 150px; }
+.lineup img { display: block; width: 100%; max-width: 150px; height: auto; aspect-ratio: 1; object-fit: contain; }
+/* On a phone, one row that scrolls sideways: never more than two rows anywhere. */
+@media (max-width: 640px) {
+  .lineup { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px !important; }
+  .lineup li { flex: 0 0 34%; scroll-snap-align: start; }
+}
 .lineup span { margin-top: 4px; font-weight: 600; font-size: .95rem; text-align: center; }
 .bp-title { margin: 0; font-size: clamp(2rem, 1.3rem + 2.6vw, 3.3rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.08; }
 .bp-title span { color: var(--accent); }

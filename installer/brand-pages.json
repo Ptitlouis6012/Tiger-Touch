@@ -46,6 +46,10 @@
           "X1 Carbon"
         ],
         [
+          "bambu_lab_x1e.png",
+          "X1E"
+        ],
+        [
           "bambu_lab_p2s.png",
           "P2S"
         ],
@@ -54,12 +58,32 @@
           "P1S"
         ],
         [
+          "bambu_lab_p1p.png",
+          "P1P"
+        ],
+        [
           "bambu_lab_a1.png",
           "A1"
         ],
         [
+          "bambu_lab_a1_mini.png",
+          "A1 mini"
+        ],
+        [
           "bambu_lab_h2d.png",
           "H2D"
+        ],
+        [
+          "bambu_lab_h2c.png",
+          "H2C"
+        ],
+        [
+          "bambu_lab_h2s.png",
+          "H2S"
+        ],
+        [
+          "bambu_lab_x2d.png",
+          "X2D"
         ]
       ]
     },
@@ -111,6 +135,10 @@
           "K2 Plus"
         ],
         [
+          "creality_k2_pro.png",
+          "K2 Pro"
+        ],
+        [
           "creality_k2.png",
           "K2"
         ],
@@ -121,6 +149,14 @@
         [
           "creality_k1c.png",
           "K1C"
+        ],
+        [
+          "creality_k1.png",
+          "K1"
+        ],
+        [
+          "creality_k1_se.png",
+          "K1 SE"
         ],
         [
           "creality_hi.png",
@@ -137,6 +173,16 @@
         [
           "creality_ender_3_s1.png",
           "Ender-3 S1",
+          "via OctoPrint"
+        ],
+        [
+          "creality_ender_3.png",
+          "Ender-3",
+          "via OctoPrint"
+        ],
+        [
+          "creality_cr_10.png",
+          "CR-10",
           "via OctoPrint"
         ]
       ]
@@ -220,6 +266,11 @@
           "via Klipper"
         ],
         [
+          "elegoo_neptune_4_plus.png",
+          "Neptune 4 Plus",
+          "via Klipper"
+        ],
+        [
           "elegoo_neptune_4_max.png",
           "Neptune 4 Max",
           "via Klipper"
@@ -270,6 +321,10 @@
           "Kobra S1"
         ],
         [
+          "anycubic_kobra_s1_max.png",
+          "Kobra S1 Max"
+        ],
+        [
           "anycubic_kobra_x.png",
           "Kobra X"
         ],
@@ -278,8 +333,12 @@
           "Kobra 3"
         ],
         [
-          "anycubic_kobra_s1_max.png",
-          "Kobra S1 Max"
+          "anycubic_kobra_3_v2.png",
+          "Kobra 3 V2"
+        ],
+        [
+          "anycubic_kobra_3_max.png",
+          "Kobra 3 Max"
         ]
       ]
     },
@@ -432,12 +491,28 @@
           "Core One"
         ],
         [
+          "prusa_core_one_l.png",
+          "Core One L"
+        ],
+        [
           "prusa_mk4s.png",
           "MK4S"
         ],
         [
+          "prusa_mk4.png",
+          "MK4"
+        ],
+        [
+          "prusa_mk3_5.png",
+          "MK3.5"
+        ],
+        [
           "prusa_xl.png",
           "XL"
+        ],
+        [
+          "prusa_xl_5t.png",
+          "XL 5T"
         ],
         [
           "prusa_mini.png",
@@ -493,12 +568,28 @@
           "Voron Trident"
         ],
         [
+          "voron_0_1.png",
+          "Voron 0.1"
+        ],
+        [
           "qidi_x_plus_4.png",
           "Qidi X-Plus 4"
         ],
         [
+          "qidi_q1_pro.png",
+          "Qidi Q1 Pro"
+        ],
+        [
+          "qidi_x_max_4.png",
+          "Qidi X-Max 4"
+        ],
+        [
           "sovol_sv08.png",
           "Sovol SV08"
+        ],
+        [
+          "sovol_sv08_max.png",
+          "Sovol SV08 Max"
         ],
         [
           "ratrig_v_core_3_300.png",
@@ -554,12 +645,28 @@
           "Ender-3 V2"
         ],
         [
+          "creality_ender_3.png",
+          "Ender-3"
+        ],
+        [
+          "creality_cr_10.png",
+          "CR-10"
+        ],
+        [
           "prusa_mk3s.png",
           "Prusa MK3S"
         ],
         [
           "anycubic_i3_mega_s.png",
           "Anycubic i3 Mega S"
+        ],
+        [
+          "artillery_sidewinder_x1.png",
+          "Artillery Sidewinder X1"
+        ],
+        [
+          "artillery_genius.png",
+          "Artillery Genius"
         ]
       ]
     }

@@ -71,8 +71,10 @@ they were written.
   ones Tiger Studio Manager's catalogue names.
 - **"TigerTouch" in two colours, joined, in every title** of the site: the
   installer's (after each translation too) and the brand pages'.
-- **A brand's lineup stands on two rows**, as many columns as half its
-  printers, the second row centred; three columns on a phone.
+- **A brand's lineup holds up to fourteen printers**: one row of seven, a
+  second, centred, only when there are more; one row that scrolls sideways on a
+  phone. Bambu Lab shows eleven, Creality thirteen (three of them "via
+  OctoPrint"), Elegoo ten, Prusa eight, Klipper nine, OctoPrint eight.
 - **After an outside audit**: each brand page has a "What you need" box (the
   screen, sold separately, with the K-Touch said to be untested yet; Chrome or
   Edge and a USB-C cable for the first installation only; Wi-Fi; the account and

@@ -214,7 +214,7 @@ def page(b, brands, pieces, svg):
   </section>
 
   <section class="bp-sec lineup-sec" aria-label="{name} printers">
-    <ul class="lineup" style="--cols: {cols}">{lineup}</ul>
+    <ul class="lineup">{lineup}</ul>
   </section>
 
   <section class="card bp-sec need">
@@ -287,7 +287,7 @@ def page(b, brands, pieces, svg):
            models=esc(b["models"]), connection=esc(b["connection"]), status=esc(b["status"]),
            shot_alt=esc(b["shot_alt"]), shows=li(b["shows"]), controls=esc(b["controls"]),
            setup=li(b["setup"]), tips=esc(b["tips"]), faq=faq, strip=strip(svg, pieces, slugs, "../", slug),
-           others=other_rows, feats=feats, cols=(len(b["lineup"]) + 1) // 2, **STAMPS,
+           others=other_rows, feats=feats, **STAMPS,
            lineup="".join('<li><img src="../img/models/%s" width="240" height="240" loading="lazy" alt="%s %s">'
                           '<span>%s</span>%s</li>' % (esc(m[0]), esc(name), esc(m[1]), esc(m[1]),
                                                       '<small>%s</small>' % esc(m[2]) if len(m) > 2 else "")
