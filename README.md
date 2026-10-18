@@ -12,7 +12,7 @@
   <strong>Your Panda Touch is in a drawer. Give it every printer you own.</strong><br>
   A free, open-source firmware that turns the BIGTREETECH Panda Touch and K-Touch<br>
   into one live touchscreen for Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker,<br>
-  FlashForge, Prusa, and any Klipper or OctoPrint 3D printer. No soldering, no computer.
+  FlashForge, Prusa, and any Klipper or OctoPrint 3D printer. No soldering, no computer left on.
 </p>
 
 <p align="center">
@@ -51,7 +51,7 @@
   &nbsp;&middot;&nbsp;
   <a href="#one-screen-every-brand-tiger-touch-vs-the-stock-firmwares">Compare</a>
   &nbsp;&middot;&nbsp;
-  <a href="#install-in-two-minutes">Install</a>
+  <a href="#install-in-a-few-minutes">Install</a>
   &nbsp;&middot;&nbsp;
   <a href="#questions">Questions</a>
   &nbsp;&middot;&nbsp;
@@ -76,7 +76,7 @@ Your K-Touch keeps showing your Klipper printers, and the Bambu Lab next to them
 
 Nothing to solder, nothing to print, no Raspberry Pi, no computer left on, no
 server in between: you plug the screen into a USB port, press **Install** in your
-browser, and two minutes later it shows your printers.
+browser, and a few minutes later it shows your printers.
 
 > **Upcycling, not e-waste.** If you own a Panda Touch or a K-Touch that no
 > longer matches your printers, it is the hardware Tiger Touch was made for.
@@ -232,7 +232,7 @@ means supported; which brands have already run on a real machine is in
 are measured on the board: [docs/CONNECTION-BUDGET.md](docs/CONNECTION-BUDGET.md),
 [docs/HARDWARE.md](docs/HARDWARE.md#drawing-speed).</sub>
 
-## Install in two minutes
+## Install in a few minutes
 
 ### 1. Declare your printers once, in Tiger Studio Manager
 

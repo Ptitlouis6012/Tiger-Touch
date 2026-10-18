@@ -73,6 +73,13 @@ they were written.
   installer's (after each translation too) and the brand pages'.
 - **A brand's lineup stands on two rows**, as many columns as half its
   printers, the second row centred; three columns on a phone.
+- **After an outside audit**: each brand page has a "What you need" box (the
+  screen, sold separately, with the K-Touch said to be untested yet; Chrome or
+  Edge and a USB-C cable for the first installation only; Wi-Fi; the account and
+  Tiger Studio Manager); every picture of the screen says it is Demo mode; "no
+  computer" reads "no computer left on" and "two minutes" "a few minutes"; the
+  installer (eleven languages) and every brand page say the project is not
+  affiliated with BIGTREETECH or the printer makers.
 - **The README and llms.txt link every brand page**: the brands of the
   printer table and a line under it in the README, a section of its own in
   `llms.txt`, so that search engines and AI assistants find each page.

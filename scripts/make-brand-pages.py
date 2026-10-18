@@ -103,7 +103,7 @@ def favicon(viewbox, logo):
 FEATURES = [
     ("Every brand on one screen", "Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, Klipper and OctoPrint, up to ten printers live at once."),
     ("Nothing to type", "Your printers come from your TigerSystem account, with their addresses and access codes, as Tiger Studio Manager added them."),
-    ("Install from your browser", "Plug the screen in, press Install in Chrome or Edge: two minutes, no tools, no soldering."),
+    ("Install from your browser", "Plug the screen in, press Install in Chrome or Edge: a few minutes, no tools, no soldering."),
     ("Updates over Wi-Fi", "The screen finds new versions by itself and asks; each one is checked before it is used."),
     ("Live view in Tiger Studio", "Tiger Studio Manager shows the screen live, touches it and takes screenshots for a bug report or a post."),
     ("Free and open source", "MIT licence, no subscription, eleven languages, made by the TigerSquad community."),
@@ -202,12 +202,22 @@ def page(b, brands, pieces, svg):
     </div>
     <figure class="show bp-shot">
       <img src="../img/{slug}.png" width="607" height="738" alt="{shot_alt}">
-      <figcaption>Captured on a Panda Touch running Tiger Touch.</figcaption>
+      <figcaption>The screen in Demo mode, captured on a Panda Touch running Tiger Touch.</figcaption>
     </figure>
   </section>
 
   <section class="bp-sec lineup-sec" aria-label="{name} printers">
     <ul class="lineup" style="--cols: {cols}">{lineup}</ul>
+  </section>
+
+  <section class="card bp-sec need">
+    <h2>What you need</h2>
+    <ul class="ticks">
+      <li>A BIGTREETECH <b>Panda Touch</b> or <b>K-Touch</b>, the 5-inch touchscreen, sold separately: maybe the one already in your drawer. Tiger Touch has been run on a Panda Touch; the K-Touch is the same board and has not been run on one yet.</li>
+      <li>For the first installation only: <b>Chrome or Edge</b> on a computer and a <b>USB-C data cable</b>. Nothing stays plugged in afterwards.</li>
+      <li>Your printer on the same <b>Wi-Fi</b> network as the screen (or its maker's cloud, where the page above says so).</li>
+      <li>A free <b>TigerSystem account</b>, with the printer added in <b>Tiger Studio Manager</b>, the desktop app (Windows, macOS, Linux).</li>
+    </ul>
   </section>
 
   <section class="card bp-sec">
@@ -237,11 +247,11 @@ def page(b, brands, pieces, svg):
 
   <section class="card bp-sec">
     <h2>What Tiger<span class="tt-touch">Touch</span> is</h2>
-    <p>A free, open-source firmware that turns the BIGTREETECH Panda Touch or K-Touch, a 5-inch touchscreen made for Bambu Lab, into one live screen for all your 3D printers. No computer and no bridge: it signs in to your TigerSystem account, reads your printers from it and talks to each one directly.</p>
+    <p>A free, open-source firmware that turns the BIGTREETECH Panda Touch or K-Touch, a 5-inch touchscreen made for Bambu Lab, into one live screen for all your 3D printers. No computer left on and no bridge: it signs in to your TigerSystem account, reads your printers from it and talks to each one directly.</p>
     <h3>Built around makers, not around a brand</h3>
     <p>Printer makers build their software around their own machines: their apps, their clouds and their screens are designed to keep you with their printers. <b>TigerSystem starts from the other end: you.</b> Whatever printers you own, whatever their brand, whatever computer or phone you use, our tools adapt to the way you work, not the other way round. A {name} printer today, another brand tomorrow: the same screen follows both.</p>
     <div class="features">{feats}</div>
-    <p class="cta"><a class="pill solid big" href="../#install">Install it now, in two minutes</a></p>
+    <p class="cta"><a class="pill solid big" href="../#install">Install it now, in a few minutes</a></p>
   </section>
 
   <section class="join">
@@ -260,6 +270,7 @@ def page(b, brands, pieces, svg):
     <a class="pill" href="{repo}/releases" target="_blank" rel="noopener">What's new</a>
     <a class="pill" href="https://tigersystem.io" target="_blank" rel="noopener">tigersystem.io</a>
   </nav>
+  <p class="legal">Tiger Touch is an independent open-source project, not affiliated with or endorsed by BIGTREETECH or {name}. Product names, logos and pictures belong to their owners and appear only to say which machines Tiger Touch works with (<a href="{repo}/blob/main/TRADEMARK.md">trademarks</a>).</p>
   </footer>
 </main>
 </body>
