@@ -259,3 +259,6 @@ nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.c
 .phil p { margin: 0 0 14px; }
 .phil-points { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
 .phil-points li { padding: 14px 16px; background: var(--bg); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 0 12px 12px 0; }
+
+/* The TigerSquad card stands on its own between the install card and the brands. */
+.join { margin: 28px 0 30px; }

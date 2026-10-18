@@ -60,6 +60,8 @@ they were written.
 - **The installer's comparison has one row per brand**, each with its logo and
   a link to its page, where Creality, Elegoo, Snapmaker, FlashForge, Prusa and
   OctoPrint shared one row.
+- **The TigerSquad card comes right after the install card** on the installer
+  page, above the brand logos, instead of at the bottom.
 - **The README and llms.txt link every brand page**: the brands of the
   printer table and a line under it in the README, a section of its own in
   `llms.txt`, so that search engines and AI assistants find each page.
