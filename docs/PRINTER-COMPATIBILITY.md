@@ -12,11 +12,11 @@ means written from the maker's protocol and built, never exercised.
 | Bambu Lab, cloud | MQTT over TLS to the region broker, session read from the account | **Seen**: a full print on a P2S; AMS, external spool, progress, states, restart in the middle of a print |
 | Bambu Lab, LAN | `mqtts://<ip>:8883`, user `bblp`, access code, address from `broker` | **Seen idle on an X1C and an A1** (2026-10-15): state, nozzle, bed, chamber (X1C), light state; both sessions held with the device on a good signal. On a weak one (-76 dBm and below) the reports a LAN printer streams filled the link and the sessions dropped: a LAN Bambu wants good Wi-Fi. No print yet |
 | Snapmaker | Moonraker WebSocket `:7125`, subscribe | **Seen idle on a U1** (2026-10-14): state, the four nozzles with the active one ringed, bed; no print yet |
-| Elegoo CC2 | MQTT `:1883` | Compiled |
-| Elegoo Centauri Carbon 1 | SDCP, UDP `3000` then WebSocket `:3030` | Compiled; the protocol's read-only part was seen by a third party on firmware V1.4.49 |
+| Elegoo CC2 | MQTT `:1883` | **Seen on a real Centauri Carbon 2** (2026-10-18): state, progress, temperatures, the Canvas |
+| Elegoo Centauri Carbon 1 | SDCP, UDP `3000` then WebSocket `:3030` | **Seen on a real Centauri Carbon** (2026-10-18): state, progress, temperatures |
 | FlashForge | HTTP `POST :8898/detail`, every 2 s | **Seen idle on an AD5X** (2026-10-14): state, nozzle and bed temperatures; no print yet |
-| Prusa | PrusaLink HTTP with Digest authentication, or `X-Api-Key` when the account holds a legacy `apiKey` | Compiled |
-| Klipper | Moonraker over HTTP (port 7125 unless `ip` says otherwise), `X-Api-Key` when the account has one, a poll every 2 s | **Seen against Tiger Studio's Moonraker mock** (2026-10-15): printing, paused, finished, cancelled, error with the printer's message, Klipper not ready; progress, file, layers, time left, temperatures, the light, four AFC lanes with the active one ringed. Not yet on a real printer |
+| Prusa | PrusaLink HTTP with Digest authentication, or `X-Api-Key` when the account holds a legacy `apiKey` | **Seen on a real Prusa** (2026-10-18): state, progress, time left, temperatures |
+| Klipper | Moonraker over HTTP (port 7125 unless `ip` says otherwise), `X-Api-Key` when the account has one, a poll every 2 s | **Seen against Tiger Studio's Moonraker mock** (2026-10-15): printing, paused, finished, cancelled, error with the printer's message, Klipper not ready; progress, file, layers, time left, temperatures, the light, four AFC lanes with the active one ringed. **Seen on a real Klipper printer** too (2026-10-18) |
 | OctoPrint | its REST API over HTTP (port 80 unless `ip` says otherwise), `X-Api-Key`, a poll every 2 s | **Seen against Tiger Studio's OctoPrint mock** (2026-10-15): printing, paused, finished, error with OctoPrint's text, no printer plugged in; progress, file, time left, temperatures. Not yet on a real printer |
 | Anycubic, LAN | `mqtts://<ip>:9883` | Compiled |
 | Anycubic, cloud | `mqtts://mqtt-universe.anycubic.com:8883`, one session for every cloud Anycubic of the account, mutual TLS, signed in as the slicer does (as on TigerSpool) | **Seen idle on a Kobra X** (2026-10-14): online, state, the four slots of its box with material and colour; no print yet. Temperatures are not asked for (below) |
@@ -64,11 +64,11 @@ Tiger Studio sends; none of them has been run from this firmware yet.
 | Bambu Lab, LAN | MQTT `print` with `command` `pause` / `resume` / `stop` on `device/<sn>/request` | Compiled; never run (the P2S is used through the cloud) |
 | Bambu Lab, cloud | none | **Inert buttons**: the cloud takes no pause, resume or stop from this session, as in Studio |
 | Snapmaker | Moonraker `printer.print.pause` / `resume` / `cancel` | Compiled; never run |
-| Elegoo CC2 | MQTT methods `1021` pause, `1023` resume, `1022` cancel | Compiled; never run |
-| Elegoo CC1 | SDCP commands `129` pause, `131` resume, `130` stop | Compiled; numbers from the OpenCentauri notes, unconfirmed on a CC1 |
+| Elegoo CC2 | MQTT methods `1021` pause, `1023` resume, `1022` cancel | **Seen on a real Centauri Carbon 2** (2026-10-18) |
+| Elegoo CC1 | SDCP commands `129` pause, `131` resume, `130` stop | **Seen on a real Centauri Carbon** (2026-10-18) |
 | FlashForge | HTTP `POST /control`, `jobCtl_cmd` `pause` / `continue` / `cancel` | Compiled; never run (recent models only) |
-| Prusa | `PUT /api/v1/job/<id>/pause` and `/resume`, `DELETE /api/v1/job/<id>`, Digest | Compiled; never run |
-| Klipper | `POST /printer/print/pause`, `/resume`, `/cancel` | **Seen against the mock**: pause, resume and stop from the buttons, the state followed |
+| Prusa | `PUT /api/v1/job/<id>/pause` and `/resume`, `DELETE /api/v1/job/<id>`, Digest | **Seen on a real Prusa** (2026-10-18) |
+| Klipper | `POST /printer/print/pause`, `/resume`, `/cancel` | **Seen on a real Klipper printer** (2026-10-18), and against the mock: pause, resume and stop from the buttons, the state followed |
 | OctoPrint | `POST /api/job` `{"command":"pause","action":"pause"}` / `"resume"`, `{"command":"cancel"}` | **Seen against the mock**: pause, resume and stop from the buttons, the state followed |
 | Anycubic, LAN | MQTT `print` request, action `pause` / `resume` / `stop`, `taskid` `-1` | Compiled; never run |
 | Anycubic, cloud | none for now | **Inert buttons**: the broker closes the whole session on a publish it does not allow, so no command is sent until each one is seen allowed |
@@ -81,19 +81,19 @@ changes the button.
 One button on every card and on the full view. It is always drawn; it is inert
 (dimmed, not clickable) while the printer is not reached or has no light command
 here. It is lit while the printer says its light is on, and one touch switches it.
-The frames are Tiger Studio's; only the K2's (local) and the P2S's (cloud) have been seen to work from this firmware, on and off.
+The frames are Tiger Studio's; the K2's (local), the P2S's (cloud), the Centauri Carbon 2's and a Klipper printer's (2026-10-18) have been seen to work from this firmware, on and off.
 
 | Driver | Command | State read from | Status |
 |---|---|---|---|
 | Creality (K2) | WebSocket `set` with `lightSw` 1 / 0 | `lightSw` | **Seen on a K2**: the LED switches on and off from the button |
 | Bambu Lab, LAN and cloud | MQTT `system` `ledctrl`, `led_node` `chamber_light` (or what `lights_report` names), `led_mode` on / off, on `device/<sn>/request` | `print.lights_report` | **Seen on a P2S through the cloud**: the light switches on and off from the button and the state follows (the local broker is compiled only) |
 | Snapmaker | Moonraker `printer.gcode.script` with `SET_LED LED=cavity_led` (all channels 1 or 0) | `led cavity_led` `color_data` | Compiled; never run |
-| Elegoo CC2 | MQTT method `1029`, `power` 1 / 0 | `led.status` | Compiled; never run |
+| Elegoo CC2 | MQTT method `1029`, `power` 1 / 0 | `led.status` | **Seen on a real Centauri Carbon 2** (2026-10-18) |
 | Anycubic, LAN | MQTT `light` request, action `control`, `type` 3 (the chamber light; 1 is the camera's) | the `light` report | Compiled; never run |
 | Anycubic, cloud | none for now (see pause above) | - | Inert |
 | FlashForge | HTTP `POST /control`, `lightControl_cmd`, `status` `open` / `close` | `detail.lightStatus` | Compiled; never run (recent models only) |
 | Prusa | none: Tiger Studio has none either | - | No light command |
-| Klipper | `POST /printer/gcode/script`: `SET_PIN PIN=<name> VALUE=1/0` for an `output_pin` named like a light, `SET_LED LED=<name> RED=1 GREEN=1 BLUE=1 WHITE=1` (or 0) for an LED chain | the pin's `value`, the chain's `color_data` | **Seen against the mock**: off from the button, the state followed |
+| Klipper | `POST /printer/gcode/script`: `SET_PIN PIN=<name> VALUE=1/0` for an `output_pin` named like a light, `SET_LED LED=<name> RED=1 GREEN=1 BLUE=1 WHITE=1` (or 0) for an LED chain | the pin's `value`, the chain's `color_data` | **Seen on a real Klipper printer** (2026-10-18), and against the mock: off from the button, the state followed |
 | OctoPrint | none | - | No light command |
 | Elegoo CC1 | none: Tiger Studio's SDCP driver has none | - | No light command |
 
@@ -102,8 +102,8 @@ The frames are Tiger Studio's; only the K2's (local) and the P2S's (cloud) have 
 Tiger Studio Manager's two printer plugins (2.41): any printer that runs
 Klipper with Moonraker, or a Marlin printer behind OctoPrint. Each is a brand of
 its own in the account (`klipper`, `octoprint`); what follows is read from
-Studio's plugin source, and run against Studio's mocks, not yet a real
-printer. How to run them, put one on an account and drive each state: Tiger
+Studio's plugin source and run against Studio's mocks; Klipper was then seen on a
+real printer (2026-10-18), OctoPrint not yet. How to run them, put one on an account and drive each state: Tiger
 Studio Manager's `docs/PRINTER-MOCKS.md` (they live in that repository, never
 in this one). "Seen against the mock" is never "works on a real printer".
 

@@ -11,8 +11,8 @@
  *
  * A Snapmaker U1 is Moonraker too, but has a driver of its own (drv_snapmaker.c)
  * for its proprietary filament data; this one is for every other Klipper
- * printer. Written from Studio's plugin, which is itself marked beta; this
- * driver has not been run against a real printer. */
+ * printer. Written from Studio's plugin; the reading, pause, resume, stop
+ * and the light were seen working on a real printer by the owner (2026-10-18). */
 
 #include <ctype.h>
 #include <stdio.h>

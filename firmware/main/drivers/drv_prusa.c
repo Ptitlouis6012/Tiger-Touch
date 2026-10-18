@@ -217,8 +217,8 @@ static void prusa_stop(void *ctx)
     free(c);
 }
 
-/* Pause, resume, stop: PrusaLink PUT /api/v1/job/<id>/pause and /resume, DELETE /api/v1/job/<id>, with Digest authentication. Written from Tiger Studio's protocol notes; this driver
- * has not been run against a real printer, so the command is not verified. */
+/* Pause, resume, stop: PrusaLink PUT /api/v1/job/<id>/pause and /resume, DELETE /api/v1/job/<id>, with Digest authentication. Written from Tiger Studio's protocol notes;
+ * the three were seen working on a real printer by the owner (2026-10-18). */
 static bool prusa_control(void *ctx, pv_control_t cmd)
 {
     prusa_t *c = (prusa_t *)ctx;

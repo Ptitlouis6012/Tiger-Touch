@@ -21,8 +21,8 @@
  * A read-only session, seen by a third party on firmware V1.4.49, covered
  * discovery, the unauthenticated connection and commands 0 (status) and 1
  * (attributes). Pause (129), resume (131) and stop (130) are sent on a touch
- * (sdcp_control); their numbers come from the OpenCentauri API notes, not from a
- * CC1 session. This driver has NOT been run against a real CC1 yet. */
+ * (sdcp_control); their numbers come from the OpenCentauri API notes. The
+ * reading and the three commands were seen working on a real CC1 by the owner (2026-10-18). */
 
 #include <errno.h>
 #include <fcntl.h>
@@ -400,8 +400,8 @@ static void sdcp_stop(void *ctx)
     free(c);
 }
 
-/* Pause, resume, stop: SDCP commands 129 (pause), 131 (resume) and 130 (stop); the numbers come from the OpenCentauri API notes, which Studio itself flags as not confirmed on a CC1. Written from Tiger Studio's protocol notes; this driver
- * has not been run against a real printer, so the command is not verified. */
+/* Pause, resume, stop: SDCP commands 129 (pause), 131 (resume) and 130 (stop); the numbers come from the OpenCentauri API notes. Written from Tiger Studio's protocol notes;
+ * the three were seen working on a real printer by the owner (2026-10-18). */
 static bool sdcp_control(void *ctx, pv_control_t cmd)
 {
     static const int CMD[] = {[PV_CTL_PAUSE] = 129, [PV_CTL_RESUME] = 131, [PV_CTL_STOP] = 130};

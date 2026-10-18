@@ -200,7 +200,7 @@
       "meta": "Free firmware that turns a Panda Touch or K-Touch into a live screen for Elegoo 3D printers: Centauri Carbon 2, Centauri Carbon, and Neptune 4 via Klipper.",
       "og": "Turn a Panda Touch or K-Touch into a live screen for Elegoo Centauri Carbon 2 and Neptune 4 3D printers. Free, open source.",
       "connection": "On your local network: MQTT for the Centauri Carbon 2 (port 1883), SDCP for the Centauri Carbon (discovery on UDP 3000, then WebSocket 3030).",
-      "status": "Written from Elegoo's protocols and compiled; not yet run on a real Centauri Carbon. A report from your printer is the most useful thing you can send.",
+      "status": "Seen on real printers: a Centauri Carbon 2 and a Centauri Carbon, their state, progress and temperatures, pause, resume and stop, and the light on the Centauri Carbon 2.",
       "shows": [
         "State, progress, layers, time left and the file being printed",
         "Nozzle, bed and chamber temperatures",
@@ -212,13 +212,13 @@
         "Flash Tiger Touch, sign in with the same TigerSystem account.",
         "Switch the printer on in Settings > Printers."
       ],
-      "tips": "Tell us how it goes on your Centauri Carbon: an issue on GitHub with what the screen shows is how a driver goes from compiled to proven.",
+      "tips": "Something looks wrong on your Centauri Carbon? An issue on GitHub with what the screen shows helps us fix it.",
       "shot": "elegoo",
       "shot_alt": "Tiger Touch on a Panda Touch showing an Elegoo Centauri Carbon 2 printing, with its Canvas filament slots",
       "faq": [
         [
           "Is the Centauri Carbon supported?",
-          "Yes, both the Centauri Carbon (SDCP) and the Centauri Carbon 2 (MQTT). The drivers follow Elegoo's protocols and have not been run on a real printer yet."
+          "Yes, both the Centauri Carbon (SDCP) and the Centauri Carbon 2 (MQTT), each seen on a real printer."
         ],
         [
           "Does it need the Elegoo cloud?",
@@ -466,7 +466,7 @@
       "meta": "Free firmware that turns a Panda Touch or K-Touch into a live screen for Prusa Core One, MK4, XL and MINI 3D printers through PrusaLink, no Prusa Connect.",
       "og": "Turn a Panda Touch or K-Touch into a live screen for Prusa 3D printers: Core One, MK4, XL, MINI via PrusaLink. Free.",
       "connection": "PrusaLink over HTTP on your local network, with Digest authentication (or the legacy API key when your account holds one).",
-      "status": "Written from PrusaLink's API and compiled; not yet run on a real Prusa. A report from your printer is the most useful thing you can send.",
+      "status": "Seen on a real Prusa: state, progress, time left and temperatures, and pause, resume and stop through PrusaLink.",
       "shows": [
         "State, progress, time left and the file being printed",
         "Nozzle and bed temperatures, the chamber on a Core One"
@@ -477,7 +477,7 @@
         "Add the printer in Tiger Studio Manager (desktop app).",
         "Flash Tiger Touch, sign in with the same TigerSystem account, and switch the printer on in Settings > Printers."
       ],
-      "tips": "Tell us how it goes on your Prusa: an issue on GitHub with what the screen shows is how a driver goes from compiled to proven.",
+      "tips": "Something looks wrong on your Prusa? An issue on GitHub with what the screen shows helps us fix it.",
       "shot": "prusa",
       "shot_alt": "Tiger Touch on a Panda Touch showing a Prusa Core One printing: progress ring, time left and temperatures",
       "faq": [
@@ -491,7 +491,7 @@
         ],
         [
           "Was it tried on a real Prusa?",
-          "Not yet: the driver follows PrusaLink's API and is compiled. Reports are welcome."
+          "Yes: the screen's reading and pause, resume and stop were checked on a real Prusa."
         ]
       ],
       "lineup": [
@@ -539,7 +539,7 @@
       "meta": "Free firmware that turns a Panda Touch or K-Touch into a live screen for Klipper 3D printers (Voron, Qidi, Sovol) through Moonraker, with AFC and Happy Hare.",
       "og": "Turn a Panda Touch or K-Touch into a live screen for Voron, Qidi, Sovol and any Klipper 3D printer. Free and open source.",
       "connection": "Moonraker over HTTP on your local network (port 7125 unless you give another), read every 2 seconds, with an API key when Moonraker asks for one.",
-      "status": "Run against Tiger Studio Manager's Moonraker test printer: printing, paused, finished, cancelled, errors, the light and four AFC lanes. Not yet on a real printer.",
+      "status": "Seen on a real Klipper printer: state, progress, temperatures, pause, resume, stop and the light; every state, the errors and four AFC lanes were also run against Tiger Studio Manager's test printer.",
       "shows": [
         "State, progress, layers, time left and the file being printed",
         "Up to four extruders, the bed and a chamber sensor",

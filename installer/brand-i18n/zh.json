@@ -79,7 +79,7 @@
   "lead": "Tiger Touch 把 BIGTREETECH Panda Touch 或 K-Touch 变成 Elegoo Centauri Carbon 的实时屏幕：进度、温度，以及 Centauri Carbon 2 上的 Canvas 耗材系统。",
   "models": "Centauri Carbon 2（及 Combo）, Centauri 2（及 Combo）, Centauri Carbon",
   "connection": "在你的局域网中：Centauri Carbon 2 使用 MQTT（端口 1883），Centauri Carbon 使用 SDCP（通过 UDP 3000 发现，然后 WebSocket 3030）。",
-  "status": "依据 Elegoo 的协议编写并已编译；尚未在真实的 Centauri Carbon 上运行。来自你打印机的反馈是你能发送的最有用的东西。",
+  "status": "已在真实打印机上验证：一台 Centauri Carbon 2 和一台 Centauri Carbon，包括状态、进度和温度，暂停、继续和停止，以及 Centauri Carbon 2 上的灯光。",
   "shows": [
    "状态、进度、层数、剩余时间和正在打印的文件",
    "喷嘴、热床和仓温",
@@ -91,12 +91,12 @@
    "刷入 Tiger Touch，使用同一个 TigerSystem 账户登录。",
    "在 Settings > Printers 中启用该打印机。"
   ],
-  "tips": "请告诉我们它在你的 Centauri Carbon 上表现如何：在 GitHub 上提交一个 issue，附上屏幕显示的内容，驱动才能从“已编译”变为“已验证”。",
+  "tips": "你的 Centauri Carbon 上有异常？在 GitHub 上提交一个 issue，附上屏幕显示的内容，有助于我们修复。",
   "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台正在打印的 Elegoo Centauri Carbon 2，带其 Canvas 耗材槽位",
   "faq": [
    [
     "支持 Centauri Carbon 吗？",
-    "支持，Centauri Carbon（SDCP）和 Centauri Carbon 2（MQTT）都支持。这些驱动遵循 Elegoo 的协议，但尚未在真实打印机上运行过。"
+    "支持，Centauri Carbon（SDCP）和 Centauri Carbon 2（MQTT）都支持，且都已在真实打印机上验证。"
    ],
    [
     "需要 Elegoo 云吗？",
@@ -221,7 +221,7 @@
   "lead": "Tiger Touch 通过 PrusaLink 把 BIGTREETECH Panda Touch 或 K-Touch 变成 Prusa 打印机的实时屏幕：进度、剩余时间和温度。",
   "models": "Core One, Core One L, MK4S, MK4, MK3.5, XL, XL 5T, MINI",
   "connection": "局域网中基于 HTTP 的 PrusaLink，使用 Digest 认证（如果你的账户中保存了旧版 API 密钥，则使用该密钥）。",
-  "status": "依据 PrusaLink 的 API 编写并已编译；尚未在真实的 Prusa 上运行。来自你打印机的反馈是你能发送的最有用的东西。",
+  "status": "已在真实的 Prusa 上验证：状态、进度、剩余时间和温度，以及通过 PrusaLink 暂停、继续和停止。",
   "shows": [
    "状态、进度、剩余时间和正在打印的文件",
    "喷嘴和热床温度，Core One 还有仓温"
@@ -232,7 +232,7 @@
    "在 Tiger Studio Manager（桌面应用）中添加打印机。",
    "刷入 Tiger Touch，使用同一个 TigerSystem 账户登录，然后在 Settings > Printers 中启用该打印机。"
   ],
-  "tips": "请告诉我们它在你的 Prusa 上表现如何：在 GitHub 上提交一个 issue，附上屏幕显示的内容，驱动才能从“已编译”变为“已验证”。",
+  "tips": "你的 Prusa 上有异常？在 GitHub 上提交一个 issue，附上屏幕显示的内容，有助于我们修复。",
   "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台正在打印的 Prusa Core One：进度环、剩余时间和温度",
   "faq": [
    [
@@ -245,7 +245,7 @@
    ],
    [
     "在真实的 Prusa 上试过吗？",
-    "还没有：驱动遵循 PrusaLink 的 API 并已编译。欢迎反馈。"
+    "试过了：屏幕的读取以及暂停、继续和停止，都已在真实的 Prusa 上验证。"
    ]
   ]
  },
@@ -254,7 +254,7 @@
   "lead": "Tiger Touch 把 BIGTREETECH Panda Touch 或 K-Touch 变成任何带 Moonraker 的 Klipper 打印机的实时屏幕：进度、温度、最多四个挤出机、灯光，以及 AFC 或 Happy Hare 通道。",
   "models": "Voron, Qidi, Sovol, RatRig 以及任何运行 Klipper 和 Moonraker 的打印机",
   "connection": "局域网中基于 HTTP 的 Moonraker（端口 7125，除非你指定其他端口），每 2 秒读取一次，Moonraker 要求时使用 API 密钥。",
-  "status": "已对照 Tiger Studio Manager 的 Moonraker 测试打印机运行：打印中、已暂停、已完成、已取消、错误、灯光和四个 AFC 通道。尚未在真实打印机上运行。",
+  "status": "已在真实的 Klipper 打印机上验证：状态、进度、温度，暂停、继续、停止和灯光；各种状态、错误和四个 AFC 通道也已对照 Tiger Studio Manager 的测试打印机运行。",
   "shows": [
    "状态、进度、层数、剩余时间和正在打印的文件",
    "最多四个挤出机、热床和一个仓温传感器",

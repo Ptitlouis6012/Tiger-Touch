@@ -79,7 +79,7 @@
   "lead": "Tiger Touch convierte un BIGTREETECH Panda Touch o K-Touch en una pantalla en directo para tu Elegoo Centauri Carbon: progreso, temperaturas y, en la Centauri Carbon 2, el sistema de filamento Canvas.",
   "models": "Centauri Carbon 2 (y Combo), Centauri 2 (y Combo), Centauri Carbon",
   "connection": "En tu red local: MQTT para la Centauri Carbon 2 (puerto 1883), SDCP para la Centauri Carbon (descubrimiento en UDP 3000, luego WebSocket 3030).",
-  "status": "Escrito a partir de los protocolos de Elegoo y compilado; aún no probado en una Centauri Carbon real. Un informe de tu impresora es lo más útil que puedes enviar.",
+  "status": "Visto en impresoras reales: una Centauri Carbon 2 y una Centauri Carbon, con su estado, progreso y temperaturas, pausar, reanudar y parar, y la luz de la Centauri Carbon 2.",
   "shows": [
    "Estado, progreso, capas, tiempo restante y el archivo que se imprime",
    "Temperaturas de la boquilla, la cama y la cámara",
@@ -91,12 +91,12 @@
    "Instala Tiger Touch, inicia sesión con la misma cuenta TigerSystem.",
    "Activa la impresora en Settings > Printers."
   ],
-  "tips": "Cuéntanos qué tal va en tu Centauri Carbon: una incidencia en GitHub con lo que muestra la pantalla es como un controlador pasa de compilado a probado.",
+  "tips": "¿Algo se ve mal en tu Centauri Carbon? Una incidencia en GitHub con lo que muestra la pantalla nos ayuda a corregirlo.",
   "shot_alt": "Tiger Touch en un Panda Touch mostrando una Elegoo Centauri Carbon 2 imprimiendo, con sus ranuras de filamento Canvas",
   "faq": [
    [
     "¿Es compatible la Centauri Carbon?",
-    "Sí, tanto la Centauri Carbon (SDCP) como la Centauri Carbon 2 (MQTT). Los controladores siguen los protocolos de Elegoo y aún no se han probado en una impresora real."
+    "Sí, tanto la Centauri Carbon (SDCP) como la Centauri Carbon 2 (MQTT), cada una vista en una impresora real."
    ],
    [
     "¿Necesita la nube de Elegoo?",
@@ -221,7 +221,7 @@
   "lead": "Tiger Touch convierte un BIGTREETECH Panda Touch o K-Touch en una pantalla en directo para tus impresoras Prusa a través de PrusaLink: progreso, tiempo restante y temperaturas.",
   "models": "Core One, Core One L, MK4S, MK4, MK3.5, XL, XL 5T, MINI",
   "connection": "PrusaLink sobre HTTP en tu red local, con autenticación Digest (o la clave de API heredada cuando tu cuenta tiene una).",
-  "status": "Escrito a partir de la API de PrusaLink y compilado; aún no probado en una Prusa real. Un informe de tu impresora es lo más útil que puedes enviar.",
+  "status": "Visto en una Prusa real: estado, progreso, tiempo restante y temperaturas, y pausar, reanudar y parar por PrusaLink.",
   "shows": [
    "Estado, progreso, tiempo restante y el archivo que se imprime",
    "Temperaturas de la boquilla y la cama, la cámara en una Core One"
@@ -232,7 +232,7 @@
    "Añade la impresora en Tiger Studio Manager (aplicación de escritorio).",
    "Instala Tiger Touch, inicia sesión con la misma cuenta TigerSystem y activa la impresora en Settings > Printers."
   ],
-  "tips": "Cuéntanos qué tal va en tu Prusa: una incidencia en GitHub con lo que muestra la pantalla es como un controlador pasa de compilado a probado.",
+  "tips": "¿Algo se ve mal en tu Prusa? Una incidencia en GitHub con lo que muestra la pantalla nos ayuda a corregirlo.",
   "shot_alt": "Tiger Touch en un Panda Touch mostrando una Prusa Core One imprimiendo: anillo de progreso, tiempo restante y temperaturas",
   "faq": [
    [
@@ -245,7 +245,7 @@
    ],
    [
     "¿Se ha probado en una Prusa real?",
-    "Todavía no: el controlador sigue la API de PrusaLink y está compilado. Los informes son bienvenidos."
+    "Sí: la lectura de la pantalla y pausar, reanudar y parar se han comprobado en una Prusa real."
    ]
   ]
  },
@@ -254,7 +254,7 @@
   "lead": "Tiger Touch convierte un BIGTREETECH Panda Touch o K-Touch en una pantalla en directo para cualquier impresora Klipper con Moonraker: progreso, temperaturas, hasta cuatro extrusores, la luz y los carriles AFC o Happy Hare.",
   "models": "Voron, Qidi, Sovol, RatRig y cualquier impresora con Klipper y Moonraker",
   "connection": "Moonraker sobre HTTP en tu red local (puerto 7125 salvo que indiques otro), leído cada 2 segundos, con una clave de API cuando Moonraker la pide.",
-  "status": "Probado con la impresora de prueba Moonraker de Tiger Studio Manager: imprimiendo, en pausa, terminada, cancelada, errores, la luz y cuatro carriles AFC. Aún no en una impresora real.",
+  "status": "Visto en una impresora Klipper real: estado, progreso, temperaturas, pausar, reanudar, parar y la luz; además, todos los estados, los errores y cuatro carriles AFC se probaron con la impresora de prueba de Tiger Studio Manager.",
   "shows": [
    "Estado, progreso, capas, tiempo restante y el archivo que se imprime",
    "Hasta cuatro extrusores, la cama y un sensor de cámara",

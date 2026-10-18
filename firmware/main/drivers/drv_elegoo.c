@@ -345,8 +345,8 @@ static void elg_stop(void *ctx)
     free(c);
 }
 
-/* Pause, resume, stop: methods 1021 (pause), 1023 (resume) and 1022 (cancel) on the request topic. Written from Tiger Studio's protocol notes; this driver
- * has not been run against a real printer, so the command is not verified. */
+/* Pause, resume, stop: methods 1021 (pause), 1023 (resume) and 1022 (cancel) on the request topic. Written from Tiger Studio's protocol notes;
+ * pause, resume, stop and the light were seen working on a real printer by the owner (2026-10-18). */
 static bool elg_control(void *ctx, pv_control_t cmd)
 {
     static const int METHOD[] = {[PV_CTL_PAUSE] = 1021, [PV_CTL_RESUME] = 1023, [PV_CTL_STOP] = 1022};

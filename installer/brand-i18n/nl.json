@@ -79,7 +79,7 @@
   "lead": "Tiger Touch verandert een BIGTREETECH Panda Touch of K-Touch in een live scherm voor uw Elegoo Centauri Carbon: voortgang, temperaturen en, op de Centauri Carbon 2, het Canvas-filamentsysteem.",
   "models": "Centauri Carbon 2 (en Combo), Centauri 2 (en Combo), Centauri Carbon",
   "connection": "Op uw lokale netwerk: MQTT voor de Centauri Carbon 2 (poort 1883), SDCP voor de Centauri Carbon (ontdekking via UDP 3000, daarna WebSocket 3030).",
-  "status": "Geschreven naar de protocollen van Elegoo en gecompileerd; nog niet gedraaid op een echte Centauri Carbon. Een melding van uw printer is het nuttigste dat u kunt sturen.",
+  "status": "Gezien op echte printers: een Centauri Carbon 2 en een Centauri Carbon, hun status, voortgang en temperaturen, pauzeren, hervatten en stoppen, en het licht op de Centauri Carbon 2.",
   "shows": [
    "Status, voortgang, lagen, resterende tijd en het bestand dat wordt geprint",
    "Temperaturen van nozzle, bed en kamer",
@@ -91,12 +91,12 @@
    "Installeer Tiger Touch en meld u aan met hetzelfde TigerSystem-account.",
    "Schakel de printer in via Settings > Printers."
   ],
-  "tips": "Vertel ons hoe het gaat op uw Centauri Carbon: een issue op GitHub met wat het scherm toont is hoe een driver van gecompileerd naar bewezen gaat.",
+  "tips": "Ziet er iets verkeerd uit op uw Centauri Carbon? Een issue op GitHub met wat het scherm toont helpt ons het te verhelpen.",
   "shot_alt": "Tiger Touch op een Panda Touch die een Elegoo Centauri Carbon 2 tijdens het printen toont, met zijn Canvas-filamentslots",
   "faq": [
    [
     "Wordt de Centauri Carbon ondersteund?",
-    "Ja, zowel de Centauri Carbon (SDCP) als de Centauri Carbon 2 (MQTT). De drivers volgen de protocollen van Elegoo en zijn nog niet gedraaid op een echte printer."
+    "Ja, zowel de Centauri Carbon (SDCP) als de Centauri Carbon 2 (MQTT), elk gezien op een echte printer."
    ],
    [
     "Heeft het de Elegoo-cloud nodig?",
@@ -221,7 +221,7 @@
   "lead": "Tiger Touch verandert een BIGTREETECH Panda Touch of K-Touch via PrusaLink in een live scherm voor uw Prusa-printers: voortgang, resterende tijd en temperaturen.",
   "models": "Core One, Core One L, MK4S, MK4, MK3.5, XL, XL 5T, MINI",
   "connection": "PrusaLink via HTTP op uw lokale netwerk, met Digest-authenticatie (of de oude API-sleutel als uw account er een bevat).",
-  "status": "Geschreven naar de API van PrusaLink en gecompileerd; nog niet gedraaid op een echte Prusa. Een melding van uw printer is het nuttigste dat u kunt sturen.",
+  "status": "Gezien op een echte Prusa: status, voortgang, resterende tijd en temperaturen, en pauzeren, hervatten en stoppen via PrusaLink.",
   "shows": [
    "Status, voortgang, resterende tijd en het bestand dat wordt geprint",
    "Temperaturen van nozzle en bed, de kamer op een Core One"
@@ -232,7 +232,7 @@
    "Voeg de printer toe in Tiger Studio Manager (desktop-app).",
    "Installeer Tiger Touch, meld u aan met hetzelfde TigerSystem-account en schakel de printer in via Settings > Printers."
   ],
-  "tips": "Vertel ons hoe het gaat op uw Prusa: een issue op GitHub met wat het scherm toont is hoe een driver van gecompileerd naar bewezen gaat.",
+  "tips": "Ziet er iets verkeerd uit op uw Prusa? Een issue op GitHub met wat het scherm toont helpt ons het te verhelpen.",
   "shot_alt": "Tiger Touch op een Panda Touch die een Prusa Core One tijdens het printen toont: voortgangsring, resterende tijd en temperaturen",
   "faq": [
    [
@@ -245,7 +245,7 @@
    ],
    [
     "Is het op een echte Prusa geprobeerd?",
-    "Nog niet: de driver volgt de API van PrusaLink en is gecompileerd. Meldingen zijn welkom."
+    "Ja: het uitlezen door het scherm en pauzeren, hervatten en stoppen zijn gecontroleerd op een echte Prusa."
    ]
   ]
  },
@@ -254,7 +254,7 @@
   "lead": "Tiger Touch verandert een BIGTREETECH Panda Touch of K-Touch in een live scherm voor elke Klipper-printer met Moonraker: voortgang, temperaturen, tot vier extruders, het licht en AFC- of Happy Hare-lanes.",
   "models": "Voron, Qidi, Sovol, RatRig en elke printer die Klipper met Moonraker draait",
   "connection": "Moonraker via HTTP op uw lokale netwerk (poort 7125 tenzij u een andere opgeeft), om de 2 seconden uitgelezen, met een API-sleutel als Moonraker erom vraagt.",
-  "status": "Gedraaid tegen de Moonraker-testprinter van Tiger Studio Manager: printen, gepauzeerd, klaar, geannuleerd, fouten, het licht en vier AFC-lanes. Nog niet op een echte printer.",
+  "status": "Gezien op een echte Klipper-printer: status, voortgang, temperaturen, pauzeren, hervatten, stoppen en het licht; alle statussen, de fouten en vier AFC-lanes zijn ook gedraaid tegen de testprinter van Tiger Studio Manager.",
   "shows": [
    "Status, voortgang, lagen, resterende tijd en het bestand dat wordt geprint",
    "Tot vier extruders, het bed en een kamersensor",

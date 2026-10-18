@@ -176,6 +176,14 @@ they were written.
 
 - **The TigerSquad card sits right under the top of every brand page**, as it
   does on the installer page, instead of near the foot.
+- **Elegoo, Prusa and Klipper are seen on real printers** (the owner, 2026-10-18):
+  the Centauri Carbon 2 and the Centauri Carbon (reading, pause, resume, stop, and
+  the Centauri Carbon 2's light), a Prusa through PrusaLink (reading, pause,
+  resume, stop) and a Klipper printer (reading, pause, resume, stop, light). The
+  compatibility document, the drivers' headers, the README and the brand pages
+  in eleven languages say so.
+- **The K-Touch is the same board with another BIGTREETECH firmware**: the site
+  and the README no longer call it untested.
 ### Fixed
 - **The site's accessibility**, on the installer and every brand page:
   - the closed language menu no longer takes keyboard stops; open, it shows

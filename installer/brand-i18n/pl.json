@@ -79,7 +79,7 @@
   "lead": "Tiger Touch zamienia BIGTREETECH Panda Touch lub K-Touch w ekran na żywo dla twojego Elegoo Centauri Carbon: postęp, temperatury i, w Centauri Carbon 2, system filamentu Canvas.",
   "models": "Centauri Carbon 2 (i Combo), Centauri 2 (i Combo), Centauri Carbon",
   "connection": "W twojej sieci lokalnej: MQTT dla Centauri Carbon 2 (port 1883), SDCP dla Centauri Carbon (wykrywanie na UDP 3000, potem WebSocket 3030).",
-  "status": "Napisane na podstawie protokołów Elegoo i skompilowane; jeszcze nie uruchomione na prawdziwym Centauri Carbon. Najbardziej pomocne jest zgłoszenie z twojej drukarki.",
+  "status": "Widziano na prawdziwych drukarkach: Centauri Carbon 2 i Centauri Carbon, ich stan, postęp i temperatury, pauzę, wznowienie i stop oraz oświetlenie w Centauri Carbon 2.",
   "shows": [
    "Stan, postęp, warstwy, pozostały czas i drukowany plik",
    "Temperatury dyszy, stołu i komory",
@@ -91,12 +91,12 @@
    "Wgraj Tiger Touch, zaloguj się na to samo konto TigerSystem.",
    "Włącz drukarkę w Settings > Printers."
   ],
-  "tips": "Daj znać, jak działa na twoim Centauri Carbon: zgłoszenie na GitHubie z tym, co pokazuje ekran, sprawia, że sterownik przechodzi ze skompilowanego do sprawdzonego.",
+  "tips": "Coś wygląda nie tak na twoim Centauri Carbon? Zgłoszenie na GitHubie z tym, co pokazuje ekran, pomaga nam to naprawić.",
   "shot_alt": "Tiger Touch na Panda Touch pokazujący drukujący Elegoo Centauri Carbon 2 z jego slotami filamentu Canvas",
   "faq": [
    [
     "Czy Centauri Carbon jest obsługiwany?",
-    "Tak, zarówno Centauri Carbon (SDCP), jak i Centauri Carbon 2 (MQTT). Sterowniki wykorzystują protokoły Elegoo i nie były jeszcze uruchomione na prawdziwej drukarce."
+    "Tak, zarówno Centauri Carbon (SDCP), jak i Centauri Carbon 2 (MQTT), każdy sprawdzony na prawdziwej drukarce."
    ],
    [
     "Czy potrzebna jest chmura Elegoo?",
@@ -221,7 +221,7 @@
   "lead": "Tiger Touch zamienia BIGTREETECH Panda Touch lub K-Touch w ekran na żywo dla twoich drukarek Prusa przez PrusaLink: postęp, pozostały czas i temperatury.",
   "models": "Core One, Core One L, MK4S, MK4, MK3.5, XL, XL 5T, MINI",
   "connection": "PrusaLink przez HTTP w twojej sieci lokalnej, z uwierzytelnianiem Digest (lub starszym kluczem API, gdy twoje konto go zawiera).",
-  "status": "Napisane na podstawie API PrusaLink i skompilowane; jeszcze nie uruchomione na prawdziwej Prusie. Najbardziej pomocne jest zgłoszenie z twojej drukarki.",
+  "status": "Widziano na prawdziwej Prusie: stan, postęp, pozostały czas i temperatury oraz pauzę, wznowienie i stop przez PrusaLink.",
   "shows": [
    "Stan, postęp, pozostały czas i drukowany plik",
    "Temperatury dyszy i stołu, komora w Core One"
@@ -232,7 +232,7 @@
    "Dodaj drukarkę w Tiger Studio Manager (aplikacja desktopowa).",
    "Wgraj Tiger Touch, zaloguj się na to samo konto TigerSystem i włącz drukarkę w Settings > Printers."
   ],
-  "tips": "Daj znać, jak działa na twojej Prusie: zgłoszenie na GitHubie z tym, co pokazuje ekran, sprawia, że sterownik przechodzi ze skompilowanego do sprawdzonego.",
+  "tips": "Coś wygląda nie tak na twojej Prusie? Zgłoszenie na GitHubie z tym, co pokazuje ekran, pomaga nam to naprawić.",
   "shot_alt": "Tiger Touch na Panda Touch pokazujący drukującą Prusa Core One: pierścień postępu, pozostały czas i temperatury",
   "faq": [
    [
@@ -245,7 +245,7 @@
    ],
    [
     "Czy sprawdzono na prawdziwej Prusie?",
-    "Jeszcze nie: sterownik wykorzystuje API PrusaLink i jest skompilowany. Zgłoszenia mile widziane."
+    "Tak: odczyt ekranu oraz pauzę, wznowienie i stop sprawdzono na prawdziwej Prusie."
    ]
   ]
  },
@@ -254,7 +254,7 @@
   "lead": "Tiger Touch zamienia BIGTREETECH Panda Touch lub K-Touch w ekran na żywo dla każdej drukarki Klipper z Moonraker: postęp, temperatury, do czterech extruderów, oświetlenie oraz tory AFC lub Happy Hare.",
   "models": "Voron, Qidi, Sovol, RatRig i każda drukarka z Klipper i Moonraker",
   "connection": "Moonraker przez HTTP w twojej sieci lokalnej (port 7125, chyba że podasz inny), odczyt co 2 sekundy, z kluczem API, gdy Moonraker o niego prosi.",
-  "status": "Uruchomiono na testowej drukarce Moonraker z Tiger Studio Manager: druk, pauza, zakończenie, anulowanie, błędy, oświetlenie i cztery tory AFC. Jeszcze nie na prawdziwej drukarce.",
+  "status": "Widziano na prawdziwej drukarce Klipper: stan, postęp, temperatury, pauzę, wznowienie, stop i oświetlenie; wszystkie stany, błędy i cztery tory AFC uruchomiono też na testowej drukarce Tiger Studio Manager.",
   "shows": [
    "Stan, postęp, warstwy, pozostały czas i drukowany plik",
    "Do czterech extruderów, stół i czujnik komory",
