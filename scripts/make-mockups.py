@@ -14,10 +14,11 @@ on the first build):
   python3 scripts/make-mockups.py            every view, screen alone and in the frame
   python3 scripts/make-mockups.py cards      one view: cards, list, update, tour or stills
 
-Writes assets/mockups/animated/<view>.gif and .webp (the screen, 800x480),
-<view>-front (in the front picture of the Panda Touch) and <view>-angle (in the
-three-quarter picture); `stills` writes every screen, still, in the three-quarter
-picture to assets/mockups/angle/.
+Writes assets/mockups/animated/screen/tiger-touch-screen-<view>.gif and .webp (the
+screen, 800x480), animated/front/panda-touch-front-<view> (in the front picture of
+the Panda Touch) and animated/angle/panda-touch-angle-<view> (in the three-quarter
+photograph); `stills` writes every
+screen, still, in the three-quarter photograph to assets/mockups/angle/.
 """
 import math
 import pathlib
@@ -420,12 +421,15 @@ def save(name, frames, step_ms=150, hold_ms=1800, framings=("front",)):
             sheet.paste(f, (0, k * f.height))
         pal = sheet.quantize(colors=256, method=Image.Quantize.MAXCOVERAGE)
         gif = [f.quantize(palette=pal, dither=Image.Dither.NONE) for f in flat]
-        base = OUT / (name + suffix)
+        folder = suffix.lstrip("-") or "screen"
+        prefix = {"screen": "tiger-touch-screen-", "front": "panda-touch-front-", "angle": "panda-touch-angle-"}[folder]
+        base = OUT / folder / (prefix + name)  # a different name in each folder: downloads do not collide
+        base.parent.mkdir(parents=True, exist_ok=True)
         gif[0].save(base.with_suffix(".gif"), save_all=True, append_images=gif[1:], duration=durations, loop=0,
                     optimize=True)
         fr[0].save(base.with_suffix(".webp"), save_all=True, append_images=fr[1:], duration=durations, loop=0,
                    quality=90)
-        print("  %s.gif %d KB, .webp %d KB" % (base.name, base.with_suffix(".gif").stat().st_size // 1024,
+        print("  %s/%s.gif %d KB, .webp %d KB" % (base.parent.name, base.name, base.with_suffix(".gif").stat().st_size // 1024,
                                                base.with_suffix(".webp").stat().st_size // 1024))
 
 

@@ -141,6 +141,11 @@ they were written.
   three-quarter photograph (`assets/mockups/angle/`). In the media kit and the
   README. Made by `scripts/make-mockups.py`; the method, for people and agents
   making another view, in `docs/MOCKUPS.md`.
+- **The installer page shows the tour in the three-quarter photograph**: the
+  start-up screen, then the list, then the cards, transparent on either theme,
+  in place of the turning drawing; its description follows the language.
+- **Animations in three folders**, `assets/mockups/animated/screen/`, `front/`
+  and `angle/`, and three galleries in the media kit.
 ### Changed
 - **One stylesheet and one theme script for the whole site** (`installer/site.css`,
   `installer/theme.js`), shared by the installer page and the brand pages; the

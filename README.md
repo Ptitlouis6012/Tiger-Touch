@@ -473,7 +473,7 @@ the facts, ready-to-use descriptions, the screen in front view with every captur
 the illustrations and the share pictures.
 
 <p align="center">
-  <a href="https://tigertag-project.github.io/Tiger-Touch/press/"><img src="assets/mockups/animated/tour-angle.gif" alt="The Panda Touch running Tiger Touch: the start-up screen, then the printers as a list and as cards, their progress climbing" width="300"></a>
+  <a href="https://tigertag-project.github.io/Tiger-Touch/press/"><img src="assets/mockups/animated/angle/panda-touch-angle-tour.gif" alt="The Panda Touch running Tiger Touch: the start-up screen, then the printers as a list and as cards, their progress climbing" width="300"></a>
   <a href="https://tigertag-project.github.io/Tiger-Touch/press/"><img src="assets/mockups/front/panda-touch-front-brands-title-row.png" alt="The Panda Touch, front view, its screen showing TigerTouch and the logos of the nine supported printer families" width="300"></a>
 </p>
 

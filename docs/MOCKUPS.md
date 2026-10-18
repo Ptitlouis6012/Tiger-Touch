@@ -13,7 +13,7 @@ the device except a new capture.
 | [`assets/devices/`](../assets/devices/) | The Panda Touch alone, transparent PNGs (front, three-quarter, back, dock); the 45-degree drawings | BIGTREETECH's product pictures, cut out; the drawings by hand |
 | [`assets/mockups/front/`](../assets/mockups/front/) | Each capture in the front picture | the method below, *Still mockups* |
 | [`assets/mockups/angle/`](../assets/mockups/angle/) | Each capture, the start-up screen and the protocols' screens in the three-quarter photograph | [`scripts/make-mockups.py`](../scripts/make-mockups.py) `stills` |
-| [`assets/mockups/animated/`](../assets/mockups/animated/) | Views that move (cards, list, update, and the tour: start-up, list, cards), the screen alone, in the front picture (`-front`) and in the three-quarter photograph (`-angle`), GIF and WebP | [`scripts/make-mockups.py`](../scripts/make-mockups.py) |
+| [`assets/mockups/animated/`](../assets/mockups/animated/) | Views that move (cards, list, update, and the tour: start-up, list, cards), the screen alone, in the front picture (`front/`) and in the three-quarter photograph (`angle/`), each in its own folder, GIF and WebP | [`scripts/make-mockups.py`](../scripts/make-mockups.py) |
 | [`assets/brand/`](../assets/brand/) | TigerSystem's square tiger head, framed and full | TigerTag-RFID-Guide's brand folder |
 
 All of it is in the media kit, `press/` on the site, with one ZIP of the lot.

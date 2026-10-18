@@ -51,7 +51,7 @@ We're sharing our own community project. It is independent of, and not endorsed 
 
 1. [PandaTouch Reforged cover](../../assets/social/pandatouch-reforged.png) - the visual hook: from a dusty box to a screen running TigerTouch. Concept illustration, not an installation procedure.
 2. [Actual Bambu X1 Carbon interface in the device frame](../../assets/mockups/front/panda-touch-front-printer-bambu-x1c.png) - lets people inspect the interface without the illustrated workshop.
-3. [Cards view animation](../../assets/mockups/animated/cards-front.gif) - optional follow-up showing the existing Demo mode interface. A time-lapse with made-up printer data, not a recording of live printers.
+3. [Cards view animation](../../assets/mockups/animated/front/panda-touch-front-cards.gif) - optional follow-up showing the existing Demo mode interface. A time-lapse with made-up printer data, not a recording of live printers.
 
 Suggested cover alternative text: "PandaTouch Reforged: an unused black Panda Touch in a cardboard box, a symbolic circuit board on an anvil, and the same device running TigerTouch with a Bambu X1 Carbon dashboard. Free, open-source firmware by TigerSquad at TigerSystem. Screen shown in Demo mode."
 
