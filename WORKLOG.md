@@ -12,3 +12,8 @@ reset to this header at each release.
 - Site: one stylesheet and theme script shared by every page.
 - TigerSystem account, not TigerTag account: installer, README, docs, screen texts.
 - Installer: the README's turning picture of the screen; the brand strip across the whole page.
+- Site: every page in eleven languages (brand pages included): one lang.js, brand words in installer/brand-i18n/.
+
+## Fixed
+- Share pictures: the button reads "Install for free".
+- Site accessibility: language menu keyboard and focus, contrasts (light orange, buttons, TigerSquad card), phone comparison as cards, balanced printer rows, 44 px targets, notice after the title on phones, reduced motion.

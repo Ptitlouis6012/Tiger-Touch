@@ -5,25 +5,28 @@
 :root {
   --bg: #14161a; --card: #1e2128; --line: #2b2f38; --text: #f2f2f2;
   --muted: #8b909a; --accent: #f58220; --danger: #f06a6a; --ok: #3ecf8e;
+  /* Small text in orange (links, labels): 4.5:1 at least on the page and on a
+     card. --accent stays for large titles, borders and fills. */
+  --link: #f58220;
   --warn-bg: #3a1f1f; --warn-line: #5a2f2f; --shadow: rgba(0, 0, 0, .45);
   color-scheme: dark;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     --bg: #f4f5f7; --card: #ffffff; --line: #dde0e6; --text: #16181d;
-    --muted: #5d6470; --accent: #e06d0c; --danger: #c93a3a; --ok: #1a9a62;
+    --muted: #5d6470; --accent: #e06d0c; --danger: #c93a3a; --ok: #1a9a62; --link: #b04a08;
     --warn-bg: #fdecec; --warn-line: #f2c4c4; --shadow: rgba(0, 0, 0, .12);
     color-scheme: light;
   }
 }
 :root[data-theme="light"] {
   --bg: #f4f5f7; --card: #ffffff; --line: #dde0e6; --text: #16181d;
-  --muted: #5d6470; --accent: #e06d0c; --danger: #c93a3a; --ok: #1a9a62;
+  --muted: #5d6470; --accent: #e06d0c; --danger: #c93a3a; --ok: #1a9a62; --link: #b04a08;
   --warn-bg: #fdecec; --warn-line: #f2c4c4; --shadow: rgba(0, 0, 0, .12);
   color-scheme: light;
 }
 .themebtn {
-  display: grid; place-items: center; width: 36px; height: 36px; cursor: pointer;
+  display: grid; place-items: center; width: 44px; height: 44px; cursor: pointer;
   background: var(--bg); color: var(--muted); border: 1px solid var(--line); border-radius: 10px;
 }
 .themebtn:hover { border-color: var(--accent); color: var(--text); }
@@ -43,7 +46,7 @@ header.bar { padding: 20px 0 8px; }
 header.bar .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
 .logo { font-size: 1rem; font-weight: 700; color: var(--muted); text-decoration: none; letter-spacing: .02em; }
 .logo span { color: var(--muted); font-weight: 400; }
-.logo:hover, .logo:hover span { color: var(--accent); }
+.logo:hover, .logo:hover span { color: var(--link); }
 main { padding: 8px 0 40px; }
 section { margin-top: 28px; }
 .card {
@@ -81,13 +84,14 @@ b { color: var(--text); }
 .join {
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
   padding: 30px 32px; border-radius: 18px; color: #fff;
-  background: linear-gradient(120deg, #f58220 0%, #e2531b 55%, #b8361a 100%);
+  /* Deep enough under every word for white text: 5.2:1 at its lightest. */
+  background: linear-gradient(120deg, #c2410c 0%, #b03a12 55%, #9a2f12 100%);
 }
 .join h2 { margin: 0 0 6px; font-size: clamp(1.35rem, 1rem + 1.4vw, 2rem); }
-.join p { margin: 0; color: rgba(255, 255, 255, .88); }
+.join p { margin: 0; color: #fff; }
 .joinbtn {
   flex: 0 0 auto; padding: 14px 26px; border-radius: 999px; text-decoration: none;
-  background: #fff; color: #b8361a; font-weight: 700; white-space: nowrap;
+  background: #fff; color: #9a2f12; font-weight: 700; white-space: nowrap;
   box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
 }
 .joinbtn:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0, 0, 0, .24); }
@@ -103,7 +107,7 @@ b { color: var(--text); }
   /* The name at the top, then the promise, the screen, the install card; the brands under them. */
   .hero { grid-template-columns: 1fr; gap: 0; }
   .hero .intro { display: contents; }
-  .hero .name { order: 1; } .hero .headline { order: 2; } .hero .lead { order: 3; }
+  .hero .name { order: 1; } .hero .headline { order: 2; } .hero .lead { order: 3; } .hero .need { order: 4; }
   .show { order: 5; margin: 6px 0 22px; } .hero .install { order: 6; }
   .views { width: min(380px, 80%); }
   .hero .name, .hero .headline, .hero .lead { text-align: center; }
@@ -118,12 +122,13 @@ b { color: var(--text); }
   .views { width: 88%; }
 }
 .pill {
-  display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 999px; min-height: 44px;
   border: 1px solid var(--line); color: var(--text); text-decoration: none; font-size: .9rem;
 }
-.pill:hover { border-color: var(--accent); color: var(--accent); }
-.pill.solid { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
-.pill.solid:hover { filter: brightness(1.08); color: #fff; }
+.pill:hover { border-color: var(--link); color: var(--link); }
+/* Dark text on orange: white on this orange is under 4.5:1 in both themes. */
+.pill.solid, .pill.solid:visited { background: var(--accent); border-color: var(--accent); color: #14161a; font-weight: 600; }
+.pill.solid:hover { filter: brightness(1.08); color: #14161a; }
 .pill svg { width: 16px; height: 16px; }
 .support { text-align: center; margin-top: 22px; }
 .support p { font-size: .9rem; margin: 0 0 10px; }
@@ -134,7 +139,7 @@ b { color: var(--text); }
 .cmp th, .cmp td { padding: 10px 10px; border-bottom: 1px solid var(--line); text-align: center; color: var(--muted); }
 .cmp th { color: var(--text); font-weight: 600; vertical-align: bottom; }
 .cmp td:first-child { text-align: left; color: var(--text); }
-.cmp .tt { color: var(--accent); background: rgba(245, 130, 32, .07); }
+.cmp .tt { color: var(--link); background: rgba(245, 130, 32, .07); }
 .cmp .yes { color: var(--ok); font-weight: 700; }
 .cmp .tt.yes { color: var(--ok); }
 .cmp .no { color: var(--danger); }
@@ -151,14 +156,14 @@ esp-web-install-button button[slot="activate"]:hover { filter: brightness(1.08);
 small { color: var(--muted); display: block; margin-top: 18px; }
 small + small { margin-top: 8px; }
 .ver { font-size: .9rem; color: var(--muted); margin: 0 0 18px; }
-a { color: var(--accent); }
+a { color: var(--link); }
 
 /* Language menu. A native <select> cannot be styled below its border. */
 .langbox { position: relative; flex: 0 0 auto; }
 .langbtn {
   display: flex; align-items: center; gap: 8px; cursor: pointer;
   background: var(--bg); color: var(--text); font: inherit; font-size: .9rem;
-  border: 1px solid var(--line); border-radius: 10px; padding: 7px 10px;
+  border: 1px solid var(--line); border-radius: 10px; padding: 7px 12px; min-height: 44px;
 }
 .langbtn:hover, .langbox[data-open="1"] .langbtn { border-color: var(--accent); }
 .langbtn svg { width: 15px; height: 15px; color: var(--muted); flex: 0 0 auto; }
@@ -168,16 +173,18 @@ a { color: var(--accent); }
   list-style: none; min-width: 190px; max-height: 60vh; overflow-y: auto;
   background: var(--card); border: 1px solid var(--line); border-radius: 12px;
   box-shadow: 0 12px 32px var(--shadow);
-  opacity: 0; transform: translateY(-4px); pointer-events: none;
-  transition: opacity .12s, transform .12s;
+  /* Closed, it is hidden from the keyboard too (visibility), after its fade. */
+  opacity: 0; transform: translateY(-4px); pointer-events: none; visibility: hidden;
+  transition: opacity .12s, transform .12s, visibility 0s .12s;
 }
-.langbox[data-open="1"] .langmenu { opacity: 1; transform: none; pointer-events: auto; }
+.langbox[data-open="1"] .langmenu { opacity: 1; transform: none; pointer-events: auto; visibility: visible; transition-delay: 0s; }
 .langmenu li {
   display: flex; justify-content: space-between; align-items: center; gap: 12px;
   margin: 0; padding: 8px 10px; border-radius: 8px; cursor: pointer; color: var(--text);
 }
-.langmenu li:hover, .langmenu li:focus-visible { background: var(--bg); outline: none; }
-.langmenu li[aria-selected="true"] { color: var(--accent); font-weight: 600; }
+.langmenu li:hover { background: var(--bg); }
+.langmenu li:focus-visible { background: var(--bg); outline: 2px solid var(--link); outline-offset: -2px; }
+.langmenu li[aria-selected="true"] { color: var(--link); font-weight: 600; }
 .langmenu li svg { width: 14px; height: 14px; opacity: 0; color: var(--accent); }
 .langmenu li[aria-selected="true"] svg { opacity: 1; }
 
@@ -188,33 +195,36 @@ nav.brands { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); ga
 nav.brands a, nav.brands a:visited { display: flex; flex-direction: column; align-items: center; gap: 10px;
   color: var(--text); text-decoration: none; font-weight: 600; font-size: .95rem; text-align: center; }
 nav.brands svg { width: 48px; height: 48px; }
-nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.cur:visited { color: var(--accent); }
+nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.cur:visited { color: var(--link); }
 @media (max-width: 760px) { nav.brands { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* ---- A brand's page (scripts/make-brand-pages.py) -------------------------- */
 .crumbs { margin: 6px 0 18px; color: var(--muted); font-size: .92rem; }
 .crumbs a { color: var(--muted); }
-.crumbs a:hover { color: var(--accent); }
+.crumbs a:hover { color: var(--link); }
 .bp-hero { align-items: start; }
 .bp-head { display: flex; align-items: center; gap: 22px; margin: 0 0 12px; }
 .bp-logo { flex: none; display: block; width: clamp(56px, 4vw + 30px, 92px); height: auto; aspect-ratio: 1; color: var(--text); }
 .logo.duo { font-size: 1.2rem; color: var(--text); letter-spacing: 0; }
 .logo.duo b { color: var(--text); }
-.logo .x { color: var(--accent); font-weight: 600; margin: 0 4px; }
+.logo .x { color: var(--link); font-weight: 600; margin: 0 4px; }
 .lineup-sec { margin: 6px 0 26px; }
-/* One row of up to seven; a second only when there are more (14 at most). */
+/* One row of up to seven; a second only when there are more (14 at most):
+   the page sets --per, the printers on a row, and they shrink to fit it. */
 .lineup { list-style: none; padding: 0 !important; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center;
-  gap: 10px 18px; max-width: calc(7 * 150px + 6 * 18px); }
-.lineup li { margin: 0 !important; display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 0 0 150px; }
+  gap: 10px 18px; max-width: calc(var(--per, 7) * 150px + (var(--per, 7) - 1) * 18px); }
+.lineup li { margin: 0 !important; display: flex; flex-direction: column; align-items: center; min-width: 0;
+  flex: 0 0 calc((100% - (var(--per, 7) - 1) * 18px) / var(--per, 7)); }
 .lineup img { display: block; width: 100%; max-width: 150px; height: auto; aspect-ratio: 1; object-fit: contain; }
 /* On a phone, one row that scrolls sideways: never more than two rows anywhere. */
 @media (max-width: 640px) {
   .lineup { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px !important; }
-  .lineup li { flex: 0 0 34%; scroll-snap-align: start; }
+  .lineup li { flex: 0 0 34%; max-width: none; scroll-snap-align: start; }
 }
-.lineup span { margin-top: 4px; font-weight: 600; font-size: .95rem; text-align: center; }
+.lineup span { margin-top: 4px; font-weight: 600; font-size: clamp(.78rem, .62rem + .4vw, .95rem); text-align: center; overflow-wrap: anywhere; }
 .bp-title { margin: 0; font-size: clamp(2rem, 1.3rem + 2.6vw, 3.3rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.08; }
 .bp-title span { color: var(--accent); }
+.bp-title b { color: var(--accent); font-weight: inherit; }
 .facts { display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; margin: 18px 0 22px; padding: 16px 18px;
   background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
 .facts dt { color: var(--muted); font-weight: 600; }
@@ -240,7 +250,7 @@ nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.c
 .others { list-style: none; padding: 0 !important; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
 .others li { margin: 0 !important; padding: 12px 14px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
 .others a, .others a:visited { color: var(--text); text-decoration: none; }
-.others a:hover { color: var(--accent); }
+.others a:hover { color: var(--link); }
 .others span { display: block; color: var(--muted); font-size: .9rem; margin-top: 2px; }
 .features { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; margin: 16px 0; }
 .features div { padding: 14px 16px; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; }
@@ -253,12 +263,12 @@ nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.c
 }
 .latest { margin: 14px 0 0; color: var(--muted); font-size: .92rem; }
 .latest b { color: var(--ok); }
-.latest a { color: var(--accent); }
+.latest a { color: var(--link); }
 .pill-ico { width: 18px; height: 18px; vertical-align: -3px; margin-right: 4px; }
 
 /* The comparison: one row per brand, its logo and a link to its page. */
 .cmp a.brand, .cmp a.brand:visited { display: inline-flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; }
-.cmp a.brand:hover { color: var(--accent); }
+.cmp a.brand:hover { color: var(--link); }
 .cmp a.brand img { flex: none; }
 
 /* Why it exists. */
@@ -275,7 +285,30 @@ nav.brands a:hover, nav.brands a:focus-visible, nav.brands a.cur, nav.brands a.c
 .legal a { color: var(--muted); }
 .need { margin: -6px 0 18px; padding: 10px 14px; border-left: 3px solid var(--accent); background: var(--card); border-radius: 0 10px 10px 0; color: var(--text); font-size: .95rem; }
 .first { margin: 0 0 12px; padding: 10px 12px; border-radius: 10px; background: var(--bg); border: 1px solid var(--line); font-size: .93rem; }
-.first a, .install small a { color: var(--accent); }
+.first a, .install small a { color: var(--link); }
 .bp-note { margin: -8px 0 18px; padding: 12px 14px; border-left: 3px solid var(--accent); background: var(--card); border-radius: 0 10px 10px 0; font-size: .95rem; }
 .small-note { margin: 8px 0 0; color: var(--muted); font-size: .85rem; }
 .small-note a { color: var(--muted); }
+
+/* The arrow to "Before you start": a 44 px target around a small glyph. */
+.first a.down { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px;
+  margin: -12px -8px -12px 0; text-decoration: none; font-weight: 700; }
+
+/* On a phone the comparison is stacked: a row's name, then its three answers
+   side by side, each under its column's name; nothing to scroll sideways. */
+@media (max-width: 640px) {
+  .tablewrap { overflow-x: visible; }
+  .cmp table { min-width: 0; }
+  .cmp thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .cmp tbody tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px 8px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .cmp tbody td { border: 0; padding: 2px 4px; }
+  .cmp tbody td:first-child { grid-column: 1 / -1; padding-bottom: 6px; font-weight: 600; }
+  .cmp tbody td:not(:first-child)::before { content: attr(data-label); display: block; margin-bottom: 2px;
+    color: var(--muted); font-size: .72rem; font-weight: 400; }
+  .cmp .tt { background: transparent; }
+}
+
+/* Asked for less motion: the menu and the caret switch at once. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}

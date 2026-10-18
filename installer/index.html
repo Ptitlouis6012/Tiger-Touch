@@ -27,6 +27,7 @@
 <script type="module" src="https://unpkg.com/esp-web-tools@10.4.0/dist/web/install-button.js?module"></script>
 <script src="i18n.js"></script>
 <script src="theme.js" defer></script>
+<script src="lang.js" defer></script>
 <script>
   /* The chosen theme, applied before the page is drawn so it never flashes. */
   try { var t = localStorage.getItem("tigertouch-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
@@ -70,7 +71,7 @@
       <div class="card install" id="install">
         <h2 data-i18n="title">Install Tiger Touch</h2>
         <p class="ver" id="verline" hidden><span data-i18n="fw">Firmware</span> <b id="ver"></b></p>
-        <p class="first"><span data-i18n-html="first_html"><b>First</b>, create your free TigerSystem account and add your printers in <b>Tiger Studio Manager</b>, the desktop app. The web version cannot add printers.</span> <a href="#before">&darr;</a></p>
+        <p class="first"><span data-i18n-html="first_html"><b>First</b>, create your free TigerSystem account and add your printers in <b>Tiger Studio Manager</b>, the desktop app. The web version cannot add printers.</span> <a class="down" href="#before" data-i18n-aria="pre_title" aria-label="Before you start: your printers">&darr;</a></p>
 
         <ol>
           <li data-i18n="n1">Plug the screen into this computer with its USB-C cable.</li>
@@ -96,7 +97,7 @@
     </div>
     <!-- The README's picture: the start-up screen, the cards, the list and a printer's full view, in turn. -->
     <div class="show">
-      <img class="views" src="tiger-touch-views.webp" width="560" height="681" alt="A BIGTREETECH Panda Touch running Tiger Touch, in turn: its start-up screen, the printers as live cards, the printers as a list, and one printer's full view with its four tool heads">
+      <img class="views" src="tiger-touch-views.webp" width="560" height="681" data-i18n-alt="alt_device" alt="A BIGTREETECH Panda Touch running Tiger Touch, in turn: its start-up screen, the printers as live cards, the printers as a list, and one printer's full view with its four tool heads">
     </div>
   </section>
 
@@ -144,7 +145,7 @@
       </svg>
 
   <section class="card pre" id="before">
-    <img class="eco" src="ecosystem.png" alt="A TigerPOD reader holding a spool, Tiger Studio Manager on a computer, and the TigerTag app on a phone">
+    <img class="eco" src="ecosystem.png" data-i18n-alt="alt_ecosystem" alt="A TigerPOD reader holding a spool, Tiger Studio Manager on a computer, and the TigerTag app on a phone">
     <div>
         <h2 data-i18n="pre_title">Before you start: your printers</h2>
         <p data-i18n-html="pre_html">Tiger Touch shows the printers of your <b>TigerSystem account</b>. Create the free account and add your printers with the <b>desktop app Tiger Studio Manager</b> (Windows, macOS, Linux) first: it finds them on your network, and the screen then reads them from your account, with nothing to type. The web version cannot add printers.</p>
@@ -173,20 +174,20 @@
     <table>
       <thead><tr><th></th><th class="tt">Tiger Touch</th><th data-i18n="cmp_panda">Panda Touch firmware</th><th data-i18n="cmp_k">K-Touch firmware</th></tr></thead>
       <tbody>
-        <tr><td data-i18n="cmp_families">Printer families on one screen</td><td class="tt"><b>9</b></td><td>1</td><td>1</td></tr>
-        <tr><td data-i18n="cmp_live">Printers live at once</td><td class="tt" data-i18n="cmp_live_tt">up to 10</td><td data-i18n="cmp_live_panda">slows down from about 3</td><td data-i18n="cmp_live_k">1 at a time</td></tr>
-        <tr><td><a class="brand" href="bambu-lab/"><img src="logos/bambu-lab.svg" width="20" height="20" alt=""><span data-i18n="cmp_bambu">Bambu Lab, LAN and cloud</span></a></td><td class="tt yes">&#10003;</td><td class="yes">&#10003;</td><td class="no">&#10005;</td></tr>
-        <tr><td><a class="brand" href="anycubic/"><img src="logos/anycubic.svg" width="20" height="20" alt=""><span data-i18n="cmp_acu">Anycubic, LAN and cloud</span></a></td><td class="tt yes">&#10003;</td><td class="no">&#10005;</td><td class="no">&#10005;</td></tr>
-        <tr><td><a class="brand" href="creality/"><img src="logos/creality.svg" width="20" height="20" alt=""><span>Creality</span></a></td><td class="tt yes">&#10003;</td><td class="no">&#10005;</td><td class="no">&#10005;</td></tr>
-        <tr><td><a class="brand" href="elegoo/"><img src="logos/elegoo.svg" width="20" height="20" alt=""><span>Elegoo</span></a></td><td class="tt yes">&#10003;</td><td class="no">&#10005;</td><td class="no">&#10005;</td></tr>
-        <tr><td><a class="brand" href="snapmaker/"><img src="logos/snapmaker.svg" width="20" height="20" alt=""><span>Snapmaker</span></a></td><td class="tt yes">&#10003;</td><td class="no">&#10005;</td><td class="no">&#10005;</td></tr>
-        <tr><td><a class="brand" href="flashforge/"><img src="logos/flashforge.svg" width="20" height="20" alt=""><span>FlashForge</span></a></td><td class="tt yes">&#10003;</td><td class="no">&#10005;</td><td class="no">&#10005;</td></tr>
-        <tr><td><a class="brand" href="prusa/"><img src="logos/prusa.svg" width="20" height="20" alt=""><span>Prusa</span></a></td><td class="tt yes">&#10003;</td><td class="no">&#10005;</td><td class="no">&#10005;</td></tr>
-        <tr><td><a class="brand" href="klipper/"><img src="logos/klipper.svg" width="20" height="20" alt=""><span>Klipper</span></a></td><td class="tt yes">&#10003;</td><td class="no">&#10005;</td><td class="yes">&#10003;</td></tr>
-        <tr><td><a class="brand" href="octoprint/"><img src="logos/octoprint.svg" width="20" height="20" alt=""><span>OctoPrint</span></a></td><td class="tt yes">&#10003;</td><td class="no">&#10005;</td><td class="no">&#10005;</td></tr>
-        <tr><td data-i18n="cmp_notype">Printers from your account, nothing to type</td><td class="tt yes">&#10003;</td><td class="no">&#10005;</td><td class="no">&#10005;</td></tr>
-        <tr><td data-i18n="cmp_ota">Updates over Wi-Fi, checked, undone if they fail</td><td class="tt yes">&#10003;</td><td class="no">&#10005;</td><td class="no">&#10005;</td></tr>
-        <tr><td data-i18n="cmp_free">Free and open source</td><td class="tt yes">&#10003;</td><td>-</td><td>-</td></tr>
+        <tr><td data-i18n="cmp_families">Printer families on one screen</td><td data-label="Tiger Touch" class="tt"><b>9</b></td><td data-label="Panda Touch firmware">1</td><td data-label="K-Touch firmware">1</td></tr>
+        <tr><td data-i18n="cmp_live">Printers live at once</td><td data-label="Tiger Touch" class="tt" data-i18n="cmp_live_tt">up to 10</td><td data-label="Panda Touch firmware" data-i18n="cmp_live_panda">slows down from about 3</td><td data-label="K-Touch firmware" data-i18n="cmp_live_k">1 at a time</td></tr>
+        <tr><td><a class="brand" href="bambu-lab/"><img src="logos/bambu-lab.svg" width="20" height="20" alt=""><span data-i18n="cmp_bambu">Bambu Lab, LAN and cloud</span></a></td><td data-label="Tiger Touch" class="tt yes">&#10003;</td><td data-label="Panda Touch firmware" class="yes">&#10003;</td><td data-label="K-Touch firmware" class="no">&#10005;</td></tr>
+        <tr><td><a class="brand" href="anycubic/"><img src="logos/anycubic.svg" width="20" height="20" alt=""><span data-i18n="cmp_acu">Anycubic, LAN and cloud</span></a></td><td data-label="Tiger Touch" class="tt yes">&#10003;</td><td data-label="Panda Touch firmware" class="no">&#10005;</td><td data-label="K-Touch firmware" class="no">&#10005;</td></tr>
+        <tr><td><a class="brand" href="creality/"><img src="logos/creality.svg" width="20" height="20" alt=""><span>Creality</span></a></td><td data-label="Tiger Touch" class="tt yes">&#10003;</td><td data-label="Panda Touch firmware" class="no">&#10005;</td><td data-label="K-Touch firmware" class="no">&#10005;</td></tr>
+        <tr><td><a class="brand" href="elegoo/"><img src="logos/elegoo.svg" width="20" height="20" alt=""><span>Elegoo</span></a></td><td data-label="Tiger Touch" class="tt yes">&#10003;</td><td data-label="Panda Touch firmware" class="no">&#10005;</td><td data-label="K-Touch firmware" class="no">&#10005;</td></tr>
+        <tr><td><a class="brand" href="snapmaker/"><img src="logos/snapmaker.svg" width="20" height="20" alt=""><span>Snapmaker</span></a></td><td data-label="Tiger Touch" class="tt yes">&#10003;</td><td data-label="Panda Touch firmware" class="no">&#10005;</td><td data-label="K-Touch firmware" class="no">&#10005;</td></tr>
+        <tr><td><a class="brand" href="flashforge/"><img src="logos/flashforge.svg" width="20" height="20" alt=""><span>FlashForge</span></a></td><td data-label="Tiger Touch" class="tt yes">&#10003;</td><td data-label="Panda Touch firmware" class="no">&#10005;</td><td data-label="K-Touch firmware" class="no">&#10005;</td></tr>
+        <tr><td><a class="brand" href="prusa/"><img src="logos/prusa.svg" width="20" height="20" alt=""><span>Prusa</span></a></td><td data-label="Tiger Touch" class="tt yes">&#10003;</td><td data-label="Panda Touch firmware" class="no">&#10005;</td><td data-label="K-Touch firmware" class="no">&#10005;</td></tr>
+        <tr><td><a class="brand" href="klipper/"><img src="logos/klipper.svg" width="20" height="20" alt=""><span>Klipper</span></a></td><td data-label="Tiger Touch" class="tt yes">&#10003;</td><td data-label="Panda Touch firmware" class="no">&#10005;</td><td data-label="K-Touch firmware" class="yes">&#10003;</td></tr>
+        <tr><td><a class="brand" href="octoprint/"><img src="logos/octoprint.svg" width="20" height="20" alt=""><span>OctoPrint</span></a></td><td data-label="Tiger Touch" class="tt yes">&#10003;</td><td data-label="Panda Touch firmware" class="no">&#10005;</td><td data-label="K-Touch firmware" class="no">&#10005;</td></tr>
+        <tr><td data-i18n="cmp_notype">Printers from your account, nothing to type</td><td data-label="Tiger Touch" class="tt yes">&#10003;</td><td data-label="Panda Touch firmware" class="no">&#10005;</td><td data-label="K-Touch firmware" class="no">&#10005;</td></tr>
+        <tr><td data-i18n="cmp_ota">Updates over Wi-Fi, checked, undone if they fail</td><td data-label="Tiger Touch" class="tt yes">&#10003;</td><td data-label="Panda Touch firmware" class="no">&#10005;</td><td data-label="K-Touch firmware" class="no">&#10005;</td></tr>
+        <tr><td data-i18n="cmp_free">Free and open source</td><td data-label="Tiger Touch" class="tt yes">&#10003;</td><td data-label="Panda Touch firmware">-</td><td data-label="K-Touch firmware">-</td></tr>
       </tbody>
     </table>
     </div>
@@ -215,83 +216,6 @@
   </footer>
 </main>
 <script>
-  /* ---------- language ----------------------------------------------------- */
-  const LANGS = Object.keys(window.I18N);
-
-  /* Map what the browser reports onto what is shipped. European and Brazilian
-     Portuguese are separate dictionaries, so `pt-PT` must not fall onto `pt`. */
-  function pickLang() {
-    try {
-      const saved = localStorage.getItem("tigertouch-lang");
-      if (saved && LANGS.includes(saved)) return saved;
-    } catch (e) {}
-    for (const raw of (navigator.languages || [navigator.language || "en"])) {
-      const tag = raw.toLowerCase();
-      if (LANGS.includes(tag)) return tag;
-      const base = tag.split("-")[0];
-      if (base === "pt") return tag.startsWith("pt-pt") ? "pt-pt" : "pt";
-      if (LANGS.includes(base)) return base;
-    }
-    return "en";
-  }
-
-  function applyLang(code) {
-    const t = window.I18N[code] || window.I18N.en;
-    document.documentElement.lang = code;
-    document.title = t.title;
-    document.querySelectorAll("[data-i18n]").forEach(el => {
-      if (t[el.dataset.i18n] != null) el.textContent = t[el.dataset.i18n];
-    });
-    /* Only keys the dictionary marks as markup are inserted as HTML. */
-    document.querySelectorAll("[data-i18n-html]").forEach(el => {
-      if (t[el.dataset.i18nHtml] != null) el.innerHTML = t[el.dataset.i18nHtml];
-    });
-    document.querySelectorAll("[data-i18n-aria]").forEach(el => {
-      if (t[el.dataset.i18nAria] != null) el.setAttribute("aria-label", t[el.dataset.i18nAria]);
-    });
-  }
-
-  const box = document.getElementById("langbox");
-  const lbtn = document.getElementById("langbtn");
-  const menu = document.getElementById("langmenu");
-  const now = document.getElementById("langnow");
-  const TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" '
-             + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-             + '<path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>';
-  menu.innerHTML = LANGS.map(c =>
-    '<li role="option" tabindex="0" data-code="' + c + '" aria-selected="false">'
-    + "<span>" + window.I18N[c].lang_name + "</span>" + TICK + "</li>").join("");
-
-  function setOpen(open) {
-    box.dataset.open = open ? "1" : "0";
-    lbtn.setAttribute("aria-expanded", open ? "true" : "false");
-  }
-  function choose(code, remember) {
-    applyLang(code);
-    if (window.ttBrandify) window.ttBrandify();
-    now.textContent = window.I18N[code].lang_name;
-    menu.querySelectorAll("li").forEach(li =>
-      li.setAttribute("aria-selected", li.dataset.code === code ? "true" : "false"));
-    if (remember) { try { localStorage.setItem("tigertouch-lang", code); } catch (e) {} }
-    setOpen(false);
-  }
-  lbtn.addEventListener("click", () => setOpen(box.dataset.open !== "1"));
-  menu.addEventListener("click", e => {
-    const li = e.target.closest("li");
-    if (li) choose(li.dataset.code, true);
-  });
-  menu.addEventListener("keydown", e => {
-    const li = e.target.closest("li");
-    if (li && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); choose(li.dataset.code, true); }
-  });
-  document.addEventListener("click", e => { if (!box.contains(e.target)) setOpen(false); });
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape") { setOpen(false); lbtn.focus(); }
-  });
-  /* A choice made on the page is remembered; the browser's own language is not
-     written down, so a later change of browser language is followed. */
-  choose(pickLang(), false);
-
   /* ---------- WebSerial ---------------------------------------------------- */
   if (!("serial" in navigator)) {
     document.getElementById("unsupported").style.display = "block";

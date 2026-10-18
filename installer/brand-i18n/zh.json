@@ -1,0 +1,320 @@
+{
+ "bambu-lab": {
+  "short": "Bambu 云或局域网模式，每个 AMS 槽位，灯光",
+  "lead": "Tiger Touch 把 BIGTREETECH Panda Touch 或 K-Touch 变成 Bambu Lab 打印机的实时屏幕：进度、层数、剩余时间、温度和每个 AMS 槽位，可通过 Bambu 云或局域网模式。",
+  "models": "X1 Carbon, X1E, P1S, P1P, P2S, A1, A1 mini, H2D, H2C, H2S, X2D",
+  "connection": "Bambu 云（通过 TLS 的 MQTT 连接 Bambu 的区域服务器，使用 Tiger Studio Manager 保存在你账户中的会话），或局域网模式（通过 TLS 的 MQTT 连接打印机，端口 8883，使用其访问码）。",
+  "status": "已在真实打印机上验证：通过云在 P2S 上完成完整打印；在局域网模式下使用 X1 Carbon 和 A1。",
+  "shows": [
+   "进度、当前层和总层数、剩余时间和预计结束时间",
+   "喷嘴、热床和仓温（A1、A1 mini、P1P 和 P1S 没有仓温传感器：显示为 --）",
+   "每个 AMS 和 AMS HT 单元及其槽位、材料和颜色，使用中的槽位以圆环标出，以及外挂料盘",
+   "H2D、H2C 或 X2D 的两个喷嘴，使用中的会被标记"
+  ],
+  "controls": "仓内灯光可从屏幕切换，通过云或局域网均可。暂停、继续和停止仅在局域网模式下可用：Bambu 云不接受第三方会话发出的此类命令，因此这些按钮在云端保持变暗。",
+  "setup": [
+   "在 Tiger Studio Manager（桌面应用）中添加打印机，登录你的 Bambu 账户，或在打印机上开启局域网模式。",
+   "使用局域网模式时，保留访问码和 Tiger Studio 找到的地址：Tiger Touch 会从你的 TigerSystem 账户读取它们。",
+   "通过安装器刷入 Tiger Touch，使用同一个 TigerSystem 账户登录，然后在 Settings > Printers 中启用该打印机。"
+  ],
+  "tips": "局域网模式下的 Bambu 打印机会持续推送完整报告：请确保屏幕的 Wi-Fi 信号良好。一台打印机同时只允许少数几个本地客户端。",
+  "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台正在打印的 Bambu Lab X1 Carbon：进度环、层数、剩余时间、温度及其 AMS",
+  "faq": [
+   [
+    "需要 Bambu 云吗？",
+    "不需要。它可通过 Bambu 云或局域网模式工作；每台打印机使用 Tiger Studio Manager 为其设置的连接方式。"
+   ],
+   [
+    "可以在屏幕上暂停或停止 Bambu 打印吗？",
+    "局域网模式下可以：停止前会先要求确认。通过 Bambu 云时按钮会显示但变暗，因为云不接受第三方会话发出的这些命令。"
+   ],
+   [
+    "会显示 AMS 吗？",
+    "会：每个 AMS 和 AMS HT 单元的四个槽位（HT 为一个），以及材料、颜色、使用中的槽位和外挂料盘。"
+   ]
+  ]
+ },
+ "creality": {
+  "short": "局域网，CFS，灯光，暂停和停止",
+  "lead": "Tiger Touch 把 BIGTREETECH Panda Touch 或 K-Touch 变成 Creality 打印机的实时屏幕：进度、层数、温度和 CFS，直接来自你网络中的打印机。",
+  "models": "K2 Plus, K2 Pro, K2, K1, K1 Max, K1C, K1 SE, Hi, Ender-3 V4, Ender-3 V3 KE",
+  "connection": "局域网内打印机自带的 WebSocket（端口 9999），不经过云。",
+  "status": "已在真实打印机上验证：在 K2 Plus 上完成完整打印并使用其 CFS；Ender-3 V4 空闲状态并带 CFS。",
+  "shows": [
+   "状态、进度、层数、剩余时间和预计结束时间，以及正在打印的文件",
+   "喷嘴、热床和仓温及其设定值",
+   "CFS 槽位及材料和颜色，使用中的槽位以圆环标出，以及外挂料盘"
+  ],
+  "controls": "灯光可从屏幕切换（已在 K2 上验证）。暂停、继续和停止的发送方式与 Creality Print 相同；停止前会先要求确认。",
+  "setup": [
+   "确认打印机设置中已开启局域网模式（部分型号默认关闭）。",
+   "在 Tiger Studio Manager（桌面应用）中添加打印机：它会在你的网络中找到打印机。",
+   "刷入 Tiger Touch，使用同一个 TigerSystem 账户登录，然后在 Settings > Printers 中启用该打印机。"
+  ],
+  "tips": "Creality 打印机显示离线，几乎总是因为局域网模式已关闭，或路由器重启后地址变了：请在 Tiger Studio Manager 中刷新。",
+  "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台正在打印的 Creality K2 Plus：进度环、层数、剩余时间、温度及其 CFS",
+  "faq": [
+   [
+    "支持 CFS 吗？",
+    "支持：每个 CFS 槽位及材料和颜色，使用中的以圆环标出，以及外挂料盘。"
+   ],
+   [
+    "需要 Creality Cloud 吗？",
+    "不需要。Tiger Touch 直接在你的局域网中与打印机通信。"
+   ],
+   [
+    "支持哪些 Creality 打印机？",
+    "K2 系列、K1 系列、Hi 和 Ender-3 V4：即 Tiger Studio Manager 可添加的机型。已在 K2 Plus 和 Ender-3 V4 上运行过。"
+   ],
+   [
+    "较老的 Creality，比如 Ender-3 S1 呢？",
+    "把它接到 OctoPrint 后面（例如 OctoPi）：Tiger Touch 通过 OctoPrint 连接来跟踪它。"
+   ]
+  ],
+  "note": "较老的 Creality 打印机，如 Ender-3、Ender-3 S1 或 CR-10：把它们接到 OctoPrint 后面，并在 Tiger Studio Manager 中作为 OctoPrint 打印机添加；Tiger Touch 通过 OctoPrint 跟踪它们。",
+  "via": "经由 OctoPrint"
+ },
+ "elegoo": {
+  "short": "局域网中的 Centauri Carbon 1 和 2，Canvas",
+  "lead": "Tiger Touch 把 BIGTREETECH Panda Touch 或 K-Touch 变成 Elegoo Centauri Carbon 的实时屏幕：进度、温度，以及 Centauri Carbon 2 上的 Canvas 耗材系统。",
+  "models": "Centauri Carbon 2（及 Combo）, Centauri 2（及 Combo）, Centauri Carbon",
+  "connection": "在你的局域网中：Centauri Carbon 2 使用 MQTT（端口 1883），Centauri Carbon 使用 SDCP（通过 UDP 3000 发现，然后 WebSocket 3030）。",
+  "status": "依据 Elegoo 的协议编写并已编译；尚未在真实的 Centauri Carbon 上运行。来自你打印机的反馈是你能发送的最有用的东西。",
+  "shows": [
+   "状态、进度、层数、剩余时间和正在打印的文件",
+   "喷嘴、热床和仓温",
+   "Centauri Carbon 2 的 Canvas 槽位及材料和颜色"
+  ],
+  "controls": "暂停、继续和停止使用 Elegoo 自己的命令发送；停止前会先要求确认。Centauri Carbon 2 上可切换灯光（Centauri Carbon 没有灯光命令）。",
+  "setup": [
+   "在 Tiger Studio Manager（桌面应用）中添加打印机：它会在你的网络中找到打印机。",
+   "刷入 Tiger Touch，使用同一个 TigerSystem 账户登录。",
+   "在 Settings > Printers 中启用该打印机。"
+  ],
+  "tips": "请告诉我们它在你的 Centauri Carbon 上表现如何：在 GitHub 上提交一个 issue，附上屏幕显示的内容，驱动才能从“已编译”变为“已验证”。",
+  "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台正在打印的 Elegoo Centauri Carbon 2，带其 Canvas 耗材槽位",
+  "faq": [
+   [
+    "支持 Centauri Carbon 吗？",
+    "支持，Centauri Carbon（SDCP）和 Centauri Carbon 2（MQTT）都支持。这些驱动遵循 Elegoo 的协议，但尚未在真实打印机上运行过。"
+   ],
+   [
+    "需要 Elegoo 云吗？",
+    "不需要。Tiger Touch 在你的局域网中与打印机通信。"
+   ],
+   [
+    "会显示 Canvas 吗？",
+    "在 Centauri Carbon 2 上会：显示其槽位及材料和颜色。"
+   ],
+   [
+    "Neptune 4 和 OrangeStorm Giga 呢？",
+    "它们运行 Klipper 和 Moonraker，因此 Tiger Touch 通过 Klipper 连接来跟踪：请在 Tiger Studio Manager 中把它们作为 Klipper 打印机添加。"
+   ]
+  ],
+  "note": "Neptune 4（Pro、Plus、Max）或 OrangeStorm Giga：它们运行 Klipper。请在 Tiger Studio Manager 中把它们作为 Klipper（Moonraker）打印机添加，而不是 Centauri 打印机；Tiger Touch 通过 Klipper 跟踪它们。",
+  "via": "经由 Klipper"
+ },
+ "anycubic": {
+  "short": "Anycubic 云或局域网，每个 ACE 槽位",
+  "lead": "Tiger Touch 把 BIGTREETECH Panda Touch 或 K-Touch 变成 Anycubic 打印机的实时屏幕：其状态和每个 ACE 槽位，可通过 Anycubic 云或你的局域网。",
+  "models": "Kobra S1, Kobra S1 Max, Kobra X, Kobra 3, Kobra 3 V2, Kobra 3 Max",
+  "connection": "Anycubic 云（你账户中所有云端打印机共用一个会话，登录方式与 Anycubic 切片软件相同），或你的局域网（通过 TLS 的 MQTT，端口 9883）。",
+  "status": "已在一台真实打印机上验证：通过 Anycubic 云连接空闲的 Kobra X，并显示其 ACE 的四个槽位。本地连接已编译，尚未运行。",
+  "shows": [
+   "在线状态、进度和正在打印的文件",
+   "每个 ACE 槽位及材料和颜色",
+   "打印时的温度（通过云时，它们随打印机自己的报告到达）"
+  ],
+  "controls": "通过云时，暂停、继续、停止和灯光保持变暗：服务器遇到不允许的命令会关闭整个会话，因此在确认每条命令都会被接受之前不会发送。在局域网中会发送；停止前会先要求确认。",
+  "setup": [
+   "在 Tiger Studio Manager（桌面应用）中添加打印机，使用云时请登录你的 Anycubic 账户。",
+   "刷入 Tiger Touch，使用同一个 TigerSystem 账户登录。",
+   "在 Settings > Printers 中启用该打印机。"
+  ],
+  "tips": "如果屏幕提示云登录缺失或被拒绝，请在 Tiger Studio Manager 中刷新该打印机：它会向你的账户写入新的登录信息。",
+  "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台正在打印的 Anycubic Kobra S1，带其 ACE 的四个槽位",
+  "faq": [
+   [
+    "可以通过 Anycubic 云使用吗？",
+    "可以。你账户中所有云端打印机共用一个会话，登录方式与 Anycubic 切片软件相同。已在 Kobra X 上运行过。"
+   ],
+   [
+    "可以在屏幕上停止 Anycubic 打印吗？",
+    "在局域网中可以。通过云暂时还不行：按钮会显示但变暗。"
+   ],
+   [
+    "会显示 ACE 吗？",
+    "会：每个槽位及其材料和颜色。"
+   ]
+  ]
+ },
+ "snapmaker": {
+  "short": "局域网中的 U1，它的四个工具头",
+  "lead": "Tiger Touch 把 BIGTREETECH Panda Touch 或 K-Touch 变成 Snapmaker U1 的实时屏幕：它的四个工具头（工作中的以圆环标出）、进度和温度。",
+  "models": "U1",
+  "connection": "局域网中 Moonraker 的 WebSocket（端口 7125），并使用 U1 自己的耗材数据。",
+  "status": "已在一台真实的 U1 上验证（空闲）：状态、四个喷嘴（使用中的以圆环标出）、热床。",
+  "shows": [
+   "进度、层数、剩余时间和正在打印的文件",
+   "全部四个工具头及其温度，使用中的以圆环标出",
+   "每个工具头的料盘及材料和颜色"
+  ],
+  "controls": "通过 Moonraker 暂停、继续和停止；停止前会先要求确认。腔内灯光可从屏幕切换。",
+  "setup": [
+   "在 Tiger Studio Manager（桌面应用）中添加 U1：它会在你的网络中找到它。",
+   "刷入 Tiger Touch，使用同一个 TigerSystem 账户登录。",
+   "在 Settings > Printers 中启用该打印机。"
+  ],
+  "tips": "U1 运行 Klipper，但 Tiger Touch 为它保留了专用驱动，以读取其耗材数据。",
+  "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台正在打印的 Snapmaker U1：四个工具头（使用中的以圆环标出）及其料盘",
+  "faq": [
+   [
+    "会显示 U1 的四个工具头吗？",
+    "会：四个方块显示各自的温度，工作中的工具头以圆环标出，并显示每个工具头的料盘。"
+   ],
+   [
+    "需要 Snapmaker 云吗？",
+    "不需要。它在你的局域网中与打印机通信。"
+   ],
+   [
+    "在真实的 U1 上试过吗？",
+    "试过，在空闲状态下：状态、四个喷嘴和热床。尚未跟踪过一次打印。"
+   ]
+  ]
+ },
+ "flashforge": {
+  "short": "局域网，AD5X 材料站",
+  "lead": "Tiger Touch 把 BIGTREETECH Panda Touch 或 K-Touch 变成 FlashForge 打印机的实时屏幕：进度、温度、外挂料盘和 AD5X 的材料站。",
+  "models": "AD5X, Adventurer 5M, Adventurer 5M Pro, Creator 5, Creator 5 Pro",
+  "connection": "局域网中打印机的 HTTP 接口（端口 8898），每 2 秒读取一次。",
+  "status": "已在一台真实的 AD5X 上验证（空闲）：状态、喷嘴和热床温度。",
+  "shows": [
+   "状态、进度、层数和正在打印的文件",
+   "喷嘴和热床温度；双挤出机的两个喷嘴以及 Creator 5 Pro 的换头系统",
+   "外挂料盘和 AD5X 材料站的四个槽位"
+  ],
+  "controls": "较新的型号支持暂停、继续、停止和灯光；停止前会先要求确认。",
+  "setup": [
+   "在打印机的网络设置中开启局域网模式（默认关闭）。",
+   "在 Tiger Studio Manager（桌面应用）中添加打印机。",
+   "刷入 Tiger Touch，使用同一个 TigerSystem 账户登录，然后在 Settings > Printers 中启用该打印机。"
+  ],
+  "tips": "FlashForge 显示离线，通常是因为局域网模式已关闭：这是打印机自己屏幕上的一项设置。",
+  "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台已暂停的 FlashForge AD5X，带其外挂料盘和四槽材料站",
+  "faq": [
+   [
+    "会显示 AD5X 的材料站吗？",
+    "会：它的四个槽位及材料和颜色，以及外挂料盘。"
+   ],
+   [
+    "需要 FlashForge 的云吗？",
+    "不需要。它在你的局域网中读取打印机；必须开启局域网模式。"
+   ],
+   [
+    "支持哪些 FlashForge 打印机？",
+    "AD5X、Adventurer 5M 和 5M Pro、Creator 5 和 Creator 5 Pro。已在 AD5X 上运行过。"
+   ]
+  ]
+ },
+ "prusa": {
+  "short": "局域网中的 PrusaLink：进度和温度",
+  "lead": "Tiger Touch 通过 PrusaLink 把 BIGTREETECH Panda Touch 或 K-Touch 变成 Prusa 打印机的实时屏幕：进度、剩余时间和温度。",
+  "models": "Core One, Core One L, MK4S, MK4, MK3.5, XL, XL 5T, MINI",
+  "connection": "局域网中基于 HTTP 的 PrusaLink，使用 Digest 认证（如果你的账户中保存了旧版 API 密钥，则使用该密钥）。",
+  "status": "依据 PrusaLink 的 API 编写并已编译；尚未在真实的 Prusa 上运行。来自你打印机的反馈是你能发送的最有用的东西。",
+  "shows": [
+   "状态、进度、剩余时间和正在打印的文件",
+   "喷嘴和热床温度，Core One 还有仓温"
+  ],
+  "controls": "通过 PrusaLink 暂停、继续和停止；停止前会先要求确认。PrusaLink 没有灯光命令，因此灯光按钮保持变暗。",
+  "setup": [
+   "在打印机上启用 PrusaLink，并记下其用户名和密码。",
+   "在 Tiger Studio Manager（桌面应用）中添加打印机。",
+   "刷入 Tiger Touch，使用同一个 TigerSystem 账户登录，然后在 Settings > Printers 中启用该打印机。"
+  ],
+  "tips": "请告诉我们它在你的 Prusa 上表现如何：在 GitHub 上提交一个 issue，附上屏幕显示的内容，驱动才能从“已编译”变为“已验证”。",
+  "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台正在打印的 Prusa Core One：进度环、剩余时间和温度",
+  "faq": [
+   [
+    "需要 Prusa Connect 吗？",
+    "不需要。它在你的局域网中与 PrusaLink 通信。"
+   ],
+   [
+    "可以切换灯光吗？",
+    "不可以：PrusaLink 没有灯光命令。"
+   ],
+   [
+    "在真实的 Prusa 上试过吗？",
+    "还没有：驱动遵循 PrusaLink 的 API 并已编译。欢迎反馈。"
+   ]
+  ]
+ },
+ "klipper": {
+  "short": "Moonraker：Voron、Qidi、Sovol、AFC 和 Happy Hare",
+  "lead": "Tiger Touch 把 BIGTREETECH Panda Touch 或 K-Touch 变成任何带 Moonraker 的 Klipper 打印机的实时屏幕：进度、温度、最多四个挤出机、灯光，以及 AFC 或 Happy Hare 通道。",
+  "models": "Voron, Qidi, Sovol, RatRig 以及任何运行 Klipper 和 Moonraker 的打印机",
+  "connection": "局域网中基于 HTTP 的 Moonraker（端口 7125，除非你指定其他端口），每 2 秒读取一次，Moonraker 要求时使用 API 密钥。",
+  "status": "已对照 Tiger Studio Manager 的 Moonraker 测试打印机运行：打印中、已暂停、已完成、已取消、错误、灯光和四个 AFC 通道。尚未在真实打印机上运行。",
+  "shows": [
+   "状态、进度、层数、剩余时间和正在打印的文件",
+   "最多四个挤出机、热床和一个仓温传感器",
+   "AFC 通道或 Happy Hare MMU，使用中的以圆环标出"
+  ],
+  "controls": "通过 Moonraker 暂停、继续和停止；停止前会先要求确认。当打印机有 LED 灯带或名称类似灯光的输出引脚时，可切换灯光。",
+  "setup": [
+   "确认 Moonraker 在你的网络中有响应（Mainsail 或 Fluidd 已在使用它）。",
+   "在 Tiger Studio Manager（桌面应用）中用地址添加打印机；Tiger Touch 不解析 .local 名称。",
+   "刷入 Tiger Touch，使用同一个 TigerSystem 账户登录，然后在 Settings > Printers 中启用该打印机。"
+  ],
+  "tips": "请填写打印机的数字 IP 地址（如 192.168.x.y），而不是以 .local 结尾的名称（如 voron.local）：屏幕不支持 mDNS。",
+  "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台运行 Klipper 的 Voron 2.4 正在打印，带四个 AFC 通道",
+  "faq": [
+   [
+    "支持 Voron、Qidi 或 Sovol 吗？",
+    "支持，任何运行 Klipper 和 Moonraker 的打印机都可以。"
+   ],
+   [
+    "需要 Mainsail 或 Fluidd 吗？",
+    "不需要，只需要 Moonraker，而它们本来就在使用它。"
+   ],
+   [
+    "会显示 AFC 或 Happy Hare 吗？",
+    "会：显示通道或槽位及材料和颜色，使用中的以圆环标出。"
+   ]
+  ]
+ },
+ "octoprint": {
+  "short": "OctoPrint 后面的任何 Marlin 打印机",
+  "lead": "Tiger Touch 把 BIGTREETECH Panda Touch 或 K-Touch 变成 OctoPrint 后面打印机的实时屏幕：进度、剩余时间和温度，适用于任何 Marlin 打印机。",
+  "models": "OctoPrint 后面的任何 Marlin 打印机（Ender、Prusa MK3、Anet 等）",
+  "connection": "局域网中基于 HTTP 的 OctoPrint REST API（端口 80，除非你指定其他端口），每 2 秒读取一次，使用其 API 密钥。",
+  "status": "已对照 Tiger Studio Manager 的 OctoPrint 测试服务器运行：打印中、已暂停、已完成、错误以及未连接打印机。尚未在真实打印机上运行。",
+  "shows": [
+   "状态、进度、剩余时间和正在打印的文件",
+   "喷嘴和热床温度",
+   "当 OctoPrint 没有连接打印机时，卡片会如实说明，而不是显示为离线"
+  ],
+  "controls": "通过 OctoPrint 暂停、继续和停止；停止前会先要求确认。OctoPrint 没有灯光命令，因此灯光按钮保持变暗。",
+  "setup": [
+   "在 OctoPrint 中创建 API 密钥（Settings > Application keys）。",
+   "在 Tiger Studio Manager（桌面应用）中添加打印机，填入 OctoPrint 的地址和密钥。",
+   "刷入 Tiger Touch，使用同一个 TigerSystem 账户登录，然后在 Settings > Printers 中启用该打印机。"
+  ],
+  "tips": "OctoPi 使用端口 80 响应；如果你的不同，请在地址后写上另一个端口。",
+  "shot_alt": "Panda Touch 上的 Tiger Touch 显示 OctoPrint 后面的 Ender-3 S1 正在打印：进度环、剩余时间和温度",
+  "faq": [
+   [
+    "哪些打印机可以通过 OctoPrint 使用？",
+    "任何由 OctoPrint 驱动的打印机，大多数运行 Marlin：Ender、Prusa MK3、Anet 等。"
+   ],
+   [
+    "需要 API 密钥吗？",
+    "需要：在 OctoPrint 中创建一个，然后在 Tiger Studio Manager 中添加。"
+   ],
+   [
+    "可以切换灯光吗？",
+    "不可以：OctoPrint 没有灯光命令。"
+   ]
+  ]
+ }
+}

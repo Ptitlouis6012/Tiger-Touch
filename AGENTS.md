@@ -15,7 +15,9 @@ firmware/            the ESP-IDF project
   components/        PandaTouch_IDF: the vendored, patched board component
   tools/             the generators for fonts, brand logos and the boot picture
 docs/                architecture, connection budget, compatibility, OTA, roadmap
-installer/           the web installer page (ESP Web Tools), eleven languages
+installer/           the site's sources, eleven languages: the installer page (ESP Web Tools),
+                     i18n.js and lang.js for every page, brand-pages.json and brand-i18n/
+                     for the brand pages (built by scripts/make-brand-pages.py)
 scripts/             verify.sh, the guards, build and flash, release and site helpers
 .github/workflows/   build (every push), release (a v* tag), pages (the site)
 ```

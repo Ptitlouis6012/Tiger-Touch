@@ -1,0 +1,320 @@
+{
+ "bambu-lab": {
+  "short": "Bambu-cloud of LAN mode, elk AMS-slot, het licht",
+  "lead": "Tiger Touch verandert een BIGTREETECH Panda Touch of K-Touch in een live scherm voor uw Bambu Lab-printers: voortgang, lagen, resterende tijd, temperaturen en elk AMS-slot, via de Bambu-cloud of in LAN mode.",
+  "models": "X1 Carbon, X1E, P1S, P1P, P2S, A1, A1 mini, H2D, H2C, H2S, X2D",
+  "connection": "Bambu-cloud (MQTT over TLS naar de regiobroker van Bambu, met de sessie die Tiger Studio Manager in uw account heeft opgeslagen), of LAN mode (MQTT over TLS naar de printer, poort 8883, met de toegangscode).",
+  "status": "Gezien op echte printers: een volledige print op een P2S via de cloud; een X1 Carbon en een A1 in LAN mode.",
+  "shows": [
+   "Voortgang, huidige en totale lagen, resterende tijd en het geschatte einde",
+   "Temperaturen van nozzle, bed en kamer (de A1, A1 mini, P1P en P1S hebben geen kamersensor: weergegeven als --)",
+   "Elke AMS- en AMS HT-unit met zijn slots, materiaal en kleur, het gebruikte slot omcirkeld, en de externe spoel",
+   "Beide nozzles van een H2D, H2C of X2D, de actieve gemarkeerd"
+  ],
+  "controls": "Het kamerlicht schakelt u vanaf het scherm, via de cloud net als op het lokale netwerk. Pauzeren, hervatten en stoppen werken alleen in LAN mode: de Bambu-cloud neemt zulke opdrachten niet aan van een sessie van derden, dus blijven de knoppen daar gedimd.",
+  "setup": [
+   "Voeg de printer toe in Tiger Studio Manager (desktop-app), aangemeld bij uw Bambu-account of met LAN mode aan op de printer.",
+   "Houd voor LAN mode de toegangscode en het adres bij die Tiger Studio heeft gevonden: Tiger Touch leest ze uit uw TigerSystem-account.",
+   "Installeer Tiger Touch met het installatieprogramma, meld u aan met hetzelfde TigerSystem-account en schakel de printer in via Settings > Printers."
+  ],
+  "tips": "Een Bambu-printer in LAN mode streamt voortdurend zijn volledige rapporten: zorg voor een goed Wi-Fi-signaal bij het scherm. Een printer laat maar een paar lokale clients tegelijk toe.",
+  "shot_alt": "Tiger Touch op een Panda Touch die een Bambu Lab X1 Carbon tijdens het printen toont: voortgangsring, lagen, resterende tijd, temperaturen en zijn AMS",
+  "faq": [
+   [
+    "Heeft het de Bambu-cloud nodig?",
+    "Nee. Het werkt via de Bambu-cloud of in LAN mode; elke printer gebruikt de verbinding die Tiger Studio Manager ervoor heeft ingesteld."
+   ],
+   [
+    "Kan ik een Bambu-print vanaf het scherm pauzeren of stoppen?",
+    "In LAN mode wel: stoppen vraagt eerst om bevestiging. Via de Bambu-cloud worden de knoppen getoond maar zijn ze gedimd, omdat de cloud deze opdrachten niet aanneemt van een sessie van derden."
+   ],
+   [
+    "Toont het de AMS?",
+    "Ja: elke AMS- en AMS HT-unit met zijn vier slots (één voor de HT), het materiaal, de kleur en het gebruikte slot, plus de externe spoel."
+   ]
+  ]
+ },
+ "creality": {
+  "short": "Op uw netwerk, de CFS, het licht, pauzeren en stoppen",
+  "lead": "Tiger Touch verandert een BIGTREETECH Panda Touch of K-Touch in een live scherm voor uw Creality-printers: voortgang, lagen, temperaturen en de CFS, rechtstreeks van de printer op uw netwerk.",
+  "models": "K2 Plus, K2 Pro, K2, K1, K1 Max, K1C, K1 SE, Hi, Ender-3 V4, Ender-3 V3 KE",
+  "connection": "De eigen WebSocket van de printer op uw lokale netwerk (poort 9999), geen cloud.",
+  "status": "Gezien op echte printers: een volledige print op een K2 Plus, met zijn CFS; een Ender-3 V4 inactief met zijn CFS.",
+  "shows": [
+   "Status, voortgang, lagen, resterende tijd en het geschatte einde, het bestand dat wordt geprint",
+   "Temperaturen van nozzle, bed en kamer met hun streefwaarden",
+   "De CFS-slots met materiaal en kleur, het gebruikte slot omcirkeld, en de externe spoel"
+  ],
+  "controls": "Het licht schakelt u vanaf het scherm (gezien op een K2). Pauzeren, hervatten en stoppen worden verzonden zoals Creality Print dat doet; stoppen vraagt eerst om bevestiging.",
+  "setup": [
+   "Controleer of LAN mode aanstaat in de instellingen van de printer (op sommige modellen staat het standaard uit).",
+   "Voeg de printer toe in Tiger Studio Manager (desktop-app): die vindt hem op uw netwerk.",
+   "Installeer Tiger Touch, meld u aan met hetzelfde TigerSystem-account en schakel de printer in via Settings > Printers."
+  ],
+  "tips": "Een Creality-printer die offline lijkt te zijn, heeft bijna altijd LAN mode uit, of een nieuw adres na een herstart van de router: vernieuw hem in Tiger Studio Manager.",
+  "shot_alt": "Tiger Touch op een Panda Touch die een Creality K2 Plus tijdens het printen toont: voortgangsring, lagen, resterende tijd, temperaturen en zijn CFS",
+  "faq": [
+   [
+    "Werkt het met de CFS?",
+    "Ja: elk CFS-slot met materiaal en kleur, het actieve omcirkeld, en de externe spoel."
+   ],
+   [
+    "Heeft het Creality Cloud nodig?",
+    "Nee. Tiger Touch praat rechtstreeks met de printer op uw lokale netwerk."
+   ],
+   [
+    "Welke Creality-printers?",
+    "De K2-familie, de K1-familie, de Hi en de Ender-3 V4: die Tiger Studio Manager toevoegt. Het is gedraaid op een K2 Plus en een Ender-3 V4."
+   ],
+   [
+    "En een oudere Creality, zoals een Ender-3 S1?",
+    "Zet hem achter OctoPrint (bijvoorbeeld een OctoPi): Tiger Touch volgt hem via zijn OctoPrint-verbinding."
+   ]
+  ],
+  "note": "Oudere Creality-printers zoals de Ender-3, Ender-3 S1 of CR-10: zet ze achter OctoPrint en voeg ze in Tiger Studio Manager toe als OctoPrint-printers; Tiger Touch volgt ze via OctoPrint.",
+  "via": "via OctoPrint"
+ },
+ "elegoo": {
+  "short": "Centauri Carbon 1 en 2 op uw netwerk, de Canvas",
+  "lead": "Tiger Touch verandert een BIGTREETECH Panda Touch of K-Touch in een live scherm voor uw Elegoo Centauri Carbon: voortgang, temperaturen en, op de Centauri Carbon 2, het Canvas-filamentsysteem.",
+  "models": "Centauri Carbon 2 (en Combo), Centauri 2 (en Combo), Centauri Carbon",
+  "connection": "Op uw lokale netwerk: MQTT voor de Centauri Carbon 2 (poort 1883), SDCP voor de Centauri Carbon (ontdekking via UDP 3000, daarna WebSocket 3030).",
+  "status": "Geschreven naar de protocollen van Elegoo en gecompileerd; nog niet gedraaid op een echte Centauri Carbon. Een melding van uw printer is het nuttigste dat u kunt sturen.",
+  "shows": [
+   "Status, voortgang, lagen, resterende tijd en het bestand dat wordt geprint",
+   "Temperaturen van nozzle, bed en kamer",
+   "De Canvas-slots van een Centauri Carbon 2 met materiaal en kleur"
+  ],
+  "controls": "Pauzeren, hervatten en stoppen worden verzonden met de eigen opdrachten van Elegoo; stoppen vraagt eerst om bevestiging. Het licht schakelt op een Centauri Carbon 2 (de Centauri Carbon heeft geen lichtopdracht).",
+  "setup": [
+   "Voeg de printer toe in Tiger Studio Manager (desktop-app): die vindt hem op uw netwerk.",
+   "Installeer Tiger Touch en meld u aan met hetzelfde TigerSystem-account.",
+   "Schakel de printer in via Settings > Printers."
+  ],
+  "tips": "Vertel ons hoe het gaat op uw Centauri Carbon: een issue op GitHub met wat het scherm toont is hoe een driver van gecompileerd naar bewezen gaat.",
+  "shot_alt": "Tiger Touch op een Panda Touch die een Elegoo Centauri Carbon 2 tijdens het printen toont, met zijn Canvas-filamentslots",
+  "faq": [
+   [
+    "Wordt de Centauri Carbon ondersteund?",
+    "Ja, zowel de Centauri Carbon (SDCP) als de Centauri Carbon 2 (MQTT). De drivers volgen de protocollen van Elegoo en zijn nog niet gedraaid op een echte printer."
+   ],
+   [
+    "Heeft het de Elegoo-cloud nodig?",
+    "Nee. Tiger Touch praat met de printer op uw lokale netwerk."
+   ],
+   [
+    "Toont het de Canvas?",
+    "Op de Centauri Carbon 2 wel: zijn slots met materiaal en kleur."
+   ],
+   [
+    "En de Neptune 4 en de OrangeStorm Giga?",
+    "Die draaien Klipper met Moonraker, dus Tiger Touch volgt ze via zijn Klipper-verbinding: voeg ze in Tiger Studio Manager toe als Klipper-printers."
+   ]
+  ],
+  "note": "Neptune 4 (Pro, Plus, Max) of OrangeStorm Giga: die draaien Klipper. Voeg ze in Tiger Studio Manager toe als Klipper-printers (Moonraker), niet als Centauri-printers; Tiger Touch volgt ze via Klipper.",
+  "via": "via Klipper"
+ },
+ "anycubic": {
+  "short": "Anycubic-cloud of uw netwerk, elk ACE-slot",
+  "lead": "Tiger Touch verandert een BIGTREETECH Panda Touch of K-Touch in een live scherm voor uw Anycubic-printers: hun status en elk ACE-slot, via de Anycubic-cloud of op uw netwerk.",
+  "models": "Kobra S1, Kobra S1 Max, Kobra X, Kobra 3, Kobra 3 V2, Kobra 3 Max",
+  "connection": "De Anycubic-cloud (één sessie voor alle cloudprinters van uw account, aangemeld zoals de Anycubic-slicer dat doet), of op uw netwerk (MQTT over TLS, poort 9883).",
+  "status": "Gezien op een echte printer: een Kobra X inactief via de Anycubic-cloud, met de vier slots van zijn ACE. De lokale verbinding is gecompileerd, nog niet gedraaid.",
+  "shows": [
+   "Onlinestatus, voortgang en het bestand dat wordt geprint",
+   "Elk ACE-slot met materiaal en kleur",
+   "Temperaturen tijdens het printen (via de cloud komen ze mee met de eigen rapporten van de printer)"
+  ],
+  "controls": "Via de cloud blijven pauzeren, hervatten, stoppen en het licht gedimd: de broker sluit de hele sessie af bij een opdracht die hij niet toestaat, dus er wordt er geen verzonden zolang niet van elk vaststaat dat het wordt aangenomen. Op het lokale netwerk worden ze wel verzonden; stoppen vraagt eerst om bevestiging.",
+  "setup": [
+   "Voeg de printer toe in Tiger Studio Manager (desktop-app), voor de cloud aangemeld bij uw Anycubic-account.",
+   "Installeer Tiger Touch en meld u aan met hetzelfde TigerSystem-account.",
+   "Schakel de printer in via Settings > Printers."
+  ],
+  "tips": "Meldt het scherm dat de cloudaanmelding ontbreekt of is geweigerd, vernieuw dan de printer in Tiger Studio Manager: die schrijft een nieuwe aanmelding naar uw account.",
+  "shot_alt": "Tiger Touch op een Panda Touch die een Anycubic Kobra S1 tijdens het printen toont, met de vier slots van zijn ACE",
+  "faq": [
+   [
+    "Werkt het via de Anycubic-cloud?",
+    "Ja. Alle cloudprinters van uw account delen één sessie, aangemeld zoals de Anycubic-slicer dat doet. Het is gedraaid op een Kobra X."
+   ],
+   [
+    "Kan ik een Anycubic-print vanaf het scherm stoppen?",
+    "Op het lokale netwerk wel. Via de cloud nog niet: de knoppen worden getoond maar zijn gedimd."
+   ],
+   [
+    "Toont het de ACE?",
+    "Ja: elk slot met zijn materiaal en kleur."
+   ]
+  ]
+ },
+ "snapmaker": {
+  "short": "De U1 op uw netwerk, zijn vier toolheads",
+  "lead": "Tiger Touch verandert een BIGTREETECH Panda Touch of K-Touch in een live scherm voor uw Snapmaker U1: zijn vier toolheads, die aan het werk omcirkeld, voortgang en temperaturen.",
+  "models": "U1",
+  "connection": "De WebSocket van Moonraker op uw lokale netwerk (poort 7125), met de eigen filamentgegevens van de U1.",
+  "status": "Gezien op een echte U1, inactief: status, de vier nozzles met de actieve omcirkeld, het bed.",
+  "shows": [
+   "Voortgang, lagen, resterende tijd en het bestand dat wordt geprint",
+   "Alle vier de toolheads met hun temperaturen, de actieve omcirkeld",
+   "De spoel van elke head met materiaal en kleur"
+  ],
+  "controls": "Pauzeren, hervatten en stoppen via Moonraker; stoppen vraagt eerst om bevestiging. Het licht in de behuizing schakelt u vanaf het scherm.",
+  "setup": [
+   "Voeg de U1 toe in Tiger Studio Manager (desktop-app): die vindt hem op uw netwerk.",
+   "Installeer Tiger Touch en meld u aan met hetzelfde TigerSystem-account.",
+   "Schakel de printer in via Settings > Printers."
+  ],
+  "tips": "De U1 draait Klipper, maar houdt op Tiger Touch een eigen driver voor zijn filamentgegevens.",
+  "shot_alt": "Tiger Touch op een Panda Touch die een Snapmaker U1 tijdens het printen toont: vier toolheads, de actieve omcirkeld, en hun spoelen",
+  "faq": [
+   [
+    "Toont het de vier heads van de U1?",
+    "Ja: vier tegels met hun temperaturen, de head aan het werk omcirkeld, en de spoel van elke head."
+   ],
+   [
+    "Heeft het de Snapmaker-cloud nodig?",
+    "Nee. Het praat met de printer op uw lokale netwerk."
+   ],
+   [
+    "Is het op een echte U1 geprobeerd?",
+    "Ja, inactief: status, de vier nozzles en het bed. Een print is nog niet gevolgd."
+   ]
+  ]
+ },
+ "flashforge": {
+  "short": "Op uw netwerk, het materiaalstation van de AD5X",
+  "lead": "Tiger Touch verandert een BIGTREETECH Panda Touch of K-Touch in een live scherm voor uw FlashForge-printers: voortgang, temperaturen, de externe spoel en het materiaalstation van de AD5X.",
+  "models": "AD5X, Adventurer 5M, Adventurer 5M Pro, Creator 5, Creator 5 Pro",
+  "connection": "De HTTP-interface van de printer op uw lokale netwerk (poort 8898), om de 2 seconden uitgelezen.",
+  "status": "Gezien op een echte AD5X, inactief: status, temperaturen van nozzle en bed.",
+  "shows": [
+   "Status, voortgang, lagen en het bestand dat wordt geprint",
+   "Temperaturen van nozzle en bed; beide nozzles van een dubbele extruder en de toolwisselaar van de Creator 5 Pro",
+   "De externe spoel en de vier slots van het materiaalstation van de AD5X"
+  ],
+  "controls": "Pauzeren, hervatten, stoppen en het licht op recente modellen; stoppen vraagt eerst om bevestiging.",
+  "setup": [
+   "Zet LAN mode aan in de netwerkinstellingen van de printer (standaard staat het uit).",
+   "Voeg de printer toe in Tiger Studio Manager (desktop-app).",
+   "Installeer Tiger Touch, meld u aan met hetzelfde TigerSystem-account en schakel de printer in via Settings > Printers."
+  ],
+  "tips": "Een FlashForge die offline lijkt te zijn, heeft meestal LAN mode uit: het is een instelling op het eigen scherm van de printer.",
+  "shot_alt": "Tiger Touch op een Panda Touch die een gepauzeerde FlashForge AD5X toont, met zijn externe spoel en zijn materiaalstation met vier slots",
+  "faq": [
+   [
+    "Toont het het materiaalstation van de AD5X?",
+    "Ja: zijn vier slots met materiaal en kleur, en de externe spoel."
+   ],
+   [
+    "Heeft het de cloud van FlashForge nodig?",
+    "Nee. Het leest de printer uit op uw lokale netwerk; LAN mode moet aanstaan."
+   ],
+   [
+    "Welke FlashForge-printers?",
+    "De AD5X, de Adventurer 5M en 5M Pro, de Creator 5 en de Creator 5 Pro. Het is gedraaid op een AD5X."
+   ]
+  ]
+ },
+ "prusa": {
+  "short": "PrusaLink op uw netwerk: voortgang en temperaturen",
+  "lead": "Tiger Touch verandert een BIGTREETECH Panda Touch of K-Touch via PrusaLink in een live scherm voor uw Prusa-printers: voortgang, resterende tijd en temperaturen.",
+  "models": "Core One, Core One L, MK4S, MK4, MK3.5, XL, XL 5T, MINI",
+  "connection": "PrusaLink via HTTP op uw lokale netwerk, met Digest-authenticatie (of de oude API-sleutel als uw account er een bevat).",
+  "status": "Geschreven naar de API van PrusaLink en gecompileerd; nog niet gedraaid op een echte Prusa. Een melding van uw printer is het nuttigste dat u kunt sturen.",
+  "shows": [
+   "Status, voortgang, resterende tijd en het bestand dat wordt geprint",
+   "Temperaturen van nozzle en bed, de kamer op een Core One"
+  ],
+  "controls": "Pauzeren, hervatten en stoppen via PrusaLink; stoppen vraagt eerst om bevestiging. PrusaLink heeft geen lichtopdracht, dus de lichtknop blijft gedimd.",
+  "setup": [
+   "Schakel PrusaLink in op de printer en noteer de gebruikersnaam en het wachtwoord.",
+   "Voeg de printer toe in Tiger Studio Manager (desktop-app).",
+   "Installeer Tiger Touch, meld u aan met hetzelfde TigerSystem-account en schakel de printer in via Settings > Printers."
+  ],
+  "tips": "Vertel ons hoe het gaat op uw Prusa: een issue op GitHub met wat het scherm toont is hoe een driver van gecompileerd naar bewezen gaat.",
+  "shot_alt": "Tiger Touch op een Panda Touch die een Prusa Core One tijdens het printen toont: voortgangsring, resterende tijd en temperaturen",
+  "faq": [
+   [
+    "Heeft het Prusa Connect nodig?",
+    "Nee. Het praat met PrusaLink op uw lokale netwerk."
+   ],
+   [
+    "Kan het het licht schakelen?",
+    "Nee: PrusaLink heeft geen lichtopdracht."
+   ],
+   [
+    "Is het op een echte Prusa geprobeerd?",
+    "Nog niet: de driver volgt de API van PrusaLink en is gecompileerd. Meldingen zijn welkom."
+   ]
+  ]
+ },
+ "klipper": {
+  "short": "Moonraker: Voron, Qidi, Sovol, AFC en Happy Hare",
+  "lead": "Tiger Touch verandert een BIGTREETECH Panda Touch of K-Touch in een live scherm voor elke Klipper-printer met Moonraker: voortgang, temperaturen, tot vier extruders, het licht en AFC- of Happy Hare-lanes.",
+  "models": "Voron, Qidi, Sovol, RatRig en elke printer die Klipper met Moonraker draait",
+  "connection": "Moonraker via HTTP op uw lokale netwerk (poort 7125 tenzij u een andere opgeeft), om de 2 seconden uitgelezen, met een API-sleutel als Moonraker erom vraagt.",
+  "status": "Gedraaid tegen de Moonraker-testprinter van Tiger Studio Manager: printen, gepauzeerd, klaar, geannuleerd, fouten, het licht en vier AFC-lanes. Nog niet op een echte printer.",
+  "shows": [
+   "Status, voortgang, lagen, resterende tijd en het bestand dat wordt geprint",
+   "Tot vier extruders, het bed en een kamersensor",
+   "AFC-lanes of een Happy Hare MMU, de actieve omcirkeld"
+  ],
+  "controls": "Pauzeren, hervatten en stoppen via Moonraker; stoppen vraagt eerst om bevestiging. Het licht schakelt als de printer een ledketen of een uitgangspin heeft met een naam als een licht.",
+  "setup": [
+   "Controleer of Moonraker antwoordt op uw netwerk (Mainsail of Fluidd gebruiken het al).",
+   "Voeg de printer met zijn adres toe in Tiger Studio Manager (desktop-app); Tiger Touch lost .local-namen niet op.",
+   "Installeer Tiger Touch, meld u aan met hetzelfde TigerSystem-account en schakel de printer in via Settings > Printers."
+  ],
+  "tips": "Schrijf het numerieke IP-adres van de printer (zoals 192.168.x.y), geen naam die op .local eindigt, zoals voron.local: het scherm heeft geen mDNS.",
+  "shot_alt": "Tiger Touch op een Panda Touch die een Voron 2.4 met Klipper tijdens het printen toont, met vier AFC-lanes",
+  "faq": [
+   [
+    "Werkt het met Voron, Qidi of Sovol?",
+    "Ja, met elke printer die Klipper met Moonraker draait."
+   ],
+   [
+    "Heeft het Mainsail of Fluidd nodig?",
+    "Nee, alleen Moonraker, dat zij al gebruiken."
+   ],
+   [
+    "Toont het AFC of Happy Hare?",
+    "Ja: de lanes of gates met materiaal en kleur, de actieve omcirkeld."
+   ]
+  ]
+ },
+ "octoprint": {
+  "short": "Elke Marlin-printer achter OctoPrint",
+  "lead": "Tiger Touch verandert een BIGTREETECH Panda Touch of K-Touch in een live scherm voor een printer achter OctoPrint: voortgang, resterende tijd en temperaturen, voor elke Marlin-printer.",
+  "models": "Elke Marlin-printer achter OctoPrint (Ender, Prusa MK3, Anet en meer)",
+  "connection": "De REST-API van OctoPrint via HTTP op uw lokale netwerk (poort 80 tenzij u een andere opgeeft), om de 2 seconden uitgelezen, met zijn API-sleutel.",
+  "status": "Gedraaid tegen de OctoPrint-testserver van Tiger Studio Manager: printen, gepauzeerd, klaar, fouten en geen printer aangesloten. Nog niet op een echte printer.",
+  "shows": [
+   "Status, voortgang, resterende tijd en het bestand dat wordt geprint",
+   "Temperaturen van nozzle en bed",
+   "Is er geen printer op OctoPrint aangesloten, dan zegt de kaart dat in plaats van offline te tonen"
+  ],
+  "controls": "Pauzeren, hervatten en stoppen via OctoPrint; stoppen vraagt eerst om bevestiging. OctoPrint heeft geen lichtopdracht, dus de lichtknop blijft gedimd.",
+  "setup": [
+   "Maak een API-sleutel aan in OctoPrint (Settings > Application keys).",
+   "Voeg de printer toe in Tiger Studio Manager (desktop-app) met het adres en de sleutel van OctoPrint.",
+   "Installeer Tiger Touch, meld u aan met hetzelfde TigerSystem-account en schakel de printer in via Settings > Printers."
+  ],
+  "tips": "Een OctoPi antwoordt op poort 80; schrijf een andere poort achter het adres als de uwe afwijkt.",
+  "shot_alt": "Tiger Touch op een Panda Touch die een Ender-3 S1 achter OctoPrint tijdens het printen toont: voortgangsring, resterende tijd en temperaturen",
+  "faq": [
+   [
+    "Welke printers werken via OctoPrint?",
+    "Elke printer die OctoPrint aanstuurt, de meeste op Marlin: Ender, Prusa MK3, Anet en meer."
+   ],
+   [
+    "Heb ik een API-sleutel nodig?",
+    "Ja: maak er een aan in OctoPrint en voeg hem toe in Tiger Studio Manager."
+   ],
+   [
+    "Kan het het licht schakelen?",
+    "Nee: OctoPrint heeft geen lichtopdracht."
+   ]
+  ]
+ }
+}

@@ -84,7 +84,7 @@ def card(title2, sub, device, printers, footer, font):
         d.text((64, y), r, font=so, fill=MUTED)
         y += so.size + 8
     # What to do next, as the site's own button, big, under the words.
-    cta = "Install it free"
+    cta = "Install for free"
     co = font(36)
     tw = d.textlength(cta, font=co) + 44  # the text, then a drawn arrow (no font has one here)
     top = y + 6

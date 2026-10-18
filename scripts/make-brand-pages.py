@@ -74,7 +74,8 @@ def strip(svg, pieces, slugs, prefix, current):
         icon = '<svg viewBox="%s" width="48" height="48" fill="currentColor" aria-hidden="true">%s</svg>' % (vb, inner)
         cur = ' class="cur" aria-current="page"' if slug == current else ""
         items.append('<a href="%s%s/"%s>%s<span>%s</span></a>' % (prefix, slug, cur, icon, esc(label)))
-    return '<nav class="brands strip" aria-label="Printer brands">%s</nav>' % "".join(items)
+    return ('<nav class="brands strip" data-i18n-aria="brands_aria" aria-label="Printer brands">%s</nav>'
+            % "".join(items))
 
 
 def english(i18n_js):
@@ -124,20 +125,14 @@ def favicon(viewbox, logo):
 
 # ---- The page ------------------------------------------------------------------
 
-FEATURES = [
-    ("Every brand on one screen", "Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, Klipper and OctoPrint, up to ten printers live at once."),
-    ("Nothing to type", "Your printers come from your TigerSystem account, with their addresses and access codes, as Tiger Studio Manager added them."),
-    ("Install from your browser", "Plug the screen in, press Install in Chrome or Edge: a few minutes, no tools, no soldering."),
-    ("Updates over Wi-Fi", "The screen finds new versions by itself and asks; each one is checked before it is used."),
-    ("Live view in Tiger Studio", "Tiger Studio Manager shows the screen live, touches it and takes screenshots for a bug report or a post."),
-    ("Free and open source", "MIT licence, no subscription, eleven languages, made by the TigerSquad community."),
-]
+# The six features of "What Tiger Touch is": a title (<key>_t) and a line (<key>_d) each, in i18n.js.
+FEATURES = ("bp_f1", "bp_f2", "bp_f3", "bp_f4", "bp_f5", "bp_f6")
 
 
-def page(b, brands, pieces, svg):
+def page(b, brands, pieces, svg, en, tr):
     slug, name = b["slug"], b["name"]
     url = BASE + slug + "/"
-    title = "%s 3D printers on Panda Touch & K-Touch | TigerTouch" % name  # 60 characters at most
+    title = en["bp_title"].replace("{name}", name)  # 60 characters at most
     desc = b["meta"]  # written for search results: 150-160 characters, a whole sentence
     img = BASE + "img/%s.png" % slug
     # With its fingerprint: a network that cached an older picture fetches the new one.
@@ -161,14 +156,26 @@ def page(b, brands, pieces, svg):
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in b["faq"]]},
     ]
 
-    li = lambda xs: "".join("<li>%s</li>" % esc(x) for x in xs)
+    # Every piece of text carries its key: lang.js swaps it for the reader's
+    # language, from i18n.js (the words every page shares) or the page's own
+    # dictionary (this brand's words, written below as I18N_PAGE).
+    li = lambda key, xs: "".join('<li data-i18n="%s_%d">%s</li>' % (key, i, esc(x)) for i, x in enumerate(xs))
     other_rows = "".join(
-        '<li><a href="../%s/"><b>%s</b></a> <span>%s</span></li>' % (o["slug"], esc(o["name"]), esc(o["short"]))
-        for o in others)
-    faq = "".join("<details><summary>%s</summary><p>%s</p></details>" % (esc(q), esc(a)) for q, a in b["faq"])
-    feats = "".join("<div><h3>%s</h3><p>%s</p></div>" % (esc(t), esc(d)) for t, d in FEATURES)
+        '<li><a href="../%s/"><b>%s</b></a> <span data-i18n="short_%s">%s</span></li>'
+        % (o["slug"], esc(o["name"]), key_of(o["slug"]), esc(o["short"])) for o in others)
+    faq = "".join('<details><summary data-i18n="b_faq_%d_q">%s</summary><p data-i18n="b_faq_%d_a">%s</p></details>'
+                  % (i, esc(q), i, esc(a)) for i, (q, a) in enumerate(b["faq"]))
+    feats = "".join('<div><h3 data-i18n="bp_f%d_t">%s</h3><p data-i18n="bp_f%d_d">%s</p></div>'
+                    % (i + 1, esc(en[k + "_t"]), i + 1, esc(en[k + "_d"]))
+                    for i, k in enumerate(FEATURES))
     logo_svg = logo[2].replace("<svg ", '<svg class="bp-logo" width="92" height="92" aria-hidden="true" ', 1)
     logo_svg = re.sub(r' x="[^"]+" y="[^"]+" width="[^"]+" height="[^"]+"', "", logo_svg, count=1)
+    vias = {m[2] for m in b["lineup"] if len(m) > 2}
+    if len(vias) > 1:
+        raise SystemExit("%s: one 'via' note per brand, found %s" % (slug, sorted(vias)))
+    # English as written, with {name} filled: what the HTML holds before any script runs.
+    E = lambda k: en[k].replace("{name}", name)
+    T = lambda k: esc(E(k))
 
     return """<!doctype html>
 <html lang="en">
@@ -196,115 +203,131 @@ def page(b, brands, pieces, svg):
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../site.css?v={v_css}">
 <script>try {{ var t = localStorage.getItem("tigertouch-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; }} catch (e) {{}}</script>
+<script src="../i18n.js?v={v_i18n}"></script>
+<script>window.I18N_PAGE = {page_dict};</script>
 <script src="../theme.js?v={v_theme}" defer></script>
+<script src="../lang.js?v={v_lang}" defer></script>
 <script src="../release.js?v={v_release}" defer></script>
 <script type="application/ld+json">{ld}</script>
 </head>
-<body>
+<body data-brand="{name}" data-title="bp_title">
 <header class="bar">
   <div class="wrap">
     <a class="logo duo" href="../"><b>{name}</b> <span class="x">x</span> Tiger<span>System</span></a>
     <div class="tools">
-      <a class="pill solid" href="../#install">Install</a>
-      <button class="themebtn" id="themebtn" type="button" aria-label="Light or dark">
+      <a class="pill solid" href="../#install" data-i18n="cta_btn">{t_install}</a>
+      <button class="themebtn" id="themebtn" type="button" data-i18n-aria="theme_label" aria-label="{t_theme}">
         <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       </button>
+      <div class="langbox" id="langbox" data-open="0">
+        <button class="langbtn" id="langbtn" type="button" aria-haspopup="listbox"
+                aria-expanded="false" data-i18n-aria="lang_label" aria-label="{t_lang}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/>
+          </svg>
+          <span id="langnow">English</span>
+          <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <ul class="langmenu" id="langmenu" role="listbox"></ul>
+      </div>
     </div>
   </div>
 </header>
 <main class="wrap">
-  <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Tiger Touch</a> <span aria-hidden="true">/</span> <span>{name}</span></nav>
+  <nav class="crumbs" data-i18n-aria="crumbs_aria" aria-label="{t_crumbs}"><a href="../">Tiger Touch</a> <span aria-hidden="true">/</span> <span>{name}</span></nav>
 
   <section class="hero bp-hero">
     <div class="intro">
       <div class="bp-head">
         {logo_svg}
-        <h1 class="bp-title">Tiger<span>Touch</span> for <span>{name}</span> 3D printers</h1>
+        <h1 class="bp-title" data-i18n-html="bp_h1_html">{h1}</h1>
       </div>
-      <p class="lead">{lead}</p>
+      <p class="lead" data-i18n="b_lead">{lead}</p>
       <dl class="facts">
-        <dt>Models</dt><dd>{models}</dd>
-        <dt>Connection</dt><dd>{connection}</dd>
-        <dt>Tested</dt><dd>{status}</dd>
+        <dt data-i18n="bp_models">{t_models}</dt><dd data-i18n="b_models">{models}</dd>
+        <dt data-i18n="bp_connection">{t_connection}</dt><dd data-i18n="b_connection">{connection}</dd>
+        <dt data-i18n="bp_tested">{t_tested}</dt><dd data-i18n="b_status">{status}</dd>
       </dl>
       {note}
-      <p class="cta"><a class="pill solid big" href="../#install">Install Tiger Touch from your browser</a>
-        <a class="pill" href="{repo}">Source on GitHub</a></p>
+      <p class="cta"><a class="pill solid big" href="../#install" data-i18n="bp_cta">{t_cta}</a>
+        <a class="pill" href="{repo}" data-i18n="bp_source">{t_source}</a></p>
       <p class="latest" data-latest hidden></p>
-      <p class="small-note">This guide is in English; the installer speaks eleven languages. The original firmware can be reinstalled at any time: <a href="{repo}/blob/main/docs/INSTALL.md">how to go back</a>.</p>
+      <p class="small-note"><span data-i18n="restore_txt">{t_restore}</span> <a href="{repo}/blob/main/docs/INSTALL.md" data-i18n="restore_link">{t_restore_link}</a></p>
     </div>
     <figure class="show bp-shot">
-      <img src="../img/{slug}.png" width="607" height="738" alt="{shot_alt}">
-      <figcaption>Captured in Demo mode on a Panda Touch running Tiger Touch: the screen is real, the printer data is made up.</figcaption>
+      <img src="../img/{slug}.png" width="607" height="738" data-i18n-alt="b_alt" alt="{shot_alt}">
+      <figcaption data-i18n="bp_caption">{t_caption}</figcaption>
     </figure>
   </section>
 
-  <section class="bp-sec lineup-sec" aria-label="{name} printers">
-    <ul class="lineup">{lineup}</ul>
+  <section class="bp-sec lineup-sec" data-i18n-aria="bp_lineup_aria" aria-label="{t_lineup}">
+    <ul class="lineup" style="--per: {per}">{lineup}</ul>
   </section>
 
   <section class="card bp-sec need">
-    <h2>What you need</h2>
+    <h2 data-i18n="bp_need_title">{t_need}</h2>
     <ul class="ticks">
-      <li>A BIGTREETECH <b>Panda Touch</b> or <b>K-Touch</b>, the 5-inch touchscreen, sold separately: maybe the one already in your drawer. Tiger Touch has been run on a Panda Touch; the K-Touch is the same board and has not been run on one yet.</li>
-      <li>For the first installation only: <b>Chrome or Edge</b> on a computer and a <b>USB-C data cable</b>. Nothing stays plugged in afterwards.</li>
-      <li>Your printer on the same <b>Wi-Fi</b> network as the screen (or its maker's cloud, where the page above says so).</li>
-      <li>A free <b>TigerSystem account</b>, with the printer added in <b>Tiger Studio Manager</b>, the desktop app (Windows, macOS, Linux).</li>
+      <li data-i18n-html="bp_need1_html">{t_need1}</li>
+      <li data-i18n-html="bp_need2_html">{t_need2}</li>
+      <li data-i18n-html="bp_need3_html">{t_need3}</li>
+      <li data-i18n-html="bp_need4_html">{t_need4}</li>
     </ul>
   </section>
 
   <section class="card bp-sec">
-    <h2>What the screen shows for a {name} 3D printer</h2>
+    <h2 data-i18n="bp_shows_title">{t_shows}</h2>
     <ul class="ticks">{shows}</ul>
-    <h3>Pause, stop and the light</h3>
-    <p>{controls}</p>
+    <h3 data-i18n="bp_controls_title">{t_controls}</h3>
+    <p data-i18n="b_controls">{controls}</p>
   </section>
 
   <section class="card bp-sec">
-    <h2>Set it up in three steps</h2>
+    <h2 data-i18n="bp_setup_title">{t_setup}</h2>
     <ol>{setup}</ol>
-    <p class="tip"><b>Tip.</b> {tips}</p>
+    <p class="tip"><b data-i18n="bp_tip">{t_tip}</b> <span data-i18n="b_tips">{tips}</span></p>
   </section>
 
   <section class="card bp-sec">
-    <h2>{name} questions</h2>
+    <h2 data-i18n="bp_faq_title">{t_faq}</h2>
     <div class="faq">{faq}</div>
   </section>
 
   <section class="bp-sec">
-    <h2>The same screen, every brand</h2>
-    <p>Tiger Touch follows every printer of your TigerSystem account on one screen, whatever the brand, each through its maker's own connection:</p>
+    <h2 data-i18n="bp_every_title">{t_every}</h2>
+    <p data-i18n="bp_every_text">{t_every_text}</p>
     {strip}
     <ul class="others">{others}</ul>
   </section>
 
   <section class="card bp-sec">
-    <h2>What Tiger<span class="tt-touch">Touch</span> is</h2>
-    <p>A free, open-source firmware that turns the BIGTREETECH Panda Touch or K-Touch, a 5-inch touchscreen made for Bambu Lab, into one live screen for all your 3D printers. No computer left on and no bridge: it signs in to your TigerSystem account, reads your printers from it and talks to each one directly.</p>
-    <h3>Built around makers, not around a brand</h3>
-    <p>Printer makers build their software around their own machines: their apps, their clouds and their screens are designed to keep you with their printers. <b>TigerSystem starts from the other end: you.</b> Whatever printers you own, whatever their brand, whatever computer or phone you use, our tools adapt to the way you work, not the other way round. A {name} printer today, another brand tomorrow: the same screen follows both.</p>
+    <h2 data-i18n="bp_what_title">{t_what}</h2>
+    <p data-i18n="bp_what_text">{t_what_text}</p>
+    <h3 data-i18n="phil_title">{t_phil}</h3>
+    <p><span data-i18n-html="phil_html">{t_phil_html}</span> <span data-i18n="bp_phil_more">{t_phil_more}</span></p>
     <div class="features">{feats}</div>
-    <p class="cta"><a class="pill solid big" href="../#install">Install it now, in a few minutes</a></p>
+    <p class="cta"><a class="pill solid big" href="../#install" data-i18n="bp_cta2">{t_cta2}</a></p>
   </section>
 
   <section class="join">
     <div>
-      <h2>You dreamed of it. The TigerSquad built it.</h2>
-      <p>Tiger Touch, Tiger Studio, TigerScale, TigerSpool, TigerPOD: free tools made by a community of makers, for every brand of printer.</p>
+      <h2 data-i18n="join_title">{t_join}</h2>
+      <p data-i18n="join_text">{t_join_text}</p>
     </div>
-    <a class="joinbtn" href="https://tigersystem.io" target="_blank" rel="noopener">Join us now</a>
+    <a class="joinbtn" href="https://tigersystem.io" target="_blank" rel="noopener" data-i18n="join_btn">{t_join_btn}</a>
   </section>
 
   <footer>
   <nav class="foot">
-    <a class="pill" href="../">Tiger Touch installer</a>
-    <a class="pill" href="{repo}" target="_blank" rel="noopener">Source code on GitHub</a>
-    <a class="pill" href="https://wiki.tigersystem.io" target="_blank" rel="noopener">Documentation (wiki)</a>
-    <a class="pill" href="{repo}/releases" target="_blank" rel="noopener">What's new</a>
+    <a class="pill" href="../" data-i18n="bp_foot_installer">{t_foot}</a>
+    <a class="pill" href="{repo}" target="_blank" rel="noopener" data-i18n="f_source">{t_f_source}</a>
+    <a class="pill" href="https://wiki.tigersystem.io" target="_blank" rel="noopener" data-i18n="f_wiki">{t_f_wiki}</a>
+    <a class="pill" href="{repo}/releases" target="_blank" rel="noopener" data-i18n="f_releases">{t_f_releases}</a>
     <a class="pill" href="https://tigersystem.io" target="_blank" rel="noopener">tigersystem.io</a>
   </nav>
-  <p class="legal">Tiger Touch is an independent open-source project, not affiliated with or endorsed by BIGTREETECH or {name}. Product names, logos and pictures belong to their owners and appear only to say which machines Tiger Touch works with (<a href="{repo}/blob/main/TRADEMARK.md">trademarks</a>).</p>
+  <p class="legal"><span data-i18n="legal">{t_legal}</span> <a href="{repo}/blob/main/TRADEMARK.md">TRADEMARK.md</a></p>
   </footer>
 </main>
 </body>
@@ -312,15 +335,87 @@ def page(b, brands, pieces, svg):
 """.format(title=esc(title), desc=esc(desc), ogdesc=esc(b["og"]), url=url, name=esc(name), img=img, og=og, slug=slug, repo=REPO,
            ld=json.dumps(ld, ensure_ascii=False).replace("</", "<\\/"), logo_svg=logo_svg, lead=esc(b["lead"]),
            models=esc(b["models"]), connection=esc(b["connection"]), status=esc(b["status"]),
-           shot_alt=esc(b["shot_alt"]), shows=li(b["shows"]), controls=esc(b["controls"]),
-           setup=li(b["setup"]), tips=esc(b["tips"]), faq=faq, strip=strip(svg, pieces, slugs, "../", slug),
-           others=other_rows, feats=feats,
-           note=('<p class="bp-note">%s</p>' % esc(b["note"])) if b.get("note") else "", **STAMPS,
+           shot_alt=esc(b["shot_alt"]), shows=li("b_shows", b["shows"]), controls=esc(b["controls"]),
+           setup=li("b_setup", b["setup"]), tips=esc(b["tips"]), faq=faq, strip=strip(svg, pieces, slugs, "../", slug),
+           others=other_rows, feats=feats, page_dict=page_dict(b, brands, tr),
+           h1=E("bp_h1_html"),
+           t_install=T("cta_btn"), t_theme=T("theme_label"), t_lang=T("lang_label"), t_crumbs=T("crumbs_aria"),
+           t_models=T("bp_models"), t_connection=T("bp_connection"), t_tested=T("bp_tested"), t_cta=T("bp_cta"),
+           t_source=T("bp_source"), t_restore=T("restore_txt"), t_restore_link=T("restore_link"),
+           t_caption=T("bp_caption"), t_lineup=T("bp_lineup_aria"), t_need=T("bp_need_title"),
+           t_need1=E("bp_need1_html"), t_need2=E("bp_need2_html"), t_need3=E("bp_need3_html"), t_need4=E("bp_need4_html"),
+           t_shows=T("bp_shows_title"), t_controls=T("bp_controls_title"), t_setup=T("bp_setup_title"), t_tip=T("bp_tip"),
+           t_faq=T("bp_faq_title"), t_every=T("bp_every_title"), t_every_text=T("bp_every_text"), t_what=T("bp_what_title"),
+           t_what_text=T("bp_what_text"), t_phil=T("phil_title"), t_phil_html=E("phil_html"), t_phil_more=T("bp_phil_more"),
+           t_cta2=T("bp_cta2"), t_join=T("join_title"), t_join_text=T("join_text"), t_join_btn=T("join_btn"),
+           t_foot=T("bp_foot_installer"), t_f_source=T("f_source"), t_f_wiki=T("f_wiki"), t_f_releases=T("f_releases"),
+           t_legal=T("legal"),
+           # Printers on a row: all of them up to seven, else half (rounded up) -
+           # one row, or two, never three (site.css shrinks them to fit).
+           per=len(b["lineup"]) if len(b["lineup"]) <= 7 else (len(b["lineup"]) + 1) // 2,
+           note=('<p class="bp-note" data-i18n="b_note">%s</p>' % esc(b["note"])) if b.get("note") else "", **STAMPS,
            lineup="".join('<li><img src="../img/models/%s" width="240" height="240" loading="lazy" alt="%s %s">'
                           '<span>%s</span>%s</li>' % (esc(m[0]), esc(name), esc(m[1]), esc(m[1]),
-                                                      '<small>%s</small>' % esc(m[2]) if len(m) > 2 else "")
+                                                      '<small data-i18n="b_via">%s</small>' % esc(m[2]) if len(m) > 2 else "")
                           for m in b["lineup"]))
 
+
+# ---- The brands' words in every language ---------------------------------------
+
+# The fields of brand-pages.json a reader sees, translated in installer/brand-i18n/<lang>.json.
+FIELDS = ["short", "lead", "models", "connection", "status", "shows", "controls", "setup", "tips", "shot_alt", "faq",
+          "note", "via"]
+
+
+def key_of(slug):
+    return slug.replace("-", "_")
+
+
+def english_fields(b):
+    e = {k: b[k] for k in FIELDS if k in b}
+    vias = [m[2] for m in b["lineup"] if len(m) > 2]
+    if vias:
+        e["via"] = vias[0]
+    return e
+
+
+def flat(f):
+    """One brand's fields as the page's keys: b_lead, b_shows_0, b_faq_1_q..."""
+    d = {}
+    for k, v in f.items():
+        if k == "short":
+            continue
+        k = {"shot_alt": "alt"}.get(k, k)
+        if k == "faq":
+            for i, (q, a) in enumerate(v):
+                d["b_faq_%d_q" % i], d["b_faq_%d_a" % i] = q, a
+        elif isinstance(v, list):
+            for i, x in enumerate(v):
+                d["b_%s_%d" % (k, i)] = x
+        else:
+            d["b_" + k] = v
+    return d
+
+
+def page_dict(b, brands, tr):
+    """{lang: {key: text}} for one page: its brand's words, and the one-line
+    summary of every other brand. English included, to switch back to it."""
+    out = {}
+    for code, by_slug in tr.items():
+        d = flat(by_slug[b["slug"]])
+        for o in brands:
+            if o["slug"] != b["slug"]:
+                d["short_" + key_of(o["slug"])] = by_slug[o["slug"]]["short"]
+        out[code] = d
+    return json.dumps(out, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+
+
+def translations(brands):
+    """{lang: {slug: fields}}, English from brand-pages.json, the rest from brand-i18n/."""
+    tr = {"en": {b["slug"]: english_fields(b) for b in brands}}
+    for f in sorted((ROOT / "installer" / "brand-i18n").glob("*.json")):
+        tr[f.stem] = json.loads(f.read_text())
+    return tr
 
 def main():
     ap = argparse.ArgumentParser()
@@ -329,10 +424,12 @@ def main():
     out = pathlib.Path(a.out)
     # Each shared file is linked with its own fingerprint: a page never meets a
     # stylesheet older than itself in a browser's cache (Pages keeps them 10 min).
-    for name in ("site.css", "theme.js", "release.js"):
+    for name in ("site.css", "theme.js", "release.js", "i18n.js", "lang.js"):
         STAMPS["v_" + name.split(".")[0].replace("site", "css")] = hashlib.sha256((out / name).read_bytes()).hexdigest()[:10]
+    en = english((out / "i18n.js").read_text())
     data = json.loads((ROOT / "installer" / "brand-pages.json").read_text())
     brands = data["brands"]
+    tr = translations(brands)
     svg = (ROOT / "assets" / "brands" / "brands.svg").read_text()
     pieces = logos(svg)
     labels = {p[0] for p in pieces}
@@ -346,7 +443,7 @@ def main():
             raise SystemExit("no logo named %r in brands.svg" % b["logo"])
         d = out / b["slug"]
         d.mkdir(parents=True, exist_ok=True)
-        (d / "index.html").write_text(page(b, brands, pieces, svg))
+        (d / "index.html").write_text(page(b, brands, pieces, svg, en, tr))
         p = next(p for p in pieces if p[0] == b["logo"])
         (d / "favicon.svg").write_text(favicon(p[1], p[2]))
         shutil.copyfile(ROOT / "assets" / "devices" / "brands" / (b["shot"] + ".png"), out / "img" / (b["slug"] + ".png"))
@@ -357,11 +454,12 @@ def main():
     index = out / "index.html"
     slugs = {b["logo"]: b["slug"] for b in brands}
     home = replace_strip(index.read_text(), strip(svg, pieces, slugs, "", None))
-    home = static_english(home, english((out / "i18n.js").read_text()))
+    home = static_english(home, en)
     stamp = hashlib.sha256((ROOT / "assets" / "og" / "home.jpg").read_bytes()).hexdigest()[:10]
     home = re.sub(r'(og/home\.jpg)(\?v=\w+)?"', r'\1?v=%s"' % stamp, home)
     home = re.sub(r'href="site\.css(\?v=\w+)?"', 'href="site.css?v=%s"' % STAMPS["v_css"], home)
-    home = re.sub(r'src="theme\.js(\?v=\w+)?"', 'src="theme.js?v=%s"' % STAMPS["v_theme"], home)
+    for js in ("theme", "lang", "i18n"):
+        home = re.sub(r'src="%s\.js(\?v=\w+)?"' % js, 'src="%s.js?v=%s"' % (js, STAMPS["v_" + js]), home)
     index.write_text(home)
     urls = [BASE] + [BASE + b["slug"] + "/" for b in brands]
     (out / "sitemap.xml").write_text(
@@ -369,6 +467,7 @@ def main():
         + "".join("  <url><loc>%s</loc></url>\n" % u for u in urls) + "</urlset>\n")
     (out / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: %ssitemap.xml\n" % BASE)
     (out / "brand-pages.json").unlink(missing_ok=True)
+    shutil.rmtree(out / "brand-i18n", ignore_errors=True)
     print("brand pages: %s" % ", ".join(b["slug"] for b in brands))
 
 

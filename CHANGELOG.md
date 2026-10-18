@@ -131,6 +131,33 @@ they were written.
 - **The printer brands run across the whole page** on the installer, under the
   name, the screen and the install card.
 
+- **Every page of the site in eleven languages**: the brand pages speak the
+  installer's eleven languages too, with the same language menu in the header
+  and the same remembered choice. One script for every page (`installer/lang.js`),
+  the shared words in `installer/i18n.js`, each brand's own words in
+  `installer/brand-i18n/<lang>.json`, written into its page when the site is
+  built; the HTML stays English for search engines. The latest-version line,
+  the installer's picture descriptions and the brand strip's label follow the
+  language. `check-installer-i18n.py` checks the brand words as it checks the
+  installer's.
+
+### Fixed
+- **The site's accessibility**, on the installer and every brand page:
+  - the closed language menu no longer takes keyboard stops; open, it shows
+    which language has the focus, and the arrow keys, Home, End, Enter, Space,
+    Escape and Tab work as in a list box;
+  - small orange text and links use a darker orange on the light theme and
+    the orange buttons dark text, for a 4.5:1 contrast; the TigerSquad card
+    is darker behind its white text;
+  - on a phone, the comparison table reads as one card per row, each value
+    under its column's name, instead of scrolling sideways;
+  - a brand's printers fill one row when they fit and two balanced rows when
+    they do not, never a short last row of one or two;
+  - the theme and language buttons, the pills and the "Before you start"
+    arrow are 44 px touch targets;
+  - on a phone the "What you need" notice comes after the title, not above it;
+  - a system set to reduce motion gets no animation.
+
 ## [2.1.1] - 2026-10-18
 
 
