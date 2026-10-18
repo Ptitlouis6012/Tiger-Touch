@@ -12,10 +12,12 @@ and the font, which ESP-IDF's component manager puts in firmware/managed_compone
 on the first build):
 
   python3 scripts/make-mockups.py            every view, screen alone and in the frame
-  python3 scripts/make-mockups.py cards      one view: cards, list or update
+  python3 scripts/make-mockups.py cards      one view: cards, list, update, tour or stills
 
-Writes assets/mockups/animated/<view>.gif and .webp (the screen, 800x480) and
-<view>-front.gif and .webp (in the front picture of the Panda Touch).
+Writes assets/mockups/animated/<view>.gif and .webp (the screen, 800x480),
+<view>-front (in the front picture of the Panda Touch) and <view>-angle (in the
+three-quarter picture); `stills` writes every screen, still, in the three-quarter
+picture to assets/mockups/angle/.
 """
 import math
 import pathlib
@@ -167,7 +169,7 @@ def fmt_left(sec):
 
 # ---- The views ------------------------------------------------------------------------
 
-def view_cards():
+def view_cards(t_from=0, t_to=11 * 60):
     """Home, cards: two prints at 1 % every 20 s; the clock runs, the time left
     counts down, the estimated end stays; at 100 % the ring turns green and the
     card says Done."""
@@ -190,7 +192,7 @@ def view_cards():
         c["status"] = Text(shot, "Printing", 16, C_MUTED, (x, 97), "right")
     _report("cards", [clk] + [x for c in cards for x in (c["left"], c["endt"], c["status"])])
     frames = []
-    for t in range(0, 11 * 60 + 1, PCT_EVERY_S):
+    for t in range(t_from, t_to + 1, PCT_EVERY_S):
         img = shot.copy()
         clk.draw(img, clock(t0, t))
         for c in cards:
@@ -217,7 +219,7 @@ def view_cards():
     return frames
 
 
-def view_list():
+def view_list(t_from=0, t_to=11 * 60):
     """Home, list: five rows at 1 % every 20 s, the paused one standing still; a
     finished print's bar turns green and its row says Done."""
     shot = Image.open(SHOTS / "home-list.png").convert("RGB")
@@ -236,7 +238,7 @@ def view_list():
         rows.append(r)
     _report("list", [clk] + [x for r in rows for x in (r["left"], r["status"])])
     frames = []
-    for t in range(0, 11 * 60 + 1, PCT_EVERY_S):
+    for t in range(t_from, t_to + 1, PCT_EVERY_S):
         img = shot.copy()
         clk.draw(img, clock(t0, t))
         for r in rows:
@@ -282,7 +284,55 @@ def view_update():
     return frames
 
 
-VIEWS = {"cards": view_cards, "list": view_list, "update": view_update}
+def splash():
+    """The start-up screen, decoded from the firmware's own copy (firmware/main/ui/boot_splash.c, RGB565)."""
+    import re
+    src = (ROOT / "firmware/main/ui/boot_splash.c").read_text()
+    body = src[src.index("SPLASH_PIXELS"):]
+    vals = [int(v, 16) for v in re.findall(r"0x([0-9a-fA-F]{4})", body)][:800 * 480]
+    rgb = bytearray()
+    for v in vals:
+        rgb += bytes((((v >> 11) & 31) * 255 // 31, ((v >> 5) & 63) * 255 // 63, (v & 31) * 255 // 31))
+    return Image.frombytes("RGB", (800, 480), bytes(rgb))
+
+
+def view_tour():
+    """Power on: the start-up screen, then the list for six minutes, then the cards
+    for the next six, on one clock (each step 20 s, shown twice as long as in the
+    single views: a frame repeated is merged into one longer frame in the GIF)."""
+    black = Image.new("RGB", (800, 480), (0, 0, 0))
+    slow = lambda frames: [f for f in frames for _ in range(2)]
+    return ([black] * 3 + [splash()] * 14 + slow(view_list(0, 6 * 60))
+            + slow(view_cards(6 * 60 + PCT_EVERY_S, 12 * 60)))
+
+
+def brand_screens():
+    """The three screens of the protocols' logos, taken out of their front mockups
+    (assets/mockups/front/panda-touch-front-brands-*.png, made at 3x): the glass, back to 800 x 480."""
+    out = {}
+    for f in sorted((ROOT / "assets/mockups/front").glob("panda-touch-front-brands-*.png")):
+        im = Image.open(f).convert("RGB")
+        out[f.stem.replace("panda-touch-front-", "")] = im.crop((114, 81, 114 + 1116, 81 + 675)).resize((800, 480), Image.LANCZOS)
+    return out
+
+
+def view_stills():
+    """Every capture, the start-up screen and the protocols' screens in the three-quarter
+    picture: assets/mockups/angle/panda-touch-angle-<name>.png, 1200 px wide."""
+    screens = {"splash": splash()}
+    screens.update(brand_screens())
+    for f in sorted(SHOTS.glob("*.png")):
+        screens[f.stem] = Image.open(f).convert("RGB")
+    d = ROOT / "assets/mockups/angle"
+    d.mkdir(parents=True, exist_ok=True)
+    for name, scr in screens.items():
+        in_angle(scr, 1200).save(d / ("panda-touch-angle-%s.png" % name), optimize=True)
+    print("stills: %d pictures in %s" % (len(screens), d.relative_to(ROOT)))
+    return []
+
+
+VIEWS = {"cards": view_cards, "list": view_list, "update": view_update, "tour": view_tour,
+         "stills": view_stills}
 
 
 def _report(view, texts):
@@ -307,12 +357,56 @@ def in_frame(screen):
     return dev
 
 
-def save(name, frames, step_ms=150, hold_ms=1800):
+# The glass of assets/devices/panda-touch-angle.png, its four corners measured on the
+# picture: top left, top right, bottom right, bottom left.
+ANGLE_GLASS = ((247.5, 70.0), (1231.5, 89.0), (1119.5, 768.0), (110.8, 655.8))
+
+
+def _homography(src, dst):
+    """The 8 coefficients Pillow's PERSPECTIVE transform wants: output (dst) -> input (src)."""
+    import numpy as np
+    a, b = [], []
+    for (x, y), (u, v) in zip(dst, src):
+        a.append([x, y, 1, 0, 0, 0, -u * x, -u * y]); b.append(u)
+        a.append([0, 0, 0, x, y, 1, -v * x, -v * y]); b.append(v)
+    return [float(c) for c in np.linalg.solve(np.array(a), np.array(b))]
+
+
+def in_angle(screen, width=1000):
+    """The screen in the three-quarter picture: warped in perspective onto its glass,
+    with a faint sheen, then the whole scaled to `width`."""
+    dev = Image.open(ROOT / "assets/devices/panda-touch-angle.png").convert("RGBA")
+    k = 2  # warp a screen twice as large: sharper text once it is shrunk
+    big = screen.convert("RGBA").resize((screen.width * k, screen.height * k), Image.LANCZOS)
+    src = ((0, 0), (big.width, 0), (big.width, big.height), (0, big.height))
+    coeffs = _homography(src, ANGLE_GLASS)
+    warped = big.transform(dev.size, Image.PERSPECTIVE, coeffs, Image.BICUBIC)
+    # The glass's edge, drawn four times larger then shrunk: a clean, anti-aliased border.
+    m = Image.new("L", (dev.width * 4, dev.height * 4), 0)
+    ImageDraw.Draw(m).polygon([(x * 4, y * 4) for x, y in ANGLE_GLASS], fill=255)
+    mask = m.resize(dev.size, Image.LANCZOS)
+    warped.putalpha(mask)
+    out = dev.copy()
+    out.alpha_composite(warped)
+    # A faint diagonal reflection across the glass, as on the product picture.
+    sheen = Image.new("L", dev.size, 0)
+    (x0, y0), (x1, y1), (x2, y2), (x3, y3) = ANGLE_GLASS
+    ImageDraw.Draw(sheen).polygon([(x0 + (x1 - x0) * .55, y0 + (y1 - y0) * .55), (x1, y1),
+                                   (x1 + (x2 - x1) * .45, y1 + (y2 - y1) * .45),
+                                   (x3 + (x2 - x3) * .25, y3 + (y2 - y3) * .25)], fill=16)
+    from PIL import ImageChops, ImageFilter
+    sheen = ImageChops.multiply(sheen.filter(ImageFilter.GaussianBlur(60)), mask)
+    out.alpha_composite(Image.merge("RGBA", (Image.new("L", dev.size, 255),) * 3 + (sheen,)))
+    return out.resize((width, round(out.height * width / out.width)), Image.LANCZOS)
+
+
+def save(name, frames, step_ms=150, hold_ms=1800, framings=("front",)):
     durations = [step_ms] * len(frames)
     durations[0] = 700
     durations[-1] = hold_ms
     OUT.mkdir(parents=True, exist_ok=True)
-    for suffix, fr in (("", frames), ("-front", [in_frame(f) for f in frames])):
+    place = {"front": in_frame, "angle": in_angle}
+    for suffix, fr in [("", frames)] + [("-" + p, [place[p](f) for f in frames]) for p in framings]:
         flat = []
         for f in fr:
             if f.mode == "RGBA":
@@ -343,7 +437,9 @@ def main():
         if n not in VIEWS:
             sys.exit("unknown view %r: %s" % (n, ", ".join(VIEWS)))
         frames = VIEWS[n]()
-        save(n, frames)
+        if n == "stills":
+            continue
+        save(n, frames, step_ms=160 if n == "tour" else 150, framings=("front", "angle"))
 
 
 if __name__ == "__main__":

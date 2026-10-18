@@ -469,6 +469,7 @@ def ecosystem(prefix, en):
 # (folder in the kit, i18n.js key of its title, the files, from the repository's root)
 MEDIA_KIT = [
     ("animations", "mk_g_anim", ["assets/mockups/animated/*.gif", "assets/mockups/animated/*.webp"]),
+    ("three-quarter", "mk_g_angle", ["assets/mockups/angle/*.png"]),
     ("mockups", "mk_g_mockups", ["assets/mockups/front/*.png"]),
     ("screens", "mk_g_screens", ["assets/screens/*.png"]),
     ("illustrations", "mk_g_drawings", ["assets/devices/tiger-touch-splash.png", "assets/devices/tiger-touch-cards.png",

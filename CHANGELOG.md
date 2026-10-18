@@ -17,6 +17,7 @@ they were written.
 ## [Unreleased]
 
 ### Added
+- **PandaTouch Reforged campaign artwork and an English Reddit launch draft**, showing an unused Panda Touch given a second life with TigerTouch, with the existing device and Demo mode interface as references.
 - **One page per printer brand on the site**, for people who search for their
   printer: Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa,
   Klipper and OctoPrint, at `/<brand>/`. Each puts its brand first (models,
@@ -134,7 +135,10 @@ they were written.
   the list and an update, each a time-lapse of Demo mode drawn from the real
   captures with the firmware's font, geometry and logic (the clock runs, the
   time left counts down, a finished print turns green and dims pause and stop),
-  the screen alone and in its frame, GIF and WebP, in the media kit and the
+  the screen alone, in the front picture and in perspective on the
+  three-quarter photograph, GIF and WebP; and a tour (the start-up screen, then
+  the list, then the cards, on one clock). Every screen also as a still on the
+  three-quarter photograph (`assets/mockups/angle/`). In the media kit and the
   README. Made by `scripts/make-mockups.py`; the method, for people and agents
   making another view, in `docs/MOCKUPS.md`.
 ### Changed

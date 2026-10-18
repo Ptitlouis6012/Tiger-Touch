@@ -158,6 +158,7 @@ en: {
   mk_contact_title: "Contact",
   mk_contact: "For an interview or a question, open an issue on GitHub or reach the team through tigersystem.io.",
   mk_g_anim: "Animations (GIF and WebP)",
+  mk_g_angle: "The screen, three-quarter view",
 },
 
 fr: {
@@ -299,6 +300,7 @@ fr: {
   mk_contact_title: "Contact",
   mk_contact: "Pour une interview ou une question, ouvrez une issue sur GitHub ou joignez l'équipe via tigersystem.io.",
   mk_g_anim: "Animations (GIF et WebP)",
+  mk_g_angle: "L'écran, vue de trois quarts",
 },
 
 de: {
@@ -440,6 +442,7 @@ de: {
   mk_contact_title: "Kontakt",
   mk_contact: "Für ein Interview oder eine Frage eröffnen Sie ein Issue auf GitHub oder erreichen Sie das Team über tigersystem.io.",
   mk_g_anim: "Animationen (GIF und WebP)",
+  mk_g_angle: "Der Bildschirm, Dreiviertelansicht",
 },
 
 es: {
@@ -581,6 +584,7 @@ es: {
   mk_contact_title: "Contacto",
   mk_contact: "Para una entrevista o una consulta, abre un issue en GitHub o contacta con el equipo a través de tigersystem.io.",
   mk_g_anim: "Animaciones (GIF y WebP)",
+  mk_g_angle: "La pantalla, vista de tres cuartos",
 },
 
 it: {
@@ -722,6 +726,7 @@ it: {
   mk_contact_title: "Contatti",
   mk_contact: "Per un'intervista o una domanda, apri una issue su GitHub o contatta il team tramite tigersystem.io.",
   mk_g_anim: "Animazioni (GIF e WebP)",
+  mk_g_angle: "Lo schermo, vista di tre quarti",
 },
 
 zh: {
@@ -863,6 +868,7 @@ zh: {
   mk_contact_title: "联系方式",
   mk_contact: "如需采访或有任何问题，请在 GitHub 上提交 issue，或通过 tigersystem.io 联系团队。",
   mk_g_anim: "动画（GIF 和 WebP）",
+  mk_g_angle: "屏幕，四分之三视角",
 },
 
 pt: {
@@ -1004,6 +1010,7 @@ pt: {
   mk_contact_title: "Contato",
   mk_contact: "Para uma entrevista ou uma dúvida, abra uma issue no GitHub ou fale com a equipe pelo tigersystem.io.",
   mk_g_anim: "Animações (GIF e WebP)",
+  mk_g_angle: "A tela, vista em três quartos",
 },
 
 "pt-pt": {
@@ -1145,6 +1152,7 @@ pt: {
   mk_contact_title: "Contacto",
   mk_contact: "Para uma entrevista ou uma pergunta, abra uma issue no GitHub ou contacte a equipa através de tigersystem.io.",
   mk_g_anim: "Animações (GIF e WebP)",
+  mk_g_angle: "O ecrã, vista de três quartos",
 },
 
 pl: {
@@ -1286,6 +1294,7 @@ pl: {
   mk_contact_title: "Kontakt",
   mk_contact: "W sprawie wywiadu lub pytania otwórz zgłoszenie (issue) na GitHubie albo skontaktuj się z zespołem przez tigersystem.io.",
   mk_g_anim: "Animacje (GIF i WebP)",
+  mk_g_angle: "Ekran, widok trzy czwarte",
 },
 
 ru: {
@@ -1427,6 +1436,7 @@ ru: {
   mk_contact_title: "Контакты",
   mk_contact: "Для интервью или вопроса создайте issue на GitHub или свяжитесь с командой через tigersystem.io.",
   mk_g_anim: "Анимации (GIF и WebP)",
+  mk_g_angle: "Экран, вид в три четверти",
 },
 
 nl: {
@@ -1568,6 +1578,7 @@ nl: {
   mk_contact_title: "Contact",
   mk_contact: "Voor een interview of een vraag opent u een issue op GitHub of bereikt u het team via tigersystem.io.",
   mk_g_anim: "Animaties (GIF en WebP)",
+  mk_g_angle: "Het scherm, driekwartaanzicht",
 },
 
 };

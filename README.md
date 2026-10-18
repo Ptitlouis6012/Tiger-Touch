@@ -473,12 +473,12 @@ the facts, ready-to-use descriptions, the screen in front view with every captur
 the illustrations and the share pictures.
 
 <p align="center">
-  <a href="https://tigertag-project.github.io/Tiger-Touch/press/"><img src="assets/mockups/animated/cards-front.gif" alt="The Panda Touch running Tiger Touch, front view, two printers as live cards, their progress climbing" width="300"></a>
+  <a href="https://tigertag-project.github.io/Tiger-Touch/press/"><img src="assets/mockups/animated/tour-angle.gif" alt="The Panda Touch running Tiger Touch: the start-up screen, then the printers as a list and as cards, their progress climbing" width="300"></a>
   <a href="https://tigertag-project.github.io/Tiger-Touch/press/"><img src="assets/mockups/front/panda-touch-front-brands-title-row.png" alt="The Panda Touch, front view, its screen showing TigerTouch and the logos of the nine supported printer families" width="300"></a>
 </p>
 
 - **[The media kit page](https://tigertag-project.github.io/Tiger-Touch/press/)**, in the eleven languages, with **[the whole kit as one ZIP](https://tigertag-project.github.io/Tiger-Touch/press/tiger-touch-media-kit.zip)**
-- In this repository: [animations](assets/mockups/animated/) · [front mockups](assets/mockups/front/) · [screen captures](assets/screens/) · [illustrations](assets/devices/) · [share pictures](assets/og/) · [TigerSystem logos](assets/brand/) (the square tiger head, framed for light and dark backgrounds, and full)
+- In this repository: [animations](assets/mockups/animated/) · [three-quarter mockups](assets/mockups/angle/) · [front mockups](assets/mockups/front/) · [screen captures](assets/screens/) · [illustrations](assets/devices/) · [share pictures](assets/og/) · [TigerSystem logos](assets/brand/) (the square tiger head, framed for light and dark backgrounds, and full)
 - Questions or an interview: [GitHub issues](https://github.com/TigerTag-Project/Tiger-Touch/issues) or [tigersystem.io](https://tigersystem.io)
 
 How every picture is made, and how to make a new one: [docs/MOCKUPS.md](docs/MOCKUPS.md).

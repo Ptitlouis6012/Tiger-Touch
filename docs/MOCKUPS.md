@@ -12,7 +12,8 @@ the device except a new capture.
 | [`assets/screens/`](../assets/screens/) | Captures of the real screen, 800 x 480, in Demo mode | the device (below) |
 | [`assets/devices/`](../assets/devices/) | The Panda Touch alone, transparent PNGs (front, three-quarter, back, dock); the 45-degree drawings | BIGTREETECH's product pictures, cut out; the drawings by hand |
 | [`assets/mockups/front/`](../assets/mockups/front/) | Each capture in the front picture | the method below, *Still mockups* |
-| [`assets/mockups/animated/`](../assets/mockups/animated/) | Views that move, screen alone and in the frame, GIF and WebP | [`scripts/make-mockups.py`](../scripts/make-mockups.py) |
+| [`assets/mockups/angle/`](../assets/mockups/angle/) | Each capture, the start-up screen and the protocols' screens in the three-quarter photograph | [`scripts/make-mockups.py`](../scripts/make-mockups.py) `stills` |
+| [`assets/mockups/animated/`](../assets/mockups/animated/) | Views that move (cards, list, update, and the tour: start-up, list, cards), the screen alone, in the front picture (`-front`) and in the three-quarter photograph (`-angle`), GIF and WebP | [`scripts/make-mockups.py`](../scripts/make-mockups.py) |
 | [`assets/brand/`](../assets/brand/) | TigerSystem's square tiger head, framed and full | TigerTag-RFID-Guide's brand folder |
 
 All of it is in the media kit, `press/` on the site, with one ZIP of the lot.
@@ -81,6 +82,24 @@ python3 scripts/make-mockups.py cards      # one of them
    capture: they must be the same picture.
 
 A view the device cannot show is not made this way: a mockup shows the product.
+
+## The start-up screen
+
+It is not a capture: the firmware keeps it as pixels, `firmware/main/ui/boot_splash.c`
+(800 x 480, RGB565). `splash()` decodes that file, so the picture is exactly what
+the screen shows at power-on.
+
+## Three-quarter mockups: the screen in perspective
+
+`in_angle()` puts an 800 x 480 screen on the glass of
+`assets/devices/panda-touch-angle.png`, the product photograph cut out. The four
+corners of the glass were measured on the picture (`ANGLE_GLASS`: top left
+(247.5, 70), top right (1231.5, 89), bottom right (1119.5, 768), bottom left
+(110.8, 655.8)); the screen, enlarged twice for sharpness, is warped onto them by
+a perspective transform (a homography solved from the four pairs of corners), its
+edge anti-aliased, and a faint diagonal reflection laid over it. Another
+photograph needs its own four corners, measured the same way: a grid over the
+picture, then each corner zoomed.
 
 ## Still mockups: a capture in the frame
 

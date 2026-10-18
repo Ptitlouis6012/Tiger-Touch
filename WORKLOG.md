@@ -6,6 +6,7 @@ disappear. `CHANGELOG.md`'s `[Unreleased]` section is written from it, and it is
 reset to this header at each release.
 
 ## Added
+- Media: PandaTouch Reforged campaign illustration and an English Reddit launch draft, using the existing device and Demo mode interface references.
 - Site: one page per printer brand (SEO), brand favicons, sitemap and robots.txt, logos linked; five new Demo captures.
 - Site: the rest of TigerSystem (Studio, TigerPOD, TigerScale, TigerSpool) at the foot of every page.
 - Site: a media kit page (/press/) with every picture and a ZIP; README section Media kit - Press.
