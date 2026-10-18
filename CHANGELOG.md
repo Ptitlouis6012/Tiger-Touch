@@ -31,8 +31,14 @@ they were written.
   Ender-3 S1 behind OctoPrint. Built from one template and one data file
   (`scripts/make-brand-pages.py`, `installer/brand-pages.json`) when the site is
   built; never committed.
+- **Each brand page shows its printers**: a lineup of the models under the top
+  of the page (Tiger Studio Manager's printer pictures, `assets/printers/models/`),
+  each named; the header reads "<Brand> x TigerSystem" and the brand's logo
+  stands beside the title.
 - **Every logo of the brand strip is a link** to its brand's page, on the
-  installer page and on every brand page (the current one in orange).
+  installer page and on every brand page (the current one in orange). Their
+  colours are explicit: Chrome drew a visited logo's name in its own dark link
+  colour, invisible on the dark theme.
 
 ### Changed
 - **One stylesheet and one theme script for the whole site** (`installer/site.css`,

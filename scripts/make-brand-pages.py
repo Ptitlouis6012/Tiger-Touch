@@ -13,6 +13,8 @@ Everything is built from one template and one data file:
   assets/brands/brands.svg          the logos (the strip the README shows)
   assets/devices/brands/<slug>.png  the screen, captured on the device in Demo
                                     mode and set in the 45-degree drawing
+  assets/printers/models/*.png      the printers of each lineup (Tiger Studio
+                                    Manager's printer library)
 
 and written into the site (`out`), beside the installer page:
 
@@ -172,7 +174,7 @@ def page(b, brands, pieces, svg):
 <body>
 <header class="bar">
   <div class="wrap">
-    <a class="logo" href="../">Tiger<span>Touch</span></a>
+    <a class="logo duo" href="../"><b>{name}</b> <span class="x">x</span> Tiger<span>System</span></a>
     <div class="tools">
       <a class="pill solid" href="../#install">Install</a>
       <button class="themebtn" id="themebtn" type="button" aria-label="Light or dark">
@@ -187,8 +189,10 @@ def page(b, brands, pieces, svg):
 
   <section class="hero bp-hero">
     <div class="intro">
-      {logo_svg}
-      <h1 class="bp-title">Tiger Touch for <span>{name}</span> printers</h1>
+      <div class="bp-head">
+        {logo_svg}
+        <h1 class="bp-title">Tiger Touch for <span>{name}</span> printers</h1>
+      </div>
       <p class="lead">{lead}</p>
       <dl class="facts">
         <dt>Models</dt><dd>{models}</dd>
@@ -202,6 +206,10 @@ def page(b, brands, pieces, svg):
       <img src="../img/{slug}.png" width="607" height="738" alt="{shot_alt}">
       <figcaption>Captured on a Panda Touch running Tiger Touch.</figcaption>
     </figure>
+  </section>
+
+  <section class="bp-sec lineup-sec" aria-label="{name} printers">
+    <ul class="lineup">{lineup}</ul>
   </section>
 
   <section class="card bp-sec">
@@ -261,7 +269,9 @@ def page(b, brands, pieces, svg):
            models=esc(b["models"]), connection=esc(b["connection"]), status=esc(b["status"]),
            shot_alt=esc(b["shot_alt"]), shows=li(b["shows"]), controls=esc(b["controls"]),
            setup=li(b["setup"]), tips=esc(b["tips"]), faq=faq, strip=strip(svg, pieces, slugs, "../", slug),
-           others=other_rows, feats=feats)
+           others=other_rows, feats=feats,
+           lineup="".join('<li><img src="../img/models/%s" width="240" height="240" loading="lazy" alt="%s %s">'
+                          '<span>%s</span></li>' % (esc(f), esc(name), esc(n), esc(n)) for f, n in b["lineup"]))
 
 
 def main():
@@ -284,6 +294,9 @@ def main():
         p = next(p for p in pieces if p[0] == b["logo"])
         (d / "favicon.svg").write_text(favicon(p[1], p[2]))
         shutil.copyfile(ROOT / "assets" / "devices" / "brands" / (b["shot"] + ".png"), out / "img" / (b["slug"] + ".png"))
+        (out / "img" / "models").mkdir(exist_ok=True)
+        for f, _n in b["lineup"]:
+            shutil.copyfile(ROOT / "assets" / "printers" / "models" / f, out / "img" / "models" / f)
     # The installer page shows the same strip, each logo a link to its page.
     index = out / "index.html"
     slugs = {b["logo"]: b["slug"] for b in brands}

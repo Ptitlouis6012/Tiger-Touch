@@ -38,6 +38,28 @@
           "Does it show the AMS?",
           "Yes: every AMS and AMS HT unit with its four slots (one for the HT), the material, the colour and the slot in use, plus the external spool."
         ]
+      ],
+      "lineup": [
+        [
+          "bambu_lab_x1_carbon.png",
+          "X1 Carbon"
+        ],
+        [
+          "bambu_lab_p2s.png",
+          "P2S"
+        ],
+        [
+          "bambu_lab_p1s.png",
+          "P1S"
+        ],
+        [
+          "bambu_lab_a1.png",
+          "A1"
+        ],
+        [
+          "bambu_lab_h2d.png",
+          "H2D"
+        ]
       ]
     },
     {
@@ -75,6 +97,28 @@
         [
           "Which Creality printers?",
           "The K2 family, the K1 family, the Hi and the Ender-3 V4: those Tiger Studio Manager adds. It was run on a K2 Plus and an Ender-3 V4."
+        ]
+      ],
+      "lineup": [
+        [
+          "creality_k2_plus.png",
+          "K2 Plus"
+        ],
+        [
+          "creality_k1_max.png",
+          "K1 Max"
+        ],
+        [
+          "creality_k1c.png",
+          "K1C"
+        ],
+        [
+          "creality_hi.png",
+          "Hi"
+        ],
+        [
+          "creality_ender_3_v4.png",
+          "Ender-3 V4"
         ]
       ]
     },
@@ -114,6 +158,16 @@
           "Does it show the Canvas?",
           "On the Centauri Carbon 2, yes: its slots with material and colour."
         ]
+      ],
+      "lineup": [
+        [
+          "elegoo_centauri_carbon_2.png",
+          "Centauri Carbon 2"
+        ],
+        [
+          "elegoo_centauri_carbon.png",
+          "Centauri Carbon"
+        ]
       ]
     },
     {
@@ -151,6 +205,24 @@
         [
           "Does it show the ACE?",
           "Yes: each slot with its material and colour."
+        ]
+      ],
+      "lineup": [
+        [
+          "anycubic_kobra_s1.png",
+          "Kobra S1"
+        ],
+        [
+          "anycubic_kobra_x.png",
+          "Kobra X"
+        ],
+        [
+          "anycubic_kobra_3.png",
+          "Kobra 3"
+        ],
+        [
+          "anycubic_kobra_s1_max.png",
+          "Kobra S1 Max"
         ]
       ]
     },
@@ -190,6 +262,12 @@
           "Was it tried on a real U1?",
           "Yes, idle: state, the four nozzles and the bed. A print has not been followed yet."
         ]
+      ],
+      "lineup": [
+        [
+          "snapmaker_u1.png",
+          "U1"
+        ]
       ]
     },
     {
@@ -228,6 +306,24 @@
           "Which FlashForge printers?",
           "The AD5X, the Adventurer 5M and 5M Pro and the Creator 5. It was run on an AD5X."
         ]
+      ],
+      "lineup": [
+        [
+          "flashforge_ad5x.png",
+          "AD5X"
+        ],
+        [
+          "flashforge_adventurer_5m.png",
+          "Adventurer 5M"
+        ],
+        [
+          "flashforge_adventurer_5m_pro.png",
+          "Adventurer 5M Pro"
+        ],
+        [
+          "flashforge_creator_5.png",
+          "Creator 5"
+        ]
       ]
     },
     {
@@ -264,6 +360,24 @@
         [
           "Was it tried on a real Prusa?",
           "Not yet: the driver follows PrusaLink's API and is compiled. Reports are welcome."
+        ]
+      ],
+      "lineup": [
+        [
+          "prusa_core_one.png",
+          "Core One"
+        ],
+        [
+          "prusa_mk4s.png",
+          "MK4S"
+        ],
+        [
+          "prusa_xl.png",
+          "XL"
+        ],
+        [
+          "prusa_mini.png",
+          "MINI"
         ]
       ]
     },
@@ -303,6 +417,28 @@
           "Does it show AFC or Happy Hare?",
           "Yes: the lanes or gates with material and colour, the active one ringed."
         ]
+      ],
+      "lineup": [
+        [
+          "voron_2_4_350.png",
+          "Voron 2.4"
+        ],
+        [
+          "voron_trident_300.png",
+          "Voron Trident"
+        ],
+        [
+          "qidi_x_plus_4.png",
+          "Qidi X-Plus 4"
+        ],
+        [
+          "sovol_sv08.png",
+          "Sovol SV08"
+        ],
+        [
+          "ratrig_v_core_3_300.png",
+          "RatRig V-Core 3"
+        ]
       ]
     },
     {
@@ -340,6 +476,24 @@
         [
           "Can it switch the light?",
           "No: OctoPrint has no light command."
+        ]
+      ],
+      "lineup": [
+        [
+          "creality_ender_3_s1.png",
+          "Ender-3 S1"
+        ],
+        [
+          "creality_ender_3_v2.png",
+          "Ender-3 V2"
+        ],
+        [
+          "prusa_mk3s.png",
+          "Prusa MK3S"
+        ],
+        [
+          "anycubic_i3_mega_s.png",
+          "Anycubic i3 Mega S"
         ]
       ]
     }
