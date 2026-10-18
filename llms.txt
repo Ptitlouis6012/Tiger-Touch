@@ -105,9 +105,15 @@ Every page also exists in each of the installer's other ten languages, at its ow
 
 ## Ecosystem
 
-- [Tiger Studio Manager](https://github.com/TigerTag-Project/TigerTag-Studio-Manager): where the account and the printers are declared; its protocol notes are the source of every driver.
+Tiger Touch is one of the free tools of TigerSystem ([tigersystem.io](https://tigersystem.io)), the open ecosystem built around TigerTag, the open-source RFID (NFC) standard for 3D-printing filament. Every tool shares the same account, the same spools and the same printers; the site shows them at the foot of every page.
+
+- [Tiger Studio Manager](https://github.com/TigerTag-Project/TigerTag-Studio-Manager): mission control for filament and printers (Windows, macOS, Linux). The account is created there and the printers Tiger Touch shows are declared there, with the desktop app; its protocol notes are the source of every driver.
+- [TigerPOD Mini](https://github.com/TigerTag-Project/TigerPOD): a desk spool scanner the user prints: a spool put down opens in Tiger Studio, a blank chip put down is written. Reads and writes TigerTag and OpenSpool chips. [Free on MakerWorld](https://makerworld.com/fr/models/3190348-tigerpod-mini-for-openspool-tigertag-rfid-filament).
+- [TigerScale V3](https://github.com/TigerTag-Project/Tiger-Scale-V3): an open-source ESP32 scale: the chip says what the spool is, the load cell how many grams are left, and the inventory follows. A sibling firmware with the same repository conventions, the same first start and the same live view.
+- [TigerSpool RFID](https://github.com/TigerTag-Project/TigerSpool-RFID): a small box beside the printer: hold a spool against it and the filament is written into the printer's slot, on any brand. A sibling firmware with the same repository conventions.
+- TigerTag RFID Connect, the iOS and Android app: tap a spool (NFC) to read it, write a chip, carry the inventory. [App Store](https://apps.apple.com/app/id6745437963) · [Google Play](https://play.google.com/store/apps/details?id=com.tigertag.connect).
+- [TigerTag-RFID-Guide](https://github.com/TigerTag-Project/TigerTag-RFID-Guide): the open RFID standard, its chip format and public registry.
 - [TigerSystem-Docs](https://github.com/TigerTag-Project/TigerSystem-Docs): the ecosystem's source of truth, with its own llms.txt.
-- [TigerSpool RFID](https://github.com/TigerTag-Project/TigerSpool-RFID) and [TigerScale V3](https://github.com/TigerTag-Project/Tiger-Scale-V3): sibling firmwares with the same repository conventions.
 
 ## Supporting the project
 

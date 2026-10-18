@@ -14,6 +14,7 @@ reset to this header at each release.
 - TigerSystem account, not TigerTag account: installer, README, docs, screen texts.
 - Installer: the README's turning picture of the screen; the brand strip across the whole page.
 - Site: every page in eleven languages (brand pages included): one lang.js, brand words in installer/brand-i18n/; one address per language (/fr/...) with hreflang and the sitemap.
+- Brand pages: the TigerSquad card right under the top of the page, as on the installer.
 
 ## Fixed
 - Share pictures: the button reads "Install for free".

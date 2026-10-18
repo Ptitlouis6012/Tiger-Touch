@@ -149,6 +149,8 @@ they were written.
   language. `check-installer-i18n.py` checks the brand words as it checks the
   installer's.
 
+- **The TigerSquad card sits right under the top of every brand page**, as it
+  does on the installer page, instead of near the foot.
 ### Fixed
 - **The site's accessibility**, on the installer and every brand page:
   - the closed language menu no longer takes keyboard stops; open, it shows

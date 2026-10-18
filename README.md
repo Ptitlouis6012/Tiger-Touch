@@ -80,6 +80,8 @@
   <a href="#questions">Questions</a>
   &nbsp;&middot;&nbsp;
   <a href="#build-it-yourself">Build it yourself</a>
+  &nbsp;&middot;&nbsp;
+  <a href="#powered-by-tigersystem">TigerSystem</a>
 </p>
 
 ---
@@ -461,6 +463,20 @@ conventions; the short version is that `bash scripts/verify.sh` passes before
 anything is reported done, and everything committed is in English.
 
 Security reports: [SECURITY.md](SECURITY.md). Credits: [AUTHORS.md](AUTHORS.md).
+
+## The rest of the TigerSystem family
+
+Tiger Touch is one of TigerSystem's free tools. The others share the same
+account, the same spools and the same printers ([more above](#powered-by-tigersystem)):
+
+| | |
+|---|---|
+| <img src="assets/ecosystem/studio-and-connect.png" alt="Tiger Studio Manager" width="96"> | **[Tiger Studio Manager](https://github.com/TigerTag-Project/TigerTag-Studio-Manager)** - mission control for your filament and your printers, on Windows, macOS and Linux. Start here: your account and your printers are set up there. |
+| <img src="assets/ecosystem/tigerpod-mini.png" alt="TigerPOD Mini" width="56"> | **[TigerPOD Mini](https://github.com/TigerTag-Project/TigerPOD)** - a spool scanner for your desk that you print yourself: put a spool down and it opens in Tiger Studio. |
+| <img src="assets/ecosystem/tigerscale-v3.png" alt="TigerScale V3" width="72"> | **[TigerScale V3](https://github.com/TigerTag-Project/Tiger-Scale-V3)** - an open-source scale: the chip says what the spool is, the load cell how many grams are left. |
+| <img src="assets/ecosystem/tigerspool.png" alt="TigerSpool" width="56"> | **[TigerSpool](https://github.com/TigerTag-Project/TigerSpool-RFID)** - a small box beside the printer: hold a spool against it and the filament is written into the printer's slot. |
+
+Everything at **[tigersystem.io](https://tigersystem.io)**.
 
 ## License
 

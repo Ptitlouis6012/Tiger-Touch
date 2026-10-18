@@ -266,6 +266,15 @@ def page(b, brands, pieces, svg, en, tr):
     </figure>
   </section>
 
+  <!-- For people not installing today: the community, as on the installer page. -->
+  <section class="join">
+    <div>
+      <h2 data-i18n="join_title">{t_join}</h2>
+      <p data-i18n="join_text">{t_join_text}</p>
+    </div>
+    <a class="joinbtn" href="https://tigersystem.io" target="_blank" rel="noopener" data-i18n="join_btn">{t_join_btn}</a>
+  </section>
+
   <section class="bp-sec lineup-sec" data-i18n-aria="bp_lineup_aria" aria-label="{t_lineup}">
     <ul class="lineup" style="--per: {per}">{lineup}</ul>
   </section>
@@ -312,14 +321,6 @@ def page(b, brands, pieces, svg, en, tr):
     <p><span data-i18n-html="phil_html">{t_phil_html}</span> <span data-i18n="bp_phil_more">{t_phil_more}</span></p>
     <div class="features">{feats}</div>
     <p class="cta"><a class="pill solid big" href="../#install" data-i18n="bp_cta2">{t_cta2}</a></p>
-  </section>
-
-  <section class="join">
-    <div>
-      <h2 data-i18n="join_title">{t_join}</h2>
-      <p data-i18n="join_text">{t_join_text}</p>
-    </div>
-    <a class="joinbtn" href="https://tigersystem.io" target="_blank" rel="noopener" data-i18n="join_btn">{t_join_btn}</a>
   </section>
 
   {eco}
