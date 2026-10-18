@@ -43,6 +43,30 @@
 </p>
 
 <p align="center">
+  <a href="https://tigertag-project.github.io/Tiger-Touch/" hreflang="en">English</a>
+  &nbsp;&middot;&nbsp;
+  <a href="https://tigertag-project.github.io/Tiger-Touch/fr/" hreflang="fr">Français</a>
+  &nbsp;&middot;&nbsp;
+  <a href="https://tigertag-project.github.io/Tiger-Touch/de/" hreflang="de">Deutsch</a>
+  &nbsp;&middot;&nbsp;
+  <a href="https://tigertag-project.github.io/Tiger-Touch/es/" hreflang="es">Español</a>
+  &nbsp;&middot;&nbsp;
+  <a href="https://tigertag-project.github.io/Tiger-Touch/it/" hreflang="it">Italiano</a>
+  &nbsp;&middot;&nbsp;
+  <a href="https://tigertag-project.github.io/Tiger-Touch/zh/" hreflang="zh-Hans">中文</a>
+  &nbsp;&middot;&nbsp;
+  <a href="https://tigertag-project.github.io/Tiger-Touch/pt/" hreflang="pt-BR">Português (BR)</a>
+  &nbsp;&middot;&nbsp;
+  <a href="https://tigertag-project.github.io/Tiger-Touch/pt-pt/" hreflang="pt-PT">Português (PT)</a>
+  &nbsp;&middot;&nbsp;
+  <a href="https://tigertag-project.github.io/Tiger-Touch/pl/" hreflang="pl">Polski</a>
+  &nbsp;&middot;&nbsp;
+  <a href="https://tigertag-project.github.io/Tiger-Touch/ru/" hreflang="ru">Русский</a>
+  &nbsp;&middot;&nbsp;
+  <a href="https://tigertag-project.github.io/Tiger-Touch/nl/" hreflang="nl">Nederlands</a>
+</p>
+
+<p align="center">
   <a href="#why-tiger-touch">Why</a>
   &nbsp;&middot;&nbsp;
   <a href="#screens">Screens</a>
@@ -166,6 +190,22 @@ catalogue counts about 380 models from about 60 makers.
 
 **One page per brand** on the installer site, with what the screen shows for
 that brand, its setup and its questions: [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/octoprint/).
+
+Every page in the installer's eleven languages, each at its own address:
+
+| Language | Pages |
+|---|---|
+| **[English](https://tigertag-project.github.io/Tiger-Touch/)** | [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/octoprint/) |
+| **[Français](https://tigertag-project.github.io/Tiger-Touch/fr/)** | [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/fr/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/fr/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/fr/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/fr/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/fr/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/fr/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/fr/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/fr/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/fr/octoprint/) |
+| **[Deutsch](https://tigertag-project.github.io/Tiger-Touch/de/)** | [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/de/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/de/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/de/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/de/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/de/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/de/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/de/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/de/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/de/octoprint/) |
+| **[Español](https://tigertag-project.github.io/Tiger-Touch/es/)** | [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/es/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/es/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/es/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/es/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/es/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/es/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/es/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/es/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/es/octoprint/) |
+| **[Italiano](https://tigertag-project.github.io/Tiger-Touch/it/)** | [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/it/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/it/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/it/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/it/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/it/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/it/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/it/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/it/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/it/octoprint/) |
+| **[中文](https://tigertag-project.github.io/Tiger-Touch/zh/)** | [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/zh/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/zh/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/zh/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/zh/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/zh/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/zh/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/zh/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/zh/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/zh/octoprint/) |
+| **[Português (BR)](https://tigertag-project.github.io/Tiger-Touch/pt/)** | [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/pt/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/pt/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/pt/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/pt/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/pt/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/pt/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/pt/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/pt/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/pt/octoprint/) |
+| **[Português (PT)](https://tigertag-project.github.io/Tiger-Touch/pt-pt/)** | [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/pt-pt/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/pt-pt/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/pt-pt/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/pt-pt/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/pt-pt/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/pt-pt/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/pt-pt/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/pt-pt/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/pt-pt/octoprint/) |
+| **[Polski](https://tigertag-project.github.io/Tiger-Touch/pl/)** | [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/pl/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/pl/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/pl/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/pl/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/pl/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/pl/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/pl/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/pl/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/pl/octoprint/) |
+| **[Русский](https://tigertag-project.github.io/Tiger-Touch/ru/)** | [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/ru/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/ru/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/ru/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/ru/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/ru/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/ru/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/ru/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/ru/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/ru/octoprint/) |
+| **[Nederlands](https://tigertag-project.github.io/Tiger-Touch/nl/)** | [Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/nl/bambu-lab/) · [Creality](https://tigertag-project.github.io/Tiger-Touch/nl/creality/) · [Elegoo](https://tigertag-project.github.io/Tiger-Touch/nl/elegoo/) · [Anycubic](https://tigertag-project.github.io/Tiger-Touch/nl/anycubic/) · [Snapmaker](https://tigertag-project.github.io/Tiger-Touch/nl/snapmaker/) · [FlashForge](https://tigertag-project.github.io/Tiger-Touch/nl/flashforge/) · [Prusa](https://tigertag-project.github.io/Tiger-Touch/nl/prusa/) · [Klipper](https://tigertag-project.github.io/Tiger-Touch/nl/klipper/) · [OctoPrint](https://tigertag-project.github.io/Tiger-Touch/nl/octoprint/) |
 
 "Not yet" means written from the maker's protocol and compiled, never run on that
 machine: **a report from your printer is the most useful thing you can send.**
