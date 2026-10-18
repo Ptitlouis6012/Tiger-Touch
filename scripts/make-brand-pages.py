@@ -468,6 +468,7 @@ def ecosystem(prefix, en):
 
 # (folder in the kit, i18n.js key of its title, the files, from the repository's root)
 MEDIA_KIT = [
+    ("animations", "mk_g_anim", ["assets/mockups/animated/*.gif", "assets/mockups/animated/*.webp"]),
     ("mockups", "mk_g_mockups", ["assets/mockups/front/*.png"]),
     ("screens", "mk_g_screens", ["assets/screens/*.png"]),
     ("illustrations", "mk_g_drawings", ["assets/devices/tiger-touch-splash.png", "assets/devices/tiger-touch-cards.png",
@@ -560,6 +561,7 @@ def media_kit(out, en):
 <meta name="twitter:description" content="{desc}">
 <meta name="twitter:image" content="{og}">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="stylesheet" href="../site.css?v={v_css}">
 <script>try {{ var t = localStorage.getItem("tigertouch-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; }} catch (e) {{}}</script>
 <script src="../i18n.js?v={v_i18n}"></script>
@@ -794,6 +796,9 @@ def main():
     shutil.copytree(ROOT / "assets" / "og", out / "og", dirs_exist_ok=True)
     # The brands' logos one file each, for the installer page's comparison.
     shutil.copytree(ROOT / "assets" / "brands" / "logos", out / "logos", dirs_exist_ok=True)
+    # The site's icon: TigerSystem's framed tiger head, readable on a light or a dark tab bar.
+    shutil.copyfile(ROOT / "assets" / "brand" / "tigersystem-icon-framed.svg", out / "favicon.svg")
+    shutil.copyfile(ROOT / "assets" / "brand" / "tigersystem-icon-framed.png", out / "apple-touch-icon.png")
     # The other TigerSystem tools' pictures, for the foot of every page.
     shutil.copytree(ROOT / "assets" / "ecosystem", out / "eco", dirs_exist_ok=True)
     for b in brands:
@@ -817,6 +822,9 @@ def main():
     stamp = hashlib.sha256((ROOT / "assets" / "og" / "home.jpg").read_bytes()).hexdigest()[:10]
     home = re.sub(r'(og/home\.jpg)(\?v=\w+)?"', r'\1?v=%s"' % stamp, home)
     home = re.sub(r'href="site\.css(\?v=\w+)?"', 'href="site.css?v=%s"' % STAMPS["v_css"], home)
+    # Fingerprinted, so a browser that kept the old icon fetches the new one.
+    icon = hashlib.sha256((out / "favicon.svg").read_bytes()).hexdigest()[:10]
+    home = re.sub(r'href="favicon\.svg(\?v=\w+)?"', 'href="favicon.svg?v=%s"' % icon, home)
     for js in ("theme", "lang", "i18n"):
         home = re.sub(r'src="%s\.js(\?v=\w+)?"' % js, 'src="%s.js?v=%s"' % (js, STAMPS["v_" + js]), home)
     index.write_text(home)

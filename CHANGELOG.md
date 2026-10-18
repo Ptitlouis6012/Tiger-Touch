@@ -127,6 +127,16 @@ they were written.
   pictures, the TigerSystem square tiger head, framed and full, and the
   TigerTag logo), with the whole kit as one ZIP built with the
   site. Linked from the foot of every page, the README and llms.txt.
+- **The site's icon is TigerSystem's framed tiger head** (`assets/brand/`), on
+  the installer, the media kit and every language's copy, with an Apple touch
+  icon; the brand pages keep their brand's logo.
+- **Animated views of the screen** (`assets/mockups/animated/`): the home cards,
+  the list and an update, each a time-lapse of Demo mode drawn from the real
+  captures with the firmware's font, geometry and logic (the clock runs, the
+  time left counts down, a finished print turns green and dims pause and stop),
+  the screen alone and in its frame, GIF and WebP, in the media kit and the
+  README. Made by `scripts/make-mockups.py`; the method, for people and agents
+  making another view, in `docs/MOCKUPS.md`.
 ### Changed
 - **One stylesheet and one theme script for the whole site** (`installer/site.css`,
   `installer/theme.js`), shared by the installer page and the brand pages; the

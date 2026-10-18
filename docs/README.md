@@ -28,6 +28,7 @@ Where each question is answered. Every page links to the ones next to it.
 | [../CLAUDE.md](../CLAUDE.md), [../AGENTS.md](../AGENTS.md) | The rules, each with the reason for it |
 | [../CODEMAP.md](../CODEMAP.md) | What a grep does not tell you, and the Landmines table |
 | [../CONTRIBUTING.md](../CONTRIBUTING.md) | What helps most, and how a pull request is made |
+| [MOCKUPS.md](MOCKUPS.md) | The pictures of the screen: captures, mockups in the frame, animations, and how to make a new one |
 | [../CHANGELOG.md](../CHANGELOG.md) | Every version |
 | [../SECURITY.md](../SECURITY.md) | What the device stores and sends, and how to report a vulnerability |
 | [../llms.txt](../llms.txt) | The same map, for AI assistants |

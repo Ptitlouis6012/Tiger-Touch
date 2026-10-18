@@ -157,6 +157,7 @@ en: {
   mk_terms: "Use them freely to write about Tiger Touch or to show it. The screen pictured is the BIGTREETECH Panda Touch; BIGTREETECH's name and the printer makers' names and logos belong to their owners.",
   mk_contact_title: "Contact",
   mk_contact: "For an interview or a question, open an issue on GitHub or reach the team through tigersystem.io.",
+  mk_g_anim: "Animations (GIF and WebP)",
 },
 
 fr: {
@@ -297,6 +298,7 @@ fr: {
   mk_terms: "Utilisez-les librement pour écrire sur Tiger Touch ou le montrer. L'écran représenté est le BIGTREETECH Panda Touch ; le nom de BIGTREETECH ainsi que les noms et logos des fabricants d'imprimantes appartiennent à leurs propriétaires.",
   mk_contact_title: "Contact",
   mk_contact: "Pour une interview ou une question, ouvrez une issue sur GitHub ou joignez l'équipe via tigersystem.io.",
+  mk_g_anim: "Animations (GIF et WebP)",
 },
 
 de: {
@@ -437,6 +439,7 @@ de: {
   mk_terms: "Verwenden Sie sie frei, um über Tiger Touch zu schreiben oder es zu zeigen. Der abgebildete Bildschirm ist der BIGTREETECH Panda Touch; der Name BIGTREETECH sowie die Namen und Logos der Druckerhersteller gehören ihren Inhabern.",
   mk_contact_title: "Kontakt",
   mk_contact: "Für ein Interview oder eine Frage eröffnen Sie ein Issue auf GitHub oder erreichen Sie das Team über tigersystem.io.",
+  mk_g_anim: "Animationen (GIF und WebP)",
 },
 
 es: {
@@ -577,6 +580,7 @@ es: {
   mk_terms: "Úsalos libremente para escribir sobre Tiger Touch o mostrarlo. La pantalla que aparece es el BIGTREETECH Panda Touch; el nombre de BIGTREETECH y los nombres y logotipos de los fabricantes de impresoras pertenecen a sus propietarios.",
   mk_contact_title: "Contacto",
   mk_contact: "Para una entrevista o una consulta, abre un issue en GitHub o contacta con el equipo a través de tigersystem.io.",
+  mk_g_anim: "Animaciones (GIF y WebP)",
 },
 
 it: {
@@ -717,6 +721,7 @@ it: {
   mk_terms: "Usali liberamente per scrivere di Tiger Touch o per mostrarlo. Lo schermo nelle immagini è il BIGTREETECH Panda Touch; il nome BIGTREETECH e i nomi e i loghi dei produttori di stampanti appartengono ai rispettivi proprietari.",
   mk_contact_title: "Contatti",
   mk_contact: "Per un'intervista o una domanda, apri una issue su GitHub o contatta il team tramite tigersystem.io.",
+  mk_g_anim: "Animazioni (GIF e WebP)",
 },
 
 zh: {
@@ -857,6 +862,7 @@ zh: {
   mk_terms: "您可以自由使用它们来撰写或展示 Tiger Touch。图中的屏幕是 BIGTREETECH Panda Touch；BIGTREETECH 的名称以及打印机厂商的名称和标志归其各自所有者所有。",
   mk_contact_title: "联系方式",
   mk_contact: "如需采访或有任何问题，请在 GitHub 上提交 issue，或通过 tigersystem.io 联系团队。",
+  mk_g_anim: "动画（GIF 和 WebP）",
 },
 
 pt: {
@@ -997,6 +1003,7 @@ pt: {
   mk_terms: "Use-os livremente para escrever sobre o Tiger Touch ou mostrá-lo. A tela retratada é o BIGTREETECH Panda Touch; o nome da BIGTREETECH e os nomes e logotipos dos fabricantes de impressoras pertencem aos seus donos.",
   mk_contact_title: "Contato",
   mk_contact: "Para uma entrevista ou uma dúvida, abra uma issue no GitHub ou fale com a equipe pelo tigersystem.io.",
+  mk_g_anim: "Animações (GIF e WebP)",
 },
 
 "pt-pt": {
@@ -1137,6 +1144,7 @@ pt: {
   mk_terms: "Use-os livremente para escrever sobre o Tiger Touch ou o mostrar. O ecrã representado é o BIGTREETECH Panda Touch; o nome da BIGTREETECH e os nomes e logótipos dos fabricantes de impressoras pertencem aos seus proprietários.",
   mk_contact_title: "Contacto",
   mk_contact: "Para uma entrevista ou uma pergunta, abra uma issue no GitHub ou contacte a equipa através de tigersystem.io.",
+  mk_g_anim: "Animações (GIF e WebP)",
 },
 
 pl: {
@@ -1277,6 +1285,7 @@ pl: {
   mk_terms: "Używaj ich swobodnie, by pisać o Tiger Touch lub go pokazywać. Na zdjęciach jest BIGTREETECH Panda Touch; nazwa BIGTREETECH oraz nazwy i logotypy producentów drukarek należą do ich właścicieli.",
   mk_contact_title: "Kontakt",
   mk_contact: "W sprawie wywiadu lub pytania otwórz zgłoszenie (issue) na GitHubie albo skontaktuj się z zespołem przez tigersystem.io.",
+  mk_g_anim: "Animacje (GIF i WebP)",
 },
 
 ru: {
@@ -1417,6 +1426,7 @@ ru: {
   mk_terms: "Используйте их свободно, чтобы писать о Tiger Touch или показывать его. На снимках изображён BIGTREETECH Panda Touch; название BIGTREETECH, а также названия и логотипы производителей принтеров принадлежат их владельцам.",
   mk_contact_title: "Контакты",
   mk_contact: "Для интервью или вопроса создайте issue на GitHub или свяжитесь с командой через tigersystem.io.",
+  mk_g_anim: "Анимации (GIF и WebP)",
 },
 
 nl: {
@@ -1557,6 +1567,7 @@ nl: {
   mk_terms: "Gebruik ze vrij om over Tiger Touch te schrijven of het te tonen. Het afgebeelde scherm is de BIGTREETECH Panda Touch; de naam BIGTREETECH en de namen en logo's van de printerfabrikanten zijn eigendom van hun eigenaren.",
   mk_contact_title: "Contact",
   mk_contact: "Voor een interview of een vraag opent u een issue op GitHub of bereikt u het team via tigersystem.io.",
+  mk_g_anim: "Animaties (GIF en WebP)",
 },
 
 };

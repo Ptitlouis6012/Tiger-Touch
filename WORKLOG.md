@@ -9,6 +9,7 @@ reset to this header at each release.
 - Site: one page per printer brand (SEO), brand favicons, sitemap and robots.txt, logos linked; five new Demo captures.
 - Site: the rest of TigerSystem (Studio, TigerPOD, TigerScale, TigerSpool) at the foot of every page.
 - Site: a media kit page (/press/) with every picture and a ZIP; README section Media kit - Press.
+- Site icon: the framed tiger head; animated views (cards, list, update) by scripts/make-mockups.py, method in docs/MOCKUPS.md.
 
 ## Changed
 - Site: one stylesheet and theme script shared by every page.
