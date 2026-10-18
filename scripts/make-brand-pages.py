@@ -26,6 +26,7 @@ copy and a generated one drift). To look at it locally:
   python3 scripts/make-brand-pages.py --out /tmp/site   (then serve /tmp/site)
 """
 import argparse
+import datetime
 import html
 import json
 import pathlib
@@ -114,7 +115,7 @@ FEATURES = [
 ]
 
 
-def page(b, brands, pieces, svg):
+def page(b, brands, pieces, svg, version):
     slug, name = b["slug"], b["name"]
     url = BASE + slug + "/"
     title = "%s printers on a Panda Touch or K-Touch - Tiger Touch" % name
@@ -133,6 +134,8 @@ def page(b, brands, pieces, svg):
          "description": b["lead"], "url": url, "image": img, "license": "https://opensource.org/licenses/MIT",
          "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"},
          "isAccessibleForFree": True, "downloadUrl": BASE, "codeRepository": REPO,
+         "softwareVersion": version["number"], "datePublished": version["date"],
+         "releaseNotes": version["url"],
          "featureList": [s for s in b["shows"]]},
         {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Tiger Touch", "item": BASE},
@@ -201,6 +204,7 @@ def page(b, brands, pieces, svg):
       </dl>
       <p class="cta"><a class="pill solid big" href="../#install">Install Tiger Touch from your browser</a>
         <a class="pill" href="{repo}">Source on GitHub</a></p>
+      <p class="latest">Latest version <b>v{vnum}</b>{vdate} &middot; <a href="{vurl}">What's new</a></p>
     </div>
     <figure class="show bp-shot">
       <img src="../img/{slug}.png" width="607" height="738" alt="{shot_alt}">
@@ -269,7 +273,8 @@ def page(b, brands, pieces, svg):
            models=esc(b["models"]), connection=esc(b["connection"]), status=esc(b["status"]),
            shot_alt=esc(b["shot_alt"]), shows=li(b["shows"]), controls=esc(b["controls"]),
            setup=li(b["setup"]), tips=esc(b["tips"]), faq=faq, strip=strip(svg, pieces, slugs, "../", slug),
-           others=other_rows, feats=feats,
+           others=other_rows, feats=feats, vnum=esc(version["number"]), vurl=version["url"],
+           vdate=(", released %s" % version["human"]) if version["human"] else "",
            lineup="".join('<li><img src="../img/models/%s" width="240" height="240" loading="lazy" alt="%s %s">'
                           '<span>%s</span></li>' % (esc(f), esc(name), esc(n), esc(n)) for f, n in b["lineup"]))
 
@@ -277,7 +282,14 @@ def page(b, brands, pieces, svg):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True, help="the site being built")
+    ap.add_argument("--version", help="the release being published (make-manifest.py passes it); "
+                    "without it, PROJECT_VER, for a local look")
+    ap.add_argument("--date", help="its date, YYYY-MM-DD (default: today, the day it is published)")
     a = ap.parse_args()
+    number = a.version or re.search(r'PROJECT_VER "([^"]+)"', (ROOT / "firmware" / "CMakeLists.txt").read_text()).group(1)
+    day = datetime.date.fromisoformat(a.date) if a.date else datetime.date.today()
+    version = {"number": number, "date": day.isoformat(), "human": day.strftime("%d %B %Y").lstrip("0"),
+               "url": "%s/releases/tag/v%s" % (REPO, number)}
     out = pathlib.Path(a.out)
     data = json.loads((ROOT / "installer" / "brand-pages.json").read_text())
     brands = data["brands"]
@@ -290,7 +302,7 @@ def main():
             raise SystemExit("no logo named %r in brands.svg" % b["logo"])
         d = out / b["slug"]
         d.mkdir(parents=True, exist_ok=True)
-        (d / "index.html").write_text(page(b, brands, pieces, svg))
+        (d / "index.html").write_text(page(b, brands, pieces, svg, version))
         p = next(p for p in pieces if p[0] == b["logo"])
         (d / "favicon.svg").write_text(favicon(p[1], p[2]))
         shutil.copyfile(ROOT / "assets" / "devices" / "brands" / (b["shot"] + ".png"), out / "img" / (b["slug"] + ".png"))
@@ -304,10 +316,11 @@ def main():
     urls = [BASE] + [BASE + b["slug"] + "/" for b in brands]
     (out / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + "".join("  <url><loc>%s</loc></url>\n" % u for u in urls) + "</urlset>\n")
+        + "".join("  <url><loc>%s</loc><lastmod>%s</lastmod></url>\n" % (u, version["date"]) for u in urls)
+        + "</urlset>\n")
     (out / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: %ssitemap.xml\n" % BASE)
     (out / "brand-pages.json").unlink(missing_ok=True)
-    print("brand pages: %s" % ", ".join(b["slug"] for b in brands))
+    print("brand pages (v%s): %s" % (number, ", ".join(b["slug"] for b in brands)))
 
 
 if __name__ == "__main__":

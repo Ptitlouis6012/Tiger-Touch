@@ -41,7 +41,7 @@ that look like bugs and are not, or look fine and are not.
 - [Tiger Touch for Elegoo printers](https://tigertag-project.github.io/Tiger-Touch/elegoo/): Centauri Carbon 1 and 2 on your network, the Canvas. Models: Centauri Carbon 2, Centauri Carbon.
 - [Tiger Touch for Anycubic printers](https://tigertag-project.github.io/Tiger-Touch/anycubic/): Anycubic cloud or your network, every ACE slot. Models: Kobra S1, Kobra X, Kobra 3, Kobra 3 Combo.
 - [Tiger Touch for Snapmaker printers](https://tigertag-project.github.io/Tiger-Touch/snapmaker/): The U1 on your network, its four tool heads. Models: U1.
-- [Tiger Touch for FlashForge printers](https://tigertag-project.github.io/Tiger-Touch/flashforge/): On your network, the AD5X material station. Models: AD5X, Adventurer 5M, Adventurer 5M Pro, Creator 5.
+- [Tiger Touch for FlashForge printers](https://tigertag-project.github.io/Tiger-Touch/flashforge/): On your network, the AD5X material station. Models: AD5X, Adventurer 5M, Adventurer 5M Pro, Creator 5, Creator 5 Pro.
 - [Tiger Touch for Prusa printers](https://tigertag-project.github.io/Tiger-Touch/prusa/): PrusaLink on your network: progress and temperatures. Models: Core One, MK4, MK4S, XL, MINI.
 - [Tiger Touch for Klipper printers](https://tigertag-project.github.io/Tiger-Touch/klipper/): Moonraker: Voron, Qidi, Sovol, AFC and Happy Hare. Models: Voron, Qidi, Sovol, RatRig and any printer running Klipper with Moonraker.
 - [Tiger Touch for OctoPrint printers](https://tigertag-project.github.io/Tiger-Touch/octoprint/): Any Marlin printer behind OctoPrint. Models: Any Marlin printer behind OctoPrint (Ender, Prusa MK3, Anet and more).

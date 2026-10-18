@@ -142,7 +142,7 @@ catalogue counts about 380 models from about 60 makers.
 | **[Bambu Lab](https://tigertag-project.github.io/Tiger-Touch/bambu-lab/)** (X1, P1, P2S, A1, H2...) | **Bambu cloud**, or LAN (MQTT over TLS) | **Yes**: printing through the cloud (P2S), idle in LAN mode (X1C, A1) |
 | **[Creality](https://tigertag-project.github.io/Tiger-Touch/creality/)** (K2, K1, Hi, Ender-3 V4...) | WebSocket on the LAN | **Yes**: printing (K2), idle with its CFS (Ender-3 V4) |
 | **[Snapmaker](https://tigertag-project.github.io/Tiger-Touch/snapmaker/)** U1 | Moonraker WebSocket | **Yes**: idle, four tool heads |
-| **[FlashForge](https://tigertag-project.github.io/Tiger-Touch/flashforge/)** (AD5X, Adventurer 5M, Creator 5) | HTTP on the LAN | **Yes**: idle (AD5X) |
+| **[FlashForge](https://tigertag-project.github.io/Tiger-Touch/flashforge/)** (AD5X, Adventurer 5M, Creator 5, Creator 5 Pro) | HTTP on the LAN | **Yes**: idle (AD5X) |
 | **[Anycubic](https://tigertag-project.github.io/Tiger-Touch/anycubic/)** (Kobra 3, Kobra X, Kobra S1...) | **Anycubic cloud**, or LAN (MQTT over TLS) | **Yes**: idle through the cloud (Kobra X), with its ACE |
 | **[Elegoo](https://tigertag-project.github.io/Tiger-Touch/elegoo/)** Centauri Carbon 1 and 2 | MQTT (CC2), SDCP (CC1) | Not yet |
 | **[Prusa](https://tigertag-project.github.io/Tiger-Touch/prusa/)** (MK4, Core One, XL, MINI) | PrusaLink | Not yet |

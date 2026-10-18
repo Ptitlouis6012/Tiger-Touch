@@ -241,3 +241,6 @@ a { color: var(--accent); }
   .bp-hero .lead { text-align: left; }
   .bp-shot { order: 0; margin: 8px 0 18px; }
 }
+.latest { margin: 14px 0 0; color: var(--muted); font-size: .92rem; }
+.latest b { color: var(--ok); }
+.latest a { color: var(--accent); }

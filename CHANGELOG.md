@@ -35,6 +35,12 @@ they were written.
   of the page (Tiger Studio Manager's printer pictures, `assets/printers/models/`),
   each named; the header reads "<Brand> x TigerSystem" and the brand's logo
   stands beside the title.
+- **Each brand page shows the latest version** ("Latest version v2.1.1,
+  released ..., What's new") and carries it in its structured data and the
+  sitemap: the pages are rebuilt from the release the site is published from,
+  with the release's own date, so a new release updates them with nothing to
+  edit.
+- **The FlashForge page lists the Creator 5 Pro**, in its models and lineup.
 - **The README and llms.txt link every brand page**: the brands of the
   printer table and a line under it in the README, a section of its own in
   `llms.txt`, so that search engines and AI assistants find each page.
