@@ -4,7 +4,7 @@ time zone rule, from the IANA time zone database.
 
     python firmware/tools/make_tz_table.py --zoneinfo /usr/share/zoneinfo
 
-The device learns a country code from the TigerTag account or from the access
+The device learns a country code from the TigerSystem account or from the access
 point, and needs the rule that turns UTC into local time. The rules are not
 written by hand: each one is the footer of the compiled zone file of the zone
 chosen for the country, so a change of law reaches the device by regenerating

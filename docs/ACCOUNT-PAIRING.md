@@ -1,6 +1,6 @@
-# Linking the TigerTag account
+# Linking the TigerSystem account
 
-The device needs the owner's TigerTag account: the printers, their addresses and
+The device needs the owner's TigerSystem account: the printers, their addresses and
 access details all come from it. It offers the same two routes as
 [TigerScale V3](https://github.com/TigerTag-Project/Tiger-Scale-V3/blob/main/docs/ACCOUNT-PAIRING.md)
 and [TigerSpool](https://github.com/TigerTag-Project/TigerSpool-RFID/blob/main/docs/ACCOUNT-PAIRING.md),

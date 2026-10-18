@@ -3,7 +3,7 @@
 > A new open firmware (ESP-IDF 5.5, LVGL 9, C) for the BIGTREETECH Panda Touch /
 > K-Touch screen (one board sold under two names) -
 > an ESP32-S3 with a 5" 800x480 touchscreen - into a standalone monitor for every
-> 3D printer of a TigerTag account: Creality, Bambu Lab, Snapmaker, Elegoo,
+> 3D printer of a TigerSystem account: Creality, Bambu Lab, Snapmaker, Elegoo,
 > FlashForge, Prusa, Anycubic, and any Klipper (Moonraker) or OctoPrint printer. It signs in to the account, reads the printers
 > declared in Tiger Studio Manager, and talks to each machine directly. It
 > updates itself over the air. Part of the TigerTag ecosystem. MIT.

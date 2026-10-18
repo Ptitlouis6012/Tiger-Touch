@@ -6,7 +6,7 @@ step for step, so somebody who has set up one TigerTag device recognises the
 next. The code is `app_task()` in `firmware/main/main.c`, the screens are
 `firmware/main/ui/ui_onboard.c`.
 
-> Before the device can show anything, the printers have to exist in a TigerTag
+> Before the device can show anything, the printers have to exist in a TigerSystem
 > account, declared in
 > [Tiger Studio Manager](https://github.com/TigerTag-Project/TigerTag-Studio-Manager).
 > The device reads them; it never builds the list. See the README's
@@ -22,7 +22,7 @@ next. The code is `app_task()` in `firmware/main/main.c`, the screens are
  [2] "Connect to Wi-Fi?" . Set up  -> network list -> password -> connected
     |                      Later   -> skipped, offered again from the home screen
     |
- [3] "Link a TigerTag account?"     (only once there is a network)
+ [3] "Link a TigerSystem account?"     (only once there is a network)
     |                      Link now -> sign-in page (e-mail + password, or Google)
     |                      Later    -> skipped, offered again from the home screen
     |
@@ -66,7 +66,7 @@ often refuses a board that has just restarted.
 
 ## 3. Account
 
-"Link a TigerTag account?", *Link now* or *Later*, then one sign-in page:
+"Link a TigerSystem account?", *Link now* or *Later*, then one sign-in page:
 
 | On the page | What it does |
 |---|---|

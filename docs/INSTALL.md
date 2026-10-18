@@ -13,7 +13,7 @@ to go back to it.
   powers the screen and shows no port).
 - A computer with **Chrome or Edge** (Windows, macOS, Linux). Not Safari, not
   Firefox, not a phone: the installer uses WebSerial.
-- A TigerTag account with your printers declared, in
+- A TigerSystem account with your printers declared, in
   [Tiger Studio Manager](https://github.com/TigerTag-Project/TigerTag-Studio-Manager).
 
 ## 1. The USB driver
@@ -66,7 +66,7 @@ own MD5, retries a piece that fails, and picks up where it stopped.
    - **Updating an existing Tiger Touch over USB: leave it unticked**, and your
      Wi-Fi and account are kept.
 4. Wait for the end; the board restarts by itself into the Tiger Touch setup:
-   language, Wi-Fi, TigerTag account ([ONBOARDING.md](ONBOARDING.md)).
+   language, Wi-Fi, TigerSystem account ([ONBOARDING.md](ONBOARDING.md)).
 
 Without a browser, from a clone of this repository: see
 [Building and flashing it yourself](#building-and-flashing-it-yourself).

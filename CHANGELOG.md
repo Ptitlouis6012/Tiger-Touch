@@ -16,6 +16,17 @@ they were written.
 
 ## [Unreleased]
 
+### Changed
+- **It is a TigerSystem account, not a TigerTag account**: the installer page
+  (in its eleven languages), the README, the documents and the screen's own
+  texts ("Link a TigerSystem account?", the battery and Live view notes) say
+  so. TigerTag stays the name of the chips, the app and the team.
+- **The installer page shows the README's picture of the screen**, turning from
+  the start-up screen to the cards, the list and a printer's full view (the same
+  file, copied by the site build), instead of a picture that flipped on hover.
+- **The printer brands run across the whole page** on the installer, under the
+  name, the screen and the install card.
+
 ## [2.1.1] - 2026-10-18
 
 

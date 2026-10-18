@@ -10,7 +10,7 @@ tool-agnostic version of these rules is [`AGENTS.md`](AGENTS.md).
 A new firmware - not a device - for the screen BIGTREETECH sells as the Panda
 Touch and as the K-Touch (one board, two BIGTREETECH firmwares). It turns it into
 a standalone monitor for the
-3D printers of a TigerTag account. No computer, no bridge: it signs in to the
+3D printers of a TigerSystem account. No computer, no bridge: it signs in to the
 account, reads the printers from it, and talks to each machine directly. It also
 pauses, resumes and stops a print and switches a printer's light, on the owner's
 touch and nothing else.

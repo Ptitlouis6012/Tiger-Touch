@@ -38,7 +38,7 @@
    once a second (`take_background_sync()`).
 4. **A new device** runs the setup instead, one question at a time
    ([ONBOARDING.md](ONBOARDING.md)): the language, then "Connect to Wi-Fi?" and
-   "Link a TigerTag account?", each with *Later*; the sign-in page offers e-mail
+   "Link a TigerSystem account?", each with *Later*; the sign-in page offers e-mail
    and password or Google by QR ([ACCOUNT-PAIRING.md](ACCOUNT-PAIRING.md)).
 5. The home loop waits for touches, and on its own: reminders of what was put
    off, a retry of a failed read of the printers.

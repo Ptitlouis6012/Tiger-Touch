@@ -2,7 +2,7 @@
  * reached): MQTT over TLS to <region>.mqtt.bambulab.com:8883.
  *
  * The device never signs in to Bambu. Tiger Studio does, and stores the
- * session in the TigerTag account (printers/bambulab/secrets/cloud_session);
+ * session in the TigerSystem account (printers/bambulab/secrets/cloud_session);
  * this reads it from there, exactly as the TigerSpool does.
  *
  * Reports are JSON and a full one is tens of kilobytes. A tree parser would

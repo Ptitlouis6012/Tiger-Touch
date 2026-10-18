@@ -22,7 +22,7 @@ firmware/
 │   │   ├── driver_util.h   JSON and colour helpers every driver shares
 │   │   └── ws_rx.c, mqtt_rx.c   chunked-message reassembly, once
 │   ├── net/              the network and the account
-│   │   ├── cloud.c         the TigerTag account: sign-in, printers, language
+│   │   ├── cloud.c         the TigerSystem account: sign-in, printers, language
 │   │   ├── wifi_mgr.c      Wi-Fi: scan, connect, signal
 │   │   ├── http_lite.c     a small blocking HTTP client for the pollers
 │   │   └── ota.c           over-the-air update: manifest, verified download, probation

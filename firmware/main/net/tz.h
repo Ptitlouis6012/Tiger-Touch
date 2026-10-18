@@ -5,7 +5,7 @@
 /* The time zone of the device.
  *
  * The device is used in every country, so the zone is not written in the code.
- * It is taken from a country, in this order: the one kept in the TigerTag account,
+ * It is taken from a country, in this order: the one kept in the TigerSystem account,
  * then the one the access point announces, and UTC when neither is known. Nothing
  * is sent anywhere to find out: no address is geolocated.
  *

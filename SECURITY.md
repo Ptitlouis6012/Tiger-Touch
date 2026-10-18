@@ -13,7 +13,7 @@ encrypted**; anyone with physical access to the board can read it.
 | Stored | Why |
 |---|---|
 | Wi-Fi network name and password | to reconnect at power-on |
-| The TigerTag account's refresh token and its e-mail | to sign in again without asking; the **password is never stored** |
+| The TigerSystem account's refresh token and its e-mail | to sign in again without asking; the **password is never stored** |
 | The language, the screen settings, which printers are on | preferences |
 | The country the account holds (two letters, or a Canadian province) | to choose the time zone before the account is read again |
 | The live view's access code, and whether it is on | to give the screen to Tiger Studio ([docs/LIVE-VIEW.md](docs/LIVE-VIEW.md)) |

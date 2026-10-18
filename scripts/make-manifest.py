@@ -11,6 +11,7 @@ rebuilt). Written into `out`, beside a copy of installer/:
   version.json    read by every Tiger Touch in the field (net/ota.c)
   manifest.json   read by ESP Web Tools on the installer page
   the four images the installer writes, at their offsets
+  tiger-touch-views.webp  the README's picture of the screen, copied from assets/
 
 THREE RULES, each of which has cost a sibling project a release.
 
@@ -74,6 +75,9 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     shutil.copytree(a.installer, out, dirs_exist_ok=True)
     (out / "README.md").unlink(missing_ok=True)
+    # The README's picture of the screen, the same file, so the two never differ.
+    root = pathlib.Path(__file__).resolve().parent.parent
+    shutil.copyfile(root / "assets" / "devices" / "tiger-touch-views.webp", out / "tiger-touch-views.webp")
 
     base = "https://github.com/%s/releases/download/v%s" % (a.repo, a.version)
     parts = []

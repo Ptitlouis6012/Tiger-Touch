@@ -1810,7 +1810,7 @@ static void show_linked_if_new(void)
     }
 }
 
-/* The account step of the setup: "Link a TigerTag account?", then sign-in. */
+/* The account step of the setup: "Link a TigerSystem account?", then sign-in. */
 static bool offer_account(void)
 {
     if (ask(PROMPT_ACCOUNT, S_OB_ACCOUNT_Q, S_OB_ACCOUNT_SUB, S_LINK_NOW) && run_sign_in())
@@ -1944,7 +1944,7 @@ static void app_task(void *arg)
     start_probation_timer();
 
     /* The setup, as on TigerScale V3: the language first on a fresh device,
-     * then "Connect to Wi-Fi?" and "Link a TigerTag account?", each with
+     * then "Connect to Wi-Fi?" and "Link a TigerSystem account?", each with
      * "Later". What is put off is offered again from the home screen. A device
      * already set up goes straight to work with what it has saved. */
     const bool first = !i18n_is_chosen() && !wifi_saved() && !cloud_has_session();

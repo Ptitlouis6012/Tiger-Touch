@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-/* TigerTag account: sign-in and the printers it holds.
+/* TigerSystem account: sign-in and the printers it holds.
  *
  * Same Firebase project and Firestore layout as Tiger Studio, TigerScale and
  * TigerSpool. The password is only ever used for one request and is never

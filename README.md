@@ -68,7 +68,7 @@ board, two firmwares, each tied to one family of machines. Change printer, and
 the screen goes into a drawer.
 
 **Tiger Touch is a new firmware for that same screen**, written from scratch. It
-signs in to your free TigerTag account, finds every printer you declared there,
+signs in to your free TigerSystem account, finds every printer you declared there,
 and talks to each one directly, over its own protocol, at the same time. The
 Panda Touch becomes a Bambu Lab touchscreen *and* an Elegoo touchscreen *and* an
 Anycubic, Creality, Snapmaker, FlashForge and Prusa touchscreen, all at once.
@@ -87,7 +87,7 @@ browser, and two minutes later it shows your printers.
 |---|---|
 | 🖨️ **Every brand on one screen** | Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, plus any Klipper (Moonraker) or OctoPrint machine. Tiger Studio's printer catalogue lists close to 400 models from about 60 makers. |
 | ☁️ **Cloud and LAN** | Bambu Lab through the **Bambu cloud** or in LAN mode; Anycubic through the **Anycubic cloud**; the others on your local network. |
-| 🔌 **Plug and play** | Printers come from your TigerTag account, with their addresses and access codes. Nothing to type on the screen but your Wi-Fi. |
+| 🔌 **Plug and play** | Printers come from your TigerSystem account, with their addresses and access codes. Nothing to type on the screen but your Wi-Fi. |
 | 📊 **Live, all of them** | State, progress, file, time left and end time, nozzles, bed, chamber, filament units (AMS, CFS, Station, ACE, MMU / AFC lanes), up to ten printers followed at once. |
 | ✋ **Safe controls** | Pause, resume, stop (it asks for a confirmation first, so a stray finger never ends a print) and the printer's light. Nothing else is ever sent: no heating, no moving. |
 | 🔄 **Updates itself** | New versions arrive over Wi-Fi, verified before install, rolled back by themselves if they fail to start. |
@@ -179,7 +179,7 @@ each know **one** family of printers.
 | **Prusa** (PrusaLink) | ✅ | ❌ | ❌ |
 | **Klipper** (Moonraker) | ✅ | ❌ | ✅ |
 | **OctoPrint** | ✅ | ❌ | ❌ |
-| **Printers set up without typing on the screen** | ✅ from your TigerTag account | ❌ IP, serial, access code | ❌ IP and port, or a scan |
+| **Printers set up without typing on the screen** | ✅ from your TigerSystem account | ❌ IP, serial, access code | ❌ IP and port, or a scan |
 | **Filament units shown** (AMS, CFS, Station, ACE, MMU / AFC) | ✅ every brand | ✅ AMS | - |
 | **Over-the-air updates**: the screen finds new versions and installs them itself, verified, with automatic roll-back | ✅ | ❌ | ❌ |
 | **Eleven languages, time zone from your country** | ✅ | - | - |
@@ -218,7 +218,7 @@ are measured on the board: [docs/CONNECTION-BUDGET.md](docs/CONNECTION-BUDGET.md
 
 ### 1. Declare your printers once, in Tiger Studio Manager
 
-Tiger Touch reads your printers from your **TigerTag account**, so it never asks
+Tiger Touch reads your printers from your **TigerSystem account**, so it never asks
 for an address or an access code on a 5" screen. Create the account and add your
 printers in **[Tiger Studio Manager](https://github.com/TigerTag-Project/TigerTag-Studio-Manager)**,
 the free desktop app of the ecosystem (Windows, macOS, Linux): it finds them on
@@ -243,7 +243,7 @@ back, and the one box to tick.
 
 ### 3. Follow the screen
 
-Language, Wi-Fi, then your TigerTag account: e-mail and password, or **Continue
+Language, Wi-Fi, then your TigerSystem account: e-mail and password, or **Continue
 with Google** with a QR code scanned by your phone
 ([docs/ONBOARDING.md](docs/ONBOARDING.md)). Switch on the printers you want to
 follow, and that is it. *Later* is always an answer: the device starts at once
@@ -260,7 +260,7 @@ account kept ([docs/OTA.md](docs/OTA.md)).
 
 *Settings > Live view* gives Tiger Studio Manager, on the same Wi-Fi, the screen
 live: it can show it, touch it and take a screenshot of it for an issue or a
-post. Its access code is shown on the screen and written to your TigerTag
+post. Its access code is shown on the screen and written to your TigerSystem
 account, where Studio reads it ([docs/LIVE-VIEW.md](docs/LIVE-VIEW.md)).
 
 ## Questions
@@ -282,9 +282,9 @@ Klipper or OctoPrint machine.
 **Does it work with the Bambu Lab cloud? With the Anycubic cloud?**
 Yes, both. Bambu Lab printers can be followed through the Bambu cloud or in LAN
 mode, Anycubic printers through the Anycubic cloud or on the LAN, using the
-sessions your TigerTag account already holds.
+sessions your TigerSystem account already holds.
 
-**Is it free?** Yes, MIT licensed, with no subscription. The TigerTag account
+**Is it free?** Yes, MIT licensed, with no subscription. The TigerSystem account
 and Tiger Studio Manager are free too.
 
 **Do I need a computer or a Raspberry Pi running next to it?** No. A computer is
