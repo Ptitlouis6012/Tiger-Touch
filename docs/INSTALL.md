@@ -48,7 +48,7 @@ printer details.
 
 **Why a script and not one `esptool read-flash`:** the screen's CH340K loses
 a byte now and then. Above 115200 baud it loses them every few hundred kilobytes
-(230400 and 460800 failed on a Mac, with three cables, directly and through a
+(230400 and 460800 failed on a Mac, with several cables, directly and through a
 hub); at 115200 rarely, but over 16 MB one read in one go seldom reaches the
 end. The script reads 128 KB at a time, each piece checked against the chip's
 own MD5, retries a piece that fails, and picks up where it stopped.
@@ -73,7 +73,7 @@ Without a browser, from a clone of this repository: see
 
 ## 4. From then on: updates over the air
 
-Nothing more to plug in. *Settings > Firmware update* shows when a new version is
+Nothing more to plug in. *Settings > Update* shows when a new version is
 out and installs it (see [OTA.md](OTA.md)). USB is needed again only to go back to
 the BigTreeTech firmware, or if a board has to be recovered.
 

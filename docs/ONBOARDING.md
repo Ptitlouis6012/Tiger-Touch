@@ -10,7 +10,7 @@ next. The code is `app_task()` in `firmware/main/main.c`, the screens are
 > account, declared in
 > [Tiger Studio Manager](https://github.com/TigerTag-Project/TigerTag-Studio-Manager).
 > The device reads them; it never builds the list. See the README's
-> [Before you start](../README.md#before-you-start).
+> [Before you start](../README.md#1-declare-your-printers-once-in-tiger-studio-manager).
 
 ## The order
 

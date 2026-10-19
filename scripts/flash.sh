@@ -9,7 +9,8 @@
 #     that (230400 and 460800 failed on a Mac with WCH's driver, with any cable;
 #     921600 gives a board that boots into noise). BAUD=230400 to try faster.
 #   * Parts are written at their own offsets - bootloader, partition table,
-#     application. `idf.py flash` does exactly that and never touches the NVS at
+#     OTA data (the boot choice goes back to the first slot), application.
+#     `idf.py flash` does exactly that and never touches the NVS at
 #     0x9000, so the saved Wi-Fi and account survive an update.
 #   * Never write a merged image at 0x0: it spans the NVS and wipes it.
 

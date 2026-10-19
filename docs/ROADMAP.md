@@ -5,10 +5,9 @@ An item leaves this file by being built or by being ruled out - never by rotting
 
 ## Decided for the next updates
 
-1. **Anycubic cloud commands and temperatures.** The cloud session is built
-   and seen working idle (2.0.0); pause, resume, stop, the light and the
-   temperature query are left out because the broker closes the session on a
-   publish it does not allow. Each needs trying alone on the bench
+1. **Anycubic cloud temperatures.** Pause, resume, stop and the light go
+   through the cloud as REST orders (2.2.0); the temperature query is still not
+   sent, because the broker closes the session on a publish it does not allow
    (`docs/PRINTER-COMPATIBILITY.md`, *Anycubic through the cloud*).
 
 Over-the-air update, the other one, is built (2.0.0, `docs/OTA.md`).
@@ -36,10 +35,8 @@ Over-the-air update, the other one, is built (2.0.0, `docs/OTA.md`).
 
 ## Drivers
 
-- **Run each "compiled" driver on a real machine** and record its load price
-  (`docs/CONNECTION-BUDGET.md`). Order of likelihood: Snapmaker, Elegoo, FlashForge.
-- **A Centauri Carbon 1 session**, end to end: discovery, the status mapping, the
-  meaning of `PrintInfo.Status` values on current firmware.
+- **Record each brand's load price on a real machine** where it is still an
+  estimate (`docs/CONNECTION-BUDGET.md`).
 - **Multi-nozzle printers** (`docs/PRINTER-COMPATIBILITY.md`): the left/right order of
   a dual-head Bambu is read from the protocol notes, not from a machine.
 - **The H2C's nozzle rack.** Needs a real report to know what to show.

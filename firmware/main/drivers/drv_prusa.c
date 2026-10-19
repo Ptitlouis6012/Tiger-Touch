@@ -1,6 +1,7 @@
 /* Prusa, through PrusaLink: HTTP on port 80 with Digest authentication
  * (reference: Tiger Studio's prusa/PROTOCOL.md, itself written against Prusa's
- * published OpenAPI and still to be confirmed on hardware).
+ * published OpenAPI). The reading, pause, resume and stop were seen working on a
+ * real Prusa by the owner (2026-10-18).
  *
  * GET /api/v1/status every two seconds gives the state, the temperatures and
  * the job's progress; GET /api/v1/job gives the name of the file, asked again

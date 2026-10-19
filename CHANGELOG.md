@@ -16,6 +16,34 @@ they were written.
 
 ## [Unreleased]
 
+### Added
+- **The agent rules, one file each**, in `.agents/rules/` (Rule, Why, How),
+  indexed one line each in the "Rules" section of `CLAUDE.md`, critical rules
+  first; `AGENTS.md` and `llms.txt` point to the index instead of copying it.
+  `scripts/check-agent-rules.py` (in `verify.sh` and the pre-commit hook) fails
+  when the index and the files disagree, when a rule loses its form, or when a
+  path cited by an entry point or a rule does not exist.
+- **`scripts/i18n-key.py`** adds or removes a translation key in every language
+  at once, in the screen's table or the site's dictionary.
+- **`scripts/check-i18n.py` catches a shifted column** (Chinese or Cyrillic in
+  the wrong column, or missing from its own) and lists the rows no source uses,
+  as a warning.
+
+### Changed
+- **The documentation says what the code does**: the job buttons are always
+  drawn and dimmed when they cannot act, the update task is the exception to the
+  core and stack rules, the update is checked when its page opens (*Settings >
+  Update*), the drivers' status, the catalogue (more than 400 models), the fonts'
+  command, the files the site build writes, and more (`CODEMAP.md`, `README.md`,
+  `CONTRIBUTING.md`, `llms.txt`, `docs/`).
+- **Eleven translation rows no screen used are removed** from the screen's table.
+- **`scripts/bump-version.sh` resets `WORKLOG.md`** to its header.
+
+### Fixed
+- **The background connection task's creation is checked**, as every other one.
+- **`firmware/tools/make_fonts.py` finds the fonts LVGL 9.6 ships** after a first
+  build, with no `--sources`.
+
 ## [2.2.0] - 2026-10-18
 
 

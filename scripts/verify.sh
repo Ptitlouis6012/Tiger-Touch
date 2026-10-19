@@ -46,6 +46,7 @@ run release-notes  "$PY" scripts/check-release-notes.py
 run attribution    bash scripts/check-attribution.sh --tree
 run installer-i18n "$PY" scripts/check-installer-i18n.py
 run docs           "$PY" scripts/check-docs.py
+run agent-rules    "$PY" scripts/check-agent-rules.py
 run english        "$PY" scripts/check-english.py
 run i18n           "$PY" scripts/check-i18n.py
 

@@ -13,7 +13,8 @@ rebuilt). Written into `out`, beside a copy of installer/:
   the four images the installer writes, at their offsets
   tiger-touch-tour.webp   the screen in the three-quarter photograph, start-up, list
                           and cards (assets/mockups/animated/angle/panda-touch-angle-tour.webp)
-  <brand>/index.html      one page per printer brand, sitemap.xml, robots.txt
+  <brand>/index.html      one page per printer brand, the media kit (press/), each
+                          page in every language, sitemap.xml, robots.txt
                           (make-brand-pages.py)
 
 THREE RULES, each of which has cost a sibling project a release.

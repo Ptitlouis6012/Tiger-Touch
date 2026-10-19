@@ -21,10 +21,11 @@ LVGL draws a missing one as a blank box and logs nothing.
 
 Nothing font-shaped is committed except the generated .c files. The sources:
   - Montserrat-Medium.ttf and FontAwesome5-Solid+Brands+Regular.woff are LVGL's.
-    Up to 9.2 the component carried them in scripts/built_in_font/; 9.6 no
-    longer does, so give a folder holding them with --sources (or
-    LVGL_FONT_SOURCES), taken from github.com/lvgl/lvgl at tag v9.2.0, the same
-    files every earlier face was generated from;
+    The component carries them after a first build: in
+    scripts/generators/built_in_font/ (9.6), scripts/built_in_font/ (up to
+    9.2); both are looked in. --sources (or LVGL_FONT_SOURCES) gives another
+    folder, such as github.com/lvgl/lvgl at tag v9.2.0, the files every earlier
+    face was generated from;
   - Noto Sans SC Medium (SIL OFL) is given with --noto, or NOTO_SANS_SC;
   - lv_font_conv is run through npx, or LV_FONT_CONV points at its .js.
 """
@@ -72,6 +73,8 @@ def find_sources():
         cands.append(pathlib.Path(argv[argv.index("--sources") + 1]))
     if os.environ.get("LVGL_FONT_SOURCES"):
         cands.append(pathlib.Path(os.environ["LVGL_FONT_SOURCES"]))
+    # LVGL up to 9.2 kept them in scripts/built_in_font/, 9.6 in scripts/generators/built_in_font/.
+    cands.append(ROOT / "managed_components" / "lvgl__lvgl" / "scripts" / "generators" / "built_in_font")
     cands.append(ROOT / "managed_components" / "lvgl__lvgl" / "scripts" / "built_in_font")
     builtin = next((c for c in cands if (c / "Montserrat-Medium.ttf").exists()), None)
     conv = os.environ.get("LV_FONT_CONV")

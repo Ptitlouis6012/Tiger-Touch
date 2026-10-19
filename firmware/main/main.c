@@ -2004,8 +2004,11 @@ static void app_task(void *arg)
 
     /* From here the switched-on printers are connected in the background, so
      * that by the time one is touched in the list its report is already in. */
-    xTaskCreatePinnedToCoreWithCaps(feed_task, "feed", 12 * 1024, NULL, 4, &s_feed, 0,
-                                    MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
+    if (xTaskCreatePinnedToCoreWithCaps(feed_task, "feed", 12 * 1024, NULL, 4, &s_feed, 0,
+                                        MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT) != pdPASS)
+    {
+        ESP_LOGE(TAG, "no background connection of the printers: not enough memory");
+    }
     if (xTaskCreatePinnedToCoreWithCaps(ota_watch_task, "ota_watch", 8 * 1024, NULL, 2, NULL, 0,
                                         MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT) != pdPASS)
     {

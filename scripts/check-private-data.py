@@ -18,7 +18,7 @@ What is looked for, in every text file:
 What is NOT looked for: a person's name in prose. A pattern cannot see that;
 reading the diff does.
 
-The Firebase web key in firmware/main/cloud.c is public by design (it is served
+The Firebase web key in firmware/main/net/cloud.c is public by design (it is served
 without authentication by the TigerTag project's own hosting) and is the single
 allowlisted secret-shaped string.
 """

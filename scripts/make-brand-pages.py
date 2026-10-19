@@ -19,6 +19,7 @@ Everything is built from one template and one data file:
 and written into the site (`out`), beside the installer page:
 
   <slug>/index.html, <slug>/favicon.svg, img/<slug>.png, sitemap.xml, robots.txt,
+  press/ (the media kit page, its files and tiger-touch-media-kit.zip),
   and a copy of every page in each other language: <lang>/index.html, <lang>/<slug>/
 
 Called by make-manifest.py when the site is built; never committed (a committed

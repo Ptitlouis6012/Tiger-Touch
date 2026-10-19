@@ -122,15 +122,6 @@ X(S_ERR_OTHER, "Can't sign in.", "Connexion impossible.", "Anmeldung nicht mögl
 X(S_NO_NETWORKS, "No network found.", "Aucun réseau trouvé.", "Kein Netzwerk gefunden.",
   "No se encontró ninguna red.", "Nessuna rete trovata.", "未找到网络。", "Nenhuma rede encontrada.",
   "Nenhuma rede encontrada.", "Nie znaleziono sieci.", "Сети не найдены.", "Geen netwerk gevonden.")
-X(S_NET_SECURED, "Secured", "Protégé", "Geschützt", "Protegida", "Protetta", "加密", "Protegida",
-  "Protegida", "Zabezpieczona", "Защищена", "Beveiligd")
-X(S_NET_OPEN, "Open", "Ouvert", "Offen", "Abierta", "Aperta", "开放", "Aberta", "Aberta", "Otwarta",
-  "Открытая", "Open")
-X(S_SEARCH_AGAIN, "Search again", "Rechercher à nouveau", "Erneut suchen", "Buscar de nuevo",
-  "Cerca di nuovo", "重新搜索", "Procurar novamente", "Procurar novamente", "Szukaj ponownie",
-  "Искать снова", "Opnieuw zoeken")
-X(S_BACK, "Back", "Retour", "Zurück", "Volver", "Indietro", "返回", "Voltar", "Voltar", "Wstecz", "Назад",
-  "Terug")
 X(S_CANCEL, "Cancel", "Annuler", "Abbrechen", "Cancelar", "Annulla", "取消", "Cancelar", "Cancelar",
   "Anuluj", "Отмена", "Annuleren")
 X(S_CONFIRM, "Confirm", "Valider", "Bestätigen", "Confirmar", "Conferma", "确认", "Confirmar", "Confirmar",
@@ -138,23 +129,6 @@ X(S_CONFIRM, "Confirm", "Valider", "Bestätigen", "Confirmar", "Conferma", "确�
 X(S_ACCOUNT_LINKED, "Account linked", "Compte lié", "Konto verknüpft", "Cuenta vinculada",
   "Account collegato", "账号已关联", "Conta vinculada", "Conta associada", "Konto połączone",
   "Аккаунт привязан", "Account gekoppeld")
-X(S_NO_PRINTERS_ACCOUNT, "No printers in this account", "Aucune imprimante dans ce compte",
-  "Keine Drucker in diesem Konto", "No hay impresoras en esta cuenta",
-  "Nessuna stampante in questo account", "此账号中没有打印机", "Nenhuma impressora nesta conta",
-  "Nenhuma impressora nesta conta", "Brak drukarek na tym koncie", "В этом аккаунте нет принтеров",
-  "Geen printers in dit account")
-X(S_PRINTERS_FOUND, "Printers found: %d", "Imprimantes trouvées : %d", "Gefundene Drucker: %d",
-  "Impresoras encontradas: %d", "Stampanti trovate: %d", "找到的打印机：%d", "Impressoras encontradas: %d",
-  "Impressoras encontradas: %d", "Znalezione drukarki: %d", "Найдено принтеров: %d", "Gevonden printers: %d")
-X(S_BRANDS_SILENT, "Brands that didn't answer: %d", "Marques sans réponse : %d", "Marken ohne Antwort: %d",
-  "Marcas sin respuesta: %d", "Marchi senza risposta: %d", "无响应的品牌：%d", "Marcas sem resposta: %d",
-  "Marcas sem resposta: %d", "Marki bez odpowiedzi: %d", "Бренды без ответа: %d",
-  "Merken zonder antwoord: %d")
-X(S_OPEN_MONITOR, "Open the monitor", "Ouvrir le moniteur", "Monitor öffnen", "Abrir el monitor",
-  "Apri il monitor", "打开监控", "Abrir o monitor", "Abrir o monitor", "Otwórz monitor",
-  "Открыть монитор", "Monitor openen")
-X(S_NO_IP, "no IP", "sans IP", "keine IP", "sin IP", "senza IP", "无 IP", "sem IP", "sem IP", "brak IP",
-  "нет IP", "geen IP")
 
 /* ---- Settings --------------------------------------------------------- */
 X(S_SETTINGS, "Settings", "Paramètres", "Einstellungen", "Ajustes", "Impostazioni", "设置",
@@ -319,11 +293,8 @@ X(S_LOAD_HINT, "Switched-on printers stay connected and show up instantly.",
   "Ingeschakelde printers blijven verbonden en verschijnen meteen.")
 X(S_SOON, "Soon", "Bientôt", "Bald", "Pronto", "Presto", "即将支持", "Em breve", "Em breve", "Wkrótce",
   "Скоро", "Binnenkort")
-X(S_ONLINE, "Online", "En ligne", "Online", "En línea", "Online", "在线", "Online", "Online", "Online",
-  "Онлайн", "Online")
 X(S_OFFLINE, "Offline", "Hors ligne", "Offline", "Desconectado", "Offline", "离线", "Offline", "Offline",
   "Offline", "Офлайн", "Offline")
-X(S_CLOUD, "Cloud", "Cloud", "Cloud", "Cloud", "Cloud", "云", "Cloud", "Cloud", "Cloud", "Облако", "Cloud")
 X(S_LOCAL_NETWORK, "Local network", "Réseau local", "Lokales Netzwerk", "Red local", "Rete locale",
   "本地网络", "Rede local", "Rede local", "Sieć lokalna", "Локальная сеть", "Lokaal netwerk")
 X(S_VIA_CLOUD, "via the cloud", "via le cloud", "über die Cloud", "a través de la nube", "tramite cloud",

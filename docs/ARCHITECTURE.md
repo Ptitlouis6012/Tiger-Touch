@@ -73,8 +73,11 @@ A driver's report is protected by the driver's own mutex; `links_view()` copies 
 **Cores.** The LVGL task runs alone on core 1. Everything that waits on the
 network is on core 0: lwIP's TCP/IP task (`CONFIG_LWIP_TCPIP_TASK_AFFINITY_CPU0`),
 the MQTT clients (`CONFIG_MQTT_USE_CORE_0`), the WebSocket clients
-(`task_core_id = 0`), the application, feed and update tasks. A burst of printer
-traffic never takes the core that draws.
+(`task_core_id = 0`), the application, feed and update-watch tasks. A burst of
+printer traffic never takes the core that draws. The one exception is the update
+task itself (`net/ota.c`): it runs on core 1, with an internal stack because
+`esp_ota_write()` turns the flash cache off, while the screen shows only the
+update ring.
 
 **Shared cloud sessions.** Every Bambu Lab in cloud mode rides one MQTT session,
 and so does every Anycubic in cloud mode (one per brand, opened by the first

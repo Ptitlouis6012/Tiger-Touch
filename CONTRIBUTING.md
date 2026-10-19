@@ -6,8 +6,8 @@ Thanks for being here. Talk to us on **[Discord](https://discord.gg/3Qv5TSqnJH)*
 
 ### 1. Run it on your printer, and tell us
 
-Seven of the ten drivers are written from each maker's protocol and compiled,
-but have never run against the real machine
+Every driver follows the protocol Tiger Studio Manager uses for its brand, and
+most have been seen on a real machine
 ([docs/PRINTER-COMPATIBILITY.md](docs/PRINTER-COMPATIBILITY.md)). A report saying
 "Elegoo Centauri Carbon 2, firmware 1.1.4, LAN: state and temperatures right,
 the filament units empty" is worth more than any amount of code review. Use the
@@ -30,7 +30,8 @@ bash scripts/verify.sh          # every guard CI runs, then the build
 ```
 
 **A new printer brand** is one driver in `firmware/main/drivers/` that fills
-`printer_view_t`, plus its line in `drivers.c`. If it needs a screen to know
+`printer_view_t`, plus its line in `drivers.c` and `printer_driver.h`, and its
+measured price in `links.c` ([docs/CONNECTION-BUDGET.md](docs/CONNECTION-BUDGET.md)). If it needs a screen to know
 which brand is behind it, say so in the pull request: the interface is probably
 wrong, which is worth knowing.
 

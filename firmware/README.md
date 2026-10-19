@@ -50,8 +50,9 @@ account or from NVS at run time; the published binary is the same for everyone.
 **English only.** Comments, identifiers, log lines. User-facing text goes through
 `i18n_table.h`, in all eleven languages at once.
 
-**No bench code.** No capture console, no demo data, no memory dump. See
-`scripts/check-bench-residue.py`.
+**No bench code.** No capture console, no fake printer, no memory dump; the
+owner's Demo mode (`main/demo_mode.c`) and Live view are the exceptions
+(`.agents/rules/no-bench-residue.md`). See `scripts/check-bench-residue.py`.
 
 **An arbitrary-looking constant says why.** A delay, a buffer size, a retry count:
 it looks arbitrary because it was expensive to find. Say what breaks if it changes.
@@ -68,7 +69,7 @@ bash ../scripts/flash.sh /dev/ttyUSB0
 
 | File | Script | Needs |
 |---|---|---|
-| `main/ui/fonts/*` | `python tools/make_fonts.py --noto PATH/NotoSansSC-Medium.otf` | one build (LVGL's fonts), Node |
+| `main/ui/fonts/*` | `python tools/make_fonts.py --noto PATH/NotoSansSC-Medium.otf` | one build (LVGL's fonts, found in its component), Node |
 | `main/ui/brand_logos.c` | `python tools/make_brand_logos.py` | `tools/brand_logos.json` |
 | `main/ui/pictos.c` | `python tools/make_pictos.py` | `tools/pictos.json` (drawn from `tools/pictos/*.svg`) |
 | `main/ui/boot_splash.c` | `python tools/make_splash.py PICTURE.png` | the boot picture |

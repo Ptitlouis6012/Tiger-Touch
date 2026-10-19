@@ -128,7 +128,7 @@ to the way you work, not the other way round.
 
 | | |
 |---|---|
-| <img src="assets/icons/printer.svg" width="20" height="20" alt="Every brand"> **Every brand on one screen** | Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, plus any Klipper (Moonraker) or OctoPrint machine. Tiger Studio's printer catalogue lists close to 400 models from about 60 makers. |
+| <img src="assets/icons/printer.svg" width="20" height="20" alt="Every brand"> **Every brand on one screen** | Bambu Lab, Creality, Elegoo, Anycubic, Snapmaker, FlashForge, Prusa, plus any Klipper (Moonraker) or OctoPrint machine. Tiger Studio's printer catalogue lists more than 400 models from about 60 makers, and any printer behind Klipper or OctoPrint. |
 | <img src="assets/icons/cloud.svg" width="20" height="20" alt="Cloud and LAN"> **Cloud and LAN** | Bambu Lab through the **Bambu cloud** or in LAN mode; Anycubic through the **Anycubic cloud**; the others on your local network. |
 | <img src="assets/icons/plug.svg" width="20" height="20" alt="Plug and play"> **Plug and play** | Printers come from your TigerSystem account, with their addresses and access codes. Nothing to type on the screen but your Wi-Fi. |
 | <img src="assets/icons/chart.svg" width="20" height="20" alt="Live data"> **Live, all of them** | State, progress, file, time left and end time, nozzles, bed, chamber, filament units (AMS, CFS, Station, ACE, MMU / AFC lanes), up to ten printers followed at once. |
@@ -178,7 +178,8 @@ blue while a print runs, orange when it is paused, green when it is done.</sub>
 
 Tiger Touch picks the connection from the brand, not the model: any printer of
 these families that Tiger Studio can add, Tiger Touch can show. Tiger Studio's
-catalogue counts about 380 models from about 60 makers.
+catalogue counts more than 400 models from about 60 makers, plus any printer
+behind Klipper or OctoPrint.
 
 | Brand | Connection | Seen on a real machine |
 |---|---|---|
@@ -356,7 +357,7 @@ only needed once, to flash the screen from the browser.
 BIGTREETECH made it.
 
 **Can it start a print or heat my printer?** No, on purpose. It pauses, resumes,
-stops (with a hold) and switches the light, nothing else.
+stops (after a confirmation) and switches the light, nothing else.
 
 ## Powered by TigerSystem
 

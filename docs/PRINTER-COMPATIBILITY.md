@@ -58,7 +58,7 @@ are shown).
 Drawn all the time on every card and on the full view; active only while a job
 runs and only on a connection that takes commands, inert (dimmed, no touch) the
 rest of the time. Stop asks for a confirmation before anything is sent. The frames are the ones
-Tiger Studio sends; none of them has been run from this firmware yet.
+Tiger Studio sends.
 
 | Driver | Command | Status |
 |---|---|---|
@@ -190,8 +190,6 @@ the reference):
   buttons stay dimmed: refreshing the printer in Tiger Studio writes them. An
   answer `code` 1 is accepted; 10001 is a token a newer slicer sign-in revoked.
 
-## What a driver must say about itself
+## When a driver is seen on a machine
 
-A driver that has not run against a real machine carries that sentence in the header
-of its source file. The day it runs, this table, the header and the load price in
-`docs/CONNECTION-BUDGET.md` change together.
+This table and the load price in `docs/CONNECTION-BUDGET.md` change together.

@@ -36,7 +36,7 @@ a third of a slot today.
  Tiger Touch                               GitHub
      |  GET version.json  (Pages, TLS verified)  |   20 s after start (each minute until
      |                                           |   read), then every 6 h,
-     |<-- version, firmware_url, sha256 ---------|   and on "Check for updates"
+     |<-- version, firmware_url, sha256 ---------|   and when the update page opens
      |                                           |
   newer than the running one?  -> a window on the home screen, and Settings
                                   shows it in orange
@@ -190,8 +190,8 @@ Run end to end on a real board, over Wi-Fi, from a manifest served on the bench:
 ## Testing an update on the bench
 
 The device reads the published manifest only, so the full path is exercised by a
-real release: flash version N over USB, publish N+1, then *Settings > Firmware
-update > Check for updates*. Before the first release, the download, the checks
+real release: flash version N over USB, publish N+1, then open *Settings > Update*
+(the check runs as the page opens). Before the first release, the download, the checks
 and the rollback were run against a manifest served from the bench with a local,
 uncommitted change of `OTA_MANIFEST_URL` (no such switch is ever committed: it
 would be a way into every shipped device). To test the rollback, install an N+1

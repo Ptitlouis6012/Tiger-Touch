@@ -136,7 +136,7 @@ the copy) and changes orientation with a restart.
 ## Things that bite
 
 - The USB-C port is **not** the S3's native USB: it is a WCH **CH340K**
-  (`1a86:7522`). Above 115200 baud the CH340K link loses bytes: on a Mac with WCH's driver, reads at 460800 and 230400 failed within a few hundred kilobytes, plugged straight into the computer with two different cables as through a hub (2026-10-13). At 115200 it still drops a byte now and then over megabytes, which esptool's per-block check catches; a failed read or write is simply run again. Flash at 115200.
+  (`1a86:7522`). Above 115200 baud the CH340K link loses bytes: on a Mac with WCH's driver, reads at 460800 and 230400 failed within a few hundred kilobytes, plugged straight into the computer with several cables as through a hub (2026-10-13). At 115200 it still drops a byte now and then over megabytes, which esptool's per-block check catches; a failed read or write is simply run again. Flash at 115200.
 - **macOS has no driver for the CH340K**: its built-in driver knows the CH340
   (`1a86:7523`) only, so the board is on the bus with no port. WCH's
   `CH34xVCPDriver` adds it (`/dev/cu.wchusbserial…`); `docs/INSTALL.md`.

@@ -6,7 +6,8 @@
 # The version is written in exactly one place, PROJECT_VER in
 # firmware/CMakeLists.txt. This script changes it and moves everything written
 # under `## [Unreleased]` in CHANGELOG.md into a heading for the release, dated
-# today. If nothing had been written there, it leaves a scaffold line that
+# today, and resets WORKLOG.md to its header. If nothing had been written there,
+# it leaves a scaffold line that
 # check-release-notes.py refuses, so a release cannot go out with notes nobody
 # wrote.
 #
@@ -81,6 +82,15 @@ if not said:
 else:
     print(f"CHANGELOG.md: moved Unreleased into [{new}]")
 log.write_text(f"{head}{marker}\n\n## [{new}] - {today}\n{rest}", encoding="utf-8", newline="")
+
+# The worklog is the list of changes since the last release: back to its header.
+work = pathlib.Path("WORKLOG.md")
+if work.exists():
+    w = work.read_text(encoding="utf-8")
+    first = re.search(r"^## ", w, re.M)
+    if first:
+        work.write_text(w[:first.start()].rstrip("\n") + "\n", encoding="utf-8", newline="")
+        print("WORKLOG.md: reset to its header")
 PY
 
 cat <<MSG
@@ -89,7 +99,7 @@ Next, if that is what you want (each step is a decision of its own):
 
   write release-notes/v$NEW.md   (plain words, for owners; the page opens with it)
   bash scripts/verify.sh
-  git add -A && git commit -m "Release $NEW: <what it holds>"
+  git add <the release's files> && git commit -m "Release $NEW: <what it holds>"
   git tag v$NEW && git push origin main v$NEW
 
 The release workflow refuses to publish when the tag and PROJECT_VER disagree,

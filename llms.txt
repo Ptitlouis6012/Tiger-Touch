@@ -16,10 +16,10 @@ drawer a second life as one touchscreen for several brands at once: Bambu Lab
 (through the Bambu cloud or in LAN mode), Anycubic (through the Anycubic cloud
 or on the LAN), Creality, Elegoo, Snapmaker, FlashForge, Prusa, Klipper and
 OctoPrint. Tiger Studio Manager's catalogue, which the account is filled from,
-lists close to 400 printer models from about 60 makers. Seen on real machines
-so far: Bambu Lab, Creality, Snapmaker, FlashForge and Anycubic (cloud);
-Elegoo, Prusa, Klipper and OctoPrint are written from their protocols and not
-yet run on a real printer. Not made or endorsed by BIGTREETECH.
+lists more than 400 printer models from about 60 makers, plus any printer
+behind Klipper or OctoPrint. Every driver follows Tiger Studio Manager's
+protocol for its brand; most were seen on real machines
+(docs/PRINTER-COMPATIBILITY.md). Not made or endorsed by BIGTREETECH.
 
 Setup like TigerScale V3 (language, Wi-Fi, account with Google sign-in by QR).
 Live cards or a light list per printer (state, progress, file, time left, temperatures), a full
@@ -70,8 +70,9 @@ Every page also exists in each of the installer's other ten languages, at its ow
 
 ## Working here
 
-- [CLAUDE.md](CLAUDE.md): non-negotiables with the consequence of ignoring each, hardware facts that bite, build and flash, what a push and a tag set off.
-- [AGENTS.md](AGENTS.md): the same rules, tool-agnostic; the layout; settled decisions not to re-litigate.
+- [CLAUDE.md](CLAUDE.md): the index of the rules (one line each, critical first), then the reference: the board, hardware facts, build and flash, what a push and a tag set off.
+- [.agents/rules/](.agents/rules/): one rule a file, with its reason and its steps.
+- [AGENTS.md](AGENTS.md): the entry point for other tools; the layout, and a pointer to the rules.
 - [CODEMAP.md](CODEMAP.md): what each module owns that grep does not show, and the Landmines table.
 - [CHANGELOG.md](CHANGELOG.md): every version. New entries go under `[Unreleased]`; `scripts/bump-version.sh` dates them, a `vX.Y.Z` tag publishes them.
 - [WORKLOG.md](WORKLOG.md): what was done since the last release, noted as it happens.
@@ -101,11 +102,7 @@ Every page also exists in each of the installer's other ten languages, at its ow
 
 ## Rules an agent must not break
 
-- No private data in any commit (addresses, Wi-Fi names, tokens, serials, personal paths).
-- No AI attribution anywhere: commits, pull requests, comments, contributor lists. Hooks and CI refuse it.
-- Never commit, tag or push unless the maintainer asks; a pushed tag publishes a release to every device.
-- `firmware/partitions.csv` is frozen; never flash a merged image at 0x0 (it wipes the NVS at 0x9000).
-- A printer is commanded only to pause, resume, stop or switch its light, on a touch.
+- The index is the "Rules" section of [CLAUDE.md](CLAUDE.md), one line a rule; each rule is a file in [.agents/rules/](.agents/rules/), with its reason and its steps.
 
 ## Ecosystem
 

@@ -65,7 +65,7 @@ What makes it faithful:
 Each frame is one step of 20 s: a time-lapse of a few minutes in a few seconds.
 
 ```bash
-python3 scripts/make-mockups.py            # cards, list and update
+python3 scripts/make-mockups.py            # every view: cards, list, update, tour and stills
 python3 scripts/make-mockups.py cards      # one of them
 ```
 
