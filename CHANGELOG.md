@@ -16,6 +16,13 @@ they were written.
 
 ## [Unreleased]
 
+### Changed
+- **The list view puts the printers in order of the end of their print**, the one
+  that finishes first at the top; a printer with no print running comes after
+  them, in the order it had. The rows follow the estimated ends as they move, and
+  stay still for 3 s after a touch so that none slides under a finger. The card
+  view is unchanged.
+
 ## [2.2.0] - 2026-10-18
 
 

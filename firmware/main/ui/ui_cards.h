@@ -20,6 +20,12 @@ lv_obj_t *ui_cards_create(lv_obj_t *parent, const printer_row_t *rows, int n, lv
  * the screen being shown is left alone. Needs the LVGL lock. */
 void ui_cards_update(int index, const printer_view_t *v, printer_chip_t chip);
 
+/* List view only: puts the rows in order of the estimated end of the print, the
+ * printer that ends first at the top, those with no print running last. Called
+ * after the cards are updated. The rows stay still for 3 s after a touch, so
+ * that none moves under a finger. Needs the LVGL lock. */
+void ui_cards_sort(void);
+
 /* The home's two views: the cards (the default) or a vertical list of light
  * rows. Chosen before ui_cards_create; the setting is kept by main.c. */
 void ui_cards_set_list(bool list);

@@ -22,6 +22,7 @@ reset to this header at each release.
 - Site: every page in eleven languages (brand pages included): one lang.js, brand words in installer/brand-i18n/; one address per language (/fr/...) with hreflang and the sitemap.
 - Brand pages: the TigerSquad card right under the top of the page, as on the installer.
 - Elegoo (CC1, CC2), Prusa and Klipper seen on real printers: docs, drivers' headers, README, brand pages (11 languages); the K-Touch no longer called untested.
+- Home, list view: the printers are in order of the estimated end of their print (the first to finish on top, those with no print last); the rows hold still for 3 s after a touch.
 
 ## Fixed
 - Share pictures: the button reads "Install for free".
