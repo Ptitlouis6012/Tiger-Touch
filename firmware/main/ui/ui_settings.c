@@ -620,8 +620,8 @@ void ui_show_wifi_info(const wifi_info_t *w)
 
 typedef struct
 {
-    lv_obj_t *btn[4];
-    int value[4];
+    lv_obj_t *btn[5];
+    int value[5];
     int n;
     ev_type_t ev;
     const char *suffix; /* " %" after a value, or "" */
@@ -695,9 +695,9 @@ void ui_show_screen_page(int brightness, int sleep_s, int rotation)
     static const char *const BRIGHT_L[4] = {"30", "60", "80", "100"};
     choice_row(scr, &s_grp[0], 86, tr(S_BRIGHTNESS), EV_SET_BRIGHTNESS, BRIGHT_L, BRIGHT_V, 4, brightness, " %");
 
-    static const int SLEEP_V[4] = {30, 60, 300, 0};
-    const char *sleep_l[4] = {tr(S_SLEEP_30S), tr(S_SLEEP_1M), tr(S_SLEEP_5M), tr(S_NEVER)};
-    choice_row(scr, &s_grp[1], 196, tr(S_SLEEP_AFTER), EV_SET_SLEEP, sleep_l, SLEEP_V, 4, sleep_s, "");
+    static const int SLEEP_V[5] = {60, 600, 1800, 3600, 0};
+    const char *sleep_l[5] = {tr(S_SLEEP_1M), tr(S_SLEEP_10M), tr(S_SLEEP_30M), tr(S_SLEEP_1H), tr(S_NEVER)};
+    choice_row(scr, &s_grp[1], 196, tr(S_SLEEP_AFTER), EV_SET_SLEEP, sleep_l, SLEEP_V, 5, sleep_s, "");
 
     static const int ROT_V[2] = {0, 180};
     static const char *const ROT_L[2] = {"0°", "180°"};

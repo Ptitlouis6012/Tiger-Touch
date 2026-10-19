@@ -493,11 +493,13 @@ X(S_LAN_OFF_INFO, "Live view is off: nothing is served on the network.", "La vue
 X(S_STOP_Q, "Stop this print?", "Arrêter cette impression ?", "Diesen Druck stoppen?", "¿Detener esta impresión?", "Fermare questa stampa?", "停止此次打印？", "Parar esta impressão?", "Parar esta impressão?", "Zatrzymać ten wydruk?", "Остановить эту печать?", "Deze print stoppen?")
 X(S_STOP_WARN, "The print ends here and cannot be resumed.", "L'impression s'arrête ici et ne pourra pas être reprise.", "Der Druck endet hier und kann nicht fortgesetzt werden.", "La impresión termina aquí y no se podrá reanudar.", "La stampa termina qui e non potrà essere ripresa.", "打印将在此结束，且无法继续。", "A impressão termina aqui e não poderá ser retomada.", "A impressão termina aqui e não poderá ser retomada.", "Wydruk zakończy się tutaj i nie będzie można go wznowić.", "Печать завершится, продолжить её будет нельзя.", "De print stopt hier en kan niet worden hervat.")
 X(S_STOP, "Stop", "Arrêter", "Stoppen", "Detener", "Ferma", "停止", "Parar", "Parar", "Zatrzymaj", "Остановить", "Stoppen")
-X(S_SLEEP_30S, "30 s", "30 s", "30 s", "30 s", "30 s", "30 秒", "30 s", "30 s", "30 s", "30 с", "30 s")
 X(S_SLEEP_1M, "1 min", "1 min", "1 Min.", "1 min", "1 min", "1 分钟", "1 min", "1 min", "1 min", "1 мин",
   "1 min")
-X(S_SLEEP_5M, "5 min", "5 min", "5 Min.", "5 min", "5 min", "5 分钟", "5 min", "5 min", "5 min", "5 мин",
-  "5 min")
+X(S_SLEEP_10M, "10 min", "10 min", "10 Min.", "10 min", "10 min", "10 分钟", "10 min", "10 min", "10 min",
+  "10 мин", "10 min")
+X(S_SLEEP_30M, "30 min", "30 min", "30 Min.", "30 min", "30 min", "30 分钟", "30 min", "30 min", "30 min",
+  "30 мин", "30 min")
+X(S_SLEEP_1H, "1 h", "1 h", "1 Std.", "1 h", "1 h", "60 分钟", "1 h", "1 h", "1 godz.", "1 ч", "1 uur")
 
 /* ---- Dashboard -------------------------------------------------------- */
 X(S_LAYER, "Layer %d / %d", "Couche %d / %d", "Schicht %d / %d", "Capa %d / %d", "Strato %d / %d",

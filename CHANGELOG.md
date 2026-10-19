@@ -16,6 +16,12 @@ they were written.
 
 ## [Unreleased]
 
+### Changed
+- **The screen can sleep after up to an hour.** *Settings > Screen > Sleep after*
+  now offers 1 min, 10 min, 30 min, 1 h and never, in place of 30 s, 1 min, 5 min
+  and never (issue #5). A choice saved by an earlier version (30 s, 5 min) is read
+  as the next one up, so the screen never sleeps sooner than it was told to.
+
 ## [2.2.0] - 2026-10-18
 
 

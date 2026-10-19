@@ -22,6 +22,7 @@ reset to this header at each release.
 - Site: every page in eleven languages (brand pages included): one lang.js, brand words in installer/brand-i18n/; one address per language (/fr/...) with hreflang and the sitemap.
 - Brand pages: the TigerSquad card right under the top of the page, as on the installer.
 - Elegoo (CC1, CC2), Prusa and Klipper seen on real printers: docs, drivers' headers, README, brand pages (11 languages); the K-Touch no longer called untested.
+- Settings > Screen: the screen sleeps after 1 min, 10 min, 30 min, 1 h, or never (it was 30 s, 1 min, 5 min, never); a saved delay no longer offered becomes the next one up.
 
 ## Fixed
 - Share pictures: the button reads "Install for free".
