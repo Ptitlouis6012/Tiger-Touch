@@ -35,8 +35,11 @@ def tracked_names():
 
 
 def ignored(path):
-    r = subprocess.run(["git", "check-ignore", "-q", path], cwd=ROOT)
-    return r.returncode == 0
+    """True when git ignores the path - also for a folder absent from this clone
+    (CI has no local/): a `dir/` pattern matches only what is inside a folder."""
+    probes = [path.rstrip("/"), path.rstrip("/") + "/probe"]
+    return any(subprocess.run(["git", "check-ignore", "-q", "--no-index", p], cwd=ROOT).returncode == 0
+               for p in probes)
 
 
 def cited_paths(text):
