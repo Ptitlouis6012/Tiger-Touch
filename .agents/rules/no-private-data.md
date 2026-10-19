@@ -8,5 +8,6 @@
 - `scripts/check-private-data.py` (and the local, ignored `.private-terms`) fails on the patterns it knows; it cannot see a name, so read the diff.
 - `scripts/check-build-privacy.py` reads the built images and the ELF.
 - Log lines never print a Wi-Fi name, an address, a serial, an account id, a credential or a printer name the user gave (`scripts/check-log-privacy.py`).
+- `scripts/check-history.py` reads every version of every file and every commit message with the same patterns: before every push (`scripts/hooks/pre-push`, the pushed commits) and in the release workflow (the whole history).
 - A finding in an old commit is fixed by rewriting the history, never by a new commit; ask the owner first.
 - Screenshots and mockups are taken in Demo mode, see `pictures-show-the-firmware.md`.

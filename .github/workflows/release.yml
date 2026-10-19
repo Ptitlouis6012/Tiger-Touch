@@ -50,6 +50,9 @@ jobs:
           bash scripts/check-attribution.sh --commits ""
           bash scripts/check-attribution.sh --tree
 
+      - name: No private data anywhere in the history
+        run: python3 scripts/check-history.py
+
       - name: Build
         run: |
           . $IDF_PATH/export.sh

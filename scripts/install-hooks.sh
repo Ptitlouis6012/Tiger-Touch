@@ -5,8 +5,9 @@
 # the hook changes, and nobody re-runs an installer they ran once.
 #   pre-commit  the guards (verify.sh --quick), no compiling
 #   commit-msg  refuses a message that credits an AI tool
+#   pre-push    reads the commits about to be pushed for private data
 set -euo pipefail
 cd "$(dirname "$0")/.."
 chmod +x scripts/hooks/*
 git config core.hooksPath scripts/hooks
-echo "hooks installed: guards before every commit, attribution check on every message"
+echo "hooks installed: guards before every commit, attribution check on every message, private-data read before every push"

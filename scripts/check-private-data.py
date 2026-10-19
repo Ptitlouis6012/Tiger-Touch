@@ -6,7 +6,7 @@ permanent. So the question is asked on every commit, not at the moment of
 opening it up.
 
 What is looked for, in every text file:
-  - an e-mail address (the GitHub no-reply form is the one exception);
+  - an e-mail address (GitHub's no-reply addresses are the exceptions);
   - a private IPv4 address (10.x, 172.16-31.x, 192.168.x, 169.254.x);
   - a MAC address;
   - a personal path (C:\\Users\\..., /Users/..., /home/...);
@@ -84,45 +84,59 @@ def local_terms():
     return terms
 
 
+def scan(rel, text, terms):
+    """[(rel, line, what)] for one file's text: what must never be published."""
+    problems = []
+    generated = rel.startswith(SKIP_PREFIXES)
+    lines = text.splitlines()
+    if generated:
+        # A generated file is data; what a tool wrote about itself is in its
+        # header, and that is where a machine's path ends up.
+        lines = lines[:12]
+    for n, line in enumerate(lines, 1):
+        low = line.lower()
+        for m in EMAIL.finditer(line):
+            addr = m.group(0).lower()
+            # GitHub's own addresses: a user's no-reply one, and the one of the
+            # commits GitHub makes itself (a merged pull request).
+            if not (addr.endswith("@users.noreply.github.com") or addr == "noreply@github.com"):
+                problems.append((rel, n, "e-mail address"))
+        if IPV4.search(line):
+            problems.append((rel, n, "private IPv4 address"))
+        if MAC.search(line):
+            problems.append((rel, n, "MAC address"))
+        if PATH.search(line):
+            problems.append((rel, n, "personal path"))
+        if PRIVKEY.search(line):
+            problems.append((rel, n, "private key block"))
+        for m in GOOGLE_KEY.finditer(line):
+            if m.group(0) not in PUBLIC_KEYS:
+                problems.append((rel, n, "API key"))
+        if LONG_HEX.search(line) and not rel.startswith("docs/") and not generated:
+            problems.append((rel, n, "long hexadecimal identifier"))
+        for t in terms:
+            if t in low:
+                problems.append((rel, n, "a term from .private-terms"))
+    return problems
+
+
+def is_text(rel):
+    ext = os.path.splitext(rel)[1].lower()
+    return ext in TEXT_EXT or os.path.basename(rel) in ("LICENSE", ".gitignore", ".gitattributes")
+
+
 def main():
     terms = local_terms()
     problems = []
     for rel in tracked_files():
-        generated = rel.startswith(SKIP_PREFIXES)
-        ext = os.path.splitext(rel)[1].lower()
-        if ext not in TEXT_EXT and os.path.basename(rel) not in ("LICENSE", ".gitignore", ".gitattributes"):
+        if not is_text(rel):
             continue
         path = os.path.join(ROOT, rel)
         try:
             text = open(path, encoding="utf-8").read()
         except Exception:
             continue
-        lines = text.splitlines()
-        if generated:
-            # A generated file is data; what a tool wrote about itself is in its
-            # header, and that is where a machine's path ends up.
-            lines = lines[:12]
-        for n, line in enumerate(lines, 1):
-            low = line.lower()
-            for m in EMAIL.finditer(line):
-                if not m.group(0).lower().endswith("@users.noreply.github.com"):
-                    problems.append((rel, n, "e-mail address"))
-            if IPV4.search(line):
-                problems.append((rel, n, "private IPv4 address"))
-            if MAC.search(line):
-                problems.append((rel, n, "MAC address"))
-            if PATH.search(line):
-                problems.append((rel, n, "personal path"))
-            if PRIVKEY.search(line):
-                problems.append((rel, n, "private key block"))
-            for m in GOOGLE_KEY.finditer(line):
-                if m.group(0) not in PUBLIC_KEYS:
-                    problems.append((rel, n, "API key"))
-            if LONG_HEX.search(line) and not rel.startswith("docs/") and not generated:
-                problems.append((rel, n, "long hexadecimal identifier"))
-            for t in terms:
-                if t in low:
-                    problems.append((rel, n, "a term from .private-terms"))
+        problems += scan(rel, text, terms)
     if problems:
         print("private data in tracked files (%d):" % len(problems))
         for rel, n, what in problems[:60]:

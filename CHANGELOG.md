@@ -25,6 +25,11 @@ they were written.
   path cited by an entry point or a rule does not exist.
 - **`scripts/i18n-key.py`** adds or removes a translation key in every language
   at once, in the screen's table or the site's dictionary.
+- **The whole history is read for private data** (`scripts/check-history.py`):
+  every version of every file and every commit message, with the patterns and
+  local terms of `check-private-data.py`; before every push (`scripts/hooks/pre-push`,
+  the commits pushed) and in the release workflow (all of it). It replaces a
+  personal script that was ignored by git.
 - **`scripts/check-i18n.py` catches a shifted column** (Chinese or Cyrillic in
   the wrong column, or missing from its own) and lists the rows no source uses,
   as a warning.

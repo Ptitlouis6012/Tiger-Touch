@@ -29,10 +29,6 @@ installer/version.json
 # name, a serial), read by scripts/check-private-data.py. Never committed.
 .private-terms
 
-# Local-only: the owner's own read of the whole history before a push. It is a
-# personal pre-publication step, not part of the project.
-scripts/audit-history.py
-
 # Machine-local settings and bench tooling kept out of the tree on purpose.
 .claude/settings.local.json
 *.local.*
