@@ -51,6 +51,11 @@ typedef struct
     bool shared; /* rides on the account's one cloud session (below), which it does not own */
     char light_node[20]; /* "chamber_light", "work_light"...: what lights_report names */
     bool light_on;
+    /* The chamber lights, each by its own node: the H2S, H2D, H2D Pro, H2C and X2D have two
+     * strips (chamber_light and chamber_light2). -1 not reported yet, 0 off, 1 on. A report
+     * may name only one of them, so each is kept on its own. */
+    int8_t chamber_light[2];
+    bool two_chamber_lights; /* by model (the account's record), or because a report names chamber_light2 */
     uint32_t seq; /* sequence_id of the commands: a new one each time, as Tiger Studio's */
     int64_t last_report_us;
     int64_t last_pushall_us;
@@ -87,6 +92,22 @@ static bool has_chamber_sensor(const char *sn)
         }
     }
     return true;
+}
+
+/* The printers with TWO chamber light strips, told by the catalogue id of the
+ * account's record (the same ids as Tiger Studio): H2S 7, H2D 8, H2D Pro 9, H2C 11,
+ * X2D 12. The H2C was reported switching one strip only. */
+static bool has_two_chamber_lights(const char *model_id)
+{
+    static const char *const TWO[] = {"7", "8", "9", "11", "12"};
+    for (size_t i = 0; i < sizeof TWO / sizeof TWO[0]; i++)
+    {
+        if (strcmp(model_id, TWO[i]) == 0)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 static const char *find_value(const char *buf, const char *key)
@@ -623,11 +644,13 @@ static void handle_report(bambu_t *b, const char *buf, size_t len)
     }
 
     /* The light: `lights_report` is a list of {"node": ..., "mode": ...}, in either
-     * key order; the chamber's own light when there is one, else the first. Each
+     * key order. The chamber lights (one, or two on the H2 series) are read each on
+     * its own; any other light (the A1's toolhead) is the first one named. Each
      * element is read on its own: reading a "mode" that follows a node would take
      * the next element's when the keys come the other way round. */
     char light_node[20] = {0};
     int light = -1;
+    int chamber[2] = {-1, -1};
     const char *lr = strstr(buf, "\"lights_report\"");
     const char *arr = lr ? strchr(lr, '[') : NULL;
     const char *arr_end = arr ? strchr(arr, ']') : NULL;
@@ -650,15 +673,19 @@ static void handle_report(bambu_t *b, const char *buf, size_t len)
         char node[20] = {0}, mode[12] = {0};
         if (get_str(obj, "\"node\"", node, sizeof node) && get_str(obj, "\"mode\"", mode, sizeof mode))
         {
-            const bool chamber = strcmp(node, "chamber_light") == 0;
-            if (light < 0 || chamber)
+            const int on = strcmp(mode, "on") == 0 ? 1 : 0;
+            if (strcmp(node, "chamber_light") == 0)
+            {
+                chamber[0] = on;
+            }
+            else if (strcmp(node, "chamber_light2") == 0)
+            {
+                chamber[1] = on;
+            }
+            else if (light < 0)
             {
                 strlcpy(light_node, node, sizeof light_node);
-                light = strcmp(mode, "on") == 0 ? 1 : 0;
-            }
-            if (chamber)
-            {
-                break;
+                light = on;
             }
         }
         cur = close + 1;
@@ -697,7 +724,26 @@ static void handle_report(bambu_t *b, const char *buf, size_t len)
     b->bed = bd;
     b->bed_target = bdt;
     b->chamber = has_chamber_sensor(b->sn) ? ch : 0.0f; /* 0 is drawn "--" */
-    if (light >= 0)
+    if (chamber[0] >= 0)
+    {
+        b->chamber_light[0] = (int8_t)chamber[0];
+    }
+    if (chamber[1] >= 0)
+    {
+        b->chamber_light[1] = (int8_t)chamber[1];
+        b->two_chamber_lights = true; /* it names a second strip: both are driven */
+    }
+    if (b->chamber_light[0] >= 0 || b->chamber_light[1] >= 0)
+    {
+        const bool on = b->chamber_light[0] == 1 || b->chamber_light[1] == 1;
+        if (b->light_on != on)
+        {
+            ESP_LOGI(TAG, "light report: the chamber light is %s", on ? "on" : "off");
+        }
+        b->light_on = on;
+        strlcpy(b->light_node, "chamber_light", sizeof b->light_node);
+    }
+    else if (light >= 0)
     {
         if (b->light_on != (light == 1) || strcmp(b->light_node, light_node) != 0)
         {
@@ -1005,6 +1051,8 @@ static void *bambu_start(const account_printer_t *p)
     }
     b->lock = xSemaphoreCreateMutex();
     strlcpy(b->sn, p->sn, sizeof b->sn);
+    b->chamber_light[0] = b->chamber_light[1] = -1;
+    b->two_chamber_lights = has_two_chamber_lights(p->model_id);
     snprintf(b->topic_report, sizeof b->topic_report, "device/%s/report", b->sn);
     snprintf(b->topic_request, sizeof b->topic_request, "device/%s/request", b->sn);
 
@@ -1123,24 +1171,43 @@ static bool bambu_control(void *ctx, pv_control_t cmd)
     if (b && b->connected && b->mqtt && (cmd == PV_CTL_LIGHT_ON || cmd == PV_CTL_LIGHT_OFF))
     {
         const bool on = cmd == PV_CTL_LIGHT_ON;
-        char req[256];
-        char node[sizeof b->light_node];
-        uint32_t seq;
+        /* The light is one touch, whatever the number of strips: a printer with two chamber
+         * lights (H2 series, X2D) gets the command on both nodes, one message each. */
+        char nodes[2][sizeof b->light_node];
+        int count = 1;
         xSemaphoreTake(b->lock, portMAX_DELAY);
-        strlcpy(node, b->light_node[0] ? b->light_node : "chamber_light", sizeof node);
-        seq = b->seq++ % 4087;
+        if (b->two_chamber_lights)
+        {
+            strlcpy(nodes[0], "chamber_light", sizeof nodes[0]);
+            strlcpy(nodes[1], "chamber_light2", sizeof nodes[1]);
+            count = 2;
+        }
+        else
+        {
+            strlcpy(nodes[0], b->light_node[0] ? b->light_node : "chamber_light", sizeof nodes[0]);
+        }
         xSemaphoreGive(b->lock);
-        snprintf(req, sizeof req,
-                 "{\"system\":{\"sequence_id\":\"%u\",\"command\":\"ledctrl\",\"led_node\":\"%s\","
-                 "\"led_mode\":\"%s\",\"led_on_time\":500,\"led_off_time\":500,\"loop_times\":0,"
-                 "\"interval_time\":0}}",
-                 (unsigned)seq, node, on ? "on" : "off");
-        /* QoS 1, as Tiger Studio publishes to the cloud broker: at QoS 0 the broker
-         * may drop it without a word. */
-        const int id = esp_mqtt_client_publish(b->mqtt, b->topic_request, req, (int)strlen(req), 1, 0);
-        ESP_LOGI(TAG, "light %s on %s (%s): %s", on ? "on" : "off", node, b->lan ? "local broker" : "cloud broker",
-                 id >= 0 ? "published" : "refused");
-        return id >= 0;
+        bool all = true;
+        for (int i = 0; i < count; i++)
+        {
+            char req[256];
+            uint32_t seq;
+            xSemaphoreTake(b->lock, portMAX_DELAY);
+            seq = b->seq++ % 4087;
+            xSemaphoreGive(b->lock);
+            snprintf(req, sizeof req,
+                     "{\"system\":{\"sequence_id\":\"%u\",\"command\":\"ledctrl\",\"led_node\":\"%s\","
+                     "\"led_mode\":\"%s\",\"led_on_time\":500,\"led_off_time\":500,\"loop_times\":0,"
+                     "\"interval_time\":0}}",
+                     (unsigned)seq, nodes[i], on ? "on" : "off");
+            /* QoS 1, as Tiger Studio publishes to the cloud broker: at QoS 0 the broker
+             * may drop it without a word. */
+            const int id = esp_mqtt_client_publish(b->mqtt, b->topic_request, req, (int)strlen(req), 1, 0);
+            ESP_LOGI(TAG, "light %s on %s (%s): %s", on ? "on" : "off", nodes[i], b->lan ? "local broker" : "cloud broker",
+                     id >= 0 ? "published" : "refused");
+            all = all && id >= 0;
+        }
+        return all;
     }
     if (!b || !b->lan || !b->connected || !b->mqtt || (int)cmd < 0 || (int)cmd > PV_CTL_STOP)
     {

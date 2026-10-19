@@ -88,7 +88,7 @@ The frames are Tiger Studio's; the K2's (local), the P2S's (cloud), the Centauri
 | Driver | Command | State read from | Status |
 |---|---|---|---|
 | Creality (K2) | WebSocket `set` with `lightSw` 1 / 0 | `lightSw` | **Seen on a K2**: the LED switches on and off from the button |
-| Bambu Lab, LAN and cloud | MQTT `system` `ledctrl`, `led_node` `chamber_light` (or what `lights_report` names), `led_mode` on / off, on `device/<sn>/request` | `print.lights_report` | **Seen on a P2S through the cloud**: the light switches on and off from the button and the state follows (the local broker is compiled only) |
+| Bambu Lab, LAN and cloud | MQTT `system` `ledctrl`, `led_node` `chamber_light` (or what `lights_report` names), `led_mode` on / off, on `device/<sn>/request`; on the H2S, H2D, H2D Pro, H2C and X2D (two strips) the same command goes to `chamber_light2` as well | `print.lights_report` (on when either chamber light is) | **Seen on a P2S through the cloud**: the light switches on and off from the button and the state follows (the local broker, and the second strip of the H2 series, are compiled only) |
 | Snapmaker | Moonraker `printer.gcode.script` with `SET_LED LED=cavity_led` (all channels 1 or 0) | `led cavity_led` `color_data` | **Works**: Tiger Studio's validated protocol, the same frames (2026-10-18) |
 | Elegoo CC2 | MQTT method `1029`, `power` 1 / 0 | `led.status` | **Seen on a real Centauri Carbon 2** (2026-10-18) |
 | Anycubic, LAN | MQTT `light` request, action `control`, `type` 3 (the chamber light; 1 is the camera's) | the `light` report | **Works**: Tiger Studio's validated protocol, the same frames (2026-10-18) |

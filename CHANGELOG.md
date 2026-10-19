@@ -16,6 +16,9 @@ they were written.
 
 ## [Unreleased]
 
+### Fixed
+- **The light button of an H2S, H2D, H2D Pro, H2C or X2D switches both chamber lights.** These printers have two LED strips, each its own `ledctrl` node (`chamber_light` and `chamber_light2`); the button addressed only the first, so one strip stayed as it was (reported on an H2C). The printer is told by the catalogue id of its record in the account (7, 8, 9, 11, 12), or by a `lights_report` that names `chamber_light2`; the light reads as on when either strip is, each report being merged on its own. Every other printer is unchanged. Compiled, never seen on an H2.
+
 ## [2.2.0] - 2026-10-18
 
 

@@ -24,5 +24,6 @@ reset to this header at each release.
 - Elegoo (CC1, CC2), Prusa and Klipper seen on real printers: docs, drivers' headers, README, brand pages (11 languages); the K-Touch no longer called untested.
 
 ## Fixed
+- Bambu Lab: the light button switches both chamber lights of an H2S, H2D, H2D Pro, H2C and X2D (chamber_light and chamber_light2); on when either is. By the account record's model id, or a report naming chamber_light2. Compiled, never seen on an H2.
 - Share pictures: the button reads "Install for free".
 - Site accessibility: language menu keyboard and focus, contrasts (light orange, buttons, TigerSquad card), phone comparison as cards, balanced printer rows, 44 px targets, notice after the title on phones, reduced motion.
