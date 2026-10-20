@@ -50,6 +50,22 @@ void screen_init(void)
         s_brightness = DEFAULT_BRIGHTNESS;
     }
     s_sleep_s = get_int("sleep", 0);
+    /* A delay kept by an earlier version (30 s, 5 min) that is no longer offered
+     * becomes the next one up, so the screen never sleeps sooner than it was told to. */
+    static const int OFFERED[] = {60, 600, 1800, 3600};
+    if (s_sleep_s > 0)
+    {
+        int next = 3600;
+        for (size_t i = 0; i < sizeof(OFFERED) / sizeof(OFFERED[0]); i++)
+        {
+            if (OFFERED[i] >= s_sleep_s)
+            {
+                next = OFFERED[i];
+                break;
+            }
+        }
+        s_sleep_s = next;
+    }
     s_rotation = get_int("rot", 0) == 180 ? 180 : 0;
     s_battery = get_int("battery", 1) ? 1 : 0;
     pt_display_set_rotation180(s_rotation == 180);
