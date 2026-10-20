@@ -18,6 +18,7 @@ Critical - apply them from this list alone:
 - An irreversible action (push, tag, release, deploy, flash, deletion, history rewrite) needs the owner's order for that action. `.agents/rules/irreversible-actions.md`
 - A change of behaviour corrects its documentation and these rules in the same commit; a wrong rule is rewritten in place. `.agents/rules/docs-follow-the-code.md`
 - Run `bash scripts/verify.sh` before saying work is done; report only results you have. `.agents/rules/verify-before-reporting.md`
+- Change files only in this repository, never in another project; issues may be opened in any repository. `.agents/rules/this-repository-only.md`
 
 Process:
 
