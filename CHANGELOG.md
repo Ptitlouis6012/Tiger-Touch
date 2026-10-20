@@ -16,6 +16,9 @@ they were written.
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-10-20
+
+
 ### Added
 - **The agent rules, one file each**, in `.agents/rules/` (Rule, Why, How),
   indexed one line each in the "Rules" section of `CLAUDE.md`, critical rules
@@ -39,7 +42,7 @@ they were written.
   that finishes first at the top; a printer with no print running comes after
   them, in the order it had. The rows follow the estimated ends as they move, and
   stay still for 3 s after a touch so that none slides under a finger. The card
-  view is unchanged.
+  view is unchanged (issue #4).
 - **The screen can sleep after up to an hour.** *Settings > Screen > Sleep after*
   now offers 1 min, 10 min, 30 min, 1 h and never, in place of 30 s, 1 min, 5 min
   and never (issue #5). A choice saved by an earlier version (30 s, 5 min) is read
