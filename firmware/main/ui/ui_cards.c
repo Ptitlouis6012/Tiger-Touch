@@ -1,5 +1,6 @@
 #include "ui_cards.h"
 
+#include <limits.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -82,6 +83,7 @@ typedef struct
     tile_t t[T_COUNT];
     job_buttons_t job;
     int layout; /* nozzles the tiles are placed for, -1 until the first update */
+    int left_s; /* list rows: seconds to the end of the print, 0 when none runs (the sort key) */
     bool dimmed;
     /* What each label shows now: LVGL redraws a label whenever it is set, even to
      * the same text, and this runs for every card every second. */
@@ -98,6 +100,7 @@ static card_t *s_cards; /* in PSRAM: internal RAM is the scarce one */
 static int s_n;
 static lv_obj_t *s_scr;
 static bool s_list; /* the home is a vertical list of light rows, not cards */
+static bool s_sorted; /* the list's rows have been put in order once since it was built */
 
 /* The list: one row per printer, 76 high, in TigerScale's scrolling column
  * (ui_kit_scroll_list: the scrollbar always on, the rail of two buttons on the
@@ -391,6 +394,7 @@ lv_obj_t *ui_cards_create(lv_obj_t *parent, const printer_row_t *rows, int n, lv
     s_cards = heap_caps_calloc((size_t)n, sizeof(card_t), MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
     s_n = s_cards ? n : 0;
     s_scr = parent;
+    s_sorted = false;
     if (s_list)
     {
         return create_list(parent, rows, on_pick);
@@ -457,7 +461,8 @@ static void update_row(card_t *c, const printer_view_t *v, bool live, bool silen
     }
     set_txt(c->pct, c->c_pct, sizeof c->c_pct, buf);
     buf[0] = '\0';
-    if (live && v->left_s > 0)
+    c->left_s = (live && v->left_s > 0) ? v->left_s : 0;
+    if (c->left_s > 0)
     {
         ui_fmt_left(buf, sizeof buf, v->left_s);
     }
@@ -595,6 +600,61 @@ void ui_cards_update(int index, const printer_view_t *v, printer_chip_t chip)
     /* A printer with no chamber sensor reports 0: that is "not known", never a temperature. */
     set_txt(c->t[T_CHAMBER].val, c->c_val[T_CHAMBER], sizeof c->c_val[0],
             temp_text(tb, sizeof tb, live, v->chamber, true));
+}
+
+/* A touch within this long keeps the rows where they are: a row that moves
+ * between a finger landing and lifting would open another printer. */
+#define SORT_IDLE_MS 3000
+#define SORT_MAX 16
+
+/* The estimated end of a print is the same instant for every printer plus the
+ * seconds it has left, so the order of the ends is the order of the seconds left.
+ * A printer with no print running has no end: it goes after the others. */
+static int end_key(const card_t *c)
+{
+    return c->left_s > 0 ? c->left_s : INT_MAX;
+}
+
+void ui_cards_sort(void)
+{
+    if (!s_list || !s_cards || s_n < 2 || s_scr != lv_screen_active())
+    {
+        return;
+    }
+    if (s_sorted && lv_display_get_inactive_time(NULL) < SORT_IDLE_MS)
+    {
+        return;
+    }
+    s_sorted = true;
+
+    /* Insertion sort: stable, so printers with no end keep the order they had. */
+    int order[SORT_MAX];
+    const int n = s_n < SORT_MAX ? s_n : SORT_MAX;
+    for (int i = 0; i < n; i++)
+    {
+        int j = i;
+        while (j > 0 && end_key(&s_cards[order[j - 1]]) > end_key(&s_cards[i]))
+        {
+            order[j] = order[j - 1];
+            j--;
+        }
+        order[j] = i;
+    }
+
+    int base = (int)lv_obj_get_index(s_cards[0].card);
+    for (int i = 1; i < n; i++)
+    {
+        const int at = (int)lv_obj_get_index(s_cards[i].card);
+        base = at < base ? at : base;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        lv_obj_t *row = s_cards[order[i]].card;
+        if ((int)lv_obj_get_index(row) != base + i)
+        {
+            lv_obj_move_to_index(row, base + i);
+        }
+    }
 }
 
 void ui_cards_forget(void)

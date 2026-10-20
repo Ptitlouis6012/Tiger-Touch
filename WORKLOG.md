@@ -11,6 +11,7 @@ reset to this header at each release.
 ## Changed
 - Documentation checked against the code and corrected; 11 unused translation rows removed; bump-version.sh resets this file.
 - Settings > Screen: the screen sleeps after 1 min, 10 min, 30 min, 1 h, or never (it was 30 s, 1 min, 5 min, never); a saved delay no longer offered becomes the next one up.
+- Home, list view: the printers are in order of the estimated end of their print (the first to finish on top, those with no print last); the rows hold still for 3 s after a touch.
 
 ## Fixed
 - The feed task's creation is checked; make_fonts.py finds LVGL 9.6's fonts.

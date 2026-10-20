@@ -35,6 +35,11 @@ they were written.
   as a warning.
 
 ### Changed
+- **The list view puts the printers in order of the end of their print**, the one
+  that finishes first at the top; a printer with no print running comes after
+  them, in the order it had. The rows follow the estimated ends as they move, and
+  stay still for 3 s after a touch so that none slides under a finger. The card
+  view is unchanged.
 - **The screen can sleep after up to an hour.** *Settings > Screen > Sleep after*
   now offers 1 min, 10 min, 30 min, 1 h and never, in place of 30 s, 1 min, 5 min
   and never (issue #5). A choice saved by an earlier version (30 s, 5 min) is read

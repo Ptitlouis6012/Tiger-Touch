@@ -1235,6 +1235,10 @@ static void refresh_cards(const int *row_printer, int nrows)
             ui_cards_update(k, &v, chip);
         }
     }
+    PT_LVGL_SCOPE_LOCK()
+    {
+        ui_cards_sort(); /* the list view: the print that ends first at the top */
+    }
 }
 
 /* `boot`: the page shown right after power-on. Nothing is connected yet, so
