@@ -141,8 +141,8 @@ to the way you work, not the other way round.
 
 <table>
   <tr>
-    <td width="50%"><img src="assets/screens/home-cards.png" alt="Home screen in card view: two printers printing, each with its progress ring, file, time left, end time and temperatures"></td>
-    <td width="50%"><img src="assets/screens/home-list.png" alt="Home screen in list view: four printers printing, each with its progress bar, file, time left, temperatures, light, pause and stop"></td>
+    <td width="50%"><img src="assets/screens/home-cards.png" alt="Home screen in card view: two printers printing, each with its three buttons, its progress line, file, time left, end time and temperatures"></td>
+    <td width="50%"><img src="assets/screens/home-list.png" alt="Home screen in list view: five printers, one of them paused in amber, each with its progress bar, file, time left, temperatures, light, pause and stop"></td>
   </tr>
   <tr>
     <td><b>Cards</b>: one live card per printer, slide for more.</td>
@@ -150,15 +150,15 @@ to the way you work, not the other way round.
   </tr>
   <tr>
     <td><img src="assets/screens/printer-snapmaker-u1.png" alt="Full view of a Snapmaker U1 printing: progress, layers, four tool heads with the active one ringed, and its four filaments"></td>
-    <td><img src="assets/screens/printer-flashforge-ad5x.png" alt="Full view of a FlashForge AD5X paused: its progress ring in orange, its external spool and its four-slot material station"></td>
+    <td><img src="assets/screens/printer-flashforge-ad5x.png" alt="Full view of a FlashForge AD5X paused: its progress line in amber, its external spool and its four-slot material station"></td>
   </tr>
   <tr>
     <td><b>Snapmaker U1</b>: four tool heads, the active one ringed.</td>
-    <td><b>FlashForge AD5X</b>: paused, in orange; external spool and station.</td>
+    <td><b>FlashForge AD5X</b>: paused, in amber; external spool and station.</td>
   </tr>
   <tr>
-    <td><img src="assets/screens/printer-bambu-x1c.png" alt="Full view of a Bambu Lab X1 Carbon printing: progress ring in blue, layers, time left, estimated end, and its AMS"></td>
-    <td><img src="assets/screens/printer-creality-k2.png" alt="Full view of a Creality K2 Plus printing: progress ring in blue, layers, time left, estimated end, and its CFS"></td>
+    <td><img src="assets/screens/printer-bambu-x1c.png" alt="Full view of a Bambu Lab X1 Carbon printing: progress line in blue, layers, time left, estimated end, and its AMS"></td>
+    <td><img src="assets/screens/printer-creality-k2.png" alt="Full view of a Creality K2 Plus printing: progress line in blue, layers, time left, estimated end, and its CFS"></td>
   </tr>
   <tr>
     <td><b>Bambu Lab X1 Carbon</b>: its AMS, the slot in use ringed.</td>

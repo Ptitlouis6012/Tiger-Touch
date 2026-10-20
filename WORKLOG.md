@@ -15,6 +15,7 @@ reset to this header at each release.
 - List rows: the nozzle and bed pictograms are drawn (24 px, the only size they have), not asked for at 16 px.
 
 ## Changed
+- README screens: the six captures taken again in Demo mode, their descriptions say progress line and amber (they follow the card, list and full view changes).
 - Printer cards: the progress is a line under the three buttons, which share the card's width; the ring is gone.
 - Full view: the ring is a line under the three buttons, which share the card's width; no state pill, the logo takes the state's colour, the name stays white (ui_state_tone, ui_beat).
 - Cards and list: no state dot and word; the logo and the progress line take the state's colour, the name stays white (tone_of); an error pulses (ui_beat).
