@@ -20,6 +20,30 @@ they were written.
 - **An agent rule: touch only this repository, open issues anywhere**
   (`.agents/rules/this-repository-only.md`, indexed in `CLAUDE.md`).
 
+### Changed
+- **The printers' cards show the progress as a line, not a ring.** The light,
+  pause and stop buttons now share the card's whole width, right under the
+  printer's name, and the progress sits under them: its figure, then a line along
+  the rest of the width. Nothing else on the card moved.
+- **The full view follows the cards.** The progress ring is a line, the light,
+  pause and stop buttons share the card's width under the name, and the state pill
+  in the top bar is gone: the logo takes the state's colour.
+- **A printer's state is its colour, on the cards and in the list.** The dot and
+  the word in the corner are gone; the maker's logo and the progress line take
+  the colour of the state (the printer's name stays white): blue while printing, amber when
+  paused, green when done, red on an error, white when ready, grey while the
+  printer is still being reached, red when it is silent (its card dimmed). A
+  printer in error pulses, its name and its logo together, like a heartbeat.
+
+### Removed
+- **The state words** (Printing, Paused, Done, Error, Idle, Offline) are no longer
+  on any screen, so their six keys leave the translation table, in every language.
+
+### Fixed
+- **The list view draws the nozzle and bed pictograms** beside the two
+  temperatures. They were asked for at 16 px, a size that does not exist (only
+  24 px does), so nothing was drawn.
+
 ## [2.3.0] - 2026-10-20
 
 

@@ -110,16 +110,21 @@ extern "C"
     /* The printer selector at the top. Needs the LVGL lock. */
     void ui_dashboard_set_printer(const char *name, bool online);
 
-    /* The words and colours the dashboard uses for a printer's state, and its
-     * two time formats, shared with the printer cards. */
-    const char *ui_state_text(pv_state_t s);
-    void ui_state_colors(pv_state_t s, uint32_t *bg, uint32_t *fg);
+    /* The two time formats the dashboard uses, shared with the printer cards. */
     void ui_fmt_left(char *out, size_t n, int sec);
-    /* The colour of a print's progress, the same on the ring, the card and the list
- * bar: blue while it prints, orange paused, green finished, red on a fault.
- * The dot beside the name says the connection; this says the print. */
-lv_color_t ui_progress_color(const printer_view_t *v, bool live);
-void ui_fmt_end(char *out, size_t n, int left_s);
+    void ui_fmt_end(char *out, size_t n, int left_s);
+
+    /* What a printer is doing, said by a colour: the colour of its logo and its
+     * progress line, on the full view, the cards and the list: blue while
+     * it prints, amber paused, green done, red on an error, white when it is
+     * ready, red when it is silent, grey while it is still being reached
+     * (`waiting`). */
+    lv_color_t ui_state_tone(pv_state_t s, bool online, bool waiting);
+
+    /* A printer in error pulses, its name and its logo together, like a heartbeat.
+     * `on` starts or stops it; calling it again with the same value does nothing.
+     * The animation belongs to `name` and goes with it. */
+    void ui_beat(lv_obj_t *name, lv_obj_t *mark, bool on);
 
     /* The screen is about to be cleared: forget every widget pointer. */
     void ui_dashboard_invalidate(void);
