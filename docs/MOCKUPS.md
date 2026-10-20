@@ -57,9 +57,18 @@ What makes it faithful:
    (`demo_mode.c`); the time left is `(100 - percent) x 20 s`, shown rounded up to
    the minute (`ui_fmt_left`); the estimated end is the clock plus that, so it
    stays still while the clock runs. At 100 % the line or bar turns green, the
-   printer's logo with it (a mask painted again, `recolor_mark`), the time left goes
-   (`--`, `--:--`), and pause and stop dim to 40 % (`ui_job_set`). A paused print stands still.
-5. **One palette for every frame of a GIF,** taken from the first, middle and last
+   state word becomes Done in green (found on the capture and written again), the time left goes
+   (`--`, `--:--`), the temperatures fall to the room's, and pause and stop dim to 40 %
+   (`ui_job_set`); 40 s later the next print starts at 0 % (`DONE_FOR_US`). A paused print
+   stands still. `demo_print()` in the script is that cycle.
+5. **The list in its order.** The list puts the printers in order of the end of their
+   print (`ui_cards_sort`), so its rows move: a finished print goes to the bottom, a print
+   passes a paused one. `view_list()` takes each of the ten rows from two captures made one
+   after the other, the top of the list (`home-list-top.png`) and its end (`home-list.png`),
+   draws each row's values, sorts the rows as the firmware does (the seconds left, a
+   printer with none last, ties in the account's order) and shows the last five, as the
+   capture scrolled to the end does.
+6. **One palette for every frame of a GIF,** taken from the first, middle and last
    frames, without dithering: no flicker. The WebP keeps every colour and the
    transparency around the frame.
 
@@ -101,6 +110,15 @@ a perspective transform (a homography solved from the four pairs of corners), it
 edge anti-aliased, and a faint diagonal reflection laid over it. Another
 photograph needs its own four corners, measured the same way: a grid over the
 picture, then each corner zoomed.
+
+## The campaign illustration
+
+The screen of `assets/social/pandatouch-reforged.png` is the X1 Carbon's full view
+(`printer-bambu-x1c.png`) set in a tilted glass. Its four corners, (484.75, 650.5), (1072.25, 664),
+(1048, 1021.75) and (452.25, 987) from the top left clockwise, were found by fitting the
+capture to the illustration (the mean difference over the screen is about 3 out of 255);
+the capture is warped onto them, and what the picture adds over the bare screen
+(reflections, sheen) is kept, smoothed, so a new capture can be set in the same way.
 
 ## The 45-degree drawings: a capture set in the drawing
 

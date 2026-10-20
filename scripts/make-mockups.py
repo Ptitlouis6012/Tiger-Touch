@@ -39,6 +39,7 @@ C_MUTED = (0x8b, 0x90, 0x9a)
 C_LINE = (0x2b, 0x2f, 0x38)
 C_GREEN = (0x3e, 0xcf, 0x8e)
 C_BLUE = (0x3d, 0xa4, 0xf0)
+C_AMBER = (0xf5, 0xb8, 0x4a)
 C_RING_BG = (0x26, 0x45, 0x6f)
 
 PCT_EVERY_S = 20  # firmware/main/demo_mode.c: one per cent every 20 s
@@ -172,55 +173,70 @@ def fmt_left(sec):
 
 # ---- The views ------------------------------------------------------------------------
 
-def recolor_mark(img, box, bg, old, new):
-    """A logo is a mask painted in the printer's colour over its disc (ui_cards.c build_mark,
-    set_tone): its alpha is read back from the capture and painted again in the new colour."""
-    import numpy as np
-    x0, y0, x1, y1 = box
-    px = np.asarray(img.crop(box), dtype=np.float64)
-    bgv, oldv, newv = (np.array(c, dtype=np.float64) for c in (bg, old, new))
-    k = int(np.argmax(np.abs(oldv - bgv)))
-    alpha = np.clip((px[..., k] - bgv[k]) / (oldv[k] - bgv[k]), 0, 1)
-    h, w = alpha.shape
-    yy, xx = np.mgrid[0:h, 0:w]
-    inside = (xx - (w - 1) / 2) ** 2 + (yy - (h - 1) / 2) ** 2 <= (w / 2 - 1) ** 2
-    out = np.where((alpha > 0.02)[..., None] & inside[..., None],
-                   bgv + alpha[..., None] * (newv - bgv), px)
-    img.paste(Image.fromarray(np.clip(out + 0.5, 0, 255).astype("uint8"), "RGB"), (x0, y0))
+DONE_FOR_S = 40   # firmware/main/demo_mode.c: a finished print shows for 40 s, then the next starts
+CYCLE_S = 100 * PCT_EVERY_S
 
 
-def view_cards(t_from=0, t_to=11 * 60, t0=13 * 60 + 9):
+def demo_print(left0, t, paused=False):
+    """firmware/main/demo_mode.c at `t` s, for a print that had `left0` s left at 0:
+    (state, percent, seconds left). A finished print shows Done for 40 s, then the next
+    one starts at 0 %."""
+    if paused:
+        return "Paused", 100 - math.ceil(left0 / PCT_EVERY_S), left0
+    left = left0 - t
+    if left > 0:
+        return "Printing", 100 - math.ceil(left / PCT_EVERY_S), left
+    since = -left
+    if since <= DONE_FOR_S:
+        return "Done", 100, 0
+    left = CYCLE_S - (since - DONE_FOR_S)
+    return "Printing", 100 - math.ceil(left / PCT_EVERY_S), left
+
+
+STATE_COLOUR = {"Printing": C_BLUE, "Paused": C_AMBER, "Done": C_GREEN}
+
+
+def view_cards(t_from=0, t_to=11 * 60, t0=16 * 60 + 5):
     """Home, cards: two prints at 1 % every 20 s; the clock runs, the time left
-    counts down, the estimated end stays; at 100 % the logo and the line turn green,
-    the time left goes and pause and stop dim."""
+    counts down, the estimated end stays; at 100 % the state reads Done and it and the
+    line turn green, the time left goes and pause and stop dim; 40 s later the next
+    print starts."""
     shot = Image.open(SHOTS / "home-cards.png").convert("RGB")
-    clk = Text(shot, "13:09", 24, C_TEXT, (371, 41), "center")
+    clk = Text(shot, "16:05", 24, C_TEXT, (371, 41), "center")
     cards = []
     # firmware/main/ui/ui_cards.c: cards of 378 px at x 16 and 406, 1 px of border; the
     # figure at (12, 138), the line at (96, 148) 270 x 10, the light, pause and stop 108 x 56 at
-    # x 12, 135 and 258, y 60; the values under the captions at x 12 and 190 (half a card)
-    for cx, p0, left, end in ((16, 43, "19 min", "13:27"), (406, 68, "11 min", "13:19")):
+    # x 12, 135 and 258, y 60; the values under the captions at x 12 and 190 (half a card);
+    # the state right-aligned at the top right (STATUS_W 150, y 17)
+    # the nozzle and bed values in the first two tiles, found at x 64 and 188 of the card
+    for cx, k, p0, left, end, noz, bed in ((16, 0, 45, "19 min", "16:23", "220°", "60°"),
+                                           (406, 1, 70, "10 min", "16:15", "220°", "61°")):
         cards.append(dict(
-            x=cx, p0=p0, end=end,
+            x=cx, k=k, left0=(100 - p0) * PCT_EVERY_S, noz0=noz, bed0=bed,
+            noz=Text(shot, noz, 20, C_TEXT, (cx + 64, 411), search=3),
+            bed=Text(shot, bed, 20, C_TEXT, (cx + 188, 411), search=3),
             pct=Text(shot, "%d %%" % p0, 24, C_TEXT, (cx + 13, 226)),
             left=Text(shot, left, 20, C_TEXT, (cx + 13, 339)),
             endt=Text(shot, end, 20, C_TEXT, (cx + 191, 339)),
+            st=Text(shot, "Printing", 16, C_BLUE, (cx + 367 - font(16).getlength("Printing"), 98), "right"),
         ))
-    _report("cards", [clk] + [x for c in cards for x in (c["pct"], c["left"], c["endt"])])
+    _report("cards", [clk] + [x for c in cards for x in (c["pct"], c["left"], c["endt"], c["st"], c["noz"], c["bed"])])
     frames = []
     for t in range(t_from, t_to + 1, PCT_EVERY_S):
         img = shot.copy()
         clk.draw(img, clock(t0, t))
         for c in cards:
-            left_s = (100 - c["p0"]) * PCT_EVERY_S - t
-            done = left_s <= 0
-            p = 100 if done else 100 - math.ceil(left_s / PCT_EVERY_S)
+            state, p, left_s = demo_print(c["left0"], t)
+            done = state == "Done"
+            c["st"].draw(img, state, STATE_COLOUR[state])
             c["pct"].draw(img, "%d %%" % p, pad_right=8)
-            bar(img, c["x"] + 97, 213, 270, 10, p, C_LINE, C_GREEN if done else C_BLUE)
+            bar(img, c["x"] + 97, 213, 270, 10, p, C_LINE, STATE_COLOUR[state])
             c["left"].draw(img, fmt_left(left_s))
-            c["endt"].draw(img, c["end"] if not done else "--:--")
+            c["endt"].draw(img, "--:--" if done else clock(t0, t + left_s))
+            # demo_mode.c: a printer with no print running cools to the room's temperature
+            c["noz"].draw(img, "%d°" % (24 + c["k"] % 3) if done else c["noz0"], pad_right=6)
+            c["bed"].draw(img, "%d°" % (23 + c["k"] % 2) if done else c["bed0"], pad_right=6)
             if done:
-                recolor_mark(img, (c["x"] + 11, 73, c["x"] + 51, 113), C_LINE, C_BLUE, C_GREEN)
                 # Nothing left to pause or stop: the two buttons dim to 40 %, as ui_job_set() does.
                 for bx in (c["x"] + 136, c["x"] + 259):
                     dim(img, (bx, 125, bx + 108, 181), 0.4, (30, 33, 40))
@@ -228,40 +244,76 @@ def view_cards(t_from=0, t_to=11 * 60, t0=13 * 60 + 9):
     return frames
 
 
-def view_list(t_from=0, t_to=11 * 60, t0=13 * 60 + 10):
-    """Home, list: five rows at 1 % every 20 s, the paused one standing still; a
-    finished print's logo and bar turn green and its row loses its time left."""
-    shot = Image.open(SHOTS / "home-list.png").convert("RGB")
-    clk = Text(shot, "13:10", 24, C_TEXT, (373, 41), "center")
-    rows = []
-    # (row top, percent, time left, paused); firmware/main/ui/ui_cards.c: rows of 76 + 8 px,
-    # scrolled to the end of the ten printers, 16 px of padding at the left of the column
-    for top, p0, left, paused in ((56, 59, "14 min", False), (140, 46, "18 min", False), (224, 31, "23 min", True),
-                                  (308, 22, "26 min", False), (392, 12, "30 min", False)):
-        # The figure and the time left, found on the capture, 8 and 13 px down the row (ui_cards.c).
-        r = dict(top=top, p0=p0, paused=paused,
-                 pct=Text(shot, "%d %%" % p0, 20, C_TEXT, (284, top + 27), search=2),
-                 left=Text(shot, left, 14, C_MUTED, (434 - font(14).getlength(left), top + 27), "right"))
+# The list, firmware/main/ui/ui_cards.c: rows of 690 x 76 every 84 px, 16 px from the left;
+# home-list-top.png shows the first five (from y 76), home-list.png the last five (from y 56),
+# taken one after the other. Per printer: its place in demo_mode.c (the order of the account,
+# which breaks ties in ui_cards_sort), the capture and row, and what the row shows there:
+# percent, time left, state, nozzle and bed.
+ROWS = (
+    ("Core One", 6, "home-list-top", 0, 96, "2 min", "Printing", "221°", "60°"),
+    ("K2 Plus", 1, "home-list-top", 1, 90, "4 min", "Printing", "220°", "60°"),
+    ("Ender-3 S1", 9, "home-list-top", 2, 83, "6 min", "Printing", "219°", "60°"),
+    ("U1", 4, "home-list-top", 3, 78, "8 min", "Printing", "220°", "60°"),
+    ("X1 Carbon", 0, "home-list-top", 4, 65, "12 min", "Printing", "220°", "60°"),
+    ("Centauri Carbon 2", 2, "home-list", 0, 41, "20 min", "Printing", "221°", "61°"),
+    ("Voron 2.4", 7, "home-list", 1, 32, "23 min", "Printing", "220°", "60°"),
+    ("AD5X", 5, "home-list", 2, 31, "23 min", "Paused", "219°", "59°"),
+    ("P2S", 8, "home-list", 3, 16, "28 min", "Printing", "220°", "61°"),
+    ("Kobra S1", 3, "home-list", 4, 9, "31 min", "Printing", "220°", "60°"),
+)
+ROW_W, ROW_H, ROW_STEP = 690, 76, 84
+LIST_TOP = {"home-list-top": 76, "home-list": 56}
+
+
+def view_list(t_from=0, t_to=11 * 60, t0=16 * 60 + 11):
+    """Home, list, scrolled to its end: the ten printers at 1 % every 20 s, the paused one
+    standing still, in order of the end of their print (ui_cards_sort): a finished print
+    reads Done in green, loses its time left, dims pause and stop and goes to the bottom;
+    40 s later its next print starts there."""
+    shots = {k: Image.open(SHOTS / (k + ".png")).convert("RGB") for k in LIST_TOP}
+    base = shots["home-list"]
+    clk = Text(base, "16:11", 24, C_TEXT, (373, 41), "center")
+    rows, texts = [], [clk]
+    for name, k, src, i, p0, left, state, noz, bed in ROWS:
+        top = LIST_TOP[src] + i * ROW_STEP
+        sprite = shots[src].crop((16, top, 16 + ROW_W, top + ROW_H))
+        # Where ui_cards.c build_row puts them, less the row's x 16: the figure at 268, the
+        # time left right-aligned at 418, the state under the name at 64, the temperatures at 454.
+        r = dict(name=name, k=k, sprite=sprite, paused=state == "Paused",
+                 left0=(100 - p0) * PCT_EVERY_S, noz0=noz, bed0=bed,
+                 pct=Text(sprite, "%d %%" % p0, 20, C_TEXT, (268, 27), search=2),
+                 left=Text(sprite, left, 14, C_MUTED, (418 - font(14).getlength(left), 27), "right"),
+                 st=Text(sprite, state, 14, STATE_COLOUR[state], (64, 58)),
+                 noz=Text(sprite, noz, 16, C_TEXT, (454, 28)),
+                 bed=Text(sprite, bed, 16, C_TEXT, (454, 60)))
         rows.append(r)
-    _report("list", [clk] + [x for r in rows for x in (r["pct"], r["left"])])
+        texts += [r["pct"], r["left"], r["st"], r["noz"], r["bed"]]
+    _report("list", texts)
     frames = []
     for t in range(t_from, t_to + 1, PCT_EVERY_S):
-        img = shot.copy()
+        img = base.copy()
         clk.draw(img, clock(t0, t))
+        drawn = []
         for r in rows:
-            if r["paused"]:
-                continue
-            left_s = (100 - r["p0"]) * PCT_EVERY_S - t
-            done = left_s <= 0
-            p = 100 if done else 100 - math.ceil(left_s / PCT_EVERY_S)
-            r["pct"].draw(img, "%d %%" % p, pad_right=6)
-            r["left"].draw(img, "" if done else fmt_left(left_s))
-            bar(img, 284, r["top"] + 38, 150, 6, p, C_LINE, C_GREEN if done else C_BLUE)
-            if done:
-                recolor_mark(img, (28, r["top"] + 18, 68, r["top"] + 58), C_LINE, C_BLUE, C_GREEN)
+            state, p, left_s = demo_print(r["left0"], t, r["paused"])
+            busy = state != "Done"
+            s = r["sprite"].copy()
+            r["st"].draw(s, state, STATE_COLOUR[state])
+            r["pct"].draw(s, "%d %%" % p, pad_right=6)
+            r["left"].draw(s, fmt_left(left_s) if busy else "")
+            bar(s, 268, 38, 150, 6, p, C_LINE, STATE_COLOUR[state])
+            # demo_mode.c: a printer with no print running cools to the room's temperature
+            r["noz"].draw(s, r["noz0"] if busy else "%d°" % (24 + r["k"] % 3))
+            r["bed"].draw(s, r["bed0"] if busy else "%d°" % (23 + r["k"] % 2))
+            if not busy:
                 # Pause and stop dim to 40 % (ui_cards.c: ROW_PAUSE_X, ROW_STOP_X, 54 x 52, centred in the row).
-                for bx in (16 + 568, 16 + 628):
-                    dim(img, (bx, r["top"] + 12, bx + 54, r["top"] + 64), 0.4, (30, 33, 40))
+                for bx in (568, 628):
+                    dim(s, (bx, 12, bx + 54, 64), 0.4, (30, 33, 40))
+            # ui_cards_sort: the seconds left, a printer with none last; ties in the account's order
+            drawn.append(((left_s if left_s > 0 else 1 << 30), r["k"], s))
+        drawn.sort(key=lambda d: (d[0], d[1]))
+        for slot, (_, _, s) in enumerate(drawn[-5:]):  # scrolled to the end: the last five rows
+            img.paste(s, (16, LIST_TOP["home-list"] + slot * ROW_STEP))
         frames.append(img)
     return frames
 
@@ -310,7 +362,7 @@ def view_tour():
     black = Image.new("RGB", (800, 480), (0, 0, 0))
     slow = lambda frames: [f for f in frames for _ in range(2)]
     return ([black] * 3 + [splash()] * 14 + slow(view_list(0, 6 * 60))
-            + slow(view_cards(6 * 60 + PCT_EVERY_S, 12 * 60, t0=13 * 60 + 10)))
+            + slow(view_cards(6 * 60 + PCT_EVERY_S, 12 * 60, t0=16 * 60 + 11)))
 
 
 def brand_screens():

@@ -14,6 +14,7 @@ reset to this header at each release.
 - List rows: the nozzle and bed pictograms are drawn (24 px, the only size they have), not asked for at 16 px.
 
 ## Changed
+- Pictures: the captures taken again (state word, white logo), home-list-top.png added; the list animation sorts its ten rows and restarts a finished print after 40 s (make-mockups.py demo_print, view_list); drawings, share pictures, mockups and the campaign illustration made again.
 - Share pictures: the ten `assets/og/*.jpg` made again (home with the new cards, the nine brands from the new brand drawings); make-og-images.py gains `--regular` for a font file without a regular face.
 - Campaign illustration: the screen of `assets/social/pandatouch-reforged.png` replaced by the current X1 Carbon capture, set in the tilted glass.
 - Brand drawings: the nine `assets/devices/brands/*.png` made again by make-drawings.py; brand pages' alt texts say progress bar in the eleven languages.

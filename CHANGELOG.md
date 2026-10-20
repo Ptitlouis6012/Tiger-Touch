@@ -41,7 +41,7 @@ they were written.
   captures (Anycubic Kobra S1, Elegoo Centauri Carbon 2, Klipper Voron 2.4, OctoPrint
   Ender-3 S1, Prusa Core One) are taken again in Demo mode too, and the front and
   three-quarter mockups, the cards, list and tour animations are made again from
-  them: the line fills, the logo and the line turn green at 100 %.
+  them: the line fills, and at 100 % the line turns green and the state word reads Done.
   `scripts/make-mockups.py` draws the line instead of the ring, and `stills` now writes
   the front mockups as well. `docs/MOCKUPS.md` says so. The 45-degree drawings
   (cards, list and printer), the README's animated picture and the installer's device
@@ -60,6 +60,14 @@ they were written.
   Lab X1 Carbon and the Creality K2 Plus, taken again in Demo mode, with the
   progress line, the three buttons across the card and the state's colour. Their
   descriptions no longer speak of a ring.
+
+- **The pictures show the state written and the logo white.** The eleven captures
+  are taken again in Demo mode from the firmware as it is, with a twelfth, the top
+  of the list (`assets/screens/home-list-top.png`), for the list animation: its ten
+  rows now move as the firmware sorts them (a finished print goes to the bottom,
+  then starts again 40 s later). The mockups, the animations, the 45-degree
+  drawings, the share pictures (in Helvetica Neue again) and the campaign
+  illustration are made again from them.
 
 ### Fixed
 - **The list view draws the nozzle and bed pictograms** beside the two
