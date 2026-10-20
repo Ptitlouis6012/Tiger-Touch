@@ -18,7 +18,7 @@
    "通过安装器刷入 Tiger Touch，使用同一个 TigerSystem 账户登录，然后在 Settings > Printers 中启用该打印机。"
   ],
   "tips": "局域网模式下的 Bambu 打印机会持续推送完整报告：请确保屏幕的 Wi-Fi 信号良好。一台打印机同时只允许少数几个本地客户端。",
-  "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台正在打印的 Bambu Lab X1 Carbon：进度环、层数、剩余时间、温度及其 AMS",
+  "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台正在打印的 Bambu Lab X1 Carbon：进度条、层数、剩余时间、温度及其 AMS",
   "faq": [
    [
     "需要 Bambu 云吗？",
@@ -52,7 +52,7 @@
    "刷入 Tiger Touch，使用同一个 TigerSystem 账户登录，然后在 Settings > Printers 中启用该打印机。"
   ],
   "tips": "Creality 打印机显示离线，几乎总是因为局域网模式已关闭，或路由器重启后地址变了：请在 Tiger Studio Manager 中刷新。",
-  "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台正在打印的 Creality K2 Plus：进度环、层数、剩余时间、温度及其 CFS",
+  "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台正在打印的 Creality K2 Plus：进度条、层数、剩余时间、温度及其 CFS",
   "faq": [
    [
     "支持 CFS 吗？",
@@ -233,7 +233,7 @@
    "刷入 Tiger Touch，使用同一个 TigerSystem 账户登录，然后在 Settings > Printers 中启用该打印机。"
   ],
   "tips": "你的 Prusa 上有异常？在 GitHub 上提交一个 issue，附上屏幕显示的内容，有助于我们修复。",
-  "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台正在打印的 Prusa Core One：进度环、剩余时间和温度",
+  "shot_alt": "Panda Touch 上的 Tiger Touch 显示一台正在打印的 Prusa Core One：进度条、剩余时间和温度",
   "faq": [
    [
     "需要 Prusa Connect 吗？",
@@ -301,7 +301,7 @@
    "刷入 Tiger Touch，使用同一个 TigerSystem 账户登录，然后在 Settings > Printers 中启用该打印机。"
   ],
   "tips": "OctoPi 使用端口 80 响应；如果你的不同，请在地址后写上另一个端口。",
-  "shot_alt": "Panda Touch 上的 Tiger Touch 显示 OctoPrint 后面的 Ender-3 S1 正在打印：进度环、剩余时间和温度",
+  "shot_alt": "Panda Touch 上的 Tiger Touch 显示 OctoPrint 后面的 Ender-3 S1 正在打印：进度条、剩余时间和温度",
   "faq": [
    [
     "哪些打印机可以通过 OctoPrint 使用？",

@@ -11,7 +11,8 @@ needs no font and no Pillow): the JPEGs are committed in assets/og/ and the site
 build copies them. Run again when a page's picture or lineup changes:
 
   python3 scripts/make-og-images.py        (needs Pillow and a bold font:
-                                            Helvetica Neue on macOS, or --font)
+                                            Helvetica Neue on macOS, or --font
+                                            and --regular)
 """
 import argparse
 import json
@@ -24,8 +25,10 @@ W, H = 1200, 630
 BG, TEXT, MUTED, ACCENT = (20, 22, 26), (242, 242, 242), (139, 144, 154), (245, 130, 32)
 
 
-def fonts(path):
+def fonts(path, regular=None):
     def f(size, bold=True):
+        if regular and not bold:
+            return ImageFont.truetype(str(regular), size)
         if path.suffix == ".ttc":
             return ImageFont.truetype(str(path), size, index=1 if bold else 0)
         return ImageFont.truetype(str(path), size)
@@ -106,8 +109,9 @@ def card(title2, sub, device, printers, footer, font):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--font", default="/System/Library/Fonts/HelveticaNeue.ttc")
+    ap.add_argument("--regular", help="the regular face, when --font is a bold one-face file (Windows: arialbd.ttf and arial.ttf)")
     a = ap.parse_args()
-    font = fonts(pathlib.Path(a.font))
+    font = fonts(pathlib.Path(a.font), pathlib.Path(a.regular) if a.regular else None)
     out = ROOT / "assets" / "og"
     out.mkdir(parents=True, exist_ok=True)
     data = json.loads((ROOT / "installer" / "brand-pages.json").read_text())["brands"]

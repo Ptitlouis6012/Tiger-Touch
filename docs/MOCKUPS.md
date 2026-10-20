@@ -10,7 +10,7 @@ the device except a new capture.
 | Folder | What | Made by |
 |---|---|---|
 | [`assets/screens/`](../assets/screens/) | Captures of the real screen, 800 x 480, in Demo mode | the device (below) |
-| [`assets/devices/`](../assets/devices/) | The Panda Touch alone, transparent PNGs (front, three-quarter, back, dock); the 45-degree drawings | BIGTREETECH's product pictures, cut out; the drawings by hand |
+| [`assets/devices/`](../assets/devices/) | The Panda Touch alone, transparent PNGs (front, three-quarter, back, dock); the 45-degree drawings | BIGTREETECH's product pictures, cut out; the drawings by hand, the screens set in them by [`scripts/make-drawings.py`](../scripts/make-drawings.py) |
 | [`assets/mockups/front/`](../assets/mockups/front/) | Each capture in the front picture | `scripts/make-mockups.py stills`, *Still mockups* below |
 | [`assets/mockups/angle/`](../assets/mockups/angle/) | Each capture, the start-up screen and the protocols' screens in the three-quarter photograph | [`scripts/make-mockups.py`](../scripts/make-mockups.py) `stills` |
 | [`assets/mockups/animated/`](../assets/mockups/animated/) | Views that move (cards, list, update, and the tour: start-up, list, cards), the screen alone, in the front picture (`front/`) and in the three-quarter photograph (`angle/`), each in its own folder, GIF and WebP | [`scripts/make-mockups.py`](../scripts/make-mockups.py) |
@@ -101,6 +101,26 @@ a perspective transform (a homography solved from the four pairs of corners), it
 edge anti-aliased, and a faint diagonal reflection laid over it. Another
 photograph needs its own four corners, measured the same way: a grid over the
 picture, then each corner zoomed.
+
+## The 45-degree drawings: a capture set in the drawing
+
+`assets/devices/tiger-touch-cards.png`, `-list.png` and `-printer.png` are the line drawing
+of the Panda Touch with a capture on its glass; `assets/tiger-touch-device.png` is the cards
+one again, `installer/device.png` the same at half size, and
+`assets/devices/tiger-touch-views.webp` (the README's first picture) a cross-fade between the
+start-up screen, the cards, the list and a printer. `scripts/make-drawings.py` does all of it
+from the captures:
+
+```bash
+python3 scripts/make-drawings.py   # needs Pillow and numpy
+```
+
+The glass is an affine drawing of the 800 x 480 screen (six coefficients in the script),
+found by fitting a committed drawing to the capture it was made from: they agree to 1.2 out
+of 255 over the screen, the same map fits the three drawings, and setting the old captures
+back in the old drawings gives them back to within 0.4. The new capture is set over the
+old screen, so the script can be run as often as needed. The start-up drawing is not a
+capture and is not touched.
 
 ## Still mockups: a capture in the frame
 

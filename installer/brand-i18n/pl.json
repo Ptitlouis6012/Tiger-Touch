@@ -18,7 +18,7 @@
    "Wgraj Tiger Touch z instalatora, zaloguj się na to samo konto TigerSystem i włącz drukarkę w Settings > Printers."
   ],
   "tips": "Drukarka Bambu w trybie LAN stale przesyła pełne raporty: zapewnij ekranowi dobry sygnał Wi-Fi. Drukarka obsługuje naraz tylko kilku klientów lokalnych.",
-  "shot_alt": "Tiger Touch na Panda Touch pokazujący drukującego Bambu Lab X1 Carbon: pierścień postępu, warstwy, pozostały czas, temperatury i AMS",
+  "shot_alt": "Tiger Touch na Panda Touch pokazujący drukującego Bambu Lab X1 Carbon: pasek postępu, warstwy, pozostały czas, temperatury i AMS",
   "faq": [
    [
     "Czy potrzebna jest chmura Bambu?",
@@ -52,7 +52,7 @@
    "Wgraj Tiger Touch, zaloguj się na to samo konto TigerSystem i włącz drukarkę w Settings > Printers."
   ],
   "tips": "Drukarka Creality, która pokazuje się jako offline, prawie zawsze ma wyłączony tryb LAN albo nowy adres po restarcie routera: odśwież ją w Tiger Studio Manager.",
-  "shot_alt": "Tiger Touch na Panda Touch pokazujący drukującego Creality K2 Plus: pierścień postępu, warstwy, pozostały czas, temperatury i CFS",
+  "shot_alt": "Tiger Touch na Panda Touch pokazujący drukującego Creality K2 Plus: pasek postępu, warstwy, pozostały czas, temperatury i CFS",
   "faq": [
    [
     "Czy działa z CFS?",
@@ -233,7 +233,7 @@
    "Wgraj Tiger Touch, zaloguj się na to samo konto TigerSystem i włącz drukarkę w Settings > Printers."
   ],
   "tips": "Coś wygląda nie tak na twojej Prusie? Zgłoszenie na GitHubie z tym, co pokazuje ekran, pomaga nam to naprawić.",
-  "shot_alt": "Tiger Touch na Panda Touch pokazujący drukującą Prusa Core One: pierścień postępu, pozostały czas i temperatury",
+  "shot_alt": "Tiger Touch na Panda Touch pokazujący drukującą Prusa Core One: pasek postępu, pozostały czas i temperatury",
   "faq": [
    [
     "Czy potrzebny jest Prusa Connect?",
@@ -301,7 +301,7 @@
    "Wgraj Tiger Touch, zaloguj się na to samo konto TigerSystem i włącz drukarkę w Settings > Printers."
   ],
   "tips": "OctoPi odpowiada na porcie 80; jeśli twój jest inny, wpisz go po adresie.",
-  "shot_alt": "Tiger Touch na Panda Touch pokazujący drukującego Ender-3 S1 za OctoPrint: pierścień postępu, pozostały czas i temperatury",
+  "shot_alt": "Tiger Touch na Panda Touch pokazujący drukującego Ender-3 S1 za OctoPrint: pasek postępu, pozostały czas i temperatury",
   "faq": [
    [
     "Które drukarki działają przez OctoPrint?",

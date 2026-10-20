@@ -123,7 +123,7 @@ Tried and set aside, each measured:
   an image costs what drawing it does.
 - **Espressif's SIMD blending** (`esp_lvgl_port`): built for LVGL 9.1 only;
   this firmware uses 9.6.
-- **The cards' rings** cost nothing measurable; the direction of a scroll
+- **The cards' progress ring** (up to 2.3.0, before it became a line) cost nothing measurable; the line was not measured again; the direction of a scroll
   matters only through what it moves.
 
 The floor is the PSRAM: every frame of a scroll rewrites the whole moving area

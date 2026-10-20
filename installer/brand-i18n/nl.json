@@ -18,7 +18,7 @@
    "Installeer Tiger Touch met het installatieprogramma, meld u aan met hetzelfde TigerSystem-account en schakel de printer in via Settings > Printers."
   ],
   "tips": "Een Bambu-printer in LAN mode streamt voortdurend zijn volledige rapporten: zorg voor een goed Wi-Fi-signaal bij het scherm. Een printer laat maar een paar lokale clients tegelijk toe.",
-  "shot_alt": "Tiger Touch op een Panda Touch die een Bambu Lab X1 Carbon tijdens het printen toont: voortgangsring, lagen, resterende tijd, temperaturen en zijn AMS",
+  "shot_alt": "Tiger Touch op een Panda Touch die een Bambu Lab X1 Carbon tijdens het printen toont: voortgangsbalk, lagen, resterende tijd, temperaturen en zijn AMS",
   "faq": [
    [
     "Heeft het de Bambu-cloud nodig?",
@@ -52,7 +52,7 @@
    "Installeer Tiger Touch, meld u aan met hetzelfde TigerSystem-account en schakel de printer in via Settings > Printers."
   ],
   "tips": "Een Creality-printer die offline lijkt te zijn, heeft bijna altijd LAN mode uit, of een nieuw adres na een herstart van de router: vernieuw hem in Tiger Studio Manager.",
-  "shot_alt": "Tiger Touch op een Panda Touch die een Creality K2 Plus tijdens het printen toont: voortgangsring, lagen, resterende tijd, temperaturen en zijn CFS",
+  "shot_alt": "Tiger Touch op een Panda Touch die een Creality K2 Plus tijdens het printen toont: voortgangsbalk, lagen, resterende tijd, temperaturen en zijn CFS",
   "faq": [
    [
     "Werkt het met de CFS?",
@@ -233,7 +233,7 @@
    "Installeer Tiger Touch, meld u aan met hetzelfde TigerSystem-account en schakel de printer in via Settings > Printers."
   ],
   "tips": "Ziet er iets verkeerd uit op uw Prusa? Een issue op GitHub met wat het scherm toont helpt ons het te verhelpen.",
-  "shot_alt": "Tiger Touch op een Panda Touch die een Prusa Core One tijdens het printen toont: voortgangsring, resterende tijd en temperaturen",
+  "shot_alt": "Tiger Touch op een Panda Touch die een Prusa Core One tijdens het printen toont: voortgangsbalk, resterende tijd en temperaturen",
   "faq": [
    [
     "Heeft het Prusa Connect nodig?",
@@ -301,7 +301,7 @@
    "Installeer Tiger Touch, meld u aan met hetzelfde TigerSystem-account en schakel de printer in via Settings > Printers."
   ],
   "tips": "Een OctoPi antwoordt op poort 80; schrijf een andere poort achter het adres als de uwe afwijkt.",
-  "shot_alt": "Tiger Touch op een Panda Touch die een Ender-3 S1 achter OctoPrint tijdens het printen toont: voortgangsring, resterende tijd en temperaturen",
+  "shot_alt": "Tiger Touch op een Panda Touch die een Ender-3 S1 achter OctoPrint tijdens het printen toont: voortgangsbalk, resterende tijd en temperaturen",
   "faq": [
    [
     "Welke printers werken via OctoPrint?",

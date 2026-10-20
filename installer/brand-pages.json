@@ -26,7 +26,7 @@
       ],
       "tips": "A Bambu printer in LAN mode streams its full reports continuously: give the screen a good Wi-Fi signal. A printer allows only a few local clients at a time.",
       "shot": "bambu-lab",
-      "shot_alt": "Tiger Touch on a Panda Touch showing a Bambu Lab X1 Carbon printing: progress ring, layers, time left, temperatures and its AMS",
+      "shot_alt": "Tiger Touch on a Panda Touch showing a Bambu Lab X1 Carbon printing: progress bar, layers, time left, temperatures and its AMS",
       "faq": [
         [
           "Does it need the Bambu cloud?",
@@ -112,7 +112,7 @@
       ],
       "tips": "A Creality printer that shows offline almost always has LAN mode off, or a new address after a router restart: refresh it in Tiger Studio Manager.",
       "shot": "creality",
-      "shot_alt": "Tiger Touch on a Panda Touch showing a Creality K2 Plus printing: progress ring, layers, time left, temperatures and its CFS",
+      "shot_alt": "Tiger Touch on a Panda Touch showing a Creality K2 Plus printing: progress bar, layers, time left, temperatures and its CFS",
       "faq": [
         [
           "Does it work with the CFS?",
@@ -479,7 +479,7 @@
       ],
       "tips": "Something looks wrong on your Prusa? An issue on GitHub with what the screen shows helps us fix it.",
       "shot": "prusa",
-      "shot_alt": "Tiger Touch on a Panda Touch showing a Prusa Core One printing: progress ring, time left and temperatures",
+      "shot_alt": "Tiger Touch on a Panda Touch showing a Prusa Core One printing: progress bar, time left and temperatures",
       "faq": [
         [
           "Does it need Prusa Connect?",
@@ -631,7 +631,7 @@
       ],
       "tips": "An OctoPi answers on port 80; write another port after the address if yours differs.",
       "shot": "octoprint",
-      "shot_alt": "Tiger Touch on a Panda Touch showing an Ender-3 S1 behind OctoPrint, printing: progress ring, time left and temperatures",
+      "shot_alt": "Tiger Touch on a Panda Touch showing an Ender-3 S1 behind OctoPrint, printing: progress bar, time left and temperatures",
       "faq": [
         [
           "Which printers work through OctoPrint?",
