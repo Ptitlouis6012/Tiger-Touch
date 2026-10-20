@@ -32,7 +32,7 @@ static lv_obj_t *s_name;
 static lv_obj_t *s_logo;
 static char s_logo_brand[12];
 static lv_obj_t *s_bar;
-static uint32_t s_tone; /* the colour given to the logo, the name and the line, 0 until the first update */
+static uint32_t s_tone; /* the colour given to the logo and the line, 0 until the first update */
 static lv_obj_t *s_pct;
 static lv_obj_t *s_layer;
 static lv_obj_t *s_file;
@@ -224,8 +224,8 @@ void ui_dashboard_create(lv_obj_t *parent)
     lv_obj_set_width(s_notice, 480);
     lv_label_set_long_mode(s_notice, LV_LABEL_LONG_DOT);
 
-    /* There is no word for the state: the logo, the name and the progress line take
-     * its colour (ui_state_tone), as on the cards. */
+    /* There is no word for the state: the logo and the progress line take its
+     * colour (ui_state_tone), as on the cards; the name stays white. */
     ui_kit_clock(parent); /* between the back arrow and the Wi-Fi wave */
 
     /* The light, pause / resume and stop share the card's width under the name.
@@ -476,7 +476,6 @@ void ui_dashboard_update(const printer_view_t *v)
     if (lv_color_to_u32(tone) != s_tone)
     {
         s_tone = lv_color_to_u32(tone);
-        lv_obj_set_style_text_color(s_name, tone, 0);
         lv_obj_set_style_image_recolor(s_logo, tone, 0);
         lv_obj_set_style_bg_color(s_bar, tone, LV_PART_INDICATOR);
     }

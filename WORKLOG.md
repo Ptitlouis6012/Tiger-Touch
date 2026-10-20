@@ -16,5 +16,5 @@ reset to this header at each release.
 
 ## Changed
 - Printer cards: the progress is a line under the three buttons, which share the card's width; the ring is gone.
-- Full view: the ring is a line under the three buttons, which share the card's width; no state pill, the logo and the name take the state's colour (ui_state_tone, ui_beat).
-- Cards and list: no state dot and word; the logo, the name and the progress line take the state's colour (tone_of); an error pulses (ui_beat).
+- Full view: the ring is a line under the three buttons, which share the card's width; no state pill, the logo takes the state's colour, the name stays white (ui_state_tone, ui_beat).
+- Cards and list: no state dot and word; the logo and the progress line take the state's colour, the name stays white (tone_of); an error pulses (ui_beat).

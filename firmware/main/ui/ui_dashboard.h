@@ -114,8 +114,8 @@ extern "C"
     void ui_fmt_left(char *out, size_t n, int sec);
     void ui_fmt_end(char *out, size_t n, int left_s);
 
-    /* What a printer is doing, said by a colour: the colour of its logo, its name
-     * and its progress line, on the full view, the cards and the list: blue while
+    /* What a printer is doing, said by a colour: the colour of its logo and its
+     * progress line, on the full view, the cards and the list: blue while
      * it prints, amber paused, green done, red on an error, white when it is
      * ready, red when it is silent, grey while it is still being reached
      * (`waiting`). */

@@ -35,8 +35,8 @@
 #define LBL_ICO 16
 #define LBL_GAP 6
 
-/* There is no word for the state: the maker's logo and the printer's name take
- * its colour (tone_of), and so does the progress line. Under the first line the
+/* There is no word for the state: the maker's logo takes its colour (tone_of), and
+ * so does the progress line; the printer's name stays white. Under the first line the
  * printer's own controls share the card's width: the light, then pause / resume,
  * then stop. The light is always there; the pair only while a job runs. Under
  * them, the progress: its figure, then a line along the rest of the width. */
@@ -83,7 +83,7 @@ typedef struct
     int layout; /* nozzles the tiles are placed for, -1 until the first update */
     int left_s; /* list rows: seconds to the end of the print, 0 when none runs (the sort key) */
     bool dimmed;
-    uint32_t tone; /* the colour given to the name, the logo and the line, 0 until the first update */
+    uint32_t tone; /* the colour given to the logo and the line, 0 until the first update */
     /* What each label shows now: LVGL redraws a label whenever it is set, even to
      * the same text, and this runs for every card every second. */
     char c_pct[12];
@@ -105,7 +105,7 @@ static bool s_sorted; /* the list's rows have been put in order once since it wa
  * right), as the settings are. A row holds what a glance needs (the state, the
  * progress, the nozzle and the bed) and the printer's three buttons, which are
  * on every printer's card whatever the view. No ring, no tiles, no layer: the
- * state is the colour of the logo and the name (tone_of), and a silent printer
+ * state is the colour of the logo (tone_of), and a silent printer
  * is not drawn through an opacity that would draw the row twice. */
 #define ROW_W 690 /* the column's width (724) less its padding, 16 + 18 */
 #define ROW_H 76
@@ -188,7 +188,7 @@ static void build_mark(card_t *c, lv_obj_t *disc, const printer_row_t *r)
     }
 }
 
-/* The colour of a printer's logo, name and progress line says what it is doing
+/* The colour of a printer's logo and progress line says what it is doing
  * (ui_state_tone): silent is red, and anything else that does not answer yet
  * (still being reached, no driver) is grey. */
 static lv_color_t tone_of(const printer_view_t *v, printer_chip_t chip)
@@ -204,7 +204,6 @@ static void set_tone(card_t *c, lv_color_t col)
         return;
     }
     c->tone = key;
-    lv_obj_set_style_text_color(c->name, col, 0);
     if (lv_obj_check_type(c->mark, &lv_image_class))
     {
         lv_obj_set_style_image_recolor(c->mark, col, 0);

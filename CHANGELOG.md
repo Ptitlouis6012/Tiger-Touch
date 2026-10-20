@@ -27,13 +27,13 @@ they were written.
   the rest of the width. Nothing else on the card moved.
 - **The full view follows the cards.** The progress ring is a line, the light,
   pause and stop buttons share the card's width under the name, and the state pill
-  in the top bar is gone: the logo and the name take the state's colour.
+  in the top bar is gone: the logo takes the state's colour.
 - **A printer's state is its colour, on the cards and in the list.** The dot and
-  the word in the corner are gone; the maker's logo, the printer's name and the
-  progress line take the colour of the state: blue while printing, amber when
+  the word in the corner are gone; the maker's logo and the progress line take
+  the colour of the state (the printer's name stays white): blue while printing, amber when
   paused, green when done, red on an error, white when ready, grey while the
   printer is still being reached, red when it is silent (its card dimmed). A
-  printer in error pulses, name and logo together, like a heartbeat.
+  printer in error pulses, its name and its logo together, like a heartbeat.
 
 ### Removed
 - **The state words** (Printing, Paused, Done, Error, Idle, Offline) are no longer
