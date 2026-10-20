@@ -35,6 +35,12 @@ they were written.
   printer is still being reached, red when it is silent (its card dimmed). A
   printer in error pulses, its name and its logo together, like a heartbeat.
 
+- **The README's six screen captures show the firmware as it is now**: the cards,
+  the list and the full views of the Snapmaker U1, the FlashForge AD5X, the Bambu
+  Lab X1 Carbon and the Creality K2 Plus, taken again in Demo mode, with the
+  progress line, the three buttons across the card and the state's colour. Their
+  descriptions no longer speak of a ring.
+
 ### Removed
 - **The state words** (Printing, Paused, Done, Error, Idle, Offline) are no longer
   on any screen, so their six keys leave the translation table, in every language.
