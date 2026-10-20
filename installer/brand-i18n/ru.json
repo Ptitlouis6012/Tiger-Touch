@@ -18,7 +18,7 @@
    "Установите Tiger Touch через установщик, войдите в тот же аккаунт TigerSystem и включите принтер в Settings > Printers."
   ],
   "tips": "Принтер Bambu в режиме LAN непрерывно шлёт полные отчёты: обеспечьте экрану хороший сигнал Wi-Fi. Принтер принимает лишь несколько локальных клиентов одновременно.",
-  "shot_alt": "Tiger Touch на Panda Touch показывает печать на Bambu Lab X1 Carbon: кольцо прогресса, слои, оставшееся время, температуры и AMS",
+  "shot_alt": "Tiger Touch на Panda Touch показывает печать на Bambu Lab X1 Carbon: полоса прогресса, слои, оставшееся время, температуры и AMS",
   "faq": [
    [
     "Нужно ли облако Bambu?",
@@ -52,7 +52,7 @@
    "Установите Tiger Touch, войдите в тот же аккаунт TigerSystem и включите принтер в Settings > Printers."
   ],
   "tips": "Принтер Creality, который показан офлайн, почти всегда имеет выключенный режим LAN или новый адрес после перезапуска роутера: обновите его в Tiger Studio Manager.",
-  "shot_alt": "Tiger Touch на Panda Touch показывает печать на Creality K2 Plus: кольцо прогресса, слои, оставшееся время, температуры и CFS",
+  "shot_alt": "Tiger Touch на Panda Touch показывает печать на Creality K2 Plus: полоса прогресса, слои, оставшееся время, температуры и CFS",
   "faq": [
    [
     "Работает ли он с CFS?",
@@ -233,7 +233,7 @@
    "Установите Tiger Touch, войдите в тот же аккаунт TigerSystem и включите принтер в Settings > Printers."
   ],
   "tips": "Что-то выглядит не так на вашем Prusa? Issue на GitHub с тем, что показывает экран, поможет нам это исправить.",
-  "shot_alt": "Tiger Touch на Panda Touch показывает печать на Prusa Core One: кольцо прогресса, оставшееся время и температуры",
+  "shot_alt": "Tiger Touch на Panda Touch показывает печать на Prusa Core One: полоса прогресса, оставшееся время и температуры",
   "faq": [
    [
     "Нужен ли Prusa Connect?",
@@ -301,7 +301,7 @@
    "Установите Tiger Touch, войдите в тот же аккаунт TigerSystem и включите принтер в Settings > Printers."
   ],
   "tips": "OctoPi отвечает на порту 80; если у вас другой, допишите порт после адреса.",
-  "shot_alt": "Tiger Touch на Panda Touch показывает печать на Ender-3 S1 за OctoPrint: кольцо прогресса, оставшееся время и температуры",
+  "shot_alt": "Tiger Touch на Panda Touch показывает печать на Ender-3 S1 за OctoPrint: полоса прогресса, оставшееся время и температуры",
   "faq": [
    [
     "Какие принтеры работают через OctoPrint?",

@@ -35,6 +35,24 @@ they were written.
   printer is still being reached, red when it is silent (its card dimmed). A
   printer in error pulses, its name and its logo together, like a heartbeat.
 
+- **The pictures made from the screen captures follow the new screens.** The other five
+  captures (Anycubic Kobra S1, Elegoo Centauri Carbon 2, Klipper Voron 2.4, OctoPrint
+  Ender-3 S1, Prusa Core One) are taken again in Demo mode too, and the front and
+  three-quarter mockups, the cards, list and tour animations are made again from
+  them: the line fills, the logo and the line turn green at 100 %.
+  `scripts/make-mockups.py` draws the line instead of the ring, and `stills` now writes
+  the front mockups as well. `docs/MOCKUPS.md` says so. The 45-degree drawings
+  (cards, list and printer), the README's animated picture and the installer's device
+  picture show the new screens too, set in the drawing by the new
+  `scripts/make-drawings.py`, which now also makes the nine brand drawings
+  (`assets/devices/brands/`, on the brand pages and the media kit). The ten share pictures
+  (`assets/og/`) are made again from them; `scripts/make-og-images.py` takes `--regular`
+  beside `--font` to be run with a bold and a regular file (on Windows, Arial Bold and
+  Arial). The descriptions of the four brand drawings that spoke of a progress ring (Bambu
+  Lab, Creality, Prusa, OctoPrint) say progress bar, in the eleven languages. The screen of
+  the PandaTouch Reforged campaign illustration (`assets/social/pandatouch-reforged.png`)
+  shows the current full view of the X1 Carbon, set in the glass along its tilt; the rest
+  of the picture is as it was.
 - **The README's six screen captures show the firmware as it is now**: the cards,
   the list and the full views of the Snapmaker U1, the FlashForge AD5X, the Bambu
   Lab X1 Carbon and the Creality K2 Plus, taken again in Demo mode, with the

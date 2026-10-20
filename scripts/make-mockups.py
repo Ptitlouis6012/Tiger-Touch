@@ -2,7 +2,7 @@
 """Animated views of the screen, made from the committed captures.
 
 The captures in assets/screens/ are real screens of the device (Demo mode). An
-animation is made by changing values on a capture - a percentage, a ring, a bar,
+animation is made by changing values on a capture - a percentage, a line, a bar,
 a time - the way the firmware draws them: the same font (LVGL's Montserrat
 Medium), the same sizes, colours and geometry as firmware/main/ui/. How it works
 and how to add a view: docs/MOCKUPS.md.
@@ -18,7 +18,8 @@ Writes assets/mockups/animated/screen/tiger-touch-screen-<view>.gif and .webp (t
 screen, 800x480), animated/front/panda-touch-front-<view> (in the front picture of
 the Panda Touch) and animated/angle/panda-touch-angle-<view> (in the three-quarter
 photograph); `stills` writes every
-screen, still, in the three-quarter photograph to assets/mockups/angle/.
+screen, still, in the three-quarter photograph to assets/mockups/angle/ and every capture
+in the front picture, at 3x, to assets/mockups/front/.
 """
 import math
 import pathlib
@@ -59,8 +60,9 @@ class Text:
         f = font(size)
         x0, y0 = near
         best = None
+        # LVGL puts a glyph on whole pixels but Pillow can place it on quarters: try both
         for dy in range(-search, search + 1):
-            for dx in range(-search, search + 1):
+            for dx in [d + q / 4 for d in range(-search, search + 1) for q in range(4)]:
                 x, y = x0 + dx, y0 + dy
                 box = self._box(f, text, x, y)
                 ref = shot.crop(box)
@@ -170,28 +172,41 @@ def fmt_left(sec):
 
 # ---- The views ------------------------------------------------------------------------
 
-def view_cards(t_from=0, t_to=11 * 60):
+def recolor_mark(img, box, bg, old, new):
+    """A logo is a mask painted in the printer's colour over its disc (ui_cards.c build_mark,
+    set_tone): its alpha is read back from the capture and painted again in the new colour."""
+    import numpy as np
+    x0, y0, x1, y1 = box
+    px = np.asarray(img.crop(box), dtype=np.float64)
+    bgv, oldv, newv = (np.array(c, dtype=np.float64) for c in (bg, old, new))
+    k = int(np.argmax(np.abs(oldv - bgv)))
+    alpha = np.clip((px[..., k] - bgv[k]) / (oldv[k] - bgv[k]), 0, 1)
+    h, w = alpha.shape
+    yy, xx = np.mgrid[0:h, 0:w]
+    inside = (xx - (w - 1) / 2) ** 2 + (yy - (h - 1) / 2) ** 2 <= (w / 2 - 1) ** 2
+    out = np.where((alpha > 0.02)[..., None] & inside[..., None],
+                   bgv + alpha[..., None] * (newv - bgv), px)
+    img.paste(Image.fromarray(np.clip(out + 0.5, 0, 255).astype("uint8"), "RGB"), (x0, y0))
+
+
+def view_cards(t_from=0, t_to=11 * 60, t0=13 * 60 + 9):
     """Home, cards: two prints at 1 % every 20 s; the clock runs, the time left
-    counts down, the estimated end stays; at 100 % the ring turns green and the
-    card says Done."""
+    counts down, the estimated end stays; at 100 % the logo and the line turn green,
+    the time left goes and pause and stop dim."""
     shot = Image.open(SHOTS / "home-cards.png").convert("RGB")
-    t0 = 23 * 60 + 45
-    clk = Text(shot, "23:45", 24, C_TEXT, (369, 41), "center")
+    clk = Text(shot, "13:09", 24, C_TEXT, (371, 41), "center")
     cards = []
-    for cx, p0, left, end, (lx, ex, sx) in ((81.5, 46, "18 min", "00:03", (29, 207, 0)),
-                                             (470.6, 71, "10 min", "23:54", (419, 597, 0))):
+    # firmware/main/ui/ui_cards.c: cards of 378 px at x 16 and 406, 1 px of border; the
+    # figure at (12, 138), the line at (96, 148) 270 x 10, the light, pause and stop 108 x 56 at
+    # x 12, 135 and 258, y 60; the values under the captions at x 12 and 190 (half a card)
+    for cx, p0, left, end in ((16, 43, "19 min", "13:27"), (406, 68, "11 min", "13:19")):
         cards.append(dict(
-            cx=cx, cy=192.5, p0=p0, end=end,
-            left=Text(shot, left, 20, C_TEXT, (lx, 339)),
-            endt=Text(shot, end, 20, C_TEXT, (ex, 339)),
+            x=cx, p0=p0, end=end,
+            pct=Text(shot, "%d %%" % p0, 24, C_TEXT, (cx + 13, 226)),
+            left=Text(shot, left, 20, C_TEXT, (cx + 13, 339)),
+            endt=Text(shot, end, 20, C_TEXT, (cx + 191, 339)),
         ))
-    # The status of each card: a 12 px dot, 6 px, the word, right-aligned at the card's padding.
-    # Pause and stop, measured on the capture (x of each button; 74 x 56 px).
-    for c, xs in zip(cards, ((226, 309), (616, 699))):
-        c["buttons"] = xs
-    for c, x in zip(cards, (314, 704)):
-        c["status"] = Text(shot, "Printing", 16, C_MUTED, (x, 97), "right")
-    _report("cards", [clk] + [x for c in cards for x in (c["left"], c["endt"], c["status"])])
+    _report("cards", [clk] + [x for c in cards for x in (c["pct"], c["left"], c["endt"])])
     frames = []
     for t in range(t_from, t_to + 1, PCT_EVERY_S):
         img = shot.copy()
@@ -200,44 +215,35 @@ def view_cards(t_from=0, t_to=11 * 60):
             left_s = (100 - c["p0"]) * PCT_EVERY_S - t
             done = left_s <= 0
             p = 100 if done else 100 - math.ceil(left_s / PCT_EVERY_S)
-            ring = arc_ring(102, 48, 9, p, C_LINE, C_GREEN if done else C_BLUE, (30, 33, 40))
-            ImageDraw.Draw(ring).text((51, 52), "%d %%" % p, font=font(24), fill=C_TEXT, anchor="mm")
-            img.paste(ring, (round(c["cx"] - 51), round(c["cy"] - 51)))
+            c["pct"].draw(img, "%d %%" % p, pad_right=8)
+            bar(img, c["x"] + 97, 213, 270, 10, p, C_LINE, C_GREEN if done else C_BLUE)
             c["left"].draw(img, fmt_left(left_s))
             c["endt"].draw(img, c["end"] if not done else "--:--")
             if done:
+                recolor_mark(img, (c["x"] + 11, 73, c["x"] + 51, 113), C_LINE, C_BLUE, C_GREEN)
                 # Nothing left to pause or stop: the two buttons dim to 40 %, as ui_job_set() does.
-                for bx in c["buttons"]:
-                    dim(img, (bx, 165, bx + 74, 221), 0.4, (30, 33, 40))
-                # The word gets shorter and the dot moves with it (a right-aligned row).
-                st = c["status"]
-                st.draw(img, "Done", pad_left=22)
-                x = st.anchor_for("Done") - 6 - 12
-                big = Image.new("RGBA", (12 * SS, 12 * SS), (0, 0, 0, 0))
-                ImageDraw.Draw(big).ellipse([0, 0, 12 * SS - 1, 12 * SS - 1], fill=C_GREEN + (255,))
-                img.paste(big.resize((12, 12), Image.LANCZOS), (round(x), st.y - 12), big.resize((12, 12), Image.LANCZOS))
+                for bx in (c["x"] + 136, c["x"] + 259):
+                    dim(img, (bx, 125, bx + 108, 181), 0.4, (30, 33, 40))
         frames.append(img)
     return frames
 
 
-def view_list(t_from=0, t_to=11 * 60):
+def view_list(t_from=0, t_to=11 * 60, t0=13 * 60 + 10):
     """Home, list: five rows at 1 % every 20 s, the paused one standing still; a
-    finished print's bar turns green and its row says Done."""
+    finished print's logo and bar turn green and its row loses its time left."""
     shot = Image.open(SHOTS / "home-list.png").convert("RGB")
-    t0 = 23 * 60 + 45
-    clk = Text(shot, "23:45", 24, C_TEXT, (369, 41), "center")
+    clk = Text(shot, "13:10", 24, C_TEXT, (373, 41), "center")
     rows = []
-    # (row top, percent, time left, paused); firmware/main/ui/ui_cards.c: rows of 76 + 8 px from y 76
-    for top, p0, left, paused in ((76, 22, "26 min", False), (160, 91, "3 min", False), (244, 58, "14 min", False),
-                                  (328, 31, "23 min", True), (412, 77, "8 min", False)):
-        # The percentage at the place the firmware gives it (ROW_PROG_X, 8 px down the row);
-        # the others found on the capture.
+    # (row top, percent, time left, paused); firmware/main/ui/ui_cards.c: rows of 76 + 8 px,
+    # scrolled to the end of the ten printers, 16 px of padding at the left of the column
+    for top, p0, left, paused in ((56, 59, "14 min", False), (140, 46, "18 min", False), (224, 31, "23 min", True),
+                                  (308, 22, "26 min", False), (392, 12, "30 min", False)):
+        # The figure and the time left, found on the capture, 8 and 13 px down the row (ui_cards.c).
         r = dict(top=top, p0=p0, paused=paused,
-                 pct=Text(shot, "%d %%" % p0, 20, C_TEXT, (284, top + 28), search=0),
-                 left=Text(shot, left, 14, C_MUTED, (434 - font(14).getlength(left), top + 28), "right"))
-        r["status"] = Text(shot, "Paused" if paused else "Printing", 14, C_MUTED, (96, top + 59))
+                 pct=Text(shot, "%d %%" % p0, 20, C_TEXT, (284, top + 27), search=2),
+                 left=Text(shot, left, 14, C_MUTED, (434 - font(14).getlength(left), top + 27), "right"))
         rows.append(r)
-    _report("list", [clk] + [x for r in rows for x in (r["left"], r["status"])])
+    _report("list", [clk] + [x for r in rows for x in (r["pct"], r["left"])])
     frames = []
     for t in range(t_from, t_to + 1, PCT_EVERY_S):
         img = shot.copy()
@@ -252,7 +258,7 @@ def view_list(t_from=0, t_to=11 * 60):
             r["left"].draw(img, "" if done else fmt_left(left_s))
             bar(img, 284, r["top"] + 38, 150, 6, p, C_LINE, C_GREEN if done else C_BLUE)
             if done:
-                r["status"].draw(img, "Done")
+                recolor_mark(img, (28, r["top"] + 18, 68, r["top"] + 58), C_LINE, C_BLUE, C_GREEN)
                 # Pause and stop dim to 40 % (ui_cards.c: ROW_PAUSE_X, ROW_STOP_X, 54 x 52, centred in the row).
                 for bx in (16 + 568, 16 + 628):
                     dim(img, (bx, r["top"] + 12, bx + 54, r["top"] + 64), 0.4, (30, 33, 40))
@@ -304,7 +310,7 @@ def view_tour():
     black = Image.new("RGB", (800, 480), (0, 0, 0))
     slow = lambda frames: [f for f in frames for _ in range(2)]
     return ([black] * 3 + [splash()] * 14 + slow(view_list(0, 6 * 60))
-            + slow(view_cards(6 * 60 + PCT_EVERY_S, 12 * 60)))
+            + slow(view_cards(6 * 60 + PCT_EVERY_S, 12 * 60, t0=13 * 60 + 10)))
 
 
 def brand_screens():
@@ -319,7 +325,8 @@ def brand_screens():
 
 def view_stills():
     """Every capture, the start-up screen and the protocols' screens in the three-quarter
-    picture: assets/mockups/angle/panda-touch-angle-<name>.png, 1200 px wide."""
+    picture: assets/mockups/angle/panda-touch-angle-<name>.png, 1200 px wide; every
+    capture in the front picture: assets/mockups/front/panda-touch-front-<name>.png."""
     screens = {"splash": splash()}
     screens.update(brand_screens())
     for f in sorted(SHOTS.glob("*.png")):
@@ -329,6 +336,13 @@ def view_stills():
     for name, scr in screens.items():
         in_angle(scr, 1200).save(d / ("panda-touch-angle-%s.png" % name), optimize=True)
     print("stills: %d pictures in %s" % (len(screens), d.relative_to(ROOT)))
+    # The captures in the front picture, at 3x (the protocols' screens are made from these, not of them)
+    front = ROOT / "assets/mockups/front"
+    n = 0
+    for f in sorted(SHOTS.glob("*.png")):
+        in_frame(Image.open(f).convert("RGB"), 3).save(front / ("panda-touch-front-%s.png" % f.stem), optimize=True)
+        n += 1
+    print("stills: %d pictures in %s" % (n, front.relative_to(ROOT)))
     return []
 
 
@@ -339,15 +353,14 @@ VIEWS = {"cards": view_cards, "list": view_list, "update": view_update, "tour": 
 def _report(view, texts):
     worst = max(t.err for t in texts)
     print("%s: %d labels found on the capture, worst mismatch %.1f/255" % (view, len(texts), worst))
-    if worst > 16:
+    if worst > 24:  # a figure of narrow digits (1, 2) sits up to a pixel off the firmware's glyphs
         sys.exit("%s: a label was not found where expected: check its text, size and position" % view)
 
 
 # ---- Output --------------------------------------------------------------------------
 
-def in_frame(screen):
-    """The screen in the front picture (assets/devices/panda-touch-front.png), twice its size."""
-    s = 2
+def in_frame(screen, s=2):
+    """The screen in the front picture (assets/devices/panda-touch-front.png), `s` times its size."""
     gx, gy, gw, gh = 38 * s, 27 * s, 372 * s, 225 * s  # the glass, measured on the picture
     dev = Image.open(ROOT / "assets/devices/panda-touch-front.png").convert("RGBA")
     dev = dev.resize((dev.width * s, dev.height * s), Image.LANCZOS)

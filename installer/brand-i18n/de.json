@@ -18,7 +18,7 @@
    "Installieren Sie Tiger Touch mit dem Installer, melden Sie sich mit demselben TigerSystem-Konto an und schalten Sie den Drucker unter Settings > Printers ein."
   ],
   "tips": "Ein Bambu-Drucker im LAN mode sendet laufend seine vollständigen Berichte: Sorgen Sie für ein gutes WLAN-Signal am Bildschirm. Ein Drucker lässt nur wenige lokale Clients gleichzeitig zu.",
-  "shot_alt": "Tiger Touch auf einem Panda Touch zeigt einen druckenden Bambu Lab X1 Carbon: Fortschrittsring, Schichten, Restzeit, Temperaturen und sein AMS",
+  "shot_alt": "Tiger Touch auf einem Panda Touch zeigt einen druckenden Bambu Lab X1 Carbon: Fortschrittsbalken, Schichten, Restzeit, Temperaturen und sein AMS",
   "faq": [
    [
     "Braucht es die Bambu-Cloud?",
@@ -52,7 +52,7 @@
    "Installieren Sie Tiger Touch, melden Sie sich mit demselben TigerSystem-Konto an und schalten Sie den Drucker unter Settings > Printers ein."
   ],
   "tips": "Ein Creality-Drucker, der offline erscheint, hat fast immer LAN mode aus oder nach einem Router-Neustart eine neue Adresse: Aktualisieren Sie ihn in Tiger Studio Manager.",
-  "shot_alt": "Tiger Touch auf einem Panda Touch zeigt einen druckenden Creality K2 Plus: Fortschrittsring, Schichten, Restzeit, Temperaturen und sein CFS",
+  "shot_alt": "Tiger Touch auf einem Panda Touch zeigt einen druckenden Creality K2 Plus: Fortschrittsbalken, Schichten, Restzeit, Temperaturen und sein CFS",
   "faq": [
    [
     "Funktioniert es mit dem CFS?",
@@ -233,7 +233,7 @@
    "Installieren Sie Tiger Touch, melden Sie sich mit demselben TigerSystem-Konto an und schalten Sie den Drucker unter Settings > Printers ein."
   ],
   "tips": "Sieht auf Ihrem Prusa etwas falsch aus? Ein Issue auf GitHub mit dem, was der Bildschirm zeigt, hilft uns, es zu beheben.",
-  "shot_alt": "Tiger Touch auf einem Panda Touch zeigt einen druckenden Prusa Core One: Fortschrittsring, Restzeit und Temperaturen",
+  "shot_alt": "Tiger Touch auf einem Panda Touch zeigt einen druckenden Prusa Core One: Fortschrittsbalken, Restzeit und Temperaturen",
   "faq": [
    [
     "Braucht es Prusa Connect?",
@@ -301,7 +301,7 @@
    "Installieren Sie Tiger Touch, melden Sie sich mit demselben TigerSystem-Konto an und schalten Sie den Drucker unter Settings > Printers ein."
   ],
   "tips": "Ein OctoPi antwortet auf Port 80; schreiben Sie einen anderen Port hinter die Adresse, falls Ihrer abweicht.",
-  "shot_alt": "Tiger Touch auf einem Panda Touch zeigt einen druckenden Ender-3 S1 hinter OctoPrint: Fortschrittsring, Restzeit und Temperaturen",
+  "shot_alt": "Tiger Touch auf einem Panda Touch zeigt einen druckenden Ender-3 S1 hinter OctoPrint: Fortschrittsbalken, Restzeit und Temperaturen",
   "faq": [
    [
     "Welche Drucker funktionieren über OctoPrint?",

@@ -18,7 +18,7 @@
    "Instale o Tiger Touch pelo instalador, entre com a mesma conta TigerSystem e ative a impressora em Settings > Printers."
   ],
   "tips": "Uma impressora Bambu no modo LAN envia seus relatórios completos sem parar: dê à tela um bom sinal de Wi-Fi. Uma impressora aceita só alguns clientes locais por vez.",
-  "shot_alt": "Tiger Touch em um Panda Touch mostrando uma Bambu Lab X1 Carbon imprimindo: anel de progresso, camadas, tempo restante, temperaturas e o AMS",
+  "shot_alt": "Tiger Touch em um Panda Touch mostrando uma Bambu Lab X1 Carbon imprimindo: barra de progresso, camadas, tempo restante, temperaturas e o AMS",
   "faq": [
    [
     "Precisa da nuvem Bambu?",
@@ -52,7 +52,7 @@
    "Instale o Tiger Touch, entre com a mesma conta TigerSystem e ative a impressora em Settings > Printers."
   ],
   "tips": "Uma Creality que aparece offline quase sempre está com o modo LAN desativado ou com um novo endereço após reiniciar o roteador: atualize-a no Tiger Studio Manager.",
-  "shot_alt": "Tiger Touch em um Panda Touch mostrando uma Creality K2 Plus imprimindo: anel de progresso, camadas, tempo restante, temperaturas e o CFS",
+  "shot_alt": "Tiger Touch em um Panda Touch mostrando uma Creality K2 Plus imprimindo: barra de progresso, camadas, tempo restante, temperaturas e o CFS",
   "faq": [
    [
     "Funciona com o CFS?",
@@ -233,7 +233,7 @@
    "Instale o Tiger Touch, entre com a mesma conta TigerSystem e ative a impressora em Settings > Printers."
   ],
   "tips": "Algo parece errado na sua Prusa? Uma issue no GitHub com o que a tela mostra nos ajuda a corrigir.",
-  "shot_alt": "Tiger Touch em um Panda Touch mostrando uma Prusa Core One imprimindo: anel de progresso, tempo restante e temperaturas",
+  "shot_alt": "Tiger Touch em um Panda Touch mostrando uma Prusa Core One imprimindo: barra de progresso, tempo restante e temperaturas",
   "faq": [
    [
     "Precisa do Prusa Connect?",
@@ -301,7 +301,7 @@
    "Instale o Tiger Touch, entre com a mesma conta TigerSystem e ative a impressora em Settings > Printers."
   ],
   "tips": "Um OctoPi responde na porta 80; escreva outra porta depois do endereço se a sua for diferente.",
-  "shot_alt": "Tiger Touch em um Panda Touch mostrando uma Ender-3 S1 atrás do OctoPrint, imprimindo: anel de progresso, tempo restante e temperaturas",
+  "shot_alt": "Tiger Touch em um Panda Touch mostrando uma Ender-3 S1 atrás do OctoPrint, imprimindo: barra de progresso, tempo restante e temperaturas",
   "faq": [
    [
     "Quais impressoras funcionam pelo OctoPrint?",
