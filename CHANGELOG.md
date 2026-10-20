@@ -54,6 +54,14 @@ they were written.
 - **`scripts/bump-version.sh` resets `WORKLOG.md`** to its header.
 
 ### Fixed
+- **The light button of an H2S, H2D, H2D Pro, H2C or X2D switches both chamber
+  lights.** These printers have two LED strips, each its own `ledctrl` node
+  (`chamber_light` and `chamber_light2`); the button addressed only the first,
+  so one strip stayed as it was (reported on an H2C). The printer is told by the
+  catalogue id of its record in the account (7, 8, 9, 11, 12), or by a
+  `lights_report` that names `chamber_light2`; the light reads as on when either
+  strip is, each report being merged on its own. Every other printer is
+  unchanged.
 - **The background connection task's creation is checked**, as every other one.
 - **`firmware/tools/make_fonts.py` finds the fonts LVGL 9.6 ships** after a first
   build, with no `--sources`.

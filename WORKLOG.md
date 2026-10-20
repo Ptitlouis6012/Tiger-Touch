@@ -14,4 +14,5 @@ reset to this header at each release.
 - Home, list view: the printers are in order of the estimated end of their print (the first to finish on top, those with no print last); the rows hold still for 3 s after a touch.
 
 ## Fixed
+- Bambu Lab: the light button switches both chamber lights of an H2S, H2D, H2D Pro, H2C and X2D (chamber_light and chamber_light2); on when either is. By the account record's model id, or a report naming chamber_light2.
 - The feed task's creation is checked; make_fonts.py finds LVGL 9.6's fonts.
