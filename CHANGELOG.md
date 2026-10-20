@@ -26,14 +26,16 @@ they were written.
   printer's name, and the progress sits under them: its figure, then a line along
   the rest of the width. Nothing else on the card moved.
 - **The full view follows the cards.** The progress ring is a line, the light,
-  pause and stop buttons share the card's width under the name, and the state pill
-  in the top bar is gone: the logo takes the state's colour.
-- **A printer's state is its colour, on the cards and in the list.** The dot and
-  the word in the corner are gone; the maker's logo and the progress line take
-  the colour of the state (the printer's name stays white): blue while printing, amber when
-  paused, green when done, red on an error, white when ready, grey while the
-  printer is still being reached, red when it is silent (its card dimmed). A
-  printer in error pulses, its name and its logo together, like a heartbeat.
+  pause and stop buttons share the card's width under the name, and the state is a
+  word in the top bar, in its colour, with no pill.
+- **A printer's state is a word in its colour, on the cards and in the list.** The
+  dot is gone: a printer that does not answer shows nothing in its card. The word
+  (Printing, Paused, Done, Error, Idle, Offline, Connecting) is at the top right of a
+  card and under the name in a row, and the progress line takes its colour: blue
+  while printing, amber when paused, green when done, red on an error or when the
+  printer is silent, white when ready, grey while it is still being reached. The
+  maker's logo and the printer's name stay white. A printer in error pulses, its
+  name and its logo together, like a heartbeat.
 
 - **The pictures made from the screen captures follow the new screens.** The other five
   captures (Anycubic Kobra S1, Elegoo Centauri Carbon 2, Klipper Voron 2.4, OctoPrint
@@ -58,10 +60,6 @@ they were written.
   Lab X1 Carbon and the Creality K2 Plus, taken again in Demo mode, with the
   progress line, the three buttons across the card and the state's colour. Their
   descriptions no longer speak of a ring.
-
-### Removed
-- **The state words** (Printing, Paused, Done, Error, Idle, Offline) are no longer
-  on any screen, so their six keys leave the translation table, in every language.
 
 ### Fixed
 - **The list view draws the nozzle and bed pictograms** beside the two

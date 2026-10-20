@@ -35,8 +35,9 @@
 #define LBL_ICO 16
 #define LBL_GAP 6
 
-/* There is no word for the state: the maker's logo takes its colour (tone_of), and
- * so does the progress line; the printer's name stays white. Under the first line the
+/* The top right corner holds the state, a word in its colour (tone_of), which the
+ * progress line takes too; the maker's logo and the printer's name stay white. A
+ * printer that does not answer needs no dot: its card has nothing in it. Under the first line the
  * printer's own controls share the card's width: the light, then pause / resume,
  * then stop. The light is always there; the pair only while a job runs. Under
  * them, the progress: its figure, then a line along the rest of the width. */
@@ -50,8 +51,9 @@
 #define PROG_Y 138 /* the middle of the room between the buttons and the file is 152 */
 #define PROG_PCT_W 84
 #define PROG_BAR_H 10
+#define STATUS_W 150
 #define NAME_X 58
-#define NAME_W (CARD_W - PAD - NAME_X)
+#define NAME_W (CARD_W - PAD - STATUS_W - 8 - NAME_X)
 
 enum
 {
@@ -71,6 +73,7 @@ typedef struct
     lv_obj_t *card;
     lv_obj_t *name;
     lv_obj_t *mark;  /* the maker's logo (an image) or, without one, the printer's initial (a label) */
+    lv_obj_t *status; /* the state, a word in its colour */
     lv_obj_t *pct;
     lv_obj_t *file;
     lv_obj_t *left;
@@ -83,9 +86,10 @@ typedef struct
     int layout; /* nozzles the tiles are placed for, -1 until the first update */
     int left_s; /* list rows: seconds to the end of the print, 0 when none runs (the sort key) */
     bool dimmed;
-    uint32_t tone; /* the colour given to the logo and the line, 0 until the first update */
+    uint32_t tone; /* the colour given to the state's word and the line, 0 until the first update */
     /* What each label shows now: LVGL redraws a label whenever it is set, even to
      * the same text, and this runs for every card every second. */
+    char c_status[40];
     char c_pct[12];
     char c_file[48];
     char c_left[16];
@@ -105,7 +109,7 @@ static bool s_sorted; /* the list's rows have been put in order once since it wa
  * right), as the settings are. A row holds what a glance needs (the state, the
  * progress, the nozzle and the bed) and the printer's three buttons, which are
  * on every printer's card whatever the view. No ring, no tiles, no layer: the
- * state is the colour of the logo (tone_of), and a silent printer
+ * state is a word under the name, in its colour (tone_of), and a silent printer
  * is not drawn through an opacity that would draw the row twice. */
 #define ROW_W 690 /* the column's width (724) less its padding, 16 + 18 */
 #define ROW_H 76
@@ -188,9 +192,9 @@ static void build_mark(card_t *c, lv_obj_t *disc, const printer_row_t *r)
     }
 }
 
-/* The colour of a printer's logo and progress line says what it is doing
+/* The colour of a printer's state word and progress line says what it is doing
  * (ui_state_tone): silent is red, and anything else that does not answer yet
- * (still being reached, no driver) is grey. */
+ * (still being reached, no driver) is grey. The logo stays white. */
 static lv_color_t tone_of(const printer_view_t *v, printer_chip_t chip)
 {
     return ui_state_tone(v->state, chip == CHIP_ONLINE, chip != CHIP_OFFLINE);
@@ -204,14 +208,7 @@ static void set_tone(card_t *c, lv_color_t col)
         return;
     }
     c->tone = key;
-    if (lv_obj_check_type(c->mark, &lv_image_class))
-    {
-        lv_obj_set_style_image_recolor(c->mark, col, 0);
-    }
-    else
-    {
-        lv_obj_set_style_text_color(c->mark, col, 0);
-    }
+    lv_obj_set_style_text_color(c->status, col, 0);
     lv_obj_set_style_bg_color(c->bar, col, LV_PART_INDICATOR);
 }
 
@@ -274,6 +271,10 @@ static void build_card(card_t *c, lv_obj_t *row, const printer_row_t *r, int ind
     lv_obj_t *dot = mk_disc(card, 10, 8, 40, C_LINE);
     build_mark(c, dot, r);
     c->name = mk_label(card, &font_ui_20, C_TEXT, NAME_X, 15, NAME_W, r->name);
+    /* The state, right-aligned in the top right corner. */
+    c->status = mk_label(card, &font_ui_16, C_MUTED, CARD_W - PAD - STATUS_W, 17, STATUS_W, "");
+    lv_obj_set_style_text_align(c->status, LV_TEXT_ALIGN_RIGHT, 0);
+    lv_label_set_long_mode(c->status, LV_LABEL_LONG_DOT);
 
     ui_job_build(&c->job, card, BTN_X, BTN_Y, STOP_X, BTN_Y, BTN_W, BTN_H, LIGHT_X, BTN_Y, BTN_W, BTN_H, index);
 
@@ -332,9 +333,8 @@ static void build_row(card_t *c, lv_obj_t *list, const printer_row_t *r, int ind
 
     lv_obj_t *dot = mk_disc(row, 12, (ROW_H - 40) / 2, 40, C_LINE);
     build_mark(c, dot, r);
-    /* With no state line under it, the name is centred in the row. */
-    c->name = mk_label(row, &font_ui_20, C_TEXT, 64, (ROW_H - lv_font_get_line_height(&font_ui_20)) / 2, ROW_NAME_W,
-                       r->name);
+    c->name = mk_label(row, &font_ui_20, C_TEXT, 64, 10, ROW_NAME_W, r->name);
+    c->status = mk_label(row, &font_ui_14, C_MUTED, 64, 44, ROW_NAME_W, "");
 
     c->pct = mk_label(row, &font_ui_20, C_TEXT, ROW_PROG_X, 8, 72, "--");
     c->left = mk_label(row, &font_ui_14, C_MUTED, ROW_PROG_X + 72, 13, ROW_PROG_W - 72, "");
@@ -477,6 +477,8 @@ void ui_cards_update(int index, const printer_view_t *v, printer_chip_t chip)
     const bool live = chip == CHIP_ONLINE;
     char buf[48];
 
+    snprintf(buf, sizeof buf, "%s", ui_status_text(v->state, live, chip == CHIP_OFFLINE, chip == CHIP_SOON));
+    set_txt(c->status, c->c_status, sizeof c->c_status, buf);
     set_tone(c, tone_of(v, chip));
     ui_beat(c->name, c->mark, live && v->state == PV_ERROR);
 

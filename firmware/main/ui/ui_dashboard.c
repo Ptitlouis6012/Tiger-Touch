@@ -32,7 +32,8 @@ static lv_obj_t *s_name;
 static lv_obj_t *s_logo;
 static char s_logo_brand[12];
 static lv_obj_t *s_bar;
-static uint32_t s_tone; /* the colour given to the logo and the line, 0 until the first update */
+static lv_obj_t *s_status; /* the state, a word in its colour, in the top bar */
+static uint32_t s_tone; /* the colour given to the state's word and the line, 0 until the first update */
 static lv_obj_t *s_pct;
 static lv_obj_t *s_layer;
 static lv_obj_t *s_file;
@@ -211,7 +212,7 @@ void ui_dashboard_create(lv_obj_t *parent)
     /* One line: without a height, LONG_DOT wraps a long name over the notice. */
     lv_obj_set_height(s_name, lv_font_get_line_height(&font_ui_24));
     lv_label_set_long_mode(s_name, LV_LABEL_LONG_DOT);
-    /* The brand's logo, to the left of the name; painted in the printer's tone. */
+    /* The brand's logo, to the left of the name; painted white, whatever the state. */
     s_logo = lv_image_create(card);
     lv_obj_set_pos(s_logo, 20, 12);
     lv_obj_set_style_image_recolor(s_logo, C_TEXT, 0);
@@ -224,9 +225,18 @@ void ui_dashboard_create(lv_obj_t *parent)
     lv_obj_set_width(s_notice, 480);
     lv_label_set_long_mode(s_notice, LV_LABEL_LONG_DOT);
 
-    /* There is no word for the state: the logo and the progress line take its
-     * colour (ui_state_tone), as on the cards; the name stays white. */
-    ui_kit_clock(parent); /* between the back arrow and the Wi-Fi wave */
+    /* The state is a word in the top bar, at the right, left of the Wi-Fi wave, in
+     * its colour (ui_state_tone), which the progress line takes too; the logo and
+     * the name stay white. 144 wide: "Imprimiendo" and "A imprimir" fit. */
+    ui_kit_clock(parent); /* between the back arrow and the state */
+    s_status = lv_label_create(parent);
+    lv_obj_set_width(s_status, 144);
+    lv_obj_set_style_text_font(s_status, &font_ui_16, 0);
+    lv_obj_set_style_text_color(s_status, C_MUTED, 0);
+    lv_obj_set_style_text_align(s_status, LV_TEXT_ALIGN_RIGHT, 0);
+    lv_label_set_long_mode(s_status, LV_LABEL_LONG_DOT);
+    lv_label_set_text(s_status, "");
+    lv_obj_align(s_status, LV_ALIGN_TOP_RIGHT, -92, HEADER_MID - lv_font_get_line_height(&font_ui_16) / 2);
 
     /* The light, pause / resume and stop share the card's width under the name.
      * Always drawn; the pair acts only while a job runs on a connection that takes
@@ -331,6 +341,22 @@ void ui_fmt_left(char *out, size_t n, int sec)
     else
     {
         snprintf(out, n, "%d min", (sec + 59) / 60);
+    }
+}
+
+const char *ui_status_text(pv_state_t s, bool online, bool silent, bool soon)
+{
+    if (!online)
+    {
+        return silent ? tr(S_OFFLINE) : (soon ? tr(S_SOON) : tr(S_CONNECTING));
+    }
+    switch (s)
+    {
+    case PV_PRINTING: return tr(S_ST_PRINTING);
+    case PV_PAUSED:   return tr(S_ST_PAUSED);
+    case PV_DONE:     return tr(S_ST_DONE);
+    case PV_ERROR:    return tr(S_ST_ERROR);
+    default:          return tr(S_ST_IDLE);
     }
 }
 
@@ -468,15 +494,16 @@ void ui_dashboard_update(const printer_view_t *v)
         }
     }
 
-    /* The state is a colour, and a pulse on an error. A printer that is not
-     * answering is red, grey while a notice that is not a fault says it is still
-     * being reached. */
-    const lv_color_t tone =
-        ui_state_tone(v->state, v->online, v->notice[0] != '\0' && !v->notice_error);
+    /* The state is a word in its colour, and a pulse on an error. A printer that
+     * is not answering is red, grey while a notice that is not a fault says it is
+     * still being reached. */
+    const bool waiting = v->notice[0] != '\0' && !v->notice_error;
+    lv_label_set_text(s_status, ui_status_text(v->state, v->online, !waiting, false));
+    const lv_color_t tone = ui_state_tone(v->state, v->online, waiting);
     if (lv_color_to_u32(tone) != s_tone)
     {
         s_tone = lv_color_to_u32(tone);
-        lv_obj_set_style_image_recolor(s_logo, tone, 0);
+        lv_obj_set_style_text_color(s_status, tone, 0);
         lv_obj_set_style_bg_color(s_bar, tone, LV_PART_INDICATOR);
     }
     ui_beat(s_name, s_logo, v->online && v->state == PV_ERROR);

@@ -114,14 +114,20 @@ extern "C"
     void ui_fmt_left(char *out, size_t n, int sec);
     void ui_fmt_end(char *out, size_t n, int left_s);
 
-    /* What a printer is doing, said by a colour: the colour of its logo and its
-     * progress line, on the full view, the cards and the list: blue while
+    /* What a printer is doing, in a word: its state when it answers, "Offline"
+     * when it is silent, "Connecting" (or "Soon" without a driver) while it is
+     * still being reached. Shared by the full view, the cards and the list. */
+    const char *ui_status_text(pv_state_t s, bool online, bool silent, bool soon);
+
+    /* The colour of that word and of the progress line, on the full view, the
+     * cards and the list (the logo and the name stay white): blue while
      * it prints, amber paused, green done, red on an error, white when it is
      * ready, red when it is silent, grey while it is still being reached
      * (`waiting`). */
     lv_color_t ui_state_tone(pv_state_t s, bool online, bool waiting);
 
-    /* A printer in error pulses, its name and its logo together, like a heartbeat.
+    /* A printer in error pulses, its name and its logo together, like a heartbeat
+     * (their opacity; their colour does not change).
      * `on` starts or stops it; calling it again with the same value does nothing.
      * The animation belongs to `name` and goes with it. */
     void ui_beat(lv_obj_t *name, lv_obj_t *mark, bool on);

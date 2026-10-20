@@ -293,6 +293,8 @@ X(S_LOAD_HINT, "Switched-on printers stay connected and show up instantly.",
   "Ingeschakelde printers blijven verbonden en verschijnen meteen.")
 X(S_SOON, "Soon", "Bientôt", "Bald", "Pronto", "Presto", "即将支持", "Em breve", "Em breve", "Wkrótce",
   "Скоро", "Binnenkort")
+X(S_OFFLINE, "Offline", "Hors ligne", "Offline", "Desconectado", "Offline", "离线", "Offline", "Offline",
+  "Offline", "Офлайн", "Offline")
 X(S_LOCAL_NETWORK, "Local network", "Réseau local", "Lokales Netzwerk", "Red local", "Rete locale",
   "本地网络", "Rede local", "Rede local", "Sieć lokalna", "Локальная сеть", "Lokaal netwerk")
 X(S_VIA_CLOUD, "via the cloud", "via le cloud", "über die Cloud", "a través de la nube", "tramite cloud",
@@ -484,3 +486,13 @@ X(S_NOZZLE_LEFT, "Left", "Gauche", "Links", "Izquierda", "Sinistro", "左", "Esq
 X(S_NOZZLE_RIGHT, "Right", "Droite", "Rechts", "Derecha", "Destro", "右", "Direito", "Direito", "Prawa", "Правое", "Rechts")
 /* One format, %d: the nozzle's number, for a printer with several. */
 X(S_NOZZLE_N, "Nozzle %d", "Buse %d", "Düse %d", "Boquilla %d", "Ugello %d", "喷嘴 %d", "Bico %d", "Bocal %d", "Dysza %d", "Сопло %d", "Nozzle %d")
+X(S_ST_PRINTING, "Printing", "Impression", "Druckt", "Imprimiendo", "In stampa", "打印中", "Imprimindo",
+  "A imprimir", "Drukuje", "Печать", "Printen")
+X(S_ST_PAUSED, "Paused", "Pause", "Pausiert", "En pausa", "In pausa", "已暂停", "Pausado", "Em pausa",
+  "Wstrzymano", "На паузе", "Gepauzeerd")
+X(S_ST_DONE, "Done", "Terminé", "Fertig", "Hecho", "Fatto", "完成", "Concluído", "Concluído", "Gotowe",
+  "Готово", "Klaar")
+X(S_ST_ERROR, "Error", "Erreur", "Fehler", "Error", "Errore", "错误", "Erro", "Erro", "Błąd", "Ошибка",
+  "Fout")
+X(S_ST_IDLE, "Idle", "Repos", "Bereit", "En reposo", "A riposo", "空闲", "Em repouso", "Em repouso",
+  "Bezczynna", "Простой", "Inactief")
