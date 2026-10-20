@@ -35,6 +35,13 @@ they were written.
   printer is still being reached, red when it is silent (its card dimmed). A
   printer in error pulses, its name and its logo together, like a heartbeat.
 
+- **The pictures made from the screen captures follow the new screens.** The other five
+  captures (Anycubic Kobra S1, Elegoo Centauri Carbon 2, Klipper Voron 2.4, OctoPrint
+  Ender-3 S1, Prusa Core One) are taken again in Demo mode too, and the front and
+  three-quarter mockups, the cards, list and tour animations are made again from
+  them: the line fills, the logo and the line turn green at 100 %.
+  `scripts/make-mockups.py` draws the line instead of the ring, and `stills` now writes
+  the front mockups as well. `docs/MOCKUPS.md` says so.
 - **The README's six screen captures show the firmware as it is now**: the cards,
   the list and the full views of the Snapmaker U1, the FlashForge AD5X, the Bambu
   Lab X1 Carbon and the Creality K2 Plus, taken again in Demo mode, with the

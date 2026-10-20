@@ -15,6 +15,7 @@ reset to this header at each release.
 - List rows: the nozzle and bed pictograms are drawn (24 px, the only size they have), not asked for at 16 px.
 
 ## Changed
+- Mockups: the five other captures taken again, front and three-quarter stills and the cards, list and tour animations made again; make-mockups.py draws the line, `stills` writes the front stills; MOCKUPS.md corrected.
 - README screens: the six captures taken again in Demo mode, their descriptions say progress line and amber (they follow the card, list and full view changes).
 - Printer cards: the progress is a line under the three buttons, which share the card's width; the ring is gone.
 - Full view: the ring is a line under the three buttons, which share the card's width; no state pill, the logo takes the state's colour, the name stays white (ui_state_tone, ui_beat).
