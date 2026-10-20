@@ -16,6 +16,9 @@ they were written.
 
 ## [Unreleased]
 
+## [2.4.0] - 2026-10-20
+
+
 ### Added
 - **An agent rule: touch only this repository, open issues anywhere**
   (`.agents/rules/this-repository-only.md`, indexed in `CLAUDE.md`).
